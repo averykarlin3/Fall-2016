@@ -1,0 +1,395 @@
+\documentclass[11 pt, twoside]{article}
+\usepackage{textcomp}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{indentfirst} %Comment out for no first paragraph indent
+\usepackage[parfill]{parskip}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{outlines}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\cfoot{\hyperlink{content}{\thepage}}
+\lhead{}
+\chead{}
+\rfoot{}
+\lfoot{}
+\rhead{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+\usepackage{hyperref}
+\hypersetup {
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black
+}
+
+\newcommand{\sepitem}{0pt} %Added room between items on the list, not including a list and its sublist
+\newcommand{\seppar}{1pt} %Between items and lists overall
+
+\setenumerate[1]{itemsep=\sepitem, parsep=\seppar}
+\setenumerate[2]{itemsep=\sepitem, parsep=\seppar}
+\setenumerate[3]{itemsep=\sepitem, parsep=\seppar}
+\setenumerate[4]{itemsep=\sepitem, parsep=\seppar}
+
+\newenvironment{outline*}
+{
+	\begin{outline}[enumerate]
+	}
+	{\end{outline}
+}
+
+\newcommand{\foot}[1]{\hyperlink{#1}{$_#1$}}
+
+\begin{document}
+
+\title{Ordinary Differential Equations}
+\author{Avery Karlin}
+\date{Fall 2016}
+\newcommand{\textbook}{Differential Equations and Linear Algebra by Stephen Goode and Scott Annin}
+%\newcommand{\teacher}{}
+
+\maketitle
+\newpage
+\hypertarget{content}{\tableofcontents}
+\vspace{11pt}
+\noindent
+\underline{Primary Textbook}: \textbook\\
+\underline{Secondary Textbook}: Paul's Calc IV Notes\\
+%\underline{Teacher}: \teacher
+\newpage
+
+\section{Chapter 1 (Paul's) - Basic Concepts}
+\subsection{Definitions}
+\begin{outline*}
+\1 Differential equations are those which contain either ordinary or partial derivatives, such that it is an ordinary differential equation if it only contains the former, and a partial derivative equation if it contains the latter
+\1 The order of an equation is given by the highest order derivative within it
+\1 Linear differential equations are those which can be written in the form: $f(x) = a_n(x)y^{(n)}(x) + a_{n-1}(x)y^{(n-1)}(x) +... + a_1(x)y'(x) + a_0(x)y(x)$, where a(x) are coefficient functions or constants, while y(x) is the main function
+\2 Linear differential equations have no power on the main function or any of its derivatives
+\2 Nonlinear differential equations are those which cannot be written in this format
+\1 The solution on an open interval interval is a function y(x) which satisfies the equation on the interval
+\2 The interval restricts a variable value to prevent there from being issues with the solution, such as division by zero
+\1 Initial conditions are a set of conditions on the solution to determine which solution is the correct one, since there may be infinite possible solutions
+\2 Initial conditions are a value of y(x) or some degree of its derivation for some number
+\2 Not all equations will have any solutions, such that the existence question is if a solution exists or not, and even if there is a solution, it may not be possible to find the solution
+\2 The number of solutions to the equation, and the conditions needed to obtain a single equation are called the uniqueness question
+\1 Initial value problems are those with an appropriate number of initial conditions, based on the order of the equation (equal to the order of the equation)
+\1 The interval of validity is the largest possible continuous interval in an initial value problem, such that the solution is valid and contains the value of x within the initial conditions
+\1 The general solution is the the most general form a solution can take, ignoring initial conditions
+\1 The actual solution is the solution which satisfies the equation and initial conditions
+\1 An explicit solution is a solution in the form of y = y(x), such that y only appears on one side, without any exponents, while an implicit solution is non-explicit
+\2 Both the actual and general solution may exist in both forms, though all explicit forms of the implicit solution may not be real solutions
+\end{outline*}
+\subsection{Direction Fields}
+\begin{outline*}
+\1 Direction fields are a graph of arrows to show the value of y’(x) (the slope of y(x)) for different values of y(x) based on the differential equation as x increases
+\2 This is done by first finding each value of y(x) where y’(x) = 0, then testing each region around these values of y(x)
+\1 These provide a sketch of the solutions, as well as the long term behavior of y(x) as x increases
+\2 The family of solution curves, or set of integral curves, can be drawn based on this to show the graph of every possible solution curve
+\2 It also allows determination of how the solution varies based on the value of y(0), and the $\lim_{x \to \infty}y(x)$ based on the value of y(0)
+\1 If f’(x) is in terms of both x and f(x), then it must be plotted two dimensionally, first finding the lines where the derivative would be constant
+\2 The line such that f’(x) = 0 should be found, then the same techniques can be used to determine the rest of the field, using regional intervals
+\end{outline*}
+\section{Chapter 2 (Paul's) - First Order Equations}
+\underline{Note:} Only contains the first four sections
+\subsection{Linear Equations}
+\begin{outline*}
+\1 The equation must be put in the form of $y'(x) + a_1(x)y(x) = a_0(x)$, such that $a_1(x)$ and $a_2(x)$ are continuous
+\1 The integrating factor (u(x)) is a function such that $u(x)a_1(x) = u'(x)$
+\2 u(x) can be divided by both sides, then it can be changed to (ln(u(x))’ = p(x), which can be integrated to get an equation for u(x)
+\1 The integrating factor can then be multiplied by the equation, use the product rule, and integrate to get an equation for y(x)
+\1 Constant variables can be changed to simpler constant variables, since they are an unknown constant regardless, as long as they are changed consistently
+\end{outline*}
+\subsection{Separable Equations}
+\begin{outline*}
+\1 Separable equations are those in the form of $N(y)\frac{dy}{dx} = M(x)$, which can be multiplied by dx and have the integral taken of it, to a solution in some form
+\end{outline*}
+\subsection{Exact Equations}
+\begin{outline*}
+\1 Exact equations are those in the form $M(x, y) + N(x, y)\frac{dy}{dx} = 0$, such that some function, $\Psi (x, y)$,  can be found where $\Psi_x = M(x, y)$ and $\Psi_y = N(x, y)$
+\2 Thus, if the derivatives and function of $\Psi$ are continuous, then $M_y = N_x$, while if the latter is not true, it is not exact
+\2 By the chain rule, $\frac{d}{dx}(\Psi (x, y(x))) = 0$ is the equation, such that $\Psi (x, y(x)) = c$ is the implicit solution of the equation
+\end{outline*}
+\subsection{Bernoulli Differential Equations}
+\begin{outline*}
+\1 Bernoulli equations are those in the form $\frac{dy}{dx} + p(x)y = q(x)y^n$, where p(x) and q(x) are continuous on the interval of validity, and n is a real number
+\1 //Finish
+\end{outline*}
+
+
+
+\section{Chapter 2 - Matrices and Systems of Linear Equations}
+\underline{Note:} Does not contain Sections 7-8
+\subsection{Definition and Notation of Matrices}
+\begin{outline*}
+\1 Matrices are said to be m x n, with m horizontal rows and n vertical columns, generally denoted by an uppercase variable, where each value is called an entry, represented as an array within brackets
+\2 Index notation is such that in an m x n matrix, $A = [a_{ij}] = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots &  a_{mn} \\ \end{bmatrix}$
+\2 m x n is called the size of the matrix, while m and n are called the dimensions
+\1 Two matrices are said to be equal if they hve the same size, and all cooresponding elements within the matrices are equal
+\1 Matrices with a single row or column are called row/column n-vectors, where n is the lenght of the vector, or simply called row/column vectors
+\2 The elements of the matrix are called the components of the vector
+\2 Regular matrices can thus be broken up into a matrix of m row n-vectors or n column m-vectors
+\2 Lists/matrices of vectors must be in the same direction, such that they can be listed in the cooresponding direction
+\1 Matrices can be transposed, such that the row and column vectors of the matrix are interchanged, denoted by $A^T$, such that $a_{ji} = a_{ij}^T$
+\2 Square matrices, such that $A^T = A$, are called a symmetric matrix
+\2 Square matrices, such that $A^T = -A = [-a_{ij}]$, are called a skew-symmetric/anti-symmetric matrix
+\3 Skew-symmetric matrices must have the leading diagonal fully zero, by definition, since it maps onto itself
+\1 Square matrices are those with the same number of rows and columns
+\2 The leading diagonal of a square matrix is the set of all elements, $a_{ii}$, where $1 \leq i \leq n$ for some matrix n x n
+\3 The trace of the matrix, denoted tr(A) for matrix A, is the sum of all elements within the leading diagonal
+\2 Square matrices are said to be lower triangular if $a_{ij} = 0 \forall i < j$, and upper triangular $\forall i > j$, such that all elements above/below the diagonal are 0
+\3 Matrices are called diagonal matrices if they are both lower and upper triangular, able to be denoted as $A = diag(d_1, \cdot, d_n)$, where $d_i = d_{ii}$
+\1 Matrix functions are defined as matrices whose elements are single variable functions of $\mathbb{R} \to \mathbb{R}$, able to be similarly written as column or row matrix functions
+\end{outline*}
+\subsection{Matrix Algebra}
+\begin{outline*}
+\1 Matrix addition is defined for matrices of the same size, such that if $A = [a_{ij}], B = [b_{ij}], A + B = [a_{ij} + b_{ij}]$
+\2 Matrix addition and subtraction are commutative and associative
+\1 Matrix scalar multiplication is defined such that $nA = [na_{ij}]$, where $n \in \mathbb{C}$ 
+\2 Thus, subtraction is defined as the sum of one matrix and the product of -1 and the other matrix
+\2 Scalar multiplication is associative, has a unit property (1A = A), is distributive over matrix addition, and scalar addition is distributive over matrix scalar multiplication
+\1 The zero matrix is denoted as $0_{m x n}$, since all elements are zero, such that it is matrix addition identity, and such that zero scalar multiplication and the difference of a matrix and itself returns the zero matrix
+\1 For two vectors of the same size, each either row or column, the dot product is defined such that $a \cdot b = a_1b_1 + \cdot + a_nb_n$
+\2 The matrix product of a column and a row vector of the same size is extended from this, such that it equals a single element matrix of the dot product value
+\2 For some column n-vector and an m x n matrix, the product is extended such that it is the column matrix of the column vector and each row, forming an column m-vector product
+\3 As a result, for some m x n matrix multiplied by a column n-vector, the product is the sum of each column matrix multiplied by the next item in the column n-vector ($A_{m x n}c_{n x 1} = c_1a_{1 [m x 1]} + c_2a_{2 [m x 1]} + \dots + c_na_{n [m x 1]}$)
+\3 Thus, the column-vector product is found by taking the linear combination of the column m-vectors of A
+\4 The linear combination of a list of vectors and a list of scalars of the same size is the sum of the scalar product of each cooresponding item in both lists
+\2 For some m x n matrix A and n x p matrix B, the product is defined as the row matrix containing the respective resultant column matrix of each column matrix in B multiplied by A
+\3 Thus, $(AB)_{ij} = a_{i1}b_{1j} + a_{i2}b_{2j} + \dots + a_{in}b_{nj}$, forming an m x p resultant matrix
+\3 It can also be written in index form, such that $AB_{ij} = \sum_{k=1}^n a_{ik}b_{kj}$ for $1 \leq i \leq m, 1 \leq j \leq p$
+\3 Thus, $AB = [Ab_1, Ab_2, \dots, Ab_p]$
+\2 Matrix multiplication is noncommutative, but it is associative, and has both left and right distributivity
+\2 Matrices multiplied by themselves are represented normally by exponents
+\1 The identity matrix of some size n, $I_n$, is represented as a matrix with 1 on the main diagonal, 0 elsewhere, such that $A_{m \times n}I_n = A_{m \times n}$ or $I_mA_{m \times n} = A_{m \times n}$
+\1 The transpose operation has properties such that $(A^T)^T = A, (A + C)^T = A^T + C^T, (AB)^T = B^TA^T$
+\1 Triangular matrices have the property that the product of two lower/upper square matrices is of the same type of matrix
+\2 In addition, the product of two unit lower/upper square matrices is a unit matrix of the same type
+\1 All rules that apply to algebraic manipulation of matrices applies equally to both real and complex numbers and functions
+\2 Calculus operations are done similarly, taking the derivative or integrating for each term within the matrix
+\end{outline*}
+\subsection{Systems of Linear Equations Terminology}
+\begin{outline*}
+\1 The system of linear equations of size m x n is the set of m equations, such that $\{a_{i1}x_1 + \dots + a_{ij}x_j + \dots + a_{in}x_n = b_k\}_{k=1}^m$
+\2 $b_i$ are the system constants and $a_{ij}$ are the system coefficients
+\3 If $b_{i} = 0 \forall 0 \leq i \leq m$, the system is homogeneous, otherwise nonhomogeneous
+\2 The solution to the system is set of ordered n-tuples of real or complex scalars, $(x_1, x_2, \dots, x_n)$, such that the sides of the equation are equal
+\3 Since the set of all ordered n-tuples of real numbers is $\mathbb{R}^n$, the solution to the system is a subset of that
+\3 Ordered n-tuples within the set of real or complex numbers can also be written as row or column n-vectors
+\3 As a result, operations on row/column n-vectors can be applied easily to elements of $\mathbb{R}^n$ or $\mathbb{C}^n$
+\2 The matrix of coefficients, A, is the matrix such that the coefficients of each equation form each row, beginning with the first equation
+\2 The augmented matrix, $A^\#$, is the matrix of coefficients with an additional final column containing the system constants
+\1 For some system of n linear equations, there may be no solution, a single solution, or infinite solutions
+\2 Consistent systems are those with at least one solution, while inconsistent systems are those with no solutions
+\2 For a set of equal equations, the solution is the equation itself, while otherwise, assuming there is a solution, the solution is some set of a lower dimension (point, line, plane, etc)
+\1 For some system of m linear equations, it can be written as the matrix of coefficients multiplied by a column n-vector of the variables of each equation, $x_1, x_2, \dots, x_n$, set equal to the column m-vector of the system constants
+\2 As a result, any system of linear equations can also be written as $A\vec{x} = \vec{b}$, where A is the m x n matrix of coefficients, $\vec{x}$ is the column n-vector of variables, and $\vec{b}$ the column m-vector of matrix constants
+\3 The column n-vector of variables is also called the vector of unknwons, and the column m-vector of matrix constants is also called the right-hand-side vector
+\3 As a result, the vector of unknowns is an element of $\mathbb{R}^n$ and the right-hand-side vector is an element of $\mathbb{R}^m$
+\3 Thus, the solution of $A\vec{x} = \vec{B}$ is $\forall\vec{x} \in \mathbb{R}^n$ which satisfy the equation
+\1 For some system of m linear equations, in a column m-vector, $\vec{x}$, the derivative is equal to the derivative of each component equation, and $\vec{x}$ is considered a vector-valued function
+\end{outline*}
+\subsection{Elementary Row Operations and Row-Echelon Matrices}
+\begin{outline*}
+\1 For a system of linear equations, the equations can be permuted/reordered, multiplied by a nonzero constant, and added to another equation within the system without changing the solution
+\2 Thus, on the augmented matrix of the system, the rows can be reordered, multiplied by a nonzero constant, or added to another row
+\2 These are called the elementary row operations, denoted by $P_{ij}$ for permuting row i and j, $M_i(k)$ for multiplying row i by k, and $A_{ij}(k)$ for adding row i multiplied by k to row j
+\3 All row operations are reversible, such that there is some inverse to move to the original matrix ($P_{ji}, M_i(\frac{1}{k}), A_{ij}(-k)$)
+\2 For some matrix A, if matrix B can be found by a finite sequence elementary row operations, $A \sim B$, such that the matrices are called row-equivalent
+\3 The individual operations within a sequence to get B from A is denoted by $A \sim^n B$ for the nth operation
+\1 Row-echelon form of a matrix is such that all rows containing only zeroes are at the bottom of the matrix, the first nonzero element in any nonzero row is a 1 (all rows have a leading 1), and the leading 1 of any row below the first is to the right of the one above
+\2 This allows the back substitution technique to be used, substituting the bottom equation into the one above it, and so forth, to get the solution
+\2 Thus, row-echelon form is an upper triangular matrix with all non-zero rows having a leading 1
+\1 All matrices have infinite row-equivalent row-echelon matrix which they can be converted to by at least one series of elementary operations
+\2 This is generally done by putting a one in the pivot position, or the topmost position of the first non-zero column/pivot column, followed by putting zeroes below, and moving on to the submatrix under and so forth
+\2 Fractions in general must be avoided for simplicity when getting echelon-matrices
+\1 While there are infinite row-equivalent row-echelon matrices for any matrix, all must have the same number of non-zero rows, called the rank of the matrix, denoted by rank(A) for some matrix A
+\2 For some matrix of n rows, if there is 1 zero row, there must be some set of constants, $c_1\vec{a}_1 + \dots + c_n\vec{a}_n = 0$, such that each can be written in terms of the others by the elementary operations
+\2 The rank of some matrix of size m x n must be $\leq m, n$, by the definition of row-echelon form
+\1 Reduced row-echelon matrices are a special case such that each leading one has only zeroes in the column otherwise
+\2 Each m x n matrix is row-equivalent to a unique reduced row-echelon matrix
+\2 This is able to be created by the same procedure, subtracting to produce zeroes above the leading zero after each iteration
+\end{outline*}
+\subsection{Gaussian Elimination}
+\begin{outline*}
+\1 Gaussian elimination is the process of converting the augmented matrix to row-echelon form, and using back substitution to solve the system 
+\2 Gauss-Jordan elimination is Gaussian elimination when converting it to reduced row-echelon form, not requiring back substitution
+\2 If rank(A) = rank($A^\#$), there is a solution to the matrix
+\3 If for some matrix, $A_{mxn}$, $n > rank(A^\#)$, (such that there are more columns than rows) there are infinite solutions, setting each surplus variable as a free variable/parameter, such that the rest are bound variables/parameters, in terms of the free ones
+\3 The number of free variables for an m x n matrix is equal to n - rank($A^\#$), due to there being n variables total
+\3 If n = rank($A^\#$), then there is a single, unique solution
+\2 If $rank(A) < rank(A^\#)$, there is no solution, since there is a false statement within the matrix
+\1 Homogeneous linear systems are those of the form $\vec{A}\vec{x} = \vec{0}$, such that the solution, $\vec{x} = \vec{0}$ is always valid, called the trivial solution
+\2 As a result, homogeneous linear systems must either have only the trivial solution, or infinite solution, since each plane must pass through the origin geometrically
+\2 In addition, if the number of unknowns, n $>$ m (number of linear equations), there are infinite solutions by necessity, while if m $\geq$ n, it could have a single or infinite solutions based on the  rank
+\end{outline*}
+\subsection{Inverse of Square Matrices}
+\begin{outline*}
+\1 The inverse of some matrix, $A_{nxn}$, is the matrix, $A^{-1}_{nxn}$, such that $AA^{-1} = I_n$
+\2 This is able to be used to isolate $\vec{x}$ for some system of linear equations, such that for $A\vec{x} = b$, $\vec{x} = A^{-1}b$ is the unique solution to the system for all b in $\mathbb{R}^n$ by the uniqueness of the matrix inverse
+\3 In addition, the converse is true, such that if a matrix has a unique solution (such that rank(A) = n), it must be invertible as well
+\3 Thus, all homogeneous linear equation systems must have an inverse matrix if they only have the trivial solution
+\2 Inverse matrices are unique, such that if $AB = I_n, AC = I_n$, then $B = C = A^{-1}$
+\2 Matrices which have an inverse matrix are called invertible or nonsingular, while those which are not are called singular
+\2 If A and B are invertible, then $A^{-1}$ is invertible
+\3 In addition, AB is invertible, and $(AB)^{-1} = B^{-1}A^{-1}$, as well as $A^T$ is invertible and $(A^T)^{-1} = (A^{-1})^T$
+\3 Further, we can say that if AB is invertible, then both A and B are invertible
+\1 Inverse matrices can be found by column by column, solving the system of equations such that ${AA^{-1}_t = (I_n)_t}_{t=1}^n$, such that the reduced augmented row-echelon matrix can be solved for, giving the system constants as the column of the inverse matrix
+\2 This effectively is modifying $[A I_n]$ such that it changes to the form $[I_n A^{-1}]$, called the Gauss-Jordan Technique
+\end{outline*}
+\section{Chapter 3 - Determinants}
+\underline{Note:} Does not contain Sections 3-4
+\subsection{Definition of the Determinant}
+\begin{outline*}
+\1 Permutations are an arrangement of discrete objects in a specific order, such that the number of permutations of a set of n objects is n!
+\2 The number of inversions of some permutation, $N(\vec{x})$ are the number of pairs of items that are not in natural order, found equal to the number of adjacent swaps needed to restore it
+\3 Odd permutations are those with an odd parity, such that the number of inversions is odd, while even permutations are those with an even parity, or an even or zero number of inversions
+\3 The parity of a permutation, $\sigma(\vec{x})$ is denoted as 1 if even, -1 if odd, such that $\sigma(\vec{x}) = (-1)^{N(\vec{x})}$
+\3 The interchanging of any items of a permutation creates a parity opposite the original
+\1 The determinant is based on some value which must be nonzero in order for there to be an inverse matrix, such that the rank is equal to the dimensions of the matrix
+\2 $det(A_{1x1}) = a_{11}, det(A_{2x2}) = a_{11}a_{22} - a_{12}a_{21}, det(A_{3x3}) = a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32} - a_{11}a_{23}a_{32} - a_{12}a_{21}a_{33} - a_{13}a_{22}a_{31}$
+\2 $det(A) = \sum_\vec{p} \sigma(\vec{p})a_{1p_1}a_{2p_2}\dotsa_{np_n}$, where $\vec{p}$ is each distinct permutation of \{1, 2, 3, \dots, n\}, said to have an order of n
+\3 This can be visually calculated by taking arrows from each of the top and bottom rows of the matrix diagonally to the right, going down from the top, getting positive terms for each, up from the bottom, getting negative terms for each, wrapped to the left
+\2 The determinant is also denoted by $|A|$, where A is the matrix
+\2 This can be geometrically found to be equivalent to the cross product of $\vec{a}, \vec{b}$ when written as \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \\ \end{vmatrix}
+\3 Thus, the area of a parallelogram represented by two vectors is equal to the absolute value of the cross product/determinant similarly
+\3 In addition, for some parallelepiped represented by three vectors, the volume is equal to the absolute value of the determinant A, \begin{vmatrix} \vec{a} \\ \vec{b} \\ \vec{c} \\ \end{vmatrix}
+\4 Thus, if all three are in the same plane, the determinant would be zero, since the volume is 0, able to test if vectors are coplanar
+\end{outline*}
+\subsection{Properties of Determinants}
+\begin{outline*}
+\1 For an upper or lower triangular matrix, $A_{nxn}$, $det(A) = \prod_{i = 1}^n a_{ii}$
+\1 For some matrix $A_{nxn}$, for some matrix obtained by permuting/switching two rows of A, the determinant is -det(A)
+\2 For some matrix obtained by multiplying on row by a scalar, the determinant is k*det(A)
+\2 For some matrix obtained by adding a multiple of any row of A to some other row, the determinant is det(A)
+\1 These elementary row operation multipliers can be used to modify the determinant matrix to upper/lower triangular form, such that it can be calculated easier
+\1 Furthermore for some square matrices A and B, $det(A^T) = det(A)$ and $det(AB) = det(A)det(B)$, such that the properties true for rows are similarly true for columns/elementary column operations
+\2 In addition, if A has a row or column of zeroes, det(A) = 0, and if two rows or columns are equal, then det(A) = 0
+\2 If $\vec{a}_1, \vec{a}_2, \dots, \vec{a}_n$ are the row/column vectors of A, if B and C are made up of the same vectors except the $i^{th}$, and $a_i = b_i + c_i$, then det(A) = det(B) + det(C), used to break up a matrix of sums by row/column
+\end{outline*}
+\section{Chapter 4 - Vector Spaces}
+\underline{Note:} Does not contain Sections 5, 8, 10-12
+\subsection{Vector Space Definition}
+\begin{outline*}
+\1 Vector spaces are nonempty sets, whose elements are called vectors, which are defined for an addition and scalar multiplication operation, with scalars in the set A, called a vector space over A, generally $\mathbb{R}$ (real vector space) or $\mathbb{C}$ (complex vector space)
+\2 It must also be closed under addition and scalar multiplication, such that for elements in the set undergoing those operations, the result is also in the set
+\2 It also must have commutative and associative properties of addition, associative properties of scalar multiplication, and distributive properties of scalar multiplication over both vector and scalar addition
+\2 It also must have an additive inverse in the set, as well as an identity vector of addition and multiplication in the set
+\1 The set $\mathbb{R}^n$ is a real vector space for all $n \geq 1$, and the set $\mathbb{C}^n$ for all $n \geq 1$ can be a real or complex vector space depending on restricting the scalars to either set
+\2 In addition, the set of all m x n matrices with real inputs is a real vector space with standard matrix addition and scalar multiplication, denoted $M_{mxn}(\mathbb{R})$ with $M_n(\mathbb{R})$ denoting the real vector space of square matrices
+\2 Other vector spaces include $P_n$, the set of all real-valued polynomials of degree $\leq n$ with real coefficients, and $C^k(I)$, the set of all real-valued functions which are $C^k$ on the domain, I
+\1 By the definition of vector spaces, it can be proved that for all vector spaces, the zero vector is unique, and the zero property of scalar multiplication is true by a scalar or a vector of zero
+\2 The additive inverse of each element is unique, and for each element, the additive inverse is equal to the scalar product of -1 and the element
+\2 Further, if the scalar product of some element and scalar is the zero vector, the element and/or the scalar are zero
+\end{outline*}
+\subsection{Subspaces}
+\begin{outline*}
+\1 Vector spaces are used to limit the solution set to some vector space of possible unknowns for a differential equations, where the solution set is some subset of the vector space
+\2 If the subset is non-empty and a vector space under the same operations as the greater vector space, it is considered a subspace of the greater vector space
+\2 Only closure under addition and scalar multiplication must be checked, since all other vector space axioms are inherited from the greater vector space or from the definition of closure
+\3 To be closed under scalar multiplication, it is essential that it contains the zero vector to be able to form a subspace, such that it also has that axiom true as well
+\1 All vector spaces have a trivial subspace, or a subspace containing only the zero vector
+\1 The solution set to any homogeneous system of linear equations ($Ax = 0$) is a subspace of $\mathbb{C}^n$ for any matrix, $A_{mxn}$
+\2 The solution set of this equation, as a result, is called the null space of the matrix A, denoted nullspace(A)
+\2 For matrices with only real elements, it is usually denoted as a subspace of $\mathbb{R}^n$ instead for simplicity
+\2 On the other hand, the solution set to any nonhomogeneous system of linear equations is not a subspace, due to not having the zero vector in the set
+\1 The solution set of the homogeneous linear differential equation, $y'' + a_1(x)y' + a_2(x)y = 0$ on some interval I, is a subspace of $C^2(I)$, called the solution space of the equation
+\2 ***Check if known final paragraphs***
+\end{outline*}
+\subsection{Spanning Sets}
+\begin{outline*}
+\1 Linear combinations are expressions of the form, $c_1\vec{v}_1 + c_2\vec{v}_2 + \dots + c_k\vec{v}_k$, for some vector space V, where $v_i \in V, c_i \in \mathbb{C} \forall 1 \leq i \leq k$, such that the resultant expression $\in V$
+\2 If all vectors within vector space V can be written as a linear combination of some set of vectors, $\{v_1, \dots, v_k\}$, V is said to be spanned/generated by that set, and the set is aid to span V, or be the spanning set for V
+\2 $\mathbb{R}^3$ is spanned by the axis unit vectors, $\vec{i}, \vec{j}, \vec{k}$ as a result, furthered such that any three noncoplanar vectors span it
+\2 It can be shown that vectors span a set by proving that there is at least one solution for the equations formed by the linear combination
+\3 Thus, for some matrix of vectors, $A_{1xk}$, it spans some vector space V iff the system $A\vec{x} = \vec{v}$ is consistent for all $\vec{v} \in V$
+\1 For some set of vectors, v, within a vector space, V, the set of all possible linear combianations of v is a subset of V, denoted span(v)
+\2 This can be extended further such that it is noted that span(v) is a subspace of V
+\2 span(v) can also be referred to as the subspace of V spanned by v as a result
+\2 It is noted that the trivial case of the span states that $span(\emptyset) = {0}$
+\end{outline*}
+\subsection{Bases and Dimension}
+\begin{outline*}
+\1 Linearly independent finite sets of vectors in a vector space are those such that the linear combination of the vectors is equal to zero only if the constant multipliers are all zero
+\2 Linear dependent finite sets of vectors are those that can equal zero without all zero constants
+\2 For some matrix of vectors, A = $[v_1, v_2, \dots, v_k]$ where $\vec{v}_i \in \mathbb{R}^n$, $\{v_1, v_2, \dots, v_k\}$ is linearly independent if A\vec{x} = 0 has only a trivial solution
+\3 Further, if k $>$ n, then the set is linearly dependent as a result, and if k = n, the set is linearly dependent iff det(A) = 0
+\1 Minimal spanning sets are spanning sets containing the minimum number of vectors needed to span the vector space, such that none of the vectors can be formed by the linear combination of the other two
+\2 As a result, for all minimal spanning sets within a nontrivial vector space V, the spanning set must be linearly independent
+\2 In addition, any nontrivial, finite linearly dependent vector set contains a linearly independent subset with the same linear span as the dependent set
+\1 A set of finite vectors in a vector space V is called a basis for V if the vectors are linearly independent and span V
+\2 For infinite-dimensional vector spaces, such as $C^n(I), n \geq 1$, it is impossible to find a finite set of vectors which spans the vector space, such that those which have a finite set are called finite-dimensional vector spaces
+\2 The standard basis of $\mathbb{R}^n$ are the set of n unit vectors of the Cartesian coordinate system
+\1 For any finite-dimensional vector space with a basis of m vectors, any set of more than m vectors is linearly dependent, such that all bases have the same number of vectors
+\2 As a result, any spanning set must contain at least m vectors for that vector space
+\2 Further, the dimension, dim(V), of the vector space V is the number of vectors in any basis of V
+\3 For the trivial vector space, the dimension is defined as 0
+\3 It can be found that $dim(\mathbb{R}^n) = n, dim(M_{mxn}(\mathbb{R})) = mn, dim(P_n) = n + 1$ as well
+\2 If dim(V) = n, then any set of n linearly independent vectors in V, or any set of n vectors that span V are a basis of V
+\3 This allows the dimension of the solution set of a differential equation to allow any linearly independent set of n equations to act as the general solution, spanning the set
+\3 As a result, if div(V) = n and S is some set of n vectors in V, if either S is a basis of V, S is linearly independent, or S spans V, then the other two statements are true
+\2 For some subspace of vector space V, the dimension of the subspace must be $\leq$ that of V, where if it is equal to the dimension of V, then the subspace must be equal to V
+\3 Further, the basis for the subspace is part of the basis for the greater vector space, V, due to there being some set of linearly independent vectors not spanned by the subspace basis, which can be added to form the greater basis, called extending a basis
+\end{outline*}
+\subsection{Change of Basis}
+\begin{outline*}
+\1 For any vector within a finite vector space, for each basis of the vector space, each vector can be expressed as a unique linear combination of the basis vectors
+\2 The converse is also true, such that if each vector in a vector space can be expressed as a linear combination of a set of vectors, the set is a basis of the space
+\1 An ordered basis B of some vector space V is an ordered set, such that the n-tuple, $(c_1, c_2, \dots, c_n)$ for some $\vec{v}$ in V, such that $\vec{v} = c_1v_1 + \dots + c_nv_n$, is called the components of $\vec{v}$ relative to the ordered basis B
+\2 The column vector of the components, denoted $[\vec{v}]_B$, is called the component vector of  $\vec{v}$ relative to the ordered basis B
+\1 For some ordered basis B in vector space V, if $\vec{x}, \vec{y} \in V$, then $[\vec{x} + \vec{y}]_B = [\vec{x}]_B + [\vec{y}]_B$ and $[c\vec{x}]_B = c[\vec{x}]_B$
+\1 For some ordered bases B, $\{\vec{v}_1, \dots, \vec{v}_n\}$, and C, $\{\vec{w}_1, \dots, \vec{w}_n\}$, in n-dimensional vector space V, $P_{B \to C} = [[\vec{v}_1]_C, \dots, [\vec{v}_n]_C]$, where $P_{B \to C}$ is the change of base matrix for B to C
+\2 As a result, for some $\vec{v}$, $[\vec{v}]_C = P_{B \to C}[\vec{v}]_B$
+\2 It follows from this definition that $P_{B \to C}$ and $P_{C \to B}$ are inverses of each other
+\3 This can be extended, such that for ordered bases A, B, and C, $P_{A \to C} = P_{B \to C}P_{A \to B}$
+\3 In addition, since for the standard basis E, $[\vec{v}]_E = \vec{v}$, $P_{B \to C} = (P_{C \to E})^{-1}P_{B \to E}$
+\end{outline*}
+\subsection{Rank-Nullity Theorem}
+\begin{outline*}
+\1 The nullity of some matrix A, denoted nullity(A), is defined as dim(nullspace(A))
+\1 The Rank-Nullity Theorem states that for some matrix $A_{mxn}$, rank(A) + nullity(A) = n, such that the nullity of a matrix is equal to the number of free variables in the solution of $A\vec{x} = 0$
+\2 Thus, for some homogeneous linear system of equations $A\vec{x} = 0$ where $A_{mxn}$, if rank(A) = n, then there is only the trivial solution, such that nullspace(A) = \{0\}
+\3 In addition, if rank(A) = r < n, then there are infinite solutions, all found by $\vec{x} = c_1\vec{x}_1 + \dots + c_{n-r}\vec{x}_{n-r}$, where $\{\vec{x}_1, \dots, \vec{x}_{n-r}\}$ is any linearly independent set of n - r solutions
+\3 This is called the general solution of the system
+\2 For some nonhomogeneous linear system of equations, $A\vec{x} = \vec{b}$ where $A_{mxn}$, if b is not in colspace(A), then the system is inconsistent
+\3 If b is in colspace(A) and dim(colspace(A)) = n, then there is a unique solution
+\3 If b is in colspace(A) and dim(colspace(A)) < n, then there are an infinite number of solutions
+\3 Since nonhomogeneous systems are not vector spaces, the general solution is of the form, $\vec{x} = c_1\vec{x}_1 + \dots + c_{n-r}\vec{x}_{n-r} + \vec{x}_p$, where $\{\vec{x}_1, \dots, \vec{x}_{n-r}\}$ is a basis for nullspace(A), and $x_p$ is some particular solution
+\4 This is due to the particular solution being subtracted from the general solution to form a homogeneous equations solution
+\end{outline*}
+\section{Chapter 5 - Linear Transformations}
+\underline{Note:} Does not contain Sections 2-4, 7, 10
+\subsection{Linear Transformation Definition}
+\begin{outline*}
+\1 For some vector spaces V and W, a mapping T from V into W is some rule which assigns each vector $\vec{v}$ in V to precisely one vector $\vec{w} = T(\vec{v}) \in W$, denoted $T: V \to W$
+\2 It is notable that the same vector in W can have multiple vectors in V mapped to it, but for each vector in V, there may only be one mapping in W
+\1 Linear transformations T are mappings such that $\forall \vec{u}, \vec{v} \in V, T(\vec{u} + \vec{v}) = T(\vec{u}) + T(\vec{v})$ and $\forall c in \mathbb{C}, T(c\vec{v}) = cT(\vec{v})$
+\2 These are called the linearity properties, V is called the domain of T, and W is called the codomain of T
+\2 It is noted that the addition and scalar multiplication operations on each side of the properties are for different vector spaces, and are not required to be the same operations
+\2 Mappings which do not fulfill the linearity properties are called nonlinear transformations
+\2 As a result, a mapping is a linear transformation iff $T(c_1\vec{v}_1 + c_2\vec{v}_2) = c_1T(\vec{v}_1) + c_2T(\vec{v}_2)$
+\3 Further, since this can be extended for any number of $c_k\vec{v}_k$, for some basis set of those k vectors, it proves that the entire vector space transforms
+\2 Further, it is established that $T(\vec{0}_v) = \vec{0}_w$, where each are the respective zero vectors from that vector space, and $T(-\vec{v}) = -T(\vec{v}) \forall \vec{v} \in V$
+\1 For some m x n real matrix, A, T: $\mathbb{R}^n \to \mathbb{R}^m$, where T = $A\vec{x}$, then T is a linear transformation, called a matrix transformation
+\2 The converses is also true, such that for all linear transformations, T: $\mathbb{R}^n \to \mathbb{R}^m$, it can be expressed as a matrix transformation, T = $A\vec{x}$, where A is the matrix of the transformation of column standard basis vectors in $\mathbb{R}^n$
+\2 As a result, for the linear transformation T: $\mathbb{R}^n \to \mathbb{R}^m, A_{mxn} = [T(\vec{e}_1), \dots, T(\vec{e}_n)]$, where $\vec{e}_k$ is a standard basis column vector in $\mathbb{R}^n$, is called the matrix of T
+\end{outline*}
+\subsection{The Matrix of a Linear Transformation}
+\begin{outline*}
+\1 Generalizing the transformation matrix to all vector spaces, for some vector spaces V and W with ordered bases $B = \{\vec{v}_i\}_{i=1}^n$ and $C = \{\vec{w}_i\}_{i=1}^n$, for linear transformation $T: V \to W$, then $[T]^C_B = [[T(\vec{v}_1)]_C, \dots, [T(\vec{v}_n)]_C]$ is the matrix representation of T relative to bases B and C
+\2 For some transformation which does not change the vector space or the base, it is called the matrix representation of T relative to the basis B
+\2 Thus, the change-of-basis matrix and the $\mathbb{R}^n$ conversion matrix are just special cases of this matrix
+\2 As a result, it can be used to determine the transformation by the transformation matrix, by the formula stating that $[T(\vec{v})]_C = [T]^C_B[\vec{v}]_B$, such that the general vector in B can be converted to the corresponding vector in C of the new vector space
+\1
+\end{outline*}
+\end{document}
