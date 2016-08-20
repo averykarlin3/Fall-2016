@@ -53,7 +53,7 @@
 
 \begin{document}
 
-\title{Ordinary Differential Equations}
+\title{Linear Algebra and Ordinary Differential Equations}
 \author{Avery Karlin}
 \date{Fall 2016}
 \newcommand{\textbook}{Differential Equations and Linear Algebra by Stephen Goode and Scott Annin}
@@ -66,10 +66,11 @@
 \noindent
 \underline{Primary Textbook}: \textbook\\
 \underline{Secondary Textbook}: Paul's Calc IV Notes\\
+\underline{Secondary Textbook}: Linear Algebra with Applications by Otto Bretscher
 %\underline{Teacher}: \teacher
 \newpage
 
-\section{Chapter 1 (Paul's) - Basic Concepts}
+\section{Chapter 1 (Paul) - Basic Concepts}
 \subsection{Definitions}
 \begin{outline*}
 \1 Differential equations are those which contain either ordinary or partial derivatives, such that it is an ordinary differential equation if it only contains the former, and a partial derivative equation if it contains the latter
@@ -100,7 +101,7 @@
 \1 If f’(x) is in terms of both x and f(x), then it must be plotted two dimensionally, first finding the lines where the derivative would be constant
 \2 The line such that f’(x) = 0 should be found, then the same techniques can be used to determine the rest of the field, using regional intervals
 \end{outline*}
-\section{Chapter 2 (Paul's) - First Order Equations}
+\section{Chapter 2 (Paul) - First Order Equations}
 \underline{Note:} Only contains the first four sections
 \subsection{Linear Equations}
 \begin{outline*}
@@ -128,6 +129,16 @@
 
 
 
+\section{Chapter 1 (Bretscher) - Linear Equations}
+\begin{outline*}
+\1 Geometrically, vectors are denoted as an arrow from the origin to the coordinates of the vector, written as $\vec{v}$
+\2 It is able to be translated from the origin if necessary (such that if $\vec{v} = (x, y)$ is translated (a, b), it will stretch from (a, b) to (a + x, b + y))
+\2 For some infinite set of vectors, it is represented only as the endpoint from the origin for simplicity sake
+\2 Vectors are assumed to be column vectors unless otherwise stated, to allow for matrix multiplication
+\1 Gauss-Jordan elimination is considered an algorithm, or a finite procedure written in a fixed symbolic vocabulary, with precise instructions, following a discrete set of steps, requiring no insight to complete
+\2 On the other hand, it is noted that rounding errors can occur with certain algorithms, limited the ability to automate it
+\1 **READ SECTION 1.3**
+\end{outline*}
 \section{Chapter 2 - Matrices and Systems of Linear Equations}
 \underline{Note:} Does not contain Sections 7-8
 \subsection{Definition and Notation of Matrices}
@@ -223,7 +234,7 @@
 \subsection{Gaussian Elimination}
 \begin{outline*}
 \1 Gaussian elimination is the process of converting the augmented matrix to row-echelon form, and using back substitution to solve the system 
-\2 Gauss-Jordan elimination is Gaussian elimination when converting it to reduced row-echelon form, not requiring back substitution
+\2 Gauss-Jordan elimination is Gaussian elimination when converting it to reduced row-echelon form, not requiring back substitution, denoted for matrix A as rref(A)
 \2 If rank(A) = rank($A^\#$), there is a solution to the matrix
 \3 If for some matrix, $A_{mxn}$, $n > rank(A^\#)$, (such that there are more columns than rows) there are infinite solutions, setting each surplus variable as a free variable/parameter, such that the rest are bound variables/parameters, in terms of the free ones
 \3 The number of free variables for an m x n matrix is equal to n - rank($A^\#$), due to there being n variables total
