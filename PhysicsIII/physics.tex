@@ -86,8 +86,59 @@
 \2 Mechanical coordinates used within classical mechanics are from the mechanical/external energy of the system to measure the movement of the system overall, while thermodynamics uses macroscopic coordinates to deal with the internal energy of the system, called thermodynamic coordinates
 \2 Systems described by thermodynamic laws are thermodynamic systems, found within each discipline
 \end{outline*}
-\subsection{}
+\subsection{Thermal Equilibrium and Temperature}
 \begin{outline*}
-
+\1 For some thermodynamic system of constant mass and composition, where to describe the system requires two coordinates, X and Y
+\2 The system is at equilibrium state if the coordinates would remain constant if the external conditions are unchanged
+\2 Equilibrium states depend on the proximity to other systems and the boundary within systems (adiabatic if any equilibrium state is present on both, such as wood, while diathermic if there must be specific combinations of equilibrium states, such as metal)
+\3 Thermal equilibrium is achieved by multiple systems separated by a diathermic wall when they have reached a combined system equilibrium
+\3 Diathermic walls are thus boundaries that allow heat transfers, while adiabatic do not allow heat transfers, both not permitting matter transfers (assuming it does not break due to stress from the systems)
+\2 The Zeroth Law of Thermodynamics states that if two systems are each in thermal equilibrium with another system simultaneously, then they are at thermal equilibrium with each other as well
+\3 It is called this due to the next two relying on this definition, found experimentally as a fundamental law of the discipline
+\1 Temperature is designed as the macroscopic measure of hotness from an object observed, and microscopically as the movement/vibrations of particles, defined as some number $\geq 0$ in science (Kelvin), ignoring the terms of coldness
+\2 For any given state of a system, there exists a curve, or isotherm, of the locus of all states of another system which would be in thermal equilibrium with the first system, experimentally found to generally be continuous over some region of the curve
+\3 The same can be found for the other system at each set of coordinates, such that by the zeroth law, each isotherm has a corresponding isotherm in the other system, such that all points on those lines are at equilibrium with each other
+\3 The property which determines if a system is at thermal equilibrium is called temperature, since all that is needed is a correspondence of equilibrium between two systems and a reference, such that it is a scalar, rather than a vector if there was not a transitive property
+\2 Thus, for systems at the same temperature, they are on corresponding isotherms and thus at thermal equilibrium
+\3 The converse of this is also true, such that thermal equilibrium implies same temperature
+\1 Temperature equality can be determined by a capillary of mercury, equally filled and sized, measuring the equality of the height the mercury rises, experimentally found to signify equilibrium, called a thermoscope
+\2 Thermometers measure the temperature on an empirical scale, using some rule to assign a value to each isotherm, finding some path on the isotherm plane, with the varying variable as the thermometric property, the thermometric function, $\theta(X)$ to get the temperature
+\2 The historic scale mercury pressure thermometer (constant volume) is based on a linear relationship, $\theta(X) = aX + c$, without a constant defining an absolute temperature scale (absolute zero at $0^o$
+\3 The same relation when applied to other thermometers or other thermometer systems of the same type (the international standard being hydrogen pressure) produces other scales, with some defined coefficient for each
+\2 Thus, when a thermometer is placed in contact with a chosen standard system in a reproducible state, called the fixed point temperature
+\3 Until 1954, the world standard was Celsius, but which was too difficult to measure accurately due to water surrounding ice and sensitivity to minor pressure fluctuations
+\3 After, the Kelvin system is based on the triple point of water (three state equilibrium, called the standard fixed point), able to measured accurately, as an absolute system, assigned 273.16 K, equal to $0.01^o C$
+\4 This is measured by putting water under such pressure in a sealed tube that it begins to boil, using a freezing mixture to form a layer of ice on the edge, after which the mixture is removed and water forms between the ice and the edge, still evaporating, at the triple point
+\end{outline*}
+\subsection{Thermometer Types}
+\begin{outline*}
+\1 For each type of thermometer, a test using the same equation would produce drastically different results from those of the standard at all values except the reference
+\2 Hydrogen gas pressure thermometers tend to be negligibly different at standard pressures, acting as the reference for normal temperature and pressure
+\1 Gas thermometers are made up of a measuring gas containing bulb, attached to a mercury column through a capillary, keeping the volume of the gas constant by adjusting the height of the mercury column
+\2 The mercury column has two columns, one attached to the capillary, the other to the dead space, with a column of the measuring gas reaching from underneath the columns to the reservoir
+\3 If high enough pressure, the mercury can rise into the dead space/nuisance volume at the top of the capillary, adjusting the mercury in the column to the point that the mercury fills the capillary column fully to keep volume constant
+\2 Thus, at this point, the pressure of the main column is the atmospheric pressure added to the difference in heights between the columns
+\3 It can then be measured when the bulb is surrounded by the triple point water and when surrounded by the measured system
+\2 The pressures must be corrected for errors due to the gas being a different temperature than the bulb, the capillary not being uniform temperature, volume changes in any part as the temperature and pressure change
+\3 It can also have error due to gradient in the capillary due to the diameter being close to the mean free path of the gas, gas adsorbed by the device, especially at low temperatures, and temperature and compressibility of the mercury creating error
+\2 As a result, once corrected, the measuring gas behavior appears close to that of an ideal gas
+\3 The basis of gas thermometers was the ideal-gas law, stating PV = nRT, where n is the number of moles of gas, T is the Kelvin temperature, and R is the molar gas constant
+\3 This is able to be used for the reference, to derive the same relation between triple point pressure/temperature and measured pressure/temperature ($\frac{P}{P_TP} = \frac{\theta}{273.16 K}$), such that the temperature definition thus assumes an ideal gas for a Kelvin thermometer
+\2 Helium is the best measuring gas, not diffusing through platinum at high temperatures, but not becoming a liquid until extremely low temperatures
+\end{outline*}
+\subsection{Temperature Scales}
+\begin{outline*}
+\1 As the triple point pressure of a gas (due to lessening volume), approaches 0, the resulting temperature calculated is the ideal-gas temperature
+\2 While thermometers depend on the specific measuring gas properties to provide the temperature, as it approaches the ideal gas temperature, it becomes independent of the measuring gas, though based on the properties of gases overall, rather than an individual gas, behaving ideally
+\2 For the temperature region in which a gas thermometer may be used, the measured Kelvin temperature scale and ideal gas temperature scales are identical
+\2 It is noted that the idea of lack of atomic motion at absolute zero cannot be assumed, due to relying on the complete equivalency of temperature and atomic motion on different scales 
+\3 In addition, at absolute zero, there is some residual energy expected based on quantum mechanics, resulting in the zero-point energy quantity
+\1 The Celsius scale was used prior to the Kelvin temperature scale until 1954, which slightly shifted the base from the ice point to the triple point of water (273.16 K) for accuracy and modifying to an absolute scale, with the same degree of magnitude between values
+\2 Thus, the Celsius and Kelvin scales simply have a constant difference of the measured ice point, equal to 273.15 K
+\2 As a result, the modern Celsius scale no longer has a fixed ice/steam point for water, but rather purely the triple point, such that Kelvin is the standard
+\1 Fahrenheit and Rankine are based on a scale 5/9ths that of the Celsius and Kelvin, based on the triple point of water, such that the ice point is found to be $32^o F$, providing a relationship to Celsius
+\1 The International Temperature Scale of 1990 was the creation of a practical scale for routine measurements and calibration of instruments, to ease measurement from time-consuming use of an individual gas thermometer, providing a series of fixed points for comparison
+\2 It also provides close measurement interpolation for the remainder, providing a close approximation to the Kelvin scale
+\2 
 \end{outline*}
 \end{document}
