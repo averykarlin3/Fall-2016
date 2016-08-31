@@ -259,24 +259,24 @@
 \1 Inverse matrices can be found by column by column, solving the system of equations such that ${AA^{-1}_t = (I_n)_t}_{t=1}^n$, such that the reduced augmented row-echelon matrix can be solved for, giving the system constants as the column of the inverse matrix
 \2 This effectively is modifying $[A I_n]$ such that it changes to the form $[I_n A^{-1}]$, called the Gauss-Jordan Technique
 \end{outline*}
-\subsection{Elementary Matrices and LU Factorization}
-\begin{outline*}
-\1 Matrices which can be obtained by performing a single elementary row operation on the identity matrix is the elementary matrix
-\2 Thus, it is always a square matrix as a result, able to be denoted purely by the operation used on the identity matrix
-\2 Since all elementary row operations are reversible, there exists an inverse elementary matrix for each
-\2 For some elementary matrix, E, EA is equivalent to performing the E operation on A
-\3 This can be used to reduce any matrix to row-eschlon form, U, such that $U = E_k\dots E_1A$ for some matrix A, created by $A = E_1^-1\dots E_k^-1U$
-\3 Further, for some invertible nxn matrix A, the reduction by this method to reduced row-eschlon form would provide the identity matrix
-\4 As a result though, the same sequence of multiplied elementary operations alone is equal to $A^-1$, and thus $A = E_1^-1\dotsE_k^-1$
-\4 Conversely, all matrices which are the product of elementary matrices are invertible due to the product of invertible matrices being invertible
-\1
-\end{outline*}
-\subsection{The Invertible Matrix Theorem}
-\begin{outline*}
-\1 For some n x n matrix, A, where $A_{ij} \in \mathbb{R}$, it is equivelent to say that A is invertible, rank(A) = n, A can be expressed as a product of elementary matrices
-\2 It is also equivalent to state that A is row-equivalent to $I_n$, Ax = b has a unique solution $\forall b \in \mathbb{R}^n$, and Ax = 0 has only the trivial solution 
-\2 This is called the Invertible Matrix Theorem, summarizing equivalent conditions on invertible matrices
-\end{outline*}
+%\subsection{Elementary Matrices and LU Factorization}
+%\begin{outline*}
+%\1 Matrices which can be obtained by performing a single elementary row operation on the identity matrix is the elementary matrix
+%\2 Thus, it is always a square matrix as a result, able to be denoted purely by the operation used on the identity matrix
+%\2 Since all elementary row operations are reversible, there exists an inverse elementary matrix for each
+%\2 For some elementary matrix, E, EA is equivalent to performing the E operation on A
+%\3 This can be used to reduce any matrix to row-eschlon form, U, such that $U = E_k\dots E_1A$ for some matrix A, created by $A = E_1^-1\dots E_k^-1U$
+%\3 Further, for some invertible nxn matrix A, the reduction by this method to reduced row-eschlon form would provide the identity matrix
+%\4 As a result though, the same sequence of multiplied elementary operations alone is equal to $A^-1$, and thus $A = E_1^-1\dotsE_k^-1$
+%\4 Conversely, all matrices which are the product of elementary matrices are invertible due to the product of invertible matrices being invertible
+%\1
+%\end{outline*}
+%\subsection{The Invertible Matrix Theorem}
+%\begin{outline*}
+%\1 For some n x n matrix, A, where $A_{ij} \in \mathbb{R}$, it is equivelent to say that A is invertible, rank(A) = n, A can be expressed as a product of elementary matrices
+%\2 It is also equivalent to state that A is row-equivalent to $I_n$, Ax = b has a unique solution $\forall b \in \mathbb{R}^n$, and Ax = 0 has only the trivial solution 
+%\2 This is called the Invertible Matrix Theorem, summarizing equivalent conditions on invertible matrices
+%\end{outline*}
 \section{Chapter 3 - Determinants}
 \underline{Note:} Does not contain Sections 3-4
 \subsection{Definition of the Determinant}
