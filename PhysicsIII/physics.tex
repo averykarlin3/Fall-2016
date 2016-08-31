@@ -125,6 +125,16 @@
 \3 The basis of gas thermometers was the ideal-gas law, stating PV = nRT, where n is the number of moles of gas, T is the Kelvin temperature, and R is the molar gas constant
 \3 This is able to be used for the reference, to derive the same relation between triple point pressure/temperature and measured pressure/temperature ($\frac{P}{P_TP} = \frac{\theta}{273.16 K}$), such that the temperature definition thus assumes an ideal gas for a Kelvin thermometer
 \2 Helium is the best measuring gas, not diffusing through platinum at high temperatures, but not becoming a liquid until extremely low temperatures
+\1 Vapor pressure thermometry depends only on the vapor pressure of the measuring gas at some temperature, thus easy to produce, and is easy to measure
+\1 Platinum resistance thermometry is secondary, due to being fundamentally defined in terms of temperature, but with a broader range than gas thermometers
+\2 This is done by winding a long, thin wire around a frame, loose enough to avoid strain when compressing, able to also be wrapped around the object being measured, drilled into the object, or bonded onto the surface
+\2
+\1 Radiation thermometry, including optical, radiation, infrared, and total radiation, are used to measure thermal/blackbody radiation, using Planck's radiation law relating temperature to radiance, depending only on the walls of a closed body, not the shape
+\2 The dimensions must be larger than the wavelengths themselves, and there must be a small hole to allow radiation to escape to allow measurement, negligible enough to not disturb equilibrium
+\2 Pyrometers were made to measure high temperatures without contact, comparing visible radiation over a small band with that of a standard, using a photoelectric detector, correcting for emissivity of the source at that band
+\2 Total-radiation pyrometers have a larger range able to measure, but are less precise, measuring all radiation from the object, rather than just blackbody
+\1 Thermocouples
+\2 
 \end{outline*}
 \subsection{Temperature Scales}
 \begin{outline*}
@@ -137,8 +147,37 @@
 \2 Thus, the Celsius and Kelvin scales simply have a constant difference of the measured ice point, equal to 273.15 K
 \2 As a result, the modern Celsius scale no longer has a fixed ice/steam point for water, but rather purely the triple point, such that Kelvin is the standard
 \1 Fahrenheit and Rankine are based on a scale 5/9ths that of the Celsius and Kelvin, based on the triple point of water, such that the ice point is found to be $32^o F$, providing a relationship to Celsius
-\1 The International Temperature Scale of 1990 was the creation of a practical scale for routine measurements and calibration of instruments, to ease measurement from time-consuming use of an individual gas thermometer, providing a series of fixed points for comparison
+\1 The International Temperature Scale of 1990 was the creation of a practical scale for routine measurements and calibration of instruments, to ease measurement from time-consuming calibration by the single reference point,  providing a series of fixed points for comparison
 \2 It also provides close measurement interpolation for the remainder, providing a close approximation to the Kelvin scale
-\2 
+\2 At the minimum of 0.65 K to 3.2 K, it is defined by the $^3He$ vapor pressure-temperature relation, from 1.25 K to 2.1768 K to 5 K by $^4He$ of the same type
+\3 $^3He$ fails below 0.3 K due to being too small to measure, and fails above 3.32 K due to the critical point (where only gas exists), while $^4He$ fails below 1 K due to superfluid behavior causing less variation with temperature and errors, and above 5.2 K due to the critical point
+\2 From 3 K to 24.5561 K by either He gases as a constant-volume gas thermometer
+\2 From 13.8033 K to 1234.93 K, it is defined by platinum resistance thermometers with fixed points within and deviation functions between, creating 11 sub-ranges
+\2 Above that, it is measured by an optical pyrometer, using blackbody spectral radiance concentration ratios by Planck's radiation law, using only a single reference of the freezing point of gold, silver, or copper, replacing the thermocouple
+\end{outline*}
+\section{Chapter 2 - Simple Thermodynamic Systems}
+\subsection{Thermodynamic Equilibrium}
+\begin{outline*}
+\1 Change of state of a system is when the coordinates change either spontaneously or due to outside influence, isolated if the former, such that there is no outside influence, rarely found practically
+\2 Systems not in mechanical equilibrium (with no unbalanced force or torque in the system interior or the surroundings/no unequal pressure) will have a change of state until it is corrected
+\2 Systems not in chemical equilibrium (unequal chemical potential) result in a transfer of matter through or out/in the system, or a spontaneous change of internal structure as a reaction to restore it
+\2 Systems in thermal equilibrium are those with no change in the system's thermodynamic coordinates when separated diathermically, such that there is no heat transfer
+\3 Otherwise, change of state will occur until thermal equilibrium is restored
+\1 Thermodynamic equilibrium is when thermal, mechanical, and chemical equilibrium are found simultaneously, such that it can be described by thermodynamic macroscopic coordinates at a particular instant, though not over time
+\2 Thus, when not at mechanical, chemical, and thermal equilibrium, coordinates like composition, temperature, and pressure cannot be used to apply to the system as a whole, as it moves through nonequilibrium states
+\1 Equations of state relate the coordinates of a thermodynamic equilibrium system to each other, based on the individual specifics of a system, such that it is determined by molecular theory or experiment, not general theory
+\2 At low pressures, the state equation of ideal gas is PV = nRT, or Pv = RT, where v is the molar volume ($\frac{V}{n}$)
+\2 At high pressures, it is represented by the van der Waals equation, based on particle interactions and sizes, such that $(P + \frac{a}{v^2})(v - b) = RT$, where v is the molar volume
+\3 a and b are gas-specific constants, since equations of state are defined by existence, rather than any particular form without constants
+\2 Nonequilibrium states cannot be described purely by coordinates as a whole, such that there is no equation of state for the system
+\1 Simple systems are those which are described by three thermodynamic coordinates in an equation of state, with the special case of PVT systems called hydrostatic systems
+\2 Hydrostatic systems are also defined as an isotopic (uniform) system of constant mass and composition that exerts uniform hydrostatic pressure on the surroundings if there is no gravitational or electromagnetic effects
+\2 They are divided into three catagories, pure substances (a single compound of any mixture of states), homogeneous mixture of different compounds (mixture of different compounds of the same state or a solution), and heterogeneous mixtures (mixtures of multiple homogeneous multiple compound mixtures of different states)
+\3 It has been found experimentally that systems of a single state can be described by three coordinate equations of state, PVT
+\2 These equations can describe some macroscopically small change in a measurement by a differential, though since they are macroscopic coordinates, it describes an amount greater than a few particles changing, rather than an infinitesimal amount
+\2 Thus, for some function V = V(T, P), $dV = \frac{\partial V}{\partial T}(T, P)dT + \frac{\partial V}{\partial P}(T, P)dP$
+\3 The average coefficient of volume expansion is defined as the change in volume per unit volume divided by the change in temperature at constant pressure
+\4 As the change in temperature, and thus volume, approaches 0, the differential coefficient of volume expansion, or the volume expansivity, $\beta = \frac{1}{V}(\frac{\partial V}{\partial T})$
+\4 
 \end{outline*}
 \end{document}
