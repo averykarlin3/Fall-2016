@@ -103,5 +103,14 @@
 \1 The movement of electrons is controlled by devices reacting to the presence of voltage, rather than the amount for simplicity
 \2 These voltages are signified by binary digits/bits, 1 for voltage near the maximum, and 0 for voltage near zero (rounding due to device variation)
 \2 Bits are then combined to get a large number of distinct values
+\1 Data types are representations of values in which operations are encoded within the data types, mainly using 2's complement integers, ASCII codes, and floating points
+\2 Unsigned integers are used to identify locations and counts, represented by positional binary representation, ranging from 0 to $2^k - 1$ for k binary digits
+\2 Signed integers are used for arithmetic, with a leading 0 to signify positive, from 0 to $2^{k-1} - 1$ for k binary digits, using different systems for negative
+\3 The signed magnitude system uses a leading 1 for a negative value, with a leading 1 on 0 signifying -0
+\3 The 1's complement system uses a leading 1 for negative values, signifying it is equivalent to switching every other binary digit in the value (complement) to get the magnitude
+\3 The 2's complement system is the standard data type, equivalent to the 1's complement - 1 for each negative value, found to be easiest to design hardware to do arithmetic on
+\1 Computers generally use an arithmetic and logic unit (ALU) for addition, converting two inputs to one output of the sum, performing it in the same column method with carrying as standard addition, without actually determining the values, leading to the 2's complement system
+\2 Thus, it is necessary for the sum of a number and its inverse to equal 0, ignoring all extra digits, such that only the correct number of digits is kept, and it is necessary for the sequence to be equal to one added, such that it works for results in the range, providing the advantage of the complements
+\2 The advantage of 2's complement over 1's complement is making full use of the maximum amount of digits, rather than having two versions of 0
 \end{outline*}
 \end{document}
