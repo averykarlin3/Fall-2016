@@ -55,7 +55,7 @@
 
 \title{}
 \author{Avery Karlin}
-\date{}
+\date{Fall 2015}
 \newcommand{\textbook}{}
 \newcommand{\teacher}{}
 
@@ -78,6 +78,8 @@
 \1 The concept of viewing hardware and software as joint components of a single system, which must both be taken into account to design either, is another central idea, to design the most effective components
 \1 Processors/CPUs are the primary unit of a computer, used to direct the processing of information and perform the calculations required to process it, though there are other components to make use easier
 \2 Originally, they were made of large boards covered in integrated circuit packages, but now are just a single silicon microprocessor chip with millions of transistors
+\2 Memory is another major component, made up of a series of slots, each with an address and able to hold a single value, connected to CPU
+\2 Programs are sets of instructions executed one at a time, stored in memory, while the program counter contains the current/next instruction in the program, often just incrementing after each
 \1 The only limitations of computers are time and amount of memory, but otherwise all computers can do the same tasks, though not at the same pace
 \2 This is due to computers being universal computing devices, as digital machines which could be increased in precision unlike analog/physical machines, but which were not made for individual tasks
 \2 Turing in 1937 proposed the Turing machine, which would be able to carry out all computations of some type, and later began to define what computation is, abstracting tasks by a black box model, showing the task, input, and output, with no specification about how it is performed
@@ -114,10 +116,13 @@
 \2 The advantage of 2's complement over 1's complement is making full use of the maximum amount of digits, rather than having two versions of 0
 \2 The precision of the value is the number of numerical bits, while the range is the maximum magnitude of the bit sequence
 \1 Since addition is the main arithmetic bit operation, subtraction of bits is simply done by adding the additive inverse of the second value
-\2 Doubling the value of positive 2's complement bits is equivalent to shifting bits to the right by one, though this is not true for negative bits
+\2 Left shifts are equivalent to shifting all values to the left, adding a zero as the rightmost, dropping the overflow, equal to multiplying by 2 assuming no overflow
+\2 Arithmetic right shifts are shifting to right, adding the sign bit as the leftmost, while logical right shifts are shifting to the right, adding a 0 as the leftmost, equal to dividing by 2 for arithmetic shifts, and dividing unsigned by 2 for logical
+\3 For odd values shifted right, the result is rounded based on the value in the 2nd rightmost spot
 \2 Sign extension/SEXT is used to shrink the amounts of bits used for a smaller number, removing all but one leading zero for positive, all but one leading one for negative
 \3 Vice versa, the leading digits can be added, due to requiring the same number of bits used for adding or subtracting
 \2 Overflow is noted by the loss of the leading digit, such that the sum of two positive is negative, or vice versa, such it can be dealt with
+\3 For unsigned addition, an outgoing carry denotes an overflow to be dealt with
 \1 Logical operations are based on viewing binary as true/1 and false/0, and are binary functions, requiring two logical inputs/bits
 \2 They are also able to be used on sequences of bits of the same length, testing corresponding bits from each
 \3 Bit masks are sequences which are used to separate/modify specific bits from a sequence, using logical operations
