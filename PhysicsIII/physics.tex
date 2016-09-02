@@ -205,6 +205,15 @@
 \3 Since equations of state assume thermodynamic equilibrium, the tension must be balanced out by some external force
 \2 For some infinitesimal equilibrium state change for $L = L(T, \tau)$, $dL = \frac{\partial L}{\partial T}(T, \tau)dT + \frac{\partial L}{\partial \tau}(T, \tau)d\tau$
 \3 By the limit of the average linear coefficient of expansion, linear expansivity, $\alpha = \frac{1}{L}\frac{\partial L}{\partial T}$
+\4 Metals tend to have a positive linear expansivity, but other materials such as rubber may be negative
+\4 Linear expansivity is mainly constant for torque change, only changing for temperature, but over a small range, can be considered constant
 \3 By the limit of average Young's modulus, isothermal Young's modulus, $Y = \frac{L}{A}\frac{\partial \tau}{\partial L}$
+\4 Isothermal Young's modulus is always positive, only changing for temperature, but can be considered constant over some small range as well
+\1 Surfaces are a 2D system, with different properties from those of the underlying material, acting as a stretched membrane, with each point exerting a force opposite and perpendicular to the opposite side of the surface
+\2 Surfaces are thus described by the area, A, the temperature, T, and the surface tension, $\gamma$, which is the force per unit length of the surface, where the unit length is parallel to the edge
+\2 While the substance within the surface is relevant, the volume and pressure of it can be ignored, due to remaining fairly constant for small changes in the surface coordinates
+\2 For pure liquids at equilibrium with their vapor phase, it is described by the Guggenheim equation of state, $\gamma = \gamma_0(1 - \frac{T}{T_c})^n$, where $T_c$ is critical temperature, $\gamma_0$ is surface tension at standard temperature, generally $20^o C$, and c is a constant, such that $1 \leq c \leq 2$
+\3 As a result, as T approaches $T_c$, the surface tension approaches 0, after which there is unable to be any liquid form
+\2 For oil films on liquid water, it is described by the equation $(\gamma - \gamma_w)A = aT$, where $\gamma - \gamma_w$ is called the surface pressure, acting as a 2D version of the ideal gas law, and where a is some constant
 \end{outline*}
 \end{document}
