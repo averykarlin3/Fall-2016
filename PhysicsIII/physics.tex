@@ -175,9 +175,11 @@
 \2 At low pressures, the state equation of ideal gas is PV = nRT, or Pv = RT, where v is the molar volume ($\frac{V}{n}$)
 \2 At high pressures, it is represented by the van der Waals equation, based on particle interactions and sizes, such that $(P + \frac{a}{v^2})(v - b) = RT$, where v is the molar volume
 \3 a and b are gas-specific constants, since equations of state are defined by existence, rather than any particular form without constants
+\3 a is the molecular attraction while b is the atomic short range repulsion of the system, such that it accounts for higher pressures in which gases behave less ideally 
 \2 Nonequilibrium states cannot be described purely by coordinates as a whole, such that there is no equation of state for the system
 \end{outline*}
 \subsection{Simple Systems}
+\begin{outline*}
 \1 Simple systems are those which are described by three thermodynamic coordinates in an equation of state, with the special case of PVT systems called hydrostatic systems
 \1 Hydrostatic systems are also defined as an isotopic (uniform) system of constant mass and composition that exerts uniform hydrostatic pressure on the surroundings if there is no gravitational or electromagnetic effects
 \2 They are divided into three catagories, pure substances (a single compound of any mixture of states), homogeneous mixture of different compounds (mixture of different compounds of the same state or a solution), and heterogeneous mixtures (mixtures of multiple homogeneous multiple compound mixtures of different states)
@@ -186,17 +188,23 @@
 \2 Thus, for some function V = V(T, P), $dV = \frac{\partial V}{\partial T}(T, P)dT + \frac{\partial V}{\partial P}(T, P)dP$
 \3 The average coefficient of volume expansion is defined as the change in volume per unit volume divided by the change in temperature at constant pressure
 \4 As the change in temperature, and thus volume, approaches 0, the differential coefficient of volume expansion, or the volume expansivity, $\beta = \frac{1}{V}(\frac{\partial V}{\partial T})$
-\4 It is generally a positive number, though there are exceptions such as water for $0-4^o C$ melting point, and is generally a function of P and T
-\4 It often varies negligibly with respect to P and very little with respect to T often within a small temperature range, such that it can be considered a constant over the range
+\4 It is generally a positive number, though there are exceptions such as water for $0-4^o C$ melting point at which point water reaches maximum density
+\4 This is due to hydrogen bonding of ice and surface tension of water and is generally a function of P and T
+\4 It often varies negligibly with respect to P and T often within a small temperature and pressure range, such that it can be considered a constant over the range
 \3 The average bulk modulus is defined as $\frac{-V\Delta P}{\Delta V}$, due to the pressure increasing causing a decrease in volume, such that it is a positive value
 \4 As the change in volume, and thus pressure, approaches 0 as temperature is constant, it is called the isothermal bulk modulus, $B = -V(\frac{\partial P}{\partial V})$
-\4 Isothermal compressibility, or the reciprocal of isothermal bulk modulus, $\kappa = \frac{-1}{V}(\frac{\partial V}{\partial P})$, and is similarly often constant for a material over some range
+\4 Isothermal compressibility, or the reciprocal of isothermal bulk modulus, $\kappa = \frac{-1}{V}(\frac{\partial V}{\partial P})$, and is similarly often constant for a material over some PT range
 \2 This can be similarly found for each equation of state of a different explicit variable, all of which are differentiated to determine an explicit exact differential equation, describing a slight change in state of equilibrium for that explicit differential in terms of the other variables
 \3 By combining two of exact differential equations equations, it follows that if y(x, z) and dz = 0, dx $\neq 0$, then $\frac{\partial x}{\partial y}\frac{\partial y}{\partial x} = 1$
 \4 Further, if dz $\neq 0$ and dx = 0, then by extension, $\frac{\partial x}{\partial y}\frac{\partial y}{\partial z}\frac{\partial z}{\partial x} = -1$
 \4 By extension of that, $\frac{\partial y}{\partial z}\frac{\partial z}{\partial x} = -\frac{\partial y}{\partial x}$
 \3 Thus, by those theorems, $\frac{\partial P}{\partial T} = \frac{\beta}{\kappa}$, such that each partial derivative has a physical representation by the theorems
 \4 As a result, a form $dP = \frac{\beta}{\kappa}dT - \frac{1}{\kappa V}dV$ of the state equation is found, which can be integrated for each in terms of the others
-\1 
+\1 Wires are a one-dimensional system, usually assumed that pressure and volume are constant, such that the coordinates are tension, $\tau$, length, L, and temperature, T,
+\2 While it cannot be expressed universally by a single equation, for a constant temperature in the portion of elasticity such that Hooke's law is true, $\tau = -k(L - L_0)$, where $L_0$ is the length at no tension
+\3 Since equations of state assume thermodynamic equilibrium, the tension must be balanced out by some external force
+\2 For some infinitesimal equilibrium state change for $L = L(T, \tau)$, $dL = \frac{\partial L}{\partial T}(T, \tau)dT + \frac{\partial L}{\partial \tau}(T, \tau)d\tau$
+\3 By the limit of the average linear coefficient of expansion, linear expansivity, $\alpha = \frac{1}{L}\frac{\partial L}{\partial T}$
+\3 By the limit of average Young's modulus, isothermal Young's modulus, $Y = \frac{L}{A}\frac{\partial \tau}{\partial L}$
 \end{outline*}
 \end{document}
