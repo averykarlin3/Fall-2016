@@ -134,13 +134,17 @@
 \1 Vapor pressure thermometry depends only on the vapor pressure of the measuring gas at some temperature, thus easy to produce, and is easy to measure
 \1 Platinum resistance thermometry is secondary, due to being fundamentally defined in terms of temperature, but with a broader range than gas thermometers
 \2 This is done by winding a long, thin wire around a frame, loose enough to avoid strain when compressing, able to also be wrapped around the object being measured, drilled into the object, or bonded onto the surface
-\2
+\2 Potentiometric resistance thermometers have zero direct current into the leads, while bridge circuits are balanced such that there is no alternating current through
+\3 Bridge circuits are made possible as thermometers due to inductive voltage-dividers/ratio transformers and high sensitivity/signal-to-noise lock-in amplifiers
+\2 Within the ideal measurement range, $R'(T) = R'_{TP}(1 + aT + bT^2)$, where a and b are constants, generally measured as $W(T) = 1 + aT + bT^2$, measuring the ratio of resistivity, which is less prone to material tension/composition error
 \1 Radiation thermometry, including optical, radiation, infrared, and total radiation, are used to measure thermal/blackbody radiation, using Planck's radiation law relating temperature to radiance, depending only on the walls of a closed body, not the shape
 \2 The dimensions must be larger than the wavelengths themselves, and there must be a small hole to allow radiation to escape to allow measurement, negligible enough to not disturb equilibrium
 \2 Pyrometers were made to measure high temperatures without contact, comparing visible radiation over a small band with that of a standard, using a photoelectric detector, correcting for emissivity of the source at that band
 \2 Total-radiation pyrometers have a larger range able to measure, but are less precise, measuring all radiation from the object, rather than just blackbody
-\1 Thermocouples
-\2 
+\1 Thermocouples are an outdated method of measurement due to high inaccuracy of 0.2 K, made of two wires connected to copper wires in a melting point reference junction, connecting the two wires and measuring the EMF at various values
+\2 $\epsilon = c_0 + c_1\theta + c_2\theta^2 + c_3\theta^3$, where $c_n$ are constants based on the materials of the thermocouple, though for a small range of temperature, $c_3$ approximates to 0
+\2 The temperature range of the thermocouple depends on the materials used, advantageous because of the small, conductive mass allowing rapid temperature equilibrium with the material being measured
+\2 The copper wires can be connected to electrical circuits for monitoring of electrical equipment temperatures or to a simple voltmeter for measurement
 \end{outline*}
 \subsection{Temperature Scales}
 \begin{outline*}
@@ -215,5 +219,9 @@
 \2 For pure liquids at equilibrium with their vapor phase, it is described by the Guggenheim equation of state, $\gamma = \gamma_0(1 - \frac{T}{T_c})^n$, where $T_c$ is critical temperature, $\gamma_0$ is surface tension at standard temperature, generally $20^o C$, and c is a constant, such that $1 \leq c \leq 2$
 \3 As a result, as T approaches $T_c$, the surface tension approaches 0, after which there is unable to be any liquid form
 \2 For oil films on liquid water, it is described by the equation $(\gamma - \gamma_w)A = aT$, where $\gamma - \gamma_w$ is called the surface pressure, acting as a 2D version of the ideal gas law, and where a is some constant
+\end{outline*}
+\section{Chapter 3 - Work}
+\begin{outline*}
+
 \end{outline*}
 \end{document}
