@@ -220,6 +220,7 @@
 \2 For some matrix A, if matrix B can be found by a finite sequence elementary row operations, $A \sim B$, such that the matrices are called row-equivalent
 \3 The individual operations within a sequence to get B from A is denoted by $A \sim^n B$ for the nth operation
 \1 Row-echelon form of a matrix is such that all rows containing only zeroes are at the bottom of the matrix, the first nonzero element in any nonzero row is a 1 (all rows have a leading 1), and the leading 1 of any row below the first is to the right of the one above
+\2 This notably does not mean that the leading 1s have to be in a diagonal, but rather there may be a column without a leading one, such that for a reduced matrix, there does not need to be zeroes there in the other rows above
 \2 This allows the back substitution technique to be used, substituting the bottom equation into the one above it, and so forth, to get the solution
 \2 Thus, row-echelon form is an upper triangular matrix with all non-zero rows having a leading 1
 \1 All matrices have infinite row-equivalent row-echelon matrix which they can be converted to by at least one series of elementary operations
