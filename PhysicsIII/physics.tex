@@ -97,7 +97,7 @@
 \3 Thermal equilibrium is achieved by multiple systems separated by a diathermic wall when they have reached a combined system equilibrium
 \3 Diathermic walls are thus boundaries that allow heat transfers, while adiabatic do not allow heat transfers, both not permitting matter transfers (assuming it does not break due to stress from the systems)
 \2 The Zeroth Law of Thermodynamics states that if two systems are each in thermal equilibrium with another system simultaneously, then they are at thermal equilibrium with each other as well
-\3 It is called this due to the next two relying on this definition, found experimentally as a fundamental law of the discipline
+\3 It is called this due to the next two relying on this definition, found experimentally as a fundamental law of the discipline, creating the concept of temperature as a universal quantity
 \1 Temperature is designed as the macroscopic measure of hotness from an object observed, and microscopically as the average kinetic energy of particles, defined as some number $\geq 0$ in science (Kelvin), ignoring the terms of coldness
 \2 For any given state of a system, there exists a curve, or isotherm, of the locus of all states of another system which would be in thermal equilibrium with the first system, experimentally found to generally be continuous over some region of the curve
 \3 The same can be found for the other system at each set of coordinates, such that by the zeroth law, each isotherm has a corresponding isotherm in the other system, such that all points on those lines are at equilibrium with each other
@@ -158,7 +158,8 @@
 \2 As a result, the modern Celsius scale no longer has a fixed ice/steam point for water, but rather purely the triple point, such that Kelvin is the standard
 \1 Fahrenheit and Rankine are based on a scale 5/9ths that of the Celsius and Kelvin, based on the triple point of water, such that the ice point is found to be $32^o F$, providing a relationship to Celsius
 \1 The International Temperature Scale of 1990 was the creation of a practical scale for routine measurements and calibration of instruments, to ease measurement from time-consuming calibration by the single reference point,  providing a series of fixed points for comparison
-\2 It also provides close measurement interpolation for the remainder, providing a close approximation to the Kelvin scale
+\2 It also provides close measurement interpolation for the remainder, providing a close approximation to the Kelvin scale, by other thermometer types
+\3 This uses polynomial approximations of constants to approximate the scale of another thermometer for that region
 \2 At the minimum of 0.65 K to 3.2 K, it is defined by the $^3He$ vapor pressure-temperature relation, from 1.25 K to 2.1768 K to 5 K by $^4He$ of the same type
 \3 $^3He$ fails below 0.3 K due to being too small to measure, and fails above 3.32 K due to the critical point (where only gas exists), while $^4He$ fails below 1 K due to superfluid behavior causing less variation with temperature and errors, and above 5.2 K due to the critical point
 \2 From 3 K to 24.5561 K by either He gases as a constant-volume gas thermometer
@@ -175,7 +176,7 @@
 \3 Otherwise, change of state will occur until thermal equilibrium is restored
 \1 Thermodynamic equilibrium is when thermal, mechanical, and chemical equilibrium are found simultaneously, such that it can be described by thermodynamic macroscopic coordinates at a particular instant, though not over time
 \2 Thus, when not at mechanical, chemical, and thermal equilibrium, coordinates like composition, temperature, and pressure cannot be used to apply to the system as a whole, as it moves through nonequilibrium states
-\1 Equations of state relate the coordinates of a thermodynamic equilibrium system to each other, based on the individual specifics of a system, such that it is determined by molecular theory or experiment, not general theory
+\1 Equations of state relate the coordinates of a thermodynamic equilibrium system to each other, based on the individual specifics of a system, such that it is determined by molecular theory or experiment, not general theory, but can be assumed to exist for all thermodynamic equilibrium systems since all coordinates are not independent for a system
 \2 At low pressures, the state equation of ideal gas is PV = nRT, or Pv = RT, where v is the molar volume ($\frac{V}{n}$)
 \2 At high pressures, it is represented by the van der Waals equation, based on particle interactions and sizes, such that $(P + \frac{a}{v^2})(v - b) = RT$, where v is the molar volume
 \3 a and b are gas-specific constants, since equations of state are defined by existence, rather than any particular form without constants
@@ -199,6 +200,7 @@
 \4 As the change in volume, and thus pressure, approaches 0 as temperature is constant, it is called the isothermal bulk modulus, $B = -V(\frac{\partial P}{\partial V})$
 \4 Isothermal compressibility, or the reciprocal of isothermal bulk modulus, $\kappa = \frac{-1}{V}(\frac{\partial V}{\partial P})$, and is similarly often constant for a material over some PT range
 \2 This can be similarly found for each equation of state of a different explicit variable, all of which are differentiated to determine an explicit exact differential equation, describing a slight change in state of equilibrium for that explicit differential in terms of the other variables
+\3 Exact differentials are contrasted as the differential of an actual function to that of an inexact differential, denoted by $\delta$
 \3 By combining two of exact differential equations equations, it follows that if y(x, z) and dz = 0, dx $\neq 0$, then $\frac{\partial x}{\partial y}\frac{\partial y}{\partial x} = 1$
 \4 Further, if dz $\neq 0$ and dx = 0, then by extension, $\frac{\partial x}{\partial y}\frac{\partial y}{\partial z}\frac{\partial z}{\partial x} = -1$
 \4 By extension of that, $\frac{\partial y}{\partial z}\frac{\partial z}{\partial x} = -\frac{\partial y}{\partial x}$
@@ -221,10 +223,42 @@
 \2 For oil films on liquid water, it is described by the equation $(\gamma - \gamma_w)A = aT$, where $\gamma - \gamma_w$ is called the surface pressure, acting as a 2D version of the ideal gas law, and where a is some constant
 \end{outline*}
 \section{Chapter 3 - Work}
+\subsection{Definitions}
 \begin{outline*}
 \1 External work is work done on or by the system as a whole, while internal work is work done by part of the system on another part, such as interaction of molecules, only the former able to be done by macroscopic thermodynamics
 \2 External work can be viewed as the changing of macroscopic coordinates by the modification of the configuration/position of some external mechanical device or system, such as thermodynamic electrochemical cell systems powering a mechanical device
+\3 Thus, assuming the system is in thermodynamic equilibrium and there is no change in the configuration of external systems, no external or internal work is done
 \2 Work done on a system is denoted positively, while work done by the system is denoted negatively within thermodynamics and mechanics
-\1 
+\1 Mechanical external work leads to forces and torques within the system, causing external acceleration, internal turbulence, waves, or other forms of internal motion
+\2 This can lead to a nonuniform temperature distribution as well as a lack of thermal equilibrium with external systems
+\3 The lack of thermal and mechanical equilibrium can lead to spontaneous chemical reactions or gradients forming within the system
+\2 As a result, mechanical external work can generally not be described thermodynamically, such that only an infinitesimal applied force, called a quasi-static process, such that it is infinitesimally close to equilibrium during the process
+\3 Thus, it can be thought to be described by an equation of state, being an idealization of work on any thermodynamic system, since the time to move to a new equilibrium state is negligible
+\3 This is used to be able to ignore minor forces acting on a system, giving the ideas of ideal devices without friction and resistance, and to be able to allow change of state equations to apply
+\3 As a result, all processes are reversible, due to no dissipative forces affecting the system, such that energy is not lost from the system
+\2 Quasi-static process theory only applies to systems with proper boundaries, such that thermodynamic equilibrium is able to be reached
+\2 It is notated that since the unbalanced force is infinitesimal, the equation of state variables and the force are considered to be equal for the system and external systems
+\end{outline*}
+\subsection{Hydrostatic System Work}
+\begin{outline*}
+\1 For some hydrostatic system in a closed cylinder with a piston to lower the height of the system, the pressure exerted by the system on the piston is P, the area of the piston A, such that $F_i = PA$, with some external force, $F_e$, only infinitesimally different
+\2 For work done, lowering the volume of the system, $dW = F_edx = PAdx$, since the difference between the forces is infinitesimal
+\3 This is under the assumption of a quasi-static system, such that dissipative processes or chemical movement/reactions would not have a large enough effect to render this invalid
+\3 On the other hand, lack of mechanical equilibrium, such that there is not a standard pressure definition, would render this invalid
+\3 This can be expanded to other hydrostatic systems of different shape, such that the underlying ideas are still valid
+\2 As a result, since $Adx = -dV$ by the decreasing volume, such that $dW = -PdV$, often with work measured in liter-atm for convenience, such that 1 L-atm = 100 J
+\3 This can be integrated for the work done by the external system, assuming the difference between the calculated work done and the actual is negligible, since the process is quasi-static, pressure is a function of temperature and volume by the equation of state
+\3 Once the temperature pathway is found for the particular quasi-static process, it can be integrated purely in terms of V
+\1 For the system, a PV diagram can be drawn for the relationship between pressure and volume as the piston moves, traversing the curve in opposite directions for expansion and contraction
+\2 As a result, for some closed figure, it moves back to the original equilibrium state through other equilibrium states, called a cycle, such that the net work of the cycle is the difference between the work of the expansion and contraction temperature pathways
+\2 It is noted that changing the direction of the cycle would change the sign of the line integral, due to depending on which path direction is traversed for expansion and contraction ($\ointPdV$ for a clockwise curve due to each pathway integral being negative)
+\2 Due to the infinitesimal force differences and possible chemical and thermal movement which is ignored, the path does not have to reverse directly, but rather use a different path such that net work is done, as well as the rate of the multiple controlled changing conditions
+\3 Thus, the path itself matters, such that for an isobaric process, in which pressure is constant, followed by an isochoric process in which volume is constant, it would be different in area from a direct path, such that it is path dependent
+\3 Since the integral is not path-independent, due to infinite possible P(V) functions changing the outcome, $dW = PdV$ is not valid, due to infinite possible values, but rather only valid for a  specific path of P(V), denoted as an inexact differential, $\delta W = PdV$
+\4 This means that $\delta W$ is not a small change in the function of work, but rather simply a small amount of work performed by some small change in dV, such that W is defined only in terms of the integral
+\4 Work as a result, is not some function of thermodynamic coordinates, or a state function of the system, but rather a path function depending on the specific change in the system
+\4 For an isothermal change as a result, the path is the isotherm on the PV plane, such that the work is positional rather than path based, where $\frac {\partial P}{\partial V}$ determines the relative work needed for a change in volume or pressure
+\2 This is all explained by the fact that work for a non-conservative force is a multi-variable path function, rather than a single variable state function, only state if conditions are imposed
+\3 This can also be written as the curl of the force being 0 for conservative forces, as a conservative vector field, which are path-independent on multiple variables as well
 \end{outline*}
 \end{document}
