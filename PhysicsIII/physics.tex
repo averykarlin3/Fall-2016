@@ -190,7 +190,7 @@
 \2 They are divided into three catagories, pure substances (a single compound of any mixture of states), homogeneous mixture of different compounds (mixture of different compounds of the same state or a solution), and heterogeneous mixtures (mixtures of multiple homogeneous multiple compound mixtures of different states)
 \3 It has been found experimentally that systems of a single state can be described by three coordinate equations of state, PVT
 \2 These equations can describe some macroscopically small change in a measurement by a differential, though since they are macroscopic coordinates, it describes an amount greater than a few particles changing, rather than an infinitesimal amount
-\2 Thus, for some function V = V(T, P), $dV = \frac{\partial V}{\partial T}(T, P)dT + \frac{\partial V}{\partial P}(T, P)dP$
+\2 Thus, for some function V = V(T, P), $dV = \frac{\partial V}{\partial T}(T, P)dT + \frac{\partial V}{\partial P}(T, P)dP$, abbreviated as $dV = \frac{\partial V}{\partial T})_PdT + \frac{\partial V}{\partial P})_TdP$
 \3 The average coefficient of volume expansion is defined as the change in volume per unit volume divided by the change in temperature at constant pressure
 \4 As the change in temperature, and thus volume, approaches 0, the differential coefficient of volume expansion, or the volume expansivity, $\beta = \frac{1}{V}(\frac{\partial V}{\partial T})$
 \4 It is generally a positive number, though there are exceptions such as water for $0-4^o C$ melting point at which point water reaches maximum density
@@ -263,6 +263,22 @@
 \end{outline*}
 \section{Chapter 4 - Heat and the First Law of Thermodynamics}
 \begin{outline*}
-
+\1 Closed systems can have a change of state both by external work done on the system, and by heat transfer from a hotter substance within the system, rather than mechanically
+\2 Heat is thus defined as something transferred between a system and surroundings by temperature difference only, such that adiabatic walls are also called heat insulators and diathermic walls are heat conductor
+\2 Heat transfer and work can often be viewed as snonymously occurring, such that it depends on what is defined as the system and surroundings to define which is taking effect
+\1 Adiabatic work is work done within an adiabatic boundary performed by a coupled system acting on the adiabatically closed system, such that there is no transfer of heat into the system, but rather purely a mechanical energy transfer
+\2 This can still result in a change in temperature, based on which parameters are allowed to vary, such as increasing the temperature of water through a resistor
+\2 As a result, the first law of thermodynamics states that for any adiabatic change of state, the work done is equal for all adiabatic pathways connecting the states
+\3 Similar to a conservative force system, a thermodynamic system can thus be described in terms of a potential energy function, such that $W_{adiabatic, i \to f} = U_f - U_i$, called the internal energy function, where W is the work done on the system
+\3 It is noted that not all states can be reached by purely adiabatic work due to entropy
+\3 This as a result defines the law of the conservation of energy, and states that for any system, there exists an energy function describing the difference between two states as the energy change
+\2 Since internal energy is a state function, dU can be expressed as an exact differential in terms of the coordinates necessary to describe a state
+\1 For nonadiabatic work, to allow conservation of energy to be consistent since $\Delta U \neq W_{adi}$, energy must be transferred by another means, heat transfer
+\2 Thus, heat is defined thermodynamically as energy transferred by non-mechanical means into/from a closed system is called heat, such that $\Delta U = Q + W$, where W is adiabatic work and Q is diathermal heat transfer, positive for both if entering the system, as the full first law
+\2 Thus, it can be seen from this the experimental idea that heat is energy transferred by a temperature gradient
+\2 Temperature gradient is not the only relevant factor for transferred energy though, such that for an isochoric (constant volume) system due to a fixed diathermic boundary, it is internal energy transferred
+\3 On the other hand, isobaric heat (constant pressure) due to a movable boundary, it is enthalpy, rather than internal energy transferred as heat
+\3 Thus, heat is either internal energy or enthalpy based on the system conditions being transferred, though it is only applicable as a path quantity, rather than a state, $\delta Q$, similar to work
+\2 Further, by this equation, it is evident that for an adiabatic system, the loss of heat from one section of the system is equal to the gain by another part of the system
 \end{outline*}
 \end{document}
