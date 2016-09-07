@@ -210,6 +210,7 @@
 \3 Thus, the solution of $A\vec{x} = \vec{B}$ is $\forall\vec{x} \in \mathbb{R}^n$ which satisfy the equation
 \3 This also signifies the linear transformation of a n dimensional vector space to an m dimensional vector space, used as an alternative definition of a vector, able to be used to generate mappings such as rotational matrices
 \1 For some system of m linear equations, in a column m-vector, $\vec{x}$, the derivative is equal to the derivative of each component equation, and $\vec{x}$ is considered a vector-valued function
+\1 The vector formulation of some system of first order linear differential equations is written as $\vec{x}'(t) = A\vec{x}(t) + \vec{b}(t)$
 \end{outline*}
 \subsection{Elementary Row Operations and Row-Echelon Matrices}
 \begin{outline*}
@@ -224,11 +225,13 @@
 \2 This allows the back substitution technique to be used, substituting the bottom equation into the one above it, and so forth, to get the solution
 \2 Thus, row-echelon form is an upper triangular matrix with all non-zero rows having a leading 1
 \1 All matrices have infinite row-equivalent row-echelon matrix which they can be converted to by at least one series of elementary operations
-\2 This is generally done by putting a one in the pivot position, or the topmost position of the first non-zero column/pivot column, followed by putting zeroes below, and moving on to the submatrix under and so forth
+\2 This is generally done by putting a one in the pivot position, or the topmost position of the first non-zero column/pivot column, followed by putting zeroes below, and moving on to the submatrix under and so forth, which then becomes the pivot column
+\3 As a result, linear systems are consistent iff the last column of the augmented matrix row-echelon form is not a pivot column
 \2 Fractions in general must be avoided for simplicity when getting echelon-matrices
 \1 While there are infinite row-equivalent row-echelon matrices for any matrix, all must have the same number of non-zero rows, called the rank of the matrix, denoted by rank(A) for some matrix A
 \2 For some matrix of n rows, if there is 1 zero row, there must be some set of constants, $c_1\vec{a}_1 + \dots + c_n\vec{a}_n = 0$, such that each can be written in terms of the others by the elementary operations
 \2 The rank of some matrix of size m x n must be $\leq m, n$, by the definition of row-echelon form
+\2 Rank(A) = $\vec{0}$ is true iff A is a zero matrix
 \1 Reduced row-echelon matrices are a special case such that each leading one has only zeroes in the column otherwise
 \2 Each m x n matrix is row-equivalent to a unique reduced row-echelon matrix
 \2 This is able to be created by the same procedure, subtracting to produce zeroes above the leading zero after each iteration
@@ -242,6 +245,7 @@
 \3 The number of free variables for an m x n matrix is equal to n - rank($A^\#$), due to there being n variables total
 \3 If n = rank($A^\#$), then there is a single, unique solution
 \2 If $rank(A) < rank(A^\#)$, there is no solution, since there is a false statement within the matrix
+\1 For systems of equations with imaginary numbers, it is noted that it can be multiplied by the complex conjugate as well as purely real numbers, such that the imaginary terms can be removed
 \1 Homogeneous linear systems are those of the form $\vec{A}\vec{x} = \vec{0}$, such that the solution, $\vec{x} = \vec{0}$ is always valid, called the trivial solution
 \2 As a result, homogeneous linear systems must either have only the trivial solution, or infinite solution, since each plane must pass through the origin geometrically
 \2 In addition, if the number of unknowns, n $>$ m (number of linear equations), there are infinite solutions by necessity, while if m $\geq$ n, it could have a single or infinite solutions based on the  rank
@@ -259,6 +263,7 @@
 \3 Further, we can say that if AB is invertible, then both A and B are invertible
 \1 Inverse matrices can be found by column by column, solving the system of equations such that ${AA^{-1}_t = (I_n)_t}_{t=1}^n$, such that the reduced augmented row-echelon matrix can be solved for, giving the system constants as the column of the inverse matrix
 \2 This effectively is modifying $[A I_n]$ such that it changes to the form $[I_n A^{-1}]$, called the Gauss-Jordan Technique
+\1 Orthogonal matrices are defined as those such that $A^T = A^{-1}$
 \end{outline*}
 %\subsection{Elementary Matrices and LU Factorization}
 %\begin{outline*}
@@ -296,6 +301,7 @@
 \3 Thus, the area of a parallelogram represented by two vectors is equal to the absolute value of the cross product/determinant similarly
 \3 In addition, for some parallelepiped represented by three vectors, the volume is equal to the absolute value of the determinant A, \begin{vmatrix} \vec{a} \\ \vec{b} \\ \vec{c} \\ \end{vmatrix}
 \4 Thus, if all three are in the same plane, the determinant would be zero, since the volume is 0, able to test if vectors are coplanar
+\1 The Wronskian matrix is the 3x3 matrix of three solutions to some differential equation in the first row, and their first and second derivatives below
 \end{outline*}
 \subsection{Properties of Determinants}
 \begin{outline*}
@@ -305,6 +311,7 @@
 \2 For some matrix obtained by adding a multiple of any row of A to some other row, the determinant is det(A)
 \1 These elementary row operation multipliers can be used to modify the determinant matrix to upper/lower triangular form, such that it can be calculated easier
 \1 Furthermore for some square matrices A and B, $det(A^T) = det(A)$ and $det(AB) = det(A)det(B)$, such that the properties true for rows are similarly true for columns/elementary column operations
+\2 It follows as a result that $det(A^{-1}) = \frac{1}{det(A)}$
 \2 In addition, if A has a row or column of zeroes, det(A) = 0, and if two rows or columns are equal, then det(A) = 0
 \2 If $\vec{a}_1, \vec{a}_2, \dots, \vec{a}_n$ are the row/column vectors of A, if B and C are made up of the same vectors except the $i^{th}$, and $a_i = b_i + c_i$, then det(A) = det(B) + det(C), used to break up a matrix of sums by row/column
 \end{outline*}

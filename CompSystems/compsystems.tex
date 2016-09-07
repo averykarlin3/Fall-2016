@@ -149,7 +149,23 @@
 \1 Microprocessors are generally made of metal-oxide semiconductor (MOS) transistors, divided into p and n types, each with three terminals, the gate, source, and drain
 \2 For some amount of voltage, generally 2.9 V, supplied to the gate of an n-type, the switch turns on, such that electricity can move from the source to the drain, forming a closed circuit
 \3 This is generally only denoted by shorthand in drawings by the gate, which is written out, while the other terminals are just drawn as wire, denoted overall by a parallel line next to the wire with the gate coming from it
+\3 p-type transistors have a small circle between the gate and the line leading to the gate
 \2 p-type transistors work the opposite manner, acting as a wire only when there is virtually no voltage, while acting as an open circuit if 2.9 V is placed in the gate
 \2 As a result, circuits with both types are called complementary metal-oxide semiconductor (CMOS) circuits
+\1 Logic gate structures are transistor circuits for the purposes of logical functions, AND, OR, and NOT/Inverter gates as the fundamental gates
+\2 NOT gates are made up of two MOS transistors of opposite types, current flowing into the gates, the input leading to the gates of both, with a voltage going into the source of the p-type
+\3 The drain of the p-type is connected to the output and the source of the n-type, with the drain of the n-type grounded
+\3 Thus, if there is voltage to the gates, voltage flows from the source to the output, while otherwise, voltage flows from the inputs to the ground, with none to the output, the latter necessary to create a grounded circuit if broken
+\3 Inverters are drawn as a triangle with a small circle before the output wire, or can be drawn with just the small bubble/circle to show inversion as a shorthand
+\2 The NOR (Not OR) gate has two p-type in series, each with a separate input, and with each input connected to one of two parallel n-type resistors, which are connected in series to the p-types, with the output between
+\3 Each n-types are grounded, with voltage automatically flowing to the first p-type, such that it acts similarly to two NOT gates combined, such that the gate is grounded unless there is an output as well
+\3 OR gates are then created by adding an inverter to the output of the NOR gate
+\3 NOR gates are drawn as a crest-like shape, with an input to each horn, the output from the bottom point, with a small circle before the output wire, OR gates without the circle
+\2 NAND (Not AND) gates have two parallel p-type transistors, each connected to an input and a voltage source, joining to the output, each connected to one of two in series n-types connected to the ground
+\3 As a result, the circuit is grounded only if the output is zero, such that there is current through both inputs, while otherwise current is through the output
+\3 AND gates as a result are just NAND gates with an added inverter after
+\3 NAND gates are drawn as a closed semi-circle with a small circle before the output line, with two input lines, while AND gates are drawn without the circle
+\2 DeMorgan's Law states that A OR B = NOT((NOT A) AND (NOT B)), showing the relationship between the NOT and OR gates
+\2 The binary gates can be extended as a result to a larger number of inputs by extending the number of transistors that make up the gate
 \end{outline*}
 \end{document}
