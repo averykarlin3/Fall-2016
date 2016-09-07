@@ -195,6 +195,7 @@
 \4 It is generally a positive number, though there are exceptions such as water for $0-4^o C$ melting point at which point water reaches maximum density
 \4 This is due to hydrogen bonding of ice and surface tension of water and is generally a function of P and T
 \4 It often varies negligibly with respect to P and T often within a small temperature and pressure range, such that it can be considered a constant over the range
+\4 It included division by V to signify the relative/percentage change in volume, rather the absolute change
 \3 The average bulk modulus is defined as $\frac{-V\Delta P}{\Delta V}$, due to the pressure increasing causing a decrease in volume, such that it is a positive value
 \4 As the change in volume, and thus pressure, approaches 0 as temperature is constant, it is called the isothermal bulk modulus, $B = -V(\frac{\partial P}{\partial V})$
 \4 Isothermal compressibility, or the reciprocal of isothermal bulk modulus, $\kappa = \frac{-1}{V}(\frac{\partial V}{\partial P})$, and is similarly often constant for a material over some PT range
@@ -211,8 +212,10 @@
 \3 By the limit of the average linear coefficient of expansion, linear expansivity, $\alpha = \frac{1}{L}\frac{\partial L}{\partial T}$
 \4 Metals tend to have a positive linear expansivity, but other materials such as rubber may be negative
 \4 Linear expansivity is mainly constant for torque change, only changing for temperature, but over a small range, can be considered constant
-\3 By the limit of average Young's modulus, isothermal Young's modulus, $Y = \frac{L}{A}\frac{\partial \tau}{\partial L}$
-\4 Isothermal Young's modulus is always positive, only changing for temperature, but can be considered constant over some small range as well
+\4 It is noted that the linear expansivity is derived to be related to the volume expansivity, such that it is $\frac{1}{3}\beta$, assuming the material is isotropic (same in each direction)
+\4 Old thermostats were based on this, with two attached materials of different $\alpha$, such that it would curl as they expanded at different rates
+\3 By the limit of average Young's modulus (Stress * Y = Strain), isothermal Young's modulus, $Y = \frac{L}{A}\frac{\partial \tau}{\partial L}$
+\4 Isothermal Young's modulus is always positive, only changing for temperature, but can be considered constant until some maximum strain ($\frac{\Delta L}{L}$) as well
 \1 Surfaces are a 2D system, with different properties from those of the underlying material, acting as a stretched membrane, with each point exerting a force opposite and perpendicular to the opposite side of the surface
 \2 Surfaces are thus described by the area, A, the temperature, T, and the surface tension, $\gamma$, which is the force per unit length of the surface, where the unit length is parallel to the edge
 \2 While the substance within the surface is relevant, the volume and pressure of it can be ignored, due to remaining fairly constant for small changes in the surface coordinates
@@ -229,6 +232,6 @@
 \end{outline*}
 \section{Chapter 4 - Heat and the First Law of Thermodynamics}
 \begin{outline*}
-
+\1
 \end{outline*}
 \end{document}
