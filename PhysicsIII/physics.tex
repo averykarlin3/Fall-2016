@@ -216,11 +216,12 @@
 \3 By the limit of average Young's modulus, isothermal Young's modulus, $Y = \frac{L}{A}\frac{\partial \tau}{\partial L}$
 \4 Isothermal Young's modulus is always positive, only changing for temperature, but can be considered constant over some small range as well
 \1 Surfaces are a 2D system, with different properties from those of the underlying material, acting as a stretched membrane, with each point exerting a force opposite and perpendicular to the opposite side of the surface
-\2 Surfaces are thus described by the area, A, the temperature, T, and the surface tension, $\gamma$, which is the force per unit length of the surface, where the unit length is parallel to the edge
+\2 Surfaces are thus described by the area, A, the temperature, T, and the surface tension, $\gamma$, which is the force per unit length of the surface, at any point in any direction on the surface, with an equal and opposite force on the surface
 \2 While the substance within the surface is relevant, the volume and pressure of it can be ignored, due to remaining fairly constant for small changes in the surface coordinates
-\2 For pure liquids at equilibrium with their vapor phase, it is described by the Guggenheim equation of state, $\gamma = \gamma_0(1 - \frac{T}{T_c})^n$, where $T_c$ is critical temperature, $\gamma_0$ is surface tension at standard temperature, generally $20^o C$, and c is a constant, such that $1 \leq c \leq 2$
+\2 For pure liquids at equilibrium with their vapor phase, it is described by the Guggenheim equation of state, $\gamma = \gamma_0(1 - \frac{T}{T_c})^n$, where $T_c$ is critical temperature, $\gamma_0$ is surface tension at standard temperature, generally $20^o C$, and n is a constant, such that $1 \leq c \leq 2$
 \3 As a result, as T approaches $T_c$, the surface tension approaches 0, after which there is unable to be any liquid form
 \2 For oil films on liquid water, it is described by the equation $(\gamma - \gamma_w)A = aT$, where $\gamma - \gamma_w$ is called the surface pressure, acting as a 2D version of the ideal gas law, and where a is some constant
+\2 For soap bubbles, it functions as two surfaces trapping a small amount of liquid between the two, while another common surface is a single layer of gas on a solid surface
 \end{outline*}
 \section{Chapter 3 - Work}
 \subsection{Definitions}
@@ -238,6 +239,7 @@
 \3 As a result, all processes are reversible, due to no dissipative forces affecting the system, such that energy is not lost from the system
 \2 Quasi-static process theory only applies to systems with proper boundaries, such that thermodynamic equilibrium is able to be reached
 \2 It is notated that since the unbalanced force is infinitesimal, the equation of state variables and the force are considered to be equal for the system and external systems
+\1 While internal work does take place on a microscopic scale within the system, it is not the purview of thermodynamics, but rather within statistical mechanics, such that only external work is viewed on the macroscopic scale
 \end{outline*}
 \subsection{Hydrostatic System Work}
 \begin{outline*}
@@ -261,6 +263,8 @@
 \4 For a derivative of an inexact differential, it is noted that the path must still be determined for the differential, even with a designated change, assuming there are multiple paths for the change itself
 \2 This is all explained by the fact that work for a non-conservative force is a multi-variable path function, rather than a single variable state function, only state if conditions are imposed
 \3 This can also be written as the curl of the force being 0 for conservative forces, as a conservative vector field, which are path-independent on multiple variables as well
+\1 For a length of wire system, $\delta W = \tau dL$, while for a surface film (two layers containing some liquid between), $\delta W = \gamma dA$, proved similarly for each system
+\2 The equation is derived for a film, but is equally applicable for a single surface, though the area of the surface is doubled for a film, due to repeating
 \end{outline*}
 \section{Chapter 4 - Heat and the First Law of Thermodynamics}
 \subsection{Internal Energy}
@@ -274,6 +278,8 @@
 \3 Similar to a conservative force system, a thermodynamic system can thus be described in terms of a potential energy function, such that $W_{adiabatic, i \to f} = U_f - U_i$, called the internal energy function, where W is the work done on the system
 \3 It is noted that not all states can be reached by purely adiabatic work due to entropy
 \3 This as a result defines the law of the conservation of energy, and states that for any system, there exists an energy function describing the difference between two states as the energy change
+\4 It was noted that it was thought beta decay and the microscopic scale did not follow conservation of energy, due to less calculated after the decay, found to be due to the antineutrino for $\beta^-$, neutrino for $\beta^+$
+\4 On an astronomical scale, it was found that dark energy and dark matter was necessary for conservation of energy to exist, but within general relativity in a nonconstant gravitational field, it was found to not apply
 \2 Since internal energy is a state function, dU can be expressed as an exact differential in terms of the coordinates necessary to describe a state
 \end{outline*}
 \subsection{First Law of Thermodynamics}
@@ -312,5 +318,39 @@
 \4 The only sections of the right hand side that are modified as a result of the path are P(T, V) and $\frac{dV(T, P)}{dT}$, the former held constant in this form, the latter becoming a partial
 \4 While the pathway by which P and T vary for within different parts of the equation rely on separate changes/parameters, it only determines the bounds of the end result, while the pathway chosen determines for both
 \3 This is further modified to show that $C_P = C_V + (\frac{\partial U}{\partial V}|_T + P)V\beta$, providing another function of internal energy found theoretically, in terms of measurable state functions
+\end{outline*}
+\subsection{Heat Flow}
+\begin{outline*}
+\1 Temperature difference between a system and surroundings creates a lack of thermodynamic equilibrium, with a nonuniform temperature, though quasi-static process of heat flow behaves similarly to that of quasi-static work
+\2 For some body of relatively large mass to the main system, it functions as a heat reservoir, such that virtually any amount of heat flow will not measurably change thermodynamic coordinates
+\2 Quasi-static heat reservoir contact would produce an isothermal change of state, due to the infinitesimal temperature gradient, adding energy to the system to produce other coordinate changes
+\3 On the other hand, a series of infinitesimally different heat reservoirs would produce an overall non-isothermal change of state, able to be performed for a high amount of time, using heat reservoirs such that their temperature remains constant
+\3 As a result, $\delta Q = CdT$, where the path of the heat capacity determines the path of Q, allowing it to be integrated
+\1 Two parts of an adiabatically closed substance maintained at different temperatures at the edges have a continuous distribution of temperature in between, due to transporting energy between by heat conduction
+\2 Thus, it is found experimentally that $\frac{\delta Q}{dt} = -KA\frac{dT}{dx}$, where $\frac{dT}{dx}$ is the temperature gradient, showing the rate of heat flow between the edges
+\3 K is the thermal conductivity, such that a large valued object is a thermal conductor, a small value is a thermal insulator
+\2 Thermal conductivity varies as a function of temperature, such that for a large gradient, it varies throughout the object, though if small enough, it can be considered constant
+\3 For some small temperature difference, $K = \frac{-L}{A\DeltaT}\frac{\delta Q}{dt}$, due to the temperature gradient and length being
+\2 It has been found that thermal conductivity of metal is reduced by a large amount by any impurities, as well as changes in pressure of gases below a certain level and composition
+\3 Liquids have lower thermal conductivity, increasing as the temperature is raised, while metals tend to remain fairly constant until some minimum temperature where it decreases
+\3 Nonmetals are poor conductors, similar to liquids, decreasing as temperature is raised, rising drastically at low temperatures
+\3 Gases are especially bad conductors, independent of pressure after some maximum pressure, generally below 1 atm, increasing as the temperature rises
+\1 Convection currents are flows of liquid or gas that absorb heat and mix with another fluid of a lower temperature, releasing the heat, or vice verse
+\2 Convection currents by an external force/system is a forced convection, while if it is due to a combined density difference causing the flow along with a temperature difference, it is a natural convection
+\2 For fluid in motion against some surface, there is some thin film of stationary fluid between, thinner the stronger the motion is
+\3 Heat is thus able to be transferred both by conduction through the film and convection
+\2 The convection coefficient h, is defined such that $\frac{\delta Q}{dt} = hA(T_{wall} - T_{fluid})$, where h takes into account both the surface conduction and the convection
+\3 The coefficient depends on if the wall is flat/curved, vertical/horizontal, gas/liquid, density, viscosity, specific heat, and thermal conductivity of the fluid, laminar (low speed)/turbulent flow (high speed), and if evaporation, condensation, or formation of scale happens
+\1 Heat can be transmitted through empty space through radiation, most relevantly thermal (IR and visible), which is transmitted due to the high temperature of the origin solid/liquid (gases behave separately)
+\2 At higher temperatures, greater frequencies of visible light are emitted, and more total energy is emitted
+\2 The radiant exitance, R, of the body is the radiant power per infinitesimal area, depending on the nature of the surface of the body and the temperature just as absorbance and emissivity does
+\2 Isotropic radiation is thermal radiation incident on a body equally from all directions, where the fraction of incident radiant power absorbed is absorptivity
+\3 Total emissivity, $\epsilon$, is the fraction of power added to the body that is emitted as thermal radiation, such that for thermal equilibrium, it is equal to absorptivity
+\3 Ideal substances are those which absorbing and emit all radiation falling on it, called a blackbody, independent of the substance made from, approximated by a cavity with a small entrance hole and uniform high-temperature opaque walls
+\4 This is due to the radiation reflecting around the cavity until fully absorbed, such that it is almost entirely absorbed and is isotropic
+\2 Irradiance is the radiant power incident per infinitesimal area on the surface of the cavity, corresponding to radiant exitance
+\3 Thus, for a blackbody with irradiance of H in thermal equilibrium with the cavity is placed within, such that radiant power absorbed per unit area of the blackbody is H$\epsilon$ = H
+\3 Thus, radiant exitance of the blackbody, R, is equal to H, since the radiant power absorbed is equal to that emitted per unit area for the body, projected back to and from the cavity
+\2 It has been found that the amount of radiation within the cavity is a function of the temperature produced by the thermal equilibrium and independent of the materials, detected by allowing a small amount of radiation to escape for measurement
 \end{outline*}
 \end{document}
