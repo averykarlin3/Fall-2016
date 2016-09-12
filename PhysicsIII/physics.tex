@@ -343,14 +343,20 @@
 \3 The coefficient depends on if the wall is flat/curved, vertical/horizontal, gas/liquid, density, viscosity, specific heat, and thermal conductivity of the fluid, laminar (low speed)/turbulent flow (high speed), and if evaporation, condensation, or formation of scale happens
 \1 Heat can be transmitted through empty space through radiation, most relevantly thermal (IR and visible), which is transmitted due to the high temperature of the origin solid/liquid (gases behave separately)
 \2 At higher temperatures, greater frequencies of visible light are emitted, and more total energy is emitted
-\2 The radiant exitance, R, of the body is the radiant power per infinitesimal area, depending on the nature of the surface of the body and the temperature just as absorbance and emissivity does
+\2 The radiant exitance, R, of the body is the radiant power per infinitesimal area, depending on the nature of the surface of the body and the temperature just as absorptivity and emissivity does
 \2 Isotropic radiation is thermal radiation incident on a body equally from all directions, where the fraction of incident radiant power absorbed is absorptivity
-\3 Total emissivity, $\epsilon$, is the fraction of power added to the body that is emitted as thermal radiation, such that for thermal equilibrium, it is equal to absorptivity
-\3 Ideal substances are those which absorbing and emit all radiation falling on it, called a blackbody, independent of the substance made from, approximated by a cavity with a small entrance hole and uniform high-temperature opaque walls
+\3 Total emissivity, $\epsilon$, is the fraction of power incident on the body that is emitted as thermal radiation, such that for thermal equilibrium, it is equal to absorptivity, depending on temperature and the material itself
+\3 Ideal substances are those which absorbing and emit all radiation falling on it when at thermal equilibrium, called a blackbody, independent of the substance made from, approximated by a cavity with a small entrance hole and uniform high-temperature opaque walls
 \4 This is due to the radiation reflecting around the cavity until fully absorbed, such that it is almost entirely absorbed and is isotropic
 \2 Irradiance is the radiant power incident per infinitesimal area on the surface of the cavity, corresponding to radiant exitance
 \3 Thus, for a blackbody with irradiance of H in thermal equilibrium with the cavity is placed within, such that radiant power absorbed per unit area of the blackbody is H$\epsilon$ = H
 \3 Thus, radiant exitance of the blackbody, R, is equal to H, since the radiant power absorbed is equal to that emitted per unit area for the body, projected back to and from the cavity
 \2 It has been found that the amount of radiation within the cavity is a function of the temperature produced by the thermal equilibrium and independent of the materials, detected by allowing a small amount of radiation to escape for measurement
+\2 Radiant exitance of a non-blackbody depends on the surface material itself, as well as temperature, such that $R = \epsilon H = \epsilon R_{bb}$, called Kirchhoff's Law, used to measure thermal radiation emissivity of materials at some temperature
+\2 There will only be a difference in the heat absorbed and emitted if there is a temperature difference between a body and its surroundings as a result
+\3 Thus, $\frac{\delta Q}{dt} = A(\alpha(T) H - R) = A(\epsilon(T) R_bb(T_W) - \epsilon(T) R_bb(T) = A\epsilon(T)(R_bb(T_w) - R_bb(T)$ for some body in a cavity, such that it is isotropic, where the cavity is large enough for the change in temperature to be negligible, T is the temperature of the body, $T_w$ of the cavity
+\2 It was derived later thermodynamically that $R_bb(T) = \sigma T^4$, where $\sigma$ is the Stefan-Boltzmann constant, $5.67051 * 10^-8 \frac{W}{m^2 * K^4}$
+\3 It follows that $\frac{\delta Q}{dt} = A\epsilon\sigma(T_W^4 - T^4)$
+\3 The Stefan-Boltzmann constant can be determined by
 \end{outline*}
 \end{document}
