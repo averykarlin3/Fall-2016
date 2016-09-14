@@ -167,5 +167,15 @@
 \3 NAND gates are drawn as a closed semi-circle with a small circle before the output line, with two input lines, while AND gates are drawn without the circle
 \2 DeMorgan's Law states that A OR B = NOT((NOT A) AND (NOT B)), showing the relationship between the NOT and OR gates
 \2 The binary gates can be extended as a result to a larger number of inputs by extending the number of transistors that make up the gate
+\1 Combinational logic circuits, or decision elements, are structures of logic gates, depending only on immediate input data provided, rather than any stored data, contrasting data storage structures
+\2 Decoders are a circuit which takes two inputs, and returns four bits based on which combination of the inputs is 1, called the opcode
+\3 It thus decodes two ordered inputs, returning 1000 if 00 is the input, 0100 if 01, 0010 if 10, and 0001 if 11
+\3 This is done by placing four AND gates in parallel, each with a varying number and sequence of inverters directly before them
+\2 Mux, or multiplexers, select one of two inputs to use as output based on the select signal
+\3 This is done by feeding the select signal and its inversion into two AND gates, each with one input going to it, combining the results in an OR gate to return the chosen value
+\3 This is extended to more inputs by increasing the number of possible select signals to the AND gate
+\3 This is drawn by a trapezoid with the select signal going to a leg, the inputs to the longer side, the output from the shorter
+\4 Multiple select signals can be denoted by a slash on the wire with the number of signals written above the slash
+\2 
 \end{outline*}
 \end{document}
