@@ -150,6 +150,7 @@
 \begin{outline*}
 \1 As the triple point pressure of a gas (due to lessening volume), approaches 0, the resulting temperature calculated is the ideal-gas temperature
 \2 While thermometers depend on the specific measuring gas properties to provide the temperature, as it approaches the ideal gas temperature, it becomes independent of the measuring gas, though based on the properties of gases overall, rather than an individual gas, behaving ideally
+\3 Due to this ideal specific gas-independent temperature, it is an ideal state of matter for measuring of temperature
 \2 For the temperature region in which a gas thermometer may be used, the measured Kelvin temperature scale and ideal gas temperature scales are identical
 \2 It is noted that the idea of lack of atomic motion at absolute zero cannot be assumed, due to relying on the complete equivalency of temperature and atomic motion on different scales 
 \3 In addition, at absolute zero, there is some residual energy expected based on quantum mechanics, resulting in the zero-point energy quantity
@@ -219,11 +220,12 @@
 \3 By the limit of average Young's modulus (Stress * Y = Strain), isothermal Young's modulus, $Y = \frac{L}{A}\frac{\partial \tau}{\partial L}$
 \4 Isothermal Young's modulus is always positive, only changing for temperature, but can be considered constant until some maximum strain ($\frac{\Delta L}{L}$) as well
 \1 Surfaces are a 2D system, with different properties from those of the underlying material, acting as a stretched membrane, with each point exerting a force opposite and perpendicular to the opposite side of the surface
-\2 Surfaces are thus described by the area, A, the temperature, T, and the surface tension, $\gamma$, which is the force per unit length of the surface, where the unit length is parallel to the edge
+\2 Surfaces are thus described by the area, A, the temperature, T, and the surface tension, $\gamma$, which is the force per unit length of the surface, at any point in any direction on the surface, with an equal and opposite force on the surface
 \2 While the substance within the surface is relevant, the volume and pressure of it can be ignored, due to remaining fairly constant for small changes in the surface coordinates
-\2 For pure liquids at equilibrium with their vapor phase, it is described by the Guggenheim equation of state, $\gamma = \gamma_0(1 - \frac{T}{T_c})^n$, where $T_c$ is critical temperature, $\gamma_0$ is surface tension at standard temperature, generally $20^o C$, and c is a constant, such that $1 \leq c \leq 2$
+\2 For pure liquids at equilibrium with their vapor phase, it is described by the Guggenheim equation of state, $\gamma = \gamma_0(1 - \frac{T}{T_c})^n$, where $T_c$ is critical temperature, $\gamma_0$ is surface tension at standard temperature, generally $20^o C$, and n is a constant, such that $1 \leq c \leq 2$
 \3 As a result, as T approaches $T_c$, the surface tension approaches 0, after which there is unable to be any liquid form
 \2 For oil films on liquid water, it is described by the equation $(\gamma - \gamma_w)A = aT$, where $\gamma - \gamma_w$ is called the surface pressure, acting as a 2D version of the ideal gas law, and where a is some constant
+\2 For soap bubbles, it functions as two surfaces trapping a small amount of liquid between the two, while another common surface is a single layer of gas on a solid surface
 \end{outline*}
 \section{Chapter 3 - Work}
 \subsection{Definitions}
@@ -241,6 +243,7 @@
 \3 As a result, all processes are reversible, due to no dissipative forces affecting the system, such that energy is not lost from the system
 \2 Quasi-static process theory only applies to systems with proper boundaries, such that thermodynamic equilibrium is able to be reached
 \2 It is notated that since the unbalanced force is infinitesimal, the equation of state variables and the force are considered to be equal for the system and external systems
+\1 While internal work does take place on a microscopic scale within the system, it is not the purview of thermodynamics, but rather within statistical mechanics, such that only external work is viewed on the macroscopic scale
 \end{outline*}
 \subsection{Hydrostatic System Work}
 \begin{outline*}
@@ -261,10 +264,14 @@
 \4 This means that $\delta W$ is not a small change in the function of work, but rather simply a small amount of work performed by some small change in dV, such that W is defined only in terms of the integral
 \4 Work as a result, is not some function of thermodynamic coordinates, or a state function of the system, but rather a path function depending on the specific change in the system
 \4 For an isothermal change as a result, the path is the isotherm on the PV plane, such that the work is positional rather than path based, where $\frac {\partial P}{\partial V}$ determines the relative work needed for a change in volume or pressure
+\4 For a derivative of an inexact differential, it is noted that the path must still be determined for the differential, even with a designated change, assuming there are multiple paths for the change itself
 \2 This is all explained by the fact that work for a non-conservative force is a multi-variable path function, rather than a single variable state function, only state if conditions are imposed
 \3 This can also be written as the curl of the force being 0 for conservative forces, as a conservative vector field, which are path-independent on multiple variables as well
+\1 For a length of wire system, $\delta W = \tau dL$, while for a surface film (two layers containing some liquid between), $\delta W = \gamma dA$, proved similarly for each system
+\2 The equation is derived for a film, but is equally applicable for a single surface, though the area of the surface is doubled for a film, due to repeating
 \end{outline*}
 \section{Chapter 4 - Heat and the First Law of Thermodynamics}
+\subsection{Internal Energy}
 \begin{outline*}
 \1 Closed systems can have a change of state both by external work done on the system, and by heat transfer from a hotter substance within the system, rather than mechanically
 \2 Heat is thus defined as something transferred between a system and surroundings by temperature difference only, such that adiabatic walls are also called heat insulators and diathermic walls are heat conductor
@@ -275,13 +282,127 @@
 \3 Similar to a conservative force system, a thermodynamic system can thus be described in terms of a potential energy function, such that $W_{adiabatic, i \to f} = U_f - U_i$, called the internal energy function, where W is the work done on the system
 \3 It is noted that not all states can be reached by purely adiabatic work due to entropy
 \3 This as a result defines the law of the conservation of energy, and states that for any system, there exists an energy function describing the difference between two states as the energy change
+\4 It was noted that it was thought beta decay and the microscopic scale did not follow conservation of energy, due to less calculated after the decay, found to be due to the antineutrino for $\beta^-$, neutrino for $\beta^+$
+\4 On an astronomical scale, it was found that dark energy and dark matter was necessary for conservation of energy to exist, but within general relativity in a nonconstant gravitational field, it was found to not apply
 \2 Since internal energy is a state function, dU can be expressed as an exact differential in terms of the coordinates necessary to describe a state
+\end{outline*}
+\subsection{First Law of Thermodynamics}
+\begin{outline*}
 \1 For nonadiabatic work, to allow conservation of energy to be consistent since $\Delta U \neq W_{adi}$, energy must be transferred by another means, heat transfer
 \2 Thus, heat is defined thermodynamically as energy transferred by non-mechanical means into/from a closed system is called heat, such that $\Delta U = Q + W$, where W is adiabatic work and Q is diathermal heat transfer, positive for both if entering the system, as the full first law
+\3 This is true for all thermodynamic system changes, rather than just quasi-static process systems, due to not requiring an equation of state
+\3 For an infinitesimal process, involving only infinitesimal changes in thermodynamic coordinates, it is written as $dU = \delta Q + \delta W$, or for quasi-static hydrostatic system, $dU = \delta Q + PdV$
+\3 For a composite system with multiple components, $\delta W$ can be written as the sum of work done on each system within the overall system
 \2 Thus, it can be seen from this the experimental idea that heat is energy transferred by a temperature gradient
 \2 Temperature gradient is not the only relevant factor for transferred energy though, such that for an isochoric (constant volume) system due to a fixed diathermic boundary, it is internal energy transferred
 \3 On the other hand, isobaric heat (constant pressure) due to a movable boundary, it is enthalpy, rather than internal energy transferred as heat
 \3 Thus, heat is either internal energy or enthalpy based on the system conditions being transferred, though it is only applicable as a path quantity, rather than a state, $\delta Q$, similar to work
 \2 Further, by this equation, it is evident that for an adiabatic system, the loss of heat from one section of the system is equal to the gain by another part of the system
+\1 Heat capacity, more accurately called internal energy capacity, is the ability of a system to store energy, measured by the change in temperature at a point other than state changes
+\2 It is measured with heat due to being easier to detect that work, such that $C = \frac{\delta Q}{dT}$
+\2 The specific quantity of the heat capacity, or the unit mass quantity, called specific heat capacity, is a property of the material itself, rather than the object
+\3 The molar heat capacity, c = $\frac{C}{n}$, where n is the number of moles, such that it is equal to the mass divided by the molecular mass multiplied by the molecules per mole (Avogadro's number, 6.022 * $10^23$)
+\2 Heat capacity depends on the process pathway on the P-V graph, such that heat capacity at constant pressure is denoted $C_P(P, T)$, while heat capacity at constant volume is denoted, $C_V(V, T)$
+\3 For some small range of variation in T and either P or V, the heat capacity is virtually constant within the range
+\2 Heat capacity is measured by a resistance wire around a cylindrical sample, such that if both are the system, the electrical energy is doing work on the system, whereas if just the sample is, the electrical energy does work on the wire, moving as heat into the system
+\3 The work required to produce the heat added to the system was originally called the mechanical equivalent of heat, later found just to be an alternate concept of work
+\3 This is called a heating coil, used to test the statistical mechanics results of a system
+\3 For some current in the wire, $\delta Q = \epsilon I dt$, building the calorimeter, coil, and connected thermometer based on the desired temperature range and material
+\4 For low temperature  solids, it is suspended by a thin insulator, using a resistance thermometer placed in a drilled hole in the sample, using thin wires to avoid error
+\3 The temperature as a function of time graph is drawn, measuring temperature without activating the circuit as the foreperiod, closing the switch, then after $\Delta t$, opening it and graphing the afterperiod, though often measuring resistance instead of temperature by the thermometer
+\4 The foreperiod and afterperiod curves are extended to give the value in the center of the activated region, measuring the difference between as $\Delta T$
+\4 Thus, $c_P = \frac{\epsilon I \Delta t}{n \Delta T}$, such that pressure is the constant variable due to atmospheric pressure keeping it constant
+\2 Originally, the calorie was the amount of heat to raise the temperature of 1g of water by $1^o C$, though later specified as $14.5^o C$ to $15.5^o C$, measured as 4.186 J
+\1 The first law combined with the fact that for U(T, V), $dU = \frac{\partial U}{\partial T}|_VdT + \frac{\partial U}{\partial V}|_TdV$, such that $\frac{\delta Q}{dT} = \frac{\partial U}{\partial T}|_V + (\frac{\partial U}{\partial V}|_T + P)\frac{dV}{dT}$
+\2 By extension, if V is constant, the second term cancels out ($C_V = \frac{\delta Q}{dT}|_V = \frac{\partial U}{\partial T}|_V$)
+\3 The left side of the equation is able to be used to test a theoretical internal energy function experimentally
+\3 It is noted that it takes high amounts of pressure to hold volume constant, such that this is not an easy method of measurement though
+\2 On the other hand, if pressure is constant, it becomes $C_P = \frac{\partial U}{\partial T}|_V + (\frac{\partial U}{\partial V}|_T + P)\frac{\partial V}{\partial T}|_P$
+\3 This is due to the fact that since $\frac{\delta Q}{dT}$ is path-dependent, due to T relying on two other parameters, some path as a function of P and V must be chosen
+\4 The only sections of the right hand side that are modified as a result of the path are P(T, V) and $\frac{dV(T, P)}{dT}$, the former held constant in this form, the latter becoming a partial
+\4 While the pathway by which P and T vary for within different parts of the equation rely on separate changes/parameters, it only determines the bounds of the end result, while the pathway chosen determines for both
+\3 This is further modified to show that $C_P = C_V + (\frac{\partial U}{\partial V}|_T + P)V\beta$, providing another function of internal energy found theoretically, in terms of measurable state functions
 \end{outline*}
+\subsection{Heat Flow}
+\begin{outline*}
+\1 Temperature difference between a system and surroundings creates a lack of thermodynamic equilibrium, with a nonuniform temperature, though quasi-static process of heat flow behaves similarly to that of quasi-static work
+\2 For some body of relatively large mass to the main system, it functions as a heat reservoir, such that virtually any amount of heat flow will not measurably change thermodynamic coordinates
+\2 Quasi-static heat reservoir contact would produce an isothermal change of state, due to the infinitesimal temperature gradient, adding energy to the system to produce other coordinate changes
+\3 On the other hand, a series of infinitesimally different heat reservoirs would produce an overall non-isothermal change of state, able to be performed for a high amount of time, using heat reservoirs such that their temperature remains constant
+\3 As a result, $\delta Q = CdT$, where the path of the heat capacity determines the path of Q, allowing it to be integrated
+\1 Two parts of an adiabatically closed substance maintained at different temperatures at the edges have a continuous distribution of temperature in between, due to transporting energy between by heat conduction
+\2 Thus, it is found experimentally that $\frac{\delta Q}{dt} = -KA\frac{dT}{dx}$, where $\frac{dT}{dx}$ is the temperature gradient, showing the rate of heat flow between the edges
+\3 K is the thermal conductivity, such that a large valued object is a thermal conductor, a small value is a thermal insulator
+\2 Thermal conductivity varies as a function of temperature, such that for a large gradient, it varies throughout the object, though if small enough, it can be considered constant
+\3 For some small temperature difference, $K = \frac{-L}{A\DeltaT}\frac{\delta Q}{dt}$, due to the temperature gradient and length being
+\2 It has been found that thermal conductivity of metal is reduced by a large amount by any impurities, as well as changes in pressure of gases below a certain level and composition
+\3 Liquids have lower thermal conductivity, increasing as the temperature is raised, while metals tend to remain fairly constant until some minimum temperature where it decreases
+\3 Nonmetals are poor conductors, similar to liquids, decreasing as temperature is raised, rising drastically at low temperatures
+\3 Gases are especially bad conductors, independent of pressure after some maximum pressure, generally below 1 atm, increasing as the temperature rises
+\2 Thermal conductivity in series is equal to the reciprocal of the sum of reciprocals, while in parallel is the sum, such that it is used in double pane glass with air between to lower the conductivity, due to air having a lower value
+\1 Convection currents are flows of liquid or gas that absorb heat and mix with another fluid of a lower temperature, releasing the heat, or vice verse
+\2 Convection currents by an external force/system is a forced convection, while if it is due to a combined density difference causing the flow along with a temperature difference, it is a natural convection
+\2 For fluid in motion against some surface, there is some thin film of stationary fluid between, thinner the stronger the motion is
+\3 Heat is thus able to be transferred both by conduction through the film and convection
+\2 The convection coefficient h, is defined such that $\frac{\delta Q}{dt} = hA(T_{wall} - T_{fluid})$, where h takes into account both the surface conduction and the convection
+\3 The coefficient depends on if the wall is flat/curved, vertical/horizontal, gas/liquid, density, viscosity, specific heat, and thermal conductivity of the fluid, laminar (low speed)/turbulent flow (high speed), and if evaporation, condensation, or formation of scale happens
+\1 Heat can be transmitted through empty space through radiation, most relevantly thermal (IR and visible), which is transmitted due to the high temperature of the origin solid/liquid (gases behave separately)
+\2 At higher temperatures, greater frequencies of visible light are emitted, and more total energy is emitted
+\2 The radiant exitance, R, of the body is the radiant power per infinitesimal area, depending on the nature of the surface of the body and the temperature just as absorptivity and emissivity does
+\2 Isotropic radiation is thermal radiation incident on a body equally from all directions, where the fraction of incident radiant power absorbed is absorptivity
+\3 Total emissivity, $\epsilon$, is the fraction of power incident on the body that is emitted as thermal radiation, such that for thermal equilibrium, it is equal to absorptivity, depending on temperature and the material itself
+\3 Ideal substances are those which absorbing and emit all radiation falling on it when at thermal equilibrium, called a blackbody, independent of the substance made from, approximated by a cavity with a small entrance hole and uniform high-temperature opaque walls
+\4 This is due to the radiation reflecting around the cavity until fully absorbed, such that it is almost entirely absorbed and is isotropic
+\2 Irradiance is the radiant power incident per infinitesimal area on the surface of the cavity, corresponding to radiant exitance
+\3 Thus, for a blackbody with irradiance of H in thermal equilibrium with the cavity is placed within, such that radiant power absorbed per unit area of the blackbody is H$\epsilon$ = H
+\3 Thus, radiant exitance of the blackbody, R, is equal to H, since the radiant power absorbed is equal to that emitted per unit area for the body, projected back to and from the cavity
+\2 It has been found that the amount of radiation within the cavity is a function of the temperature produced by the thermal equilibrium and independent of the materials, detected by allowing a small amount of radiation to escape for measurement
+\2 Radiant exitance of a non-blackbody depends on the surface material itself, as well as temperature, such that $R = \epsilon H = \epsilon R_{bb}$, called Kirchhoff's Law, used to measure thermal radiation emissivity of materials at some temperature
+\2 There will only be a difference in the heat absorbed and emitted if there is a temperature difference between a body and its surroundings as a result
+\3 Thus, $\frac{\delta Q}{dt} = A(\alpha(T) H - R) = A(\epsilon(T) R_bb(T_W) - \epsilon(T) R_bb(T) = A\epsilon(T)(R_bb(T_w) - R_bb(T)$ for some body in a cavity, such that it is isotropic, where the cavity is large enough for the change in temperature to be negligible, T is the temperature of the body, $T_w$ of the cavity, and A is surface area
+\2 It was derived later thermodynamically that $R_bb(T) = \sigma T^4$, where $\sigma$ is the Stefan-Boltzmann constant, $5.67051 * 10^-8 \frac{W}{m^2 * K^4}$
+\3 It follows that $\frac{\delta Q}{dt} = A\epsilon\sigma(T_W^4 - T^4)$
+\3 The Stefan-Boltzmann constant can be determined by the nonequilibrium method, placing a shielded silver disk in a blackened copper hemisphere until there is steam, measuring the temperature $T_W$, uncovering the disk and measuring the temperature over time
+\4 $\frac{dT}{dt}$ is then found, such that since pressure is constant, $\delta Q = C_P dT$ for the silver disk, where as a result, $\sigma = \frac{C_P}{A(T_W^4 - T^4)}\frac{dT}{dt}$
+\3 It can also be found by the equilibrium method, placing a hollow blackened sphere suspended in a vessel of temperature $T_W$, adding electricity to the sphere at a constant power
+\4 This is done until it reaches equilibrium where radiation emission is equal to the power supplied, such that assuming it acts as a blackbody, $\epsilon I = A\sigma(T^4 - T_W^4)$
+\end{outline*}
+\section{Chapter 5 - Ideal Gases}
+\subsection{Ideal Gas Laws}
+\begin{outline*}
+\1 It has been found experimentally that $\frac{PV}{n} = Pv = A(1 + BP + CP^2 \dots)$, such that it is purely a function of pressure, called the virial expansion, where A, B, C are virial coefficients
+\2 Until 40 atm, it is generally linear, such that only pressure is necessary, requiring more as pressure rises, though as pressure approaches 0, it is equal to A, only dependent on the temperature, rather than the gas itself 
+\3 Virial coefficients are generally small, except at extremely low temperatures
+\2 Since the ideal gas temperature assumes constant volume and the same amount of moles of gas for each measurement, $T = 273.16 K lim \frac{Pv}{Pv_{TP}}$
+\3 As a result, R, the molar gas constant, is defined as $\frac{lim(Pv)_TP}{273.16 K}$, equal to 2.27102 kJ/mol*K, difficult to measure due to absorption of gas on walls
+\3 Thus, the ideal gas law is derived such that lim(PV) = nRT and A = RT, such that $\frac{Pv}{RT} = 1 + BP + CP^2 + \dots$
+\1 Adiabatic free/Joule expansion is the expansion in volume of a gas as there becomes a larger space to move into, such that no Q or W is done, and internal energy is constant
+\2 The Joule coefficient, $\frac{\partial T}{\partial V}|_U$, testing with two diathermic vessels in a adiabatic water bath, measuring the change in gas temperature, found that the heat capacity of water was too high, and thus the coefficient was too difficult to measure directly
+\3 It was tested with water due to too much difficulty in making the temperature of gas
+\2 Since for U(T, V), $dU = \frac{\partial U}{\partial T}|_VdT + \frac{\partial U}{\partial V}|_TdV$, such that if no temperature change or internal energy change takes place, $dT = dU = 0$, then $\frac{\partial U}{\partial V}|_T = 0$
+\3 Similarly, for U(T, P), $\frac{\partial U}{\partial P}|_T = 0$ in this case as well
+\4 Thus, as the gas approaches an ideal gas, it is equal to 0 as pressure approaches 0, such that there is no change in temperature in that case
+\3 As a result, if free expansion causes no change in temperature, internal energy of the gas is a function of temperature only for free expansion, used to measure this fact
+\3 It is also done by measuring the $\frac{\partial u}{\partial P}|_T$, where u is the molar internal energy, measured by a container with n moles of gas at some pressure, connected to the atmosphere by a long coil, surrounding the container with liquid at atmospheric temperature
+\4 The valve is opened to allow small amounts of gas to flow out, using a heating coil to keep all temperatures constant with the atmosphere as the gas expands
+\4 As Q heat is absorbed by the gas from the coil, the work done by the gas is $W = -P_0(nv_0 - V)$, where $P_0$ is atmospheric pressure, V is container volume, and $v_0$ is molar volume at atmospheric temperature and pressure
+\4 It is noted that $nv_0$ must be larger than the volume of the container, such that it expands when provided to the air
+\4 $\Delta u(P, T)|_T = \frac{Q + W}{n}$, after accounting for contraction of container walls, putting it in terms of change in pressure instead of volume, plotting for different pressures
+\3 On the other hand, it was noted that the experiment did not reach the ideal gas value of 0, and had the same issue of larger heat capacity of water, requiring precision in water temperature
+\1 Ideal gases are thus those which have low enough pressure for the ideal gas law, and as well that internal energy is a function of temperature, rather than temperature and pressure
+\2 Gases can be assumed to be ideal with increasing error as the pressure increases, though with only a few percent error below 2 atm
+\2 For some quasi-static process, the ideal gas law can be written as PdV + VdP =  nRdT by the product rule, and as a result of the second part, it can be stated that $\frac{dU}{dT}|_V = C_V$, such that $\delta Q = C_VdT + PdV$
+\3 By combination of these, it is found that $\frac{\delta Q}{dT} = C_V + nR - V\frac{dP}{dT}$, such that if pressure is set constant, $C_P = C_V + nR$ for an ideal gas
+\3 Thus, $C_V, C_P$ are functions of temperature only for ideal gases, and $C_P \geq C_V$, due to the gas expanding work to expand against the equal, external pressure when pressure is constant, whereas for constant volume, there is no work done (PdV = W)
+\2 It is also derived following that $\delta Q = C_PdT - VdP$ for an ideal gas, giving another form of the 1st law for an ideal gas
+\end{outline*}
+\subsection{Kinetic Theory of Ideal Gases}
+\begin{outline*}
+
+\end{outline*}
+\section{Notes}
+Boundary layer is what changes temperature, rather than the wall itself, such that it is what modifies? Convection and conduction simulaneously? Ice water == resistor in series - Homework ice problem
+Oscillating electric charge emits an electromagnetic waves/radiation
+Opaque bodies have 0 transmission fraction, transparent have 1, white bodies have reflective fraction of 1
+Planck radiation law solved the lack of classical theory infinite 5000K radiation, leading to photons and quantum mechanics
 \end{document}

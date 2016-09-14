@@ -167,6 +167,7 @@
 \3 NAND gates are drawn as a closed semi-circle with a small circle before the output line, with two input lines, while AND gates are drawn without the circle
 \2 DeMorgan's Law states that A OR B = NOT((NOT A) AND (NOT B)), showing the relationship between the NOT and OR gates
 \2 The binary gates can be extended as a result to a larger number of inputs by extending the number of transistors that make up the gate
+<<<<<<< HEAD
 \1 Combinational logic circuits, or decision elements, are structures of logic gates, depending only on immediate input data provided, rather than any stored data, contrasting data storage structures
 \2 Decoders are a circuit which takes two inputs, and returns four bits based on which combination of the inputs is 1, called the opcode
 \3 It thus decodes two ordered inputs, returning 1000 if 00 is the input, 0100 if 01, 0010 if 10, and 0001 if 11
@@ -177,5 +178,13 @@
 \3 This is drawn by a trapezoid with the select signal going to a leg, the inputs to the longer side, the output from the shorter
 \4 Multiple select signals can be denoted by a slash on the wire with the number of signals written above the slash
 \2 
+=======
+\2 Full adders take three one bit inputs, $a_i, b_i$, and the $carry_i$, such that the two results are $s_i$ and $carry_{i + 1}$, used to sum two bits in a column, adding the three inputs into 8 series of AND gates, each with a different combination of inverters before
+\3 The results of the OR gates are then fed into two OR gates, depending on how they combine for the truth table, to produce the sum of the column
+\3 Thus, for a 2s complement or unsigned numbers, since it can be added in columns just as a decimal number, each full adder can be used for a different column, taking the carry of the previous, to produce the sum of binary digits
+\2 The Programmable Logic Array (PLA) has an array of AND gates with a combination of inputs, such that for n inputs, there must be $2^n$ AND gates, each with varying negations
+\3 These are then connected in some formation to an array of OR gates for each output, based on if the inputs produce each output
+\3 This as a result is able to be used to form any truth table in circuit form, consisting of only AND, OR, and NOT gates, such that those sets of gates are called logically complete
+>>>>>>> dfc76f4acc3f816db4594550e4a852c9a327081e
 \end{outline*}
 \end{document}
