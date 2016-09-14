@@ -344,7 +344,7 @@
 \2 Convection currents by an external force/system is a forced convection, while if it is due to a combined density difference causing the flow along with a temperature difference, it is a natural convection
 \2 For fluid in motion against some surface, there is some thin film of stationary fluid between, thinner the stronger the motion is
 \3 Heat is thus able to be transferred both by conduction through the film and convection
-\2 The convection coefficient h, is defined such that $\frac{\delta Q}{dt} = hA(T_{wall} - T_{fluid})$, where h takes into account both the surface conduction and the convection
+\2 The convection coefficient h, is defined such that $\frac{\delta Q}{dt} = hA(T_{wall} - T_{fluid})$, where h takes into account both the surface conduction through the stationary fluid and the convection
 \3 The coefficient depends on if the wall is flat/curved, vertical/horizontal, gas/liquid, density, viscosity, specific heat, and thermal conductivity of the fluid, laminar (low speed)/turbulent flow (high speed), and if evaporation, condensation, or formation of scale happens
 \1 Heat can be transmitted through empty space through radiation, most relevantly thermal (IR and visible), which is transmitted due to the high temperature of the origin solid/liquid (gases behave separately)
 \2 At higher temperatures, greater frequencies of visible light are emitted, and more total energy is emitted
@@ -359,7 +359,7 @@
 \2 It has been found that the amount of radiation within the cavity is a function of the temperature produced by the thermal equilibrium and independent of the materials, detected by allowing a small amount of radiation to escape for measurement
 \2 Radiant exitance of a non-blackbody depends on the surface material itself, as well as temperature, such that $R = \epsilon H = \epsilon R_{bb}$, called Kirchhoff's Law, used to measure thermal radiation emissivity of materials at some temperature
 \2 There will only be a difference in the heat absorbed and emitted if there is a temperature difference between a body and its surroundings as a result
-\3 Thus, $\frac{\delta Q}{dt} = A(\alpha(T) H - R) = A(\epsilon(T) R_bb(T_W) - \epsilon(T) R_bb(T) = A\epsilon(T)(R_bb(T_w) - R_bb(T)$ for some body in a cavity, such that it is isotropic, where the cavity is large enough for the change in temperature to be negligible, T is the temperature of the body, $T_w$ of the cavity, and A is surface area
+\3 Thus, $\frac{\delta Q}{dt} = A(\alpha(T) H - R) = A(\epsilon(T) R_bb(T_W) - \epsilon(T) R_bb(T) = A\epsilon(T)(R_bb(T_w) - R_bb(T))$ for some body in a cavity, such that it is isotropic, where the cavity is large enough for the change in temperature to be negligible, T is the temperature of the body, $T_w$ of the cavity, and A is surface area
 \2 It was derived later thermodynamically that $R_bb(T) = \sigma T^4$, where $\sigma$ is the Stefan-Boltzmann constant, $5.67051 * 10^-8 \frac{W}{m^2 * K^4}$
 \3 It follows that $\frac{\delta Q}{dt} = A\epsilon\sigma(T_W^4 - T^4)$
 \3 The Stefan-Boltzmann constant can be determined by the nonequilibrium method, placing a shielded silver disk in a blackened copper hemisphere until there is steam, measuring the temperature $T_W$, uncovering the disk and measuring the temperature over time
@@ -402,7 +402,8 @@
 \end{outline*}
 \section{Notes}
 Boundary layer is what changes temperature, rather than the wall itself, such that it is what modifies? Convection and conduction simulaneously? Ice water == resistor in series - Homework ice problem
-Oscillating electric charge emits an electromagnetic waves/radiation
+Oscillating electric charge emits an electromagnetic waves/radiation, emitting many types in a sample due to random motion
 Opaque bodies have 0 transmission fraction, transparent have 1, white bodies have reflective fraction of 1
 Planck radiation law solved the lack of classical theory infinite 5000K radiation, leading to photons and quantum mechanics
+Higher frequency peak as temperature increases
 \end{document}
