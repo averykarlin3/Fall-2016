@@ -322,7 +322,7 @@
 \1 Vector spaces are nonempty sets, whose elements are called vectors, which are defined for an addition and scalar multiplication operation, with scalars in the set A, called a vector space over A, generally $\mathbb{R}$ (real vector space) or $\mathbb{C}$ (complex vector space)
 \2 It must also be closed under addition and scalar multiplication, such that for elements in the set undergoing those operations, the result is also in the set
 \2 It also must have commutative and associative properties of addition, associative properties of scalar multiplication ($c(d\vec{x}) = (cd)\vec{x}$), and distributive properties of scalar multiplication over both vector and scalar addition
-\2 It also must have an additive inverse in the set, as well as an identity vector of addition (zero vector)
+\2 It also must have an additive inverse in the set, as well as an identity vector of addition (zero vector, not necessarily 0)
 \2 Further, it must have the unit property, such that for a vector scalar multiplied by 1, it is equal to itself
 \1 The set $\mathbb{R}^n$ is a real vector space for all $n \geq 1$, and the set $\mathbb{C}^n$ for all $n \geq 1$ can be a real or complex vector space depending on restricting the scalars to either set
 \2 In addition, the set of all m x n matrices with real inputs is a real vector space with standard matrix addition and scalar multiplication, denoted $M_{mxn}(\mathbb{R})$ with $M_n(\mathbb{R})$ denoting the real vector space of square matrices
@@ -343,7 +343,7 @@
 \2 For matrices with only real elements, it is usually denoted as a subspace of $\mathbb{R}^n$ instead for simplicity
 \2 On the other hand, the solution set to any nonhomogeneous system of linear equations is not a subspace, due to not having the zero vector in the set
 \1 The solution set of the homogeneous linear differential equation, $y'' + a_1(x)y' + a_2(x)y = 0$ on some interval I, is a subspace of $C^2(I)$, called the solution space of the equation
-\2 ***Check if known final paragraphs***
+\2 It can be found that for a linear differential equation, there is a general solution as the combination of two linearly independent equations which span the solution set
 \end{outline*}
 \subsection{Spanning Sets}
 \begin{outline*}
@@ -384,7 +384,7 @@
 \begin{outline*}
 \1 For any vector within a finite vector space, for each basis of the vector space, each vector can be expressed as a unique linear combination of the basis vectors
 \2 The converse is also true, such that if each vector in a vector space can be expressed as a linear combination of a set of vectors, the set is a basis of the space
-\1 An ordered basis B of some vector space V is an ordered set, such that the n-tuple, $(c_1, c_2, \dots, c_n)$ for some $\vec{v}$ in V, such that $\vec{v} = c_1v_1 + \dots + c_nv_n$, is called the components of $\vec{v}$ relative to the ordered basis B
+\1 An ordered basis B of some vector space V is an ordered set, $(\vec{v}_1, \dots, \vec{v}_n)$, such that the n-tuple, $(c_1, c_2, \dots, c_n)$ for some $\vec{v}$ in V, such that $\vec{v} = c_1v_1 + \dots + c_nv_n$, is called the components of $\vec{v}$ relative to the ordered basis B
 \2 The column vector of the components, denoted $[\vec{v}]_B$, is called the component vector of  $\vec{v}$ relative to the ordered basis B
 \1 For some ordered basis B in vector space V, if $\vec{x}, \vec{y} \in V$, then $[\vec{x} + \vec{y}]_B = [\vec{x}]_B + [\vec{y}]_B$ and $[c\vec{x}]_B = c[\vec{x}]_B$
 \1 For some ordered bases B, $\{\vec{v}_1, \dots, \vec{v}_n\}$, and C, $\{\vec{w}_1, \dots, \vec{w}_n\}$, in n-dimensional vector space V, $P_{B \to C} = [[\vec{v}_1]_C, \dots, [\vec{v}_n]_C]$, where $P_{B \to C}$ is the change of base matrix for B to C
