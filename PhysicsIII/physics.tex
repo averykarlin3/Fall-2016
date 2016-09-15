@@ -374,6 +374,7 @@
 \3 As a result, R, the molar gas constant, is defined as $\frac{lim(Pv)_TP}{273.16 K}$, equal to 2.27102 kJ/mol*K, difficult to measure due to absorption of gas on walls
 \3 Thus, the ideal gas law is derived such that lim(PV) = nRT and A = RT, such that $\frac{Pv}{RT} = 1 + BP + CP^2 + \dots$
 \1 Adiabatic free/Joule expansion is the expansion in volume of a gas as there becomes a larger space to move into, such that no Q or W is done, and internal energy is constant
+\2 Free expansion is noted not to be quasi-static, due to the fast modification from one state to another forcing it through nonequilibrium states
 \2 The Joule coefficient, $\frac{\partial T}{\partial V}|_U$, testing with two diathermic vessels in a adiabatic water bath, measuring the change in gas temperature, found that the heat capacity of water was too high, and thus the coefficient was too difficult to measure directly
 \3 It was tested with water due to too much difficulty in making the temperature of gas
 \2 Since for U(T, V), $dU = \frac{\partial U}{\partial T}|_VdT + \frac{\partial U}{\partial V}|_TdV$, such that if no temperature change or internal energy change takes place, $dT = dU = 0$, then $\frac{\partial U}{\partial V}|_T = 0$
@@ -393,9 +394,35 @@
 \3 Thus, $C_V, C_P$ are functions of temperature only for ideal gases, and $C_P \geq C_V$, due to the gas expanding work to expand against the equal, external pressure when pressure is constant, whereas for constant volume, there is no work done (PdV = W)
 \2 It is also derived following that $\delta Q = C_PdT - VdP$ for an ideal gas, giving another form of the 1st law for an ideal gas
 \end{outline*}
+\subsection{Heat Capacity Measurement}
+\begin{outline*}
+\1 Heat capacities are measured by a gas in a thin-walled steel container, surrounded by a wire to add heat, measuring the rise in temperature at constant volume to get $C_V$, while $C_P$ is through a calorimeter allowing volume to vary rather than pressure
+\2 The inlet/initial and outlet/final temperatures are measured, found that for all ideal gases, $C_V(T) < C_P(T)$, $C_P - C_V = R$, and $\frac{C_P}{C_V} = \gamma$
+\2 Monatomic gases, such as noble gases and most metallic vapors, $C_V = c \approx \frac{3R}{2}$, and $C_P = c' \approx \frac{5R}{2}$
+\2 Permanent diatomic gases, such as $H_2, O_2, N_2, NO, CO, F_2, Cl_2$, have constant values of $C_V \approx \frac{5}{2}R, C_P \appx  \frac{7}{2}R$
+\3 On the other hand though, at low temperatures, $H_2$ uniquely acts as a monatomic gas
+\3 For all temperatures, it may be written as $\frac{C_P}{R} = \frac{7}{2} + f(T)$, where $f(T) = (\frac{b}{T})^2 \frac{e^{\frac{b}{T}}}{(e^{\frac{b}{T}} - 1)^2}$ generally for some constant b, generally too difficult to calculate, such that it is measured experimentally
+\2 Polyatomic gases and chemically active gases are those with values for $C_P, C_V$ varying with temperature
+\1 For some quasi-static ideal gas adiabatic process, $\delta Q = 0$, such that since $\delta Q = C_VdT + PdV = C_PdT - VdP$, then $\frac{dP}{P} = -\gamma \frac{dV}{V}$, such that for some small temperature change, $\gamma$ is constant, such that $PV^\gamma = c$
+\2 As a result, for some adiabatic process on a P-V graph, $\frac{\partial P}{\partial V}|_Q = -\gamma \frac{P}{V}$, such that since for a quasi-static isothermal process, $\frac{\partial P}{\partial V}|_T = \frac{P}{V}$ by the ideal gas law, the curve for the former is steeper than the latter
+\1 Ruchhardt measured $\gamma$ by placing gas in a jar of some volume, with a glass tube attached with a metal ball and piston within, such that $P_{eq} = P_{atm} + \frac{mg}{A}$, by $F = PA$  where A is the area of the tube, assuming no friction
+\2 With displacement, it will oscillate, such that $dV = Ady$ and $dP = \frac{dF}{A}$, acting as a restoring force, causing oscillation, moving quickly enough to prevent heat transfer, such that it is adiabatic and minor enough to be quasi-static
+\2 As a result, by the product rule and the ideal gas quasi-static adiabatic formula, $dF = -\frac{\gamma PA^2}{V}dy$, such that it is simple harmonic motion, where $\tau = 2\pi \sqrt{\frac{m}{-\frac{F}{y}}} = 2\pi \sqrt{\frac{mV}{\gamma PA^2}}$, measuring the period to get $\gamma$
+\2 A majority of the error originates from the assumption of the lack of friction within the glass tube
+\3 Error from assumptions was later corrected, using a steel piston in the middle of the gas container, dividing it in two and displacing it, using an electromagnet to hold the piston in place against weight, to prevent friction, using a current to move it slightly
+\3 It also used the real equation of state, measuring the frequency by AC and amplitude by microscope, with a non-ideal non-adiabatic equation to create more precision
+\end{outline*}
 \subsection{Kinetic Theory of Ideal Gases}
 \begin{outline*}
-
+\1 The theory was determined by Waterston and Kronig in 1859, finding that temperature is a function of particle motion for a monatomic gas, assuming there is some high number of identical, chemically inert particles
+\2 It is stated that the number of particles per mole is $6.0221 * 10^23$, Avogadro's number, where the atomic mass is used to calculate the total mass, with a mole as $22.4 * 10^3 mL$ for an ideal gas
+\2 Ideal gases are assumed to be in perpetual random motion with no preferred direction of motion, with a inter-atomic distance far larger than the atomic radius, with no forces of attraction between collisions, with velocities ranging from 0 to the speed of light
+\3 This can be integrated to infinity without error, due to such low density at higher velocities, and is assumed that the distribution at any particular velocity band is approximately constant
+\2 The atoms are uniformly distributed ($\frac{N}{V}$ is constant), such that $dN = \frac{N}{V}dV$, when fulfilling thermodynamic macroscopic qualifications
+\2 Atomic collisions are assumed to be elastic against a smooth wall of the container, where only the perpendicular velocity with respect to the wall is changed, negated as a result without different speed
+\1 For some velocity vector from the origin, $\vec{v}$, to some elementary area, dA, on the surface of the sphere, such that for the sphere around the origin, $dA = (rd\theta)(rsin\theta d\phi)$
+\2 The solid angle of a circle, as a 3D extension of angle, $d\Omega = \frac{dA}{r^2} = sin \theta d\theta d\phi$, the maximum being that of the entire sphere, $4\pi$ steradians (sr), such that it is the surface area for a circle of radius 1
+\2 
 \end{outline*}
 \section{Notes}
 Boundary layer is what changes temperature, rather than the wall itself, such that it is what modifies? Convection and conduction simulaneously? Ice water == resistor in series - Homework ice problem
