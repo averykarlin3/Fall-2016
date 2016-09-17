@@ -414,10 +414,25 @@
 \2 A majority of the error originates from the assumption of the lack of friction within the glass tube
 \3 Error from assumptions was later corrected, using a steel piston in the middle of the gas container, dividing it in two and displacing it, using an electromagnet to hold the piston in place against weight, to prevent friction, using a current to move it slightly
 \3 It also used the real equation of state, measuring the frequency by AC and amplitude by microscope, with a non-ideal non-adiabatic equation to create more precision
+\2 For some small displacement of the piston in the divided container at constant velocity, $\vec{v}_0$, the pressure wave front due to the concentrated density near moves at velocity $\vec{v}$, such that it moves faster than the piston
+\3 Thus, the compressed portion of the gas at some time, t, had an original volume of V, mass of $m = \rho_0 V = \rho_0 A \vec{v} t$
+\3 Since the portion of the original volume that was compressed increases as the compressed wave front moves faster than the piston, such that the pressure lessens as it moves, but the compressed mass increases toward the total mass ($\frac{dm}{dt} = \rho A\vec{v}$)
+\3 On the other hand, the additional velocity is due to the equalization of pressure, added to the velocity of the piston, such that the change in momentum is purely from the change in mass ($\frac{dp}{dt} = \frac{dm}{dt} \vec{v}_0 = \rho A \vec{v} \vec{v}_0$
+\3 The pressure from beyond the wave front is the normal pressure of the system, while the pressure from the piston is that added to the pressure exerted by the piston
+\3 It follows that $F = A\Delta P = \rho A \vec{v} \vec{v}_0$, and $\frac{\Delta V}{V} = \frac{A\vec{v}_0 t}{A \vec{v} t}$, able to be related such that $\vec{v}^2 = \frac{-1}{\frac{\rho}{V}\frac{\Delta V}{\Delta P}}$
+\4 $\frac{\Delta V}{V \Delta P}$ in this case is reversible adiabatic compressibility ($\kappa_S$), rather than isothermal, proven by the above system, measuring heat transfer from the middle of the compressed and rarefacted/uncompressed portions, $\frac{\lambda}{2}$
+\4 It is found that the heat traveling by conduction in the time for the wave to travel $\frac{\lambda}{2}$, Q = $KA\frac{\Delta T \lambda}{\frac{\lambda}{2}2\vec{v}} = KA\frac{\Delta T}{\vec{v}}$
+\4 Since the heat to raise the temperature by $\Delta T$ is Q = $\rho A \frac{\lambda}{2}c_V\Delta T$, it is only adiabatic if the heat transferred in that amount of time is insignificant in comparison to correcting the temperature difference, such that it is corrected as one system, rather than by heat
+\4 Thus, it is found that this is true only if $\lambda >> \frac{2K}{\vec{v}\rho c_V}$, such that the distance the wave is traveling must be drastically smaller than realistic, such that it is adiabatic
+\3 As a result, it is found that $\kappa_S = \frac{1}{\gamma P}$, such that $\vec{v}^2 = \frac{\gamma P v}{M} = \frac{\gamma RT}{M}$, where v is the molar volume, M is the molar mass
+\3 This can be used to measure the speed of sound in a gas, set with a movable piston with powder inside, vibrating the piston after placing it in such a position to create a standing wave
+\4 After the vibration begins, powder piles at the nodes, allowing measurement of half a wavelength between, multiplied by the frequency to find the velocity
+\4 This can be made more accurate by an acoustic interferometer instead of a tube, with a piezoelectric crystal, and a receiver, varying the frequency with a constant distance, measuring the resonance to find the odes, accounting for viscosity, heat conduction, and boundary layer absorption
+\4 The speed of sound, $\vec{v}(P)$ can thus be used to find R, as pressure approaches 0 such that the ideal gas law holds
 \end{outline*}
 \subsection{Kinetic Theory of Ideal Gases}
 \begin{outline*}
-\1 The theory was determined by Waterston and Kronig in 1859, finding that temperature is a function of particle motion for a monatomic gas, assuming there is some high number of identical, chemically inert particles
+\1 The theory was determined by Waterston and Kronig in 1859, finding that temperature is a function of particle motion for a monatomic gas (due to solid spherical atoms), assuming there is some high number of identical, chemically inert particles
 \2 It is stated that the number of particles per mole is $6.0221 * 10^23$, Avogadro's number, where the atomic mass is used to calculate the total mass, with a mole as $22.4 * 10^3 mL$ for an ideal gas
 \2 Ideal gases are assumed to be in perpetual random motion with no preferred direction of motion, with a inter-atomic distance far larger than the atomic radius, with no forces of attraction between collisions, with velocities ranging from 0 to the speed of light
 \3 This can be integrated to infinity without error, due to such low density at higher velocities, and is assumed that the distribution at any particular velocity band is approximately constant
@@ -425,7 +440,57 @@
 \2 Atomic collisions are assumed to be elastic against a smooth wall of the container, where only the perpendicular velocity with respect to the wall is changed, negated as a result without different speed
 \1 For some velocity vector from the origin, $\vec{v}$, to some elementary area, dA, on the surface of the sphere, such that for the sphere around the origin, $dA = (rd\theta)(rsin\theta d\phi)$
 \2 The solid angle of a circle, as a 3D extension of angle, $d\Omega = \frac{dA}{r^2} = sin \theta d\theta d\phi$, the maximum being that of the entire sphere, $4\pi$ steradians (sr), such that it is the surface area for a circle of radius 1
-\2 
+\1 It is stated that there is no preferred atomic direction, it is written that $dN|_{\vec{v}, \theta, \phi} = dN|_\vec{v} \frac{d\Omega}{4\pi}$, where N is the total number of atoms, such that the atoms going in any direction in a specific solid angle is equal to the fraction of the total atoms going in that direction
+\1 It is stated that atoms have no preferred location, such that for some portion of the wall, dA, some cylinder can be constructed of length $\vec{v}dt$, such that it is a short enough time that atoms won't collide, moving in the direction of $\vec{v}$
+\2 Due to the cylinder being non perpendicular to the base, dV = $\vec{v}dt cos\theta dA$, such that it is stated that $dC|_{\vec{v}, \theta, dV, \phi} = dN|_{\vec{v}, \theta, \phi}\frac{dV}{V}$, such that the total atoms in that location moving in that direction divided by the total amount moving in that direction is equal to the percentage of volume
+\1 Since collisions are perfectly elastic, $\Delta p$ per collision = $2m\vec{v}cos\theta$, such that per dt, the total change in momentum for collisions against dA = $m\vec{v}^2\frac{dN|_\vec{v}}{V}(\frac{1}{2\pi}\int^{2\pi}_0 d\phi \int^{\frac{\pi}{2}}_0 cos^2\theta sin\theta d\theta$
+\2 Since the change in momentum due to collisions against some area is the definition of pressure, this is equal to $dP|_\vec{v} = \frac{m}{3V}dN|_\vec{v}$, integrated from 0 to $\infty$ by the earlier assumption
+\2 By definition, the average square of atomic velocity, $<\vec{v}^2> = \frac{1}{N}\int \vec{v}^2 dN|_w$, such that $PV = \frac{Nm<\vec{v}^2>}{3}$
+\2 Combining with the ideal gas law, produces the fact that $T = \frac{2N}{3nR}\frac{1}{2}m<\vec{v}^2> = \frac{2*KE}{3nR}$, where since for monatomic ideal gas atoms there are no rotational or vibrational kinetic energies, and due to lack of effect on other atoms, no potential, KE = U
+\3 Thus, it is shown that for a monatomic ideal gas, the internal energy and average kinetic energy are proportional purely to temperature
+\3 $C_V$ and $C_P$ can then be calculated based on this function of internal energy, such that $C_V = \frac{3}{2}nR, C_P = \frac{5}{2}nR$, such that it is independent of temperature
+\3 The ratio $k = 1.3807 * 10^{-23} J/K = \frac{R}{N_A}$, where $N_A$ is Avogadro's number, is the Boltzmann constant, providing the kinetic theory ideal gas law, PV = NkT
+\1 The assumptions of non-interacting point-masses create error for real gases, such that van der Waals equation of state corrects for it, with a accounting for cohesive forces, b for volume occupied by being non-point masses
+\end{outline*}
+\section{Chapter 6 - The Second Law of Thermodynamics}
+\begin{outline*}
+\1 Work done in contact in a system to produce a higher temperature, but in contact with a heat reservoir of lower temperature, produces an unlimited amount of heat while work is done, without changing the state of the system itself, acting as a work engine
+\2 Since the temperature of the system returns to the original due to losing heat to the sink, the work done is equal to the heat transmitted, such that there is 100\% efficiency
+\1 The corresponding method to produce unlimited heat without a change of state is a heat engine, made up of a high temperature reservoir and a low temperature one, each connected to the system performing the work
+\2 It then undergoes a cycle, or series of processes, to return it to the original state, measuring thermal efficiency, $\eta = \frac{|W|}{|Q_H|}$, which by the first law, $\eta = 1 - \frac{|Q_L}{Q_H}$, such that it is only 100 if no heat goes to the lower reservoir
+\2 Heat engines are divided into internal-combustion, converting the fuel to high pressure and temperature by compressing, and external-combustion, using high temperature surroundings to convert the fuel to high pressure and temperature
+\1 The gasoline engine is made up of a piston connected to a rotating mechanism, rotating in one direction as it moves, using a six-process, four-stroke (piston-moving) cycle 
+\2 The intake stroke moves the piston outward, such that the volume moves from 0, pulling gasoline vapor and air from the open intake valve, due to being depressurized compared with atmospheric outside, rotating the mechanism manually
+\2 The compression stroke moves the piston inward after closing the intake valve, increasing the pressure and temperature by decreasing the volume, after which combustion by a spark plug produces extremely high temperature and pressure (combustion), rotating manually
+\2 The power stroke is caused by the combustion products expanding, pushing the piston, and rotates the mechanism by the pressure increase, after which the exhaust valve is opened to lower temperature and pressure and release some products (exhaust)
+\2 The exhaust stroke then lowers the volume back to 0, pushing the remaining products back through the exhaust valve, rotating the mechanism manually
+\1 The Otto cycle is an idealized gasoline engine, in which there is no error introduced by conduction of heat through the engine, friction, turbulence, and chemical reaction between the vapor and air
+\2 This engine is assumed to have air acting as an ideal gas, with constant heat capacities, and purely reversible quasi-static processes
+\2 The intake stroke is an isobaric atmospheric pressure ($P_0$) process, moving the volume from 0 to V, such that it is described by the ideal gas law, $P_0V = nRT_1$, where $T_1$ is the temperature outside the engine, describing the state after intake
+\2 The compression stroke is an adiabatic process, such that it moves from $V_1, T_1 \to V_2, T_2$, described by $T_1V_1^{\gamma - 1} = T_2V_2^{\gamma - 1}$, where $V_1 > V_2$
+\2 The combustion is an isochoric increase of temperature and pressure due to external heat added from the hot reservoir, assumed to be a series of slightly different hot reservoirs, such that the change in temperature is quasi-static
+\3 This gives the equation that $|Q_H| = \int^{T_3}_{T_2}C_VdT = C_V(T_3 - T_2)$
+\2 The power stroke is an adiabatic process from some temperature, $T_3$ after combustion to $T_4$, at a lower pressure and temperature, such that $T_3V_2^{\gamma - 1} = T_4V_1^{\gamma - 1}$, moving back to the volume before the compression
+\2 The exhaust is the isochoric decrease in temperature and pressure due to external heat added to the sequence of cold reservoirs, where $|Q_L| = C_V(T_4 - T_1)$
+\2 The exhaust stroke is an isobaric process at atmospheric pressure again, the reversal of the intake stroke
+\2 It is found as a result of these equations that $\eta = 1 - \frac{T_1}{T_2} = \frac{T_4}{T_3}$, such that it is based on the temperatures before and after each adiabatic process
+\3 Otto gasoline engines are assumed to go from 300 K to 580 K, such that there is 48\% efficiency, though real gasoline engines tend to be about 25\%
+\1 Diesel engines are internal-combustion engines as well, taking in only air during intake, spraying oil after compression, using the temperature of the air to trigger combustion, acting similarly to a gas engine otherwise
+\2 The oil spraying rate is adjusted such that the combustion is slow enough that it is isobaric as the piston moves out to increase the volume for the power stroke
+\2 Since air is used rather than gasoline, the exhaust stroke and intake strokes can be skipped,  such that the power of the engine is doubled
+\3 This involves blowing fresh air into the cylinder to remove the remaining combustion products that didn't move out on their own
+\2 An idealized diesel cycle, removing the same issues present during a real gasoline engine, acting similar to the Otto cycle, such that the only difference is during the combustion
+\3 Since the combustion is isobaric instead of isochoric as heat enters from the hot reservoir, such that $|Q_H| = \int^{T_3}_{T_2} C_P dT = C_P(T_3 - T_2)$, such that $\eta = 1 - \frac{1}{\gamma}\frac{T_4 - T_1}{T_3 - T_2} = 1 - \frac{1}{\gamma}\frac{r^\gamma_E - 1}{r_E - 1}\frac{T_1}{T_2}$, where $r_E$ is the expansion volume ratio, $\frac{V_f}{V_i}$
+\3 The expected ideal value is approximately 55\%, while the realistic value is approximately 32\%
+\1 Steam engines are an external-combustion engine, used largely in nuclear powered maritime vehicles and submarines, functioning by a constant mass of water, using the feed-water pump to pump water up into the boiler, at which point a nearby hot reservoir heats and boils it
+\2 Since the boiler has much higher pressure then the remainder, the pump is necessary, compressing it as it rises with only small changes in temperature and volume
+\3 The boiling takes place isobarically, raising the temperature, after which it is allowed to flow into a cylinder, expending adiabatically against a piston to perform work
+\3 Eventually, the temperature and pressure lower until that of the condenser as volume increases, after which it is allowed to flow into there near the cold sink, condensing into the original water temperature and pressure, below atmospheric levels
+\2 Error is introduced to the engine by turbulence from the pressure differences causing flow, friction, or conduction of heat through the walls
+\2 The idealized steam engine cycle is the Rankine cycle, starting from liquid water in the condenser, using the pump to compress and move it to the boiler adiabatically
+\3 After, the water is isobarically superheated and vaporized to above boiling point and vapor saturation at that pressure, expanding in the boiler
+\3 After, it adiabatically expands from superheated steam to saturated/equilibrium steam, performing work on the piston, and finally the isobaric and isothermal condensation of steam back into water by loss of heat
+\2 Since $Q_L$ is nonzero, due to needing to take heat to condense the water back into liquid, the efficiency cannot be 100\%, historically far lower than diesel, but currently actually about 35\%
 \end{outline*}
 \section{Notes}
 Boundary layer is what changes temperature, rather than the wall itself, such that it is what modifies? Convection and conduction simulaneously? Ice water == resistor in series - Homework ice problem

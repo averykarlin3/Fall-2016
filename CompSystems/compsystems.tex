@@ -147,6 +147,7 @@
 \2 An additional bit at the end is removed similarly to twos complement, and overflow is noted and dealt with by the same means
 \end{outline*}
 \section{Chapter 3 - Digital Logic Structures}
+\subsection{Building Blocks}
 \begin{outline*}
 \1 Microprocessors are generally made of metal-oxide semiconductor (MOS) transistors, divided into p and n types, each with three terminals, the gate, source, and drain
 \2 For some amount of voltage, generally 2.9 V, supplied to the gate of an n-type, the switch turns on, such that electricity can move from the source to the drain, forming a closed circuit
@@ -154,35 +155,91 @@
 \3 p-type transistors have a small circle between the gate and the line leading to the gate
 \2 p-type transistors work the opposite manner, acting as a wire only when there is virtually no voltage, while acting as an open circuit if 2.9 V is placed in the gate
 \2 As a result, circuits with both types are called complementary metal-oxide semiconductor (CMOS) circuits
-\1 Logic gate structures are transistor circuits for the purposes of logical functions, AND, OR, and NOT/Inverter gates as the fundamental gates
-\2 NOT gates are made up of two MOS transistors of opposite types, current flowing into the gates, the input leading to the gates of both, with a voltage going into the source of the p-type
+\1 Logic gate structures are transistor circuits for the purposes of logical functions, AND, OR, and NOT/Inverter gates as the fundamental gates, depending only on the current input
+\2 These can be drawn either in pull-up network (PUN), drawing from p-type transistors connected to the original source, switching from in-series to parallel or vice versa when at the n-type
+\3 In this case, AND is parallel, OR is in series, automatically adding a NOT without an inverter
+\3 It can also be down pull-down network (PDN), drawn from the grounding to the n-type, such that AND is in series, OR is parallel, automatically adding a NOT without an inverter, considered easier
+\2 NOT gates are made up of two MOS transistors of opposite types, current flowing into the gates, the input leading to the gates of both, with a power/voltage going into the source of the p-type
 \3 The drain of the p-type is connected to the output and the source of the n-type, with the drain of the n-type grounded
 \3 Thus, if there is voltage to the gates, voltage flows from the source to the output, while otherwise, voltage flows from the inputs to the ground, with none to the output, the latter necessary to create a grounded circuit if broken
 \3 Inverters are drawn as a triangle with a small circle before the output wire, or can be drawn with just the small bubble/circle to show inversion as a shorthand
 \2 The NOR (Not OR) gate has two p-type in series, each with a separate input, and with each input connected to one of two parallel n-type resistors, which are connected in series to the p-types, with the output between
 \3 Each n-types are grounded, with voltage automatically flowing to the first p-type, such that it acts similarly to two NOT gates combined, such that the gate is grounded unless there is an output as well
 \3 OR gates are then created by adding an inverter to the output of the NOR gate
-\3 NOR gates are drawn as a crest-like shape, with an input to each horn, the output from the bottom point, with a small circle before the output wire, OR gates without the circle
+\3 NOR gates are drawn as a crest-like shape, with an input to each horn, the output from the bottom point, with a small circle before the output wire, OR gates without the circle, XOR without a circle, but with an additional crest line mirroring the main one on the bottom
 \2 NAND (Not AND) gates have two parallel p-type transistors, each connected to an input and a voltage source, joining to the output, each connected to one of two in series n-types connected to the ground
 \3 As a result, the circuit is grounded only if the output is zero, such that there is current through both inputs, while otherwise current is through the output
 \3 AND gates as a result are just NAND gates with an added inverter after
 \3 NAND gates are drawn as a closed semi-circle with a small circle before the output line, with two input lines, while AND gates are drawn without the circle
-\2 DeMorgan's Law states that A OR B = NOT((NOT A) AND (NOT B)), showing the relationship between the NOT and OR gates
-\2 The binary gates can be extended as a result to a larger number of inputs by extending the number of transistors that make up the gate
+\2 DeMorgan's Law states that NOT(A OR B) = (NOT A) AND (NOT B), showing the relationship between the NOT and OR gates
+\3 It follows as a result that NOT(A AND B) = (NOT A) OR (NOT B) is also a valid form 
+\2 Boolean algebra is also often written in the form of $\cdot$ as AND, + as OR, and $^-$ as NOT, with the order of operations as NOT, AND, then OR
+\3 As a result, $X \cdot 0 = 0, X + 1 = 1, X \cdot 1 = X$, and $X + 0 = X$ as the main identities, with both associative properties of AND and OR, and distributive property of AND over OR and of OR over AND
+\2 Karnaugh Maps convert a logic array to a statement, making one side of the square the possible combinations of half the variables, the other side the other half
+\3 It is drawn such that any adjacent cells differ by one variable, including across borders, though not diagonally, such that the order is 00-01-11-10, instead of 00-01-10-11 which is sequential binary
+\3 Adjacent entries of some power of 2 as a result can be designated as an AND, signifying the change from each, adding each separate group together with an OR, even if containing values held by other groups
+\2 The binary gates can be extended as a result to a larger number of inputs by extending the number of transistors that make up the gate, thought it is noted that more levels creates a delay of that magnitude
+\end{outline*}
+\subsection{Combinational Circuits}
+\begin{outline*}
 \1 Combinational logic circuits, or decision elements, are structures of logic gates, depending only on immediate input data provided, rather than any stored data, contrasting data storage structures
-\2 Decoders are a circuit which takes two inputs, and returns four bits based on which combination of the inputs is 1, called the opcode
+\2 Decoders are a circuit which takes two inputs, and returns four bits based on which combination of the inputs is 1, called the opcode, used often for turning on a specific hardware unit
 \3 It thus decodes two ordered inputs, returning 1000 if 00 is the input, 0100 if 01, 0010 if 10, and 0001 if 11
 \3 This is done by placing four AND gates in parallel, each with a varying number and sequence of inverters directly before them
 \2 Mux, or multiplexers, select one of two inputs to use as output based on the select signal
 \3 This is done by feeding the select signal and its inversion into two AND gates, each with one input going to it, combining the results in an OR gate to return the chosen value
 \3 This is extended to more inputs by increasing the number of possible select signals to the AND gate
-\3 This is drawn by a trapezoid with the select signal going to a leg, the inputs to the longer side, the output from the shorter
+\3 This is drawn by a trapezoid with the select signal going to a leg, the inputs to the longer side, the output from the shorter, or as a rectangle
 \4 Multiple select signals can be denoted by a slash on the wire with the number of signals written above the slash
 \2 Full adders take three one bit inputs, $a_i, b_i$, and the $carry_i$, such that the two results are $s_i$ and $carry_{i + 1}$, used to sum two bits in a column, adding the three inputs into 8 series of AND gates, each with a different combination of inverters before
 \3 The results of the OR gates are then fed into two OR gates, depending on how they combine for the truth table, to produce the sum of the column
 \3 Thus, for a 2s complement or unsigned numbers, since it can be added in columns just as a decimal number, each full adder can be used for a different column, taking the carry of the previous, to produce the sum of binary digits
+\3 These are drawn as either a square with an indication mark in the middle for a single unit with the carry going in from the right, out from the left, inputs from the top, output from the bottom
+\4 For a complete full adder, it is drawn as a trapezoid with the inputs to the larger end, the inward carry to the top leg, and the output from the small end
+\3 Subtraction is thus done by a full added by negating one of the input bits, then adding a carry of one to the sum based on the rules of 2's complement
+\3 Half adders are defined as an adder without an initial carry input, though still with a carry output
 \2 The Programmable Logic Array (PLA) has an array of AND gates with a combination of inputs, such that for n inputs, there must be $2^n$ AND gates, each with varying negations
 \3 These are then connected in some formation to an array of OR gates for each output, based on if the inputs produce each output
 \3 This as a result is able to be used to form any truth table in circuit form, consisting of only AND, OR, and NOT gates, such that those sets of gates are called logically complete
+\3 While PLAs are able to implement any circuit, they are often not the most efficient method of creating the circuit
+\3 Multiple bit inputs and outputs are denoted by a slash with the number of bits written next to the slash
+\2 Arithmetic Logic Unit are thus made by a full adder, often combined with a decoder to separate between signals for AND, OR, ADD, or SUB, with a Mux to use the same adder for ADD and SUB
+\end{outline*}
+\subsection{Memory}
+\begin{outline*}
+\1 Basic storage elements are logical structures capable of storing some amount of data, contrasting combinational logic circuits
+\2 R-S latches can store a single bit, made of two NAND gates, the output of each connected to the input of the other, with two external inputs (S and R)
+\3 In the quiescent state, S and R both begin as 1, such that whichever default input reaches first makes that output 1, at which point the other NAND gate returns 0, preserving the outputs
+\3 If the S gate returns 1, then the overall data value is 1, otherwise 0, such that S or R can be set to 0 quickly to make that gate return 1, setting the variable as one of the values
+\3 The term clearing the variable is used to denote setting it back to 0, such that clearing S or R makes that gate have a 1 output
+\3 Both inputs are not able to be set to 0, in which case the result will depend on the electrical properties of the transistors, rather than logic
+\3 As a result, the S gate signal is taken separately to get the overall output of the circuit
+\2 Gated D latches allow it to be controlled when a latch is set or cleared, such that it is two NAND gates, each gaining input from D, the gate in series with the R gate inverted, such that it determines which is set
+\3 Each of the D gates also have a write-enable signal, which determines if the byte is set in the first place, such that if it is activated briefly, one of the D gates stops signaling, setting the R-S latch based on D
+\2 Registers store a series of bits as a unit, made up of a series of gated D latches, designated as an array of bits, starting from $[0]$ as the rightmost
+\3 The same write-enable signal is given to each of the D latches, with a different D value given to each based on the value being stored
+\3 Subunits of the series of bits are designated $[l:r]$ where l is the value of the leftmost, r is the value of the rightmost, called a field of the register
+\1 Memory is made up of a large number of locations, each with a unique identifier, or address, each storing some amount of data, the amount of bytes/bits (1 byte = 8 bits), called the addressability of the memory
+\2 The total number of addresses is called the memory's address space, as some power of two based on the numbers of bits encoded as each memory address, such that the range is $[0, 2^{n} - 1]$
+\2 Most memory systems are byte addressable, such that they store a single byte per memory address, corresponding to one ASCII character, but computers are often 64-bit addressable to allow for double floating point numbers to be stored, used in large calculations
+\1 Memory is denoted as size m by n bits, where m is the address space, n is the addressability, made up of a decoder to determine which memory address row, called the word line, with the size of the addressability
+\2 The decoder sends the word line value into the mux, to determine which D latch provides the value through the mux, sending it to each column of D-latch/mux combinations to give one bit of the word
+\2 The write enabled is connected to an AND gate with the decoder, such that the decoder signal must be set to the correct word line, along with the write enabled to set the latches
+\2 Each column of mux/D-latches is also connected to a D input value to set the byte if the write enabled is activated
+\end{outline*}
+\subsection{Sequential Logic Circuit}
+\begin{outline*}
+\1 Combinational logic circuits are those that have no ability to store data from the past, while storage circuits store data from the past
+\2 On the other hand, sequential logic circuits do both, such that they base the decisions on both the previous stored output and current input data, used for finite state machines 
+\2 As a result, this is capable of monitoring sequences, such as a sequential rotation lock
+\1 Thus, sequential circuits rely on the state of the circuit, defined as the external data of the input and current setting fed in, combined with all prior operations in the sequence and the settings deemed relevant 
+\2 Each step within the sequence is thus considered a state of the system, as a snapshot of the current characteristics of the system
+\2 Finite state machines are thus defined as a system with a finite number of states, external inputs, external outputs, as well as explicit specification of state transitions and what determines an external output value
+\3 These are represented by a state diagram, drawing a circle for each state, with connections/arcs from the current state to each other subsequent/next state, each with the external input to provide that transition written at the base
+\3 The internal output values of the system are written near the state, designating the code provided for the state, with the external output written inside the state bubble
+\1 State transitions are often defined by a clock circuit, with a signal alternating between 0 and 1 cyclically in some amount of time, triggering a transition when on
+\1 Thus, the combinational logic circuit aspect of the circuit is created based on the combination necessary, the storage element acting as a master-slave flip-flop instead of a gated D latch, which would modify the value stored immediately, rather than waiting until the next clock cycle
+\2 Thus, the master-slave flip-flop is made up of two D-latches for each byte, the output of one as the input of the other, the clock connected as the write-enabled, but negated for one, such that it is only able to change the value of one at a time
+\2 As a result, it writes the second when the clock is activated writing the value from the first, such that it is inputted into the circuit, and when the clock is deactivated, writes the first with the new value of the circuit
 \end{outline*}
 \end{document}
