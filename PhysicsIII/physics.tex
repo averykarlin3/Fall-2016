@@ -395,6 +395,7 @@
 \2 For some quasi-static process, the ideal gas law can be written as PdV + VdP =  nRdT by the product rule, and as a result of the second part, it can be stated that $\frac{dU}{dT}|_V = C_V$, such that $\delta Q = C_VdT + PdV$
 \3 By combination of these, it is found that $\frac{\delta Q}{dT} = C_V + nR - V\frac{dP}{dT}$, such that if pressure is set constant, $C_P = C_V + nR$ for an ideal gas
 \3 Thus, $C_V, C_P$ are functions of temperature only for ideal gases, and $C_P \geq C_V$, due to the gas expanding work to expand against the equal, external pressure when pressure is constant, whereas for constant volume, there is no work done (PdV = W)
+\3 This is combined with the first law of thermodynamics to find that internal energy of an ideal gas is a function purely of temperature
 \2 It is also derived following that $\delta Q = C_PdT - VdP$ for an ideal gas, giving another form of the 1st law for an ideal gas
 \end{outline*}
 \subsection{Heat Capacity Measurement}
@@ -446,7 +447,7 @@
 \1 Since collisions are perfectly elastic, $\Delta p$ per collision = $2m\vec{v}cos\theta$, such that per dt, the total change in momentum for collisions against dA = $m\vec{v}^2\frac{dN|_\vec{v}}{V}(\frac{1}{2\pi}\int^{2\pi}_0 d\phi \int^{\frac{\pi}{2}}_0 cos^2\theta sin\theta d\theta$
 \2 Since the change in momentum due to collisions against some area is the definition of pressure, this is equal to $dP|_\vec{v} = \frac{m}{3V}dN|_\vec{v}$, integrated from 0 to $\infty$ by the earlier assumption
 \2 By definition, the average square of atomic velocity, $<\vec{v}^2> = \frac{1}{N}\int \vec{v}^2 dN|_w$, such that $PV = \frac{Nm<\vec{v}^2>}{3}$
-\2 Combining with the ideal gas law, produces the fact that $T = \frac{2N}{3nR}\frac{1}{2}m<\vec{v}^2> = \frac{2*KE}{3nR}$, where since for monatomic ideal gas atoms there are no rotational or vibrational kinetic energies, and due to lack of effect on other atoms, no potential, KE = U
+\2 Combining with the ideal gas law, produces the fact that $T = \frac{2N}{3nR}\frac{1}{2}m<\vec{v}^2> = \frac{2*<KE>}{3nR}$, where since for monatomic ideal gas atoms there are no rotational or vibrational kinetic energies, and due to lack of effect on other atoms, no potential, $<K>N = \sum KE$ = U
 \3 Thus, it is shown that for a monatomic ideal gas, the internal energy and average kinetic energy are proportional purely to temperature
 \3 $C_V$ and $C_P$ can then be calculated based on this function of internal energy, such that $C_V = \frac{3}{2}nR, C_P = \frac{5}{2}nR$, such that it is independent of temperature
 \3 The ratio $k = 1.3807 * 10^{-23} J/K = \frac{R}{N_A}$, where $N_A$ is Avogadro's number, is the Boltzmann constant, providing the kinetic theory ideal gas law, PV = NkT
@@ -494,10 +495,10 @@
 \1 Stirling engines are external combustion engines, invented to be less likely to explode than steam engines, used before the invention of internal combustion engines for low horsepower machines
 \2 It has the overall advantage of being able to use any form of heat source, operates quietly, and does not produce any toxic byproducts, currently used for artificial heart power
 \2 Ideal Stirling engines have two pistons on each side of a shaft with a fixed mass of helium in between, the left/expansion piston side in contact with high temperature reservoir, the right/compression piston with the low reservoir/atmosphere
-\3 In the middle is the regenerator made of fine wire screens, allowing heat in and out into an internal reservoir
-\2 The Stirling cycle is made up of the heat loss stage, in which the left piston fully compressed, the right piston compressing halfway isothermally, triggering heat loss through the cold sink
+\3 In the middle is the regenerator made of fine wire screens, allowing heat in and out into an internal reservoir by a fixed quantity reversibly
+\2 The Stirling cycle is made up of the heat loss stage, in which the left piston fully compressed, the right piston compressing halfway isothermally, triggering heat loss through the cold sink, performing work to compress
 \3 After, the left piston expands, and the right fully compresses isochorically forced through the regenerator to the other side, raising the temperature and pressure without work or volume change through heat provided
-\3 After, the right piston remains static, as the left piston is expanded to allow such that the volume increases, absorbing heat such that it is isothermal
+\3 After, the right piston remains static, as the left piston is expands due to the pressure, to allow such that the volume increases, absorbing heat such that it is isothermal, performing work
 \3 Finally, the left piston compresses fully as the right piston expands fully, giving the same heat absorbed by the regenerator as moving back through, isochorically
 \2 Error is introduced into the system by non-ideal gas, leakage of gas, heat transfer through walls, heat conducted from the regenerator to the device, or friction
 \3 Realistic thermal efficiency of a Stirling engine is approximately 40\%
@@ -507,6 +508,19 @@
 \3 This can be restated as that it is impossible for a hot object to utilize mechanical work from internal energy of matter, cooling below its surrounding objects (100\% thermal efficiency)
 \2 Theoretical machines which create energy, violating the first law, are perpetual motion machines of the first kind
 \2 Those which use internal energy of a single heat reservoir only, converting heat into work alone, thus violating the second law, are perpetual motion machine of the second kind
+\1 Refrigerators are the opposite of a heat engine, taking some small amount of heat from a cold reservoir, returning a higher amount by work done on the system, the working substance of the system called refrigerant
+\2 It must be able to be cyclical, such that there is no change of state from a full cycle, able to convert an unlimited amount of work into heat
+\2 The Clausius statement of the Second Law states that it is impossible to construct a refrigerator that produces no effect other than transferring heat from a low temperature reservoir to high temperature, such that there is no work needed
+\3 This is proven to be the Second Law, by the fact that combining an engine and a refrigerator, the latter violating this, would allow violation of the Kelvin statement
+\3 Further, for an engine that violates the second law, feeding the work into the refrigerator, the refrigerator would thus violate the Clausius statement
+\1 Reversible processes are those which can be performed such that the system returns to its original state without any external changes
+\2 Any isothermal process involving a dissipation of heat, to be reversible, would require the complete conversion of heat from a reservoir into work, thus impossible
+\3 Any adiabatic process increasing the internal energy of a system from work, resulting in an increase in temperature, to be reversible, would require removing all added internal energy as heat, and converting it fully into work, also impossible
+\3 These dissipative processes are considered to have external mechanical irreversibility, present in all mechanical devices, such that a machine which violates it is a perpetual motion machine of the third kind
+\2 Internal mechanical irreversibility processes are those which convert internal energy into mechanical energy, then back to internal energy without external heat or work, unable to be reversed without adding energy to the system, such as free expansion
+\3 This can be visualized as a process, which to be reversed, would require work, but also which all added energy would have to be removed fully as heat and fed back to the source of the work
+\3 This can be viewed microscopically as being due to mechanical instability, causing the initial change, followed by dissipation causing the second change, making it irreversible
+\2 External and internal thermal irreversibility are those involving a transfer of heat to/from a reservoir, or within a body, by a finite temperature difference, impossible to reverse by the Clausius statement
 \end{outline*}
 \section{Notes}
 Boundary layer is what changes temperature, rather than the wall itself, such that it is what modifies? Convection and conduction simulaneously? Ice water == resistor in series - Homework ice problem
