@@ -437,7 +437,18 @@
 \3 Thus, using $[T(\vec{V})]_C$ and C itself, $T(\vec{v})$ can be found for some general vector, $\vec{v}$
 \2 This is due to the multiplier acting to transform the given vector first, in terms of the original base, followed by converting it into the correct base rather than leaving it in terms of the transformations of the original base, by the properties of ordered bases and linear transformations
 \1 It is found by the change of base equations and linear transformation matrix equations, that $[T]^C_C = P_{B \to C}[T]^B_BP_{C \to B}$, giving a relationship between each of the matrix representations of T relative to some base
-
+\1 Linear transformation matrices can multiplied for the composition of linear transformations, such that for $T_1: U \to V, T_2: V \to W, T_3: U \to W$, then $[T_3]^C_A = [T_2T_1]^C_A = [T_2]^C_B[T_1]^B_A$, providing a single matrix for the total linear transformation
+\1 For some linear transformation $T: V \to W$, with ordered bases B for V and C for W, for some $\vec{v} \in V$, then $\vec{v} \in Ker(T)$ iff $[\vec{v}]_B \in nullspace([T]^C_B)$
+\2 In addition, for some $\vec{w} \in W$, then $\vec{w} \in Rng(T)$ iff $[\vec{v}]_B \in colspace([T]^C_B)$
+\2 The kernel of a transformation T: $V \to W$, Ker(T), is the set of all vectors, $\vec{v} \in V$, such that $T(\vec{v}) = \vec{0}$
+\2 The range of a transformation T: $V \to W$, Rng(T), is the subset of W, consisting of all vectors formed by $T(\vec{v}) \forall V \in \vec{v}$
+\1 For some linear transformation, $T: V \to W$ with ordered bases B for V and C for W, then T is one-to-one iff $nullspace([T]^C_B) = \{\vec{0}\}$
+\2 In addition, T is onto iff $colspace([T]^C_B) = \mathbb{R}^n$, where n = dim(W)
+\2 Further, $T: V \to V$ is invertible iff T is one-to-one and onto
+\3 As a result, it is found that T is invertible iff $[T]^C_B$ is an invertible matrix for all ordered bases B and C, which is equivalent to $[T]^C_B$ is invertible for some ordered bases B and C in V
+\3 Thus, $[T^{-1}]^B_C[T]^C_B = [I]^B_B = I_{dim(B)}$, such that $([T]^C_B)^{-1} = [T^{-1}]^B_C$, allowing $T^{-1}$ to be determined
+\2 One-to-one is defined for some transformation, $T: V \to W$, if each distinct element in V is mapped to a distinct element in W, such that for all $\vec{v}_1 \neq \vec{v}_2 \in V$, then $T(\vec{v}_1) = T(\vec{v}_2)$
+\2 Onto is defined for some transformation, $T: V \to W$, such that if W = Rng(T)
 \end{outline*}
 \subsection{The Eigenvalue/Eigenvector Problem}
 \begin{outline*}
