@@ -453,8 +453,13 @@
 \subsection{The Eigenvalue/Eigenvector Problem}
 \begin{outline*}
 \1 For some nxn matrix, A, any values of a constant, $\lambda$, such that $A\vec{v} = \lambda\vec{v}$ has non-trivial solutions, are called eigenvalues of A, while the corresponding nonzero vectors are eigenvectors of A
+\2 This is based off being used to solve a system of linear first order differential equations, such that $\vec{\frac{d\vec{x}}{dt}} = A\vec{x}(t)$, where \vec{x} is a 2-column vectors, such that $\vec{x}(t) = e^{\lambda t}\vec{v}$
 \2 These are also called characteristic values and vectors of A respectively
-\2 The matrix is restricted to some matrix of a linear transformation, $T: \mathbb{C}^n \to \mathbb{C}^n$
+\2 The matrix can also be viewed as some matrix of a linear transformation, $T: \mathbb{C}^n \to \mathbb{C}^n$, such that $T(\vec{v}) = A\vec{v} = \lambda \vec{v}$, such that it is a transformation that purely stretches the vector
+\3 As a result, it is found that if $\vec{v}$ is an eigenvector of A, then $c\vec{v}$ is for all nonzero scalars c
+\2 Further, by definition, it can be thought that eigenvalues of A are those such that $(A - \lambda I_n)\vec{v} = 0$, such that it must have nontrivial solutions
+\3 As a result, by the fact that lack of invertibility implies infinite solutions, $det(A - \lambda I) = 0$ if $\lambda$ is an eigenvalue of A
+\3 $p(\lambda) = det(A - \lambda I_n)$ is called the characteristic polynomial of A, at degree n by the definition of a determinant, and $p(\lambda) = 0$ is called the characteristic equation of A
 \end{outline*}
 \section{Quotes}
 \begin{itemize}
