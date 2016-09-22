@@ -398,7 +398,8 @@
 \1 rowspace(A) of a matrix is the subspace spanned by the vector set of each row of A, while the colspace(A) is the subspace spanned by the vector set of each column
 \2 It is found that for two row-equivalent matrices, the rowspaces of each are equal, and thus the set of nonzero rows of row-echelon form of a matrix is the basis for its rowspace, such that the basis can be found by converting row-echelon
 \2 $colspace(A) = rowspace(A^T)$ by the definition of transposing, such that this can be used to find the basis of a colspace
-\3 In addition, the row-echelon form of a matrix can be used to produce simplified vectors, where each column with a leading one is a vector of the basis of the colspace by extension of the previous method
+\3 In addition, the row-echelon form of a matrix can be used to produce simplified vectors, where each column with a leading one is corresponds to a column of the original matrix, making up a basis of the colspace by extension of the previous method
+\2 It follows that rank(A) = dim(rowspace(A)) = dim(columnspace(A)), although the rowspace and colspace may be in different dimensions
 \1 The nullity of some matrix A, denoted nullity(A), is defined as dim(nullspace(A))
 \1 The Rank-Nullity Theorem states that for some matrix $A_{mxn}$, rank(A) + nullity(A) = n, such that the nullity of a matrix is equal to the number of free variables in the solution of $A\vec{x} = 0$
 \2 Thus, for some homogeneous linear system of equations $A\vec{x} = 0$ where $A_{mxn}$, if rank(A) = n, then there is only the trivial solution, such that nullspace(A) = \{0\}

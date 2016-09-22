@@ -53,7 +53,7 @@
 
 \begin{document}
 
-\title{}
+\title{Computer Systems}
 \author{Avery Karlin}
 \date{Fall 2015}
 \newcommand{\textbook}{}
@@ -241,5 +241,20 @@
 \1 Thus, the combinational logic circuit aspect of the circuit is created based on the combination necessary, the storage element acting as a master-slave flip-flop instead of a gated D latch, which would modify the value stored immediately, rather than waiting until the next clock cycle
 \2 Thus, the master-slave flip-flop is made up of two D-latches for each byte, the output of one as the input of the other, the clock connected as the write-enabled, but negated for one, such that it is only able to change the value of one at a time
 \2 As a result, it writes the second when the clock is activated writing the value from the first, such that it is inputted into the circuit, and when the clock is deactivated, writes the first with the new value of the circuit
+\end{outline*}
+\section{Chapter 4 - Von Neumann Model}
+\begin{outline*}
+\1 Computers are made up of a program, or a set of instructions, each a well-defined work command of the smallest possible division, and a hardware device, such that a von Neumann model is simplest fundamental model for processing programs
+\2 It is made up of a memory, processing unit, input, output, and control unit (controlling the order of instructions processed), storing the program in the memory
+\1 The memory for a standard computer in modern day is $2^{28}$ by 8 bits, while the LC-3 has $2^{12}$ by 16 bits
+\2 The contents from memory are read by placing the location in the memory's address register (MAR), which then has the data stored there placed in the memory's data register (MDR), written by activating Write Enable signal, then writing the address and data value in each respectively
+\1 The processing unit is made up of at least one ALU, used for simple arithmetic and logic functions, with the length of the quantity evaluated called the word length, each value a word
+\2 In the LC-3, the word length is 16 bits, though most computers in modern day have either 32 bits or 64 bits (such as the SPARC-V9)
+\2 Most processors also have a small amount of memory, called the TEMP, next to the ALU, to store data for calculations with multiple parts needed in the near future
+\3 This is due to taking a long amount of time to access the main computer memory, relative to the time needed to  do the calculation, generally with the TEMP having a certain amount of registers, each for one word
+\3 In the LC-3, it has 8 registers (R0, R1, \dots, R7), while the SPARC-V9 has 32 registers
+\1 Input and output are made up of peripherals able to sense and display information, generally at the simplest the monitor and keyboard for an LC-3
+\1 The control unit keeps track of the order of instructions in the program, using the information register (IR) to contain the current instruction being executed
+\2 It also contains the address of the next instruction, stored within the program counter (PC)
 \end{outline*}
 \end{document}
