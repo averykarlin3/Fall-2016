@@ -589,18 +589,16 @@
 \2 Internal mechanical irreversibility is found by free expansion, such that $\Delta S = _R\int_{V_i}^{V_f} nR \frac{dV}{V} = nR ln\frac{V_f}{V_i}$, such the entropy in the system increased
 \2 External thermal irreversibility, such that there is a finite temperature difference, have heat flow, where the same amount of heat is transferred from high temperature to low, such that entropy increases
 \2 It is seen fundamentally thus, for some irreversible process, the change in entropy must be positive, such as chemical irreversibility of diffusion (acting as two free expansions)
-\2 This can be proven by a reversible heat medium providing heat from an external reservoir at a higher temperature to an irreversible engine at a lower temperature ($T_l$)
-\3 For the system of the engine and medium, the work done must be equal to the heat provided to the system each cycle, but by the second law, the heat provided cannot be positive, since there is no external cold reservoir, since it is irreversible, cannot be 0
-\3 As a result, the net heat provided to the system each cycle must be negative such that heat is leaving the irreversible engine
-\3 By the definition of thermodynamic temperature, $\frac{\delta Q_{Ri}}{T_{Ri}} = \frac{-\delta Q_{Rf}}{T_{Rf}} = \frac{\delta Q_{Ii}}{T_{Rf}}$, where R signifies the reversible medium, I the engine
-\3 As a result, since the heat change the system in a cycle must be negative, the heat change to temperature of heat entering ratio in a cycle of the irreversible engine must be negative ($_I\oint \frac{\delta Q}{T} < 0$, the Clausius inequality)
-\3 It is noted that this does not mean the heat change of the irreversible engine during a cycle is negative, but rather just the ratio of heat to entering temperature is, even though the total heat change of the joint system must be negative
-\3 On the other hand, heat itself can be positive if the temperature of the engine itself is lower than that of the reservoir, though the ratio is still decreasing in a cycle
+\2 This is proven by a theoretical system of a reversible engine feeding heat into an irreversible engine with an internal temperature difference/cold reservoir, feeding from an external hot reservoir
+\3 In a cycle, such that there are no internal changes, $W = \oint dQ_{H} \leq 0$, since it cannot produce work without a cold reservoir, requiring dissipation to get back to the initial state, such that neither engine is able to produce work
+\3 If the work done was 0, it would be moving back to the original state, returning all heat taken in, such that it would be reversible, thus $\oint dQ_H < 0$
+\3 Since the first engine is a Carnot engine, the thermodynamic temperature ratio is valid, such that $\frac{dQ_H}{T_H} = \frac{-dQ_L}{T_M} = \frac{dQ_I}{T_M}$, since the heat lost is taken by the irreversible engine
+\3 Thus, it is found that $\oint \frac{dQ_I}{T_M} < 0$ for an irreversible engine cycle, where $T_M$ is the temperature it is entering the system, rather than the temperature of the system/internal reservoir
 \2 As a result, the Clausius statement of the second law of thermodynamics states that $\oint \frac{\delta Q}{T} \leq 0$
 \3 It is noted though that the temperature of the entropy statement change is that of the heat entering the irreversible engine, rather than the temperature within the irreversible engine, since the temperatures are not equal due to not being quasi-static/reversible
 \1 Since entropy is a state function, for some closed loop, reversible or irreversible, $\oint dS = 0$, while since $_I\oint \frac{\delta Q}{T} < 0 = _I\oint dS$
 \2 As a result, it can be generally stated for all processes that $dS \geq \frac{\delta Q}{T}$, such that two out of isentropic, reversible, and adiabatic imply the third, but one does not imply the others
-\1 **Add 8.10**
+\1 
 \1 The Entropy Principle states that for any irreversible process, the entropy of the universe increases, already shown for irreversible nonadiabatic processes, acting as an alternate form of the Second Law
 \2 For some irreversible adiabatic process, $\Delta S = S_f - S$, it can be brought through a combination of a reversible isothermal and two reversible adiabatic processes to bring to the initial state
 \3 Since for the reversible adiabatic process, there is no change in entropy, $\Delta S$ is equal to the negative of the change in entropy of the reversible isothermal process
