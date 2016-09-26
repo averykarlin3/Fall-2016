@@ -243,18 +243,47 @@
 \2 As a result, it writes the second when the clock is activated writing the value from the first, such that it is inputted into the circuit, and when the clock is deactivated, writes the first with the new value of the circuit
 \end{outline*}
 \section{Chapter 4 - Von Neumann Model}
+\subsection{Hardware}
 \begin{outline*}
 \1 Computers are made up of a program, or a set of instructions, each a well-defined work command of the smallest possible division, and a hardware device, such that a von Neumann model is simplest fundamental model for processing programs
 \2 It is made up of a memory, processing unit, input, output, and control unit (controlling the order of instructions processed), storing the program in the memory
-\1 The memory for a standard computer in modern day is $2^{28}$ by 8 bits, while the LC-3 has $2^{12}$ by 16 bits
+\2 In von Neumann/computer model diagrams, filled arrows are used to signify command/control signals, while unfilled arrows are used to signify data
+\1 The memory for a standard computer in modern day is $2^{28}$ by 8 bits, while the LC-3 has $2^{16}$ by 16 bits
 \2 The contents from memory are read by placing the location in the memory's address register (MAR), which then has the data stored there placed in the memory's data register (MDR), written by activating Write Enable signal, then writing the address and data value in each respectively
+\2 As a result, the MAR for an LC-3 has 16 bits, due to the address requiring that many to specify, while the MDR has 16 bits for one data piece as well
 \1 The processing unit is made up of at least one ALU, used for simple arithmetic and logic functions, with the length of the quantity evaluated called the word length, each value a word
 \2 In the LC-3, the word length is 16 bits, though most computers in modern day have either 32 bits or 64 bits (such as the SPARC-V9)
+\2 The ALU for an LC-3 is able to perform addition, bitwise NOT, and bitwise AND
 \2 Most processors also have a small amount of memory, called the TEMP, next to the ALU, to store data for calculations with multiple parts needed in the near future
 \3 This is due to taking a long amount of time to access the main computer memory, relative to the time needed to  do the calculation, generally with the TEMP having a certain amount of registers, each for one word
 \3 In the LC-3, it has 8 registers (R0, R1, \dots, R7), while the SPARC-V9 has 32 registers
 \1 Input and output are made up of peripherals able to sense and display information, generally at the simplest the monitor and keyboard for an LC-3
+\2 A simple keyboard for an LC-3 requires two registers, a KBDR for the ASCII code of the last key hit and KBSR for maintaining the status of keys hit, while a simple monitor requires two registers,  DDR for ASCII code being displayed and DSR for status information
 \1 The control unit keeps track of the order of instructions in the program, using the information register (IR) to contain the current instruction being executed
-\2 It also contains the address of the next instruction, stored within the program counter (PC)
+\2 It also contains the address of the next instruction, stored within the program counter (PC), and a finite state machine to direct all activity taking input from the IR and from a clock (CLK)
+\3 The clock is made up of a piezoelectric crystal oscillator to produce oscillating voltage, with a RUN latch connected to it and an AND gate, determining if the computer runs
+\3 Older computers used the HALT instruction to turn off the RUN latch, while newer computers, such as the LC-3 use the operating system to do so
+\2 The finite state machine has a series of command outputs, such as the two bit ALUK, controlling the operation of the ALU, or the GateALU, determining if the ALU output is sent out of the computer by the processor bus during that cycle
+\3 The LD.MAR is the write-enabled signal for the MAR register, allowing the PC to be written into the MAR to get the subsequent command
+\3 The GatePC determines if the PC is connected to the processor bus, such that the data from it can be accessed at a particular point
+\3 The PCMUX allows it to choose the select line for modifying the PC in a specific manner, such as incrementing, giving the new value
+\3 The LD.PC is the write-enabled signal for the PC register, while the LD.IR is the write-enabled signal for the IR, allowing the values to be modified
+\3 The GateMDR determines if the MDR is connected to the processor bus, such that the value from it can be sent to other parts of the system
+\end{outline*}
+\subsection{Instruction Processing}
+\begin{outline*}
+\1 Instructions are made up of an opcode (command) on the left, written as 4 bits $[15:12]$, in a 16 bit word, with the remaining 12 bits as the operands (data executing on)
+\2 The ADD command has the format of opcode value 1, followed by two three bit TEMP addresses for the values being summed, followed by three metacode values and the three bit TEMP address of the output storage location
+\3 This is called an operate instruction, acting to process the data
+\2 The LDR (load to temp register) command is signified by opcode value 6, the first operand as the address base register location in TEMP, the second ($[11:9]$) as the destination register for the final value
+\3 The remaining six bits on the right are thus the offset, added to the base value to give the address of the value in the memory to be loaded
+\3 This is called a data movement instruction, due to moving data from one location to another
+\1 The commands are processed in the six phase instruction cycle, taking up a some number of machine/clock cycles, controlled by the finite state machine
+\2 It begins with the FETCH phase, taking the next instruction from memory by the address in the PC, loading it into the IR, after which the PC is incremented to point toward the next instruction, taking multiple cycles to access memory, the remaining steps each taking one
+\2 After, the DECODE phase studies the opcode to direct the command, sending an output line to the processor in one clock cycle, then the EVALUATE ADDRESS phase, which calculates any memory addresses needed
+\2 After, the FETCH OPERANDS phase takes the operands from either the memory from the EVALUATE ADDRESS phase, or from temporary storage, and then are used in the EXECUTE phase, finally using the STORE RESULT phase to finish the cycle
+\2 It is noted that while there are six phases, most commands such as the ADD (EVALUATE ADDRESS) and LDR (EXECUTE) do not require specific phases each
+\1 Control instructions are those which change the sequence of instructions, changing the PC after it is incremented, during the EXECUTE phase
+\2 The JMP (jump) instruction, signified by opcode value 12, containing the location of the TEMP register with the new PC address at $[8:6]$, containing 0 in the remaining values
 \end{outline*}
 \end{document}

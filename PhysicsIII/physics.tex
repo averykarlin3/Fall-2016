@@ -208,6 +208,7 @@
 \4 By extension of that, $\frac{\partial y}{\partial z}\frac{\partial z}{\partial x} = -\frac{\partial y}{\partial x}$
 \3 Thus, by those theorems, $\frac{\partial P}{\partial T} = \frac{\beta}{\kappa}$, such that each partial derivative has a physical representation by the theorems
 \4 As a result, a form $dP = \frac{\beta}{\kappa}dT - \frac{1}{\kappa V}dV$ of the state equation is found, which can be integrated for each in terms of the others
+\3 In addition, it must be noted that by the chain rule, for some z(w(x, y), x), it is found that $\frac{\partial z}{\partial w}|_x\frac{\partial w}{\partial y}|_x = \frac{\partial z}{\partial y}|_x$
 \1 Wires are a one-dimensional system, usually assumed that pressure and volume are constant, such that the coordinates are tension, $\tau$, length, L, and temperature, T,
 \2 While it cannot be expressed universally by a single equation, for a constant temperature in the portion of elasticity such that Hooke's law is true, $\tau = -k(L - L_0)$, where $L_0$ is the length at no tension
 \3 Since equations of state assume thermodynamic equilibrium, the tension must be balanced out by some external force
@@ -475,6 +476,8 @@
 \2 The exhaust is the isochoric decrease in temperature and pressure due to external heat added to the sequence of cold reservoirs, where $|Q_L| = C_V(T_4 - T_1)$
 \2 The exhaust stroke is an isobaric process at atmospheric pressure again, the reversal of the intake stroke
 \2 It is found as a result of these equations that $\eta = 1 - \frac{T_1}{T_2} = \frac{T_4}{T_3}$, such that it is based on the temperatures before and after each adiabatic process
+\3 In addition, $\eta = 1 - \frac{1}{(\frac{V_1}{V_2})^{\gamma - 1}}$, where $\frac{V_1}{V_2}$ is the compression ratio, such that complete efficiency would require no volume/gas
+\4 For real engines, it is found that a compression ratio greater than 10 would cause spontaneous combustion, interfering in the timing of the engine, though used in diesel
 \3 Otto gasoline engines are assumed to go from 300 K to 580 K, such that there is 48\% efficiency, though real gasoline engines tend to be about 25\%
 \1 Diesel engines are internal-combustion engines as well, taking in only air during intake, spraying oil after compression, using the temperature of the air to trigger combustion, acting similarly to a gas engine otherwise
 \2 The oil spraying rate is adjusted such that the combustion is slow enough that it is isobaric as the piston moves out to increase the volume for the power stroke
@@ -537,7 +540,6 @@
 \2 This is distinct from a real heat engine, in that since it is isothermal rather than isochoric or isobaric, it doesn't require a series of reservoirs to be quasi-static, but rather a single
 \1 For a gas, this is drawn simply on a P-V graph, while for a reversible state change for added heat, which is isobaric and isothermal, with reversible adiabatic temperature change, it is written differently
 \2 In this case, it is noted that the change in volume for temperature change is drastically larger for gases than liquids, but the change in pressure is approximately the same
-\3 Electrochemical and Magnetic Needed??? ****
 \3 It is found that for an Carnot engine, any system can be graphed on some two coordinate plane, such that it is signified in a diagram by some rectangle, with R written inside to show reversibility
 \2 The work done by the heat engine as a result is simply modified by changing the length of the isothermal process, and as a result, the amount of heat allowed to enter
 \1 Any reversible heat engine only requiring two reservoirs for operation and reversibility must be Carnot engines, unlike other cycles, which require a series of reservoirs to be reversible, providing a definition for Carnot engines
@@ -546,6 +548,74 @@
 \3 This is proven by joining a Carnot refrigerator with an irreversible heat engine, such that by contradiction of the 2nd Law, it must be more efficient
 \3 As a result of this, the Carnot cycle does not depend on the actual substances which make up the Carnot engine, but rather have a fixed efficiency between two reservoirs
 \3 This provides a bound for the efficiency of a heat engine, as the maximum due to being able to absorb all heat at the high temperature, and release all heat at the low temperature, rather than by a series of reservoirs
+\1 The thermodynamic absolute temperature scale is the ideal, independent of the working substance, such as a constant-volume ideal gas thermometer, thus since a Carnot engine is independent, it makes a thermodynamic absolute scale
+\2 Efficiency of a Carnot engine is $\mu_R = 1 - \frac{|Q_L|}{|Q_H|}$, as some function of the two temperatures, such that $f(T_H, T_L) = \frac{1}{1 - \mu_R} = \frac{|Q_H}{|Q_L|}$
+\2 Since two Carnot engines, passing heat through some arbitrary heat sink, is equivalent to one bypassing it in terms of the initial and final heat, and total work, since the middle heat sink cancels out, $\frac{|Q_H|}{|Q_L|} = \frac{\phi(T_H)}{\phi(T_L)}$
+\2 As a result, $\phi(T)$ is defined as the thermodynamic temperature function, independent of any substance, not even relying on gas properties like an ideal gas system, as the ratio of the heats
+\3 For a logarithmic $\phi(T)$, varying from $-\infty (Q = 0)$ to $\infty (Q \to \infty)$, advantageous due to moving absolute zero far from the freezing point of water
+\4 The triple point of water was set at $0^o$, increasing linearly for each factor of 10, as a more symmetrical numerical system, denoted $^oL$, called the logarithmic thermodynamic scale
+\3 On the other hand, the common scale remains Kelvin or Rankine, applied to thermodynamic measurement systems
+\2 For an absolute linear scale, $\phi(T)$ can just be written as T on the other hand, such that the triple point can be set as before, such that $T = 273.16 K \frac{|Q|}{|Q_{TP}|}$, such that heat is a thermometric property for a Carnot thermodynamic scale
+\end{outline*}
+\section{Chapter 8 - Entropy}
+\subsection{Definition of Entropy}
+\begin{outline*}
+\1 For some reversible process plotted on a smooth curve on a two-coordinate graph, versus a piecewise reversible continuous process, drawn made up of isothermal and adiabatic processes, with the same amount of work done from the same initial and final states
+\2 Since the change in internal energy is equal, and the work done is equal, the heat transfer is equal for the process, able to ignore the adiabatic portions
+\2 Since adiabatic and isothermal lines are unable to intersect due to being parallel relatively, any number of isothermal and adiabatic alternating processes can be written for the same process
+\2 For two isothermal reactions between the same adiabatic curves, it forms a Carnot cycle, such that $\frac{|Q_1|}{T_1} = \frac{|Q_2|}{T_2}$, going in opposite directions, such that the heat signs are opposite
+\3 Thus, for reversible Carnot cycles, these reactions can be summed, such that $\sum_n \frac{Q_n}{T_n} = \oint_R \frac{\delta Q}{T} = 0$, such that any reversible cycle can be thought of as a series of Carnot cycles such that this equation is true, called the Claudius Theorem
+\1 By Claudius's Theorem, for any two reversible paths making a closed cycle, $\int_{R_1}_i^f \frac{\delta Q}{T} + \int_{R_2}_f^i \frac{\delta Q}{T} = 0$
+\2 Since each path is reversible, $\int_{R_2}_f^i \frac{\delta Q}{T} = -\int_{R_2}_i^f \frac{\delta Q}{T}$, such that the integral of $\frac{\delta Q}{T}$ for each reversible path with the same initial and final state is equal
+\2 Thus, the state function of this integral is called entropy, S, such that $\delta Q_R = TdS$, allowing an exact differential form of heat for a reversible process
+\3 T-S diagrams can thus be plotted similar to a P-V diagrams for a reversible process, such that for some T(S) curve, the region under the heat done, forming a rectangle for a Carnot cycle
+\3 In addition, for some reversible adiabatic process, it must be isentropic, such that the entropy remains constant as well
+\1 Caratheodory proved the Second Law mathematically, based on the concept that around any point, $P_0$, there exists points not accessible along solution curves of A(x, y, z)dx + B(x, y, z)dy + C(x, y, z)dz = 0 if the equation is able to be integrated
+\2 This is able to be integrated if there exists $\Lambda(x, y, z), F(x, y, z)$, such that $Adx + Bdy + Cdz = \Lambda dF$, both facts holding for any amount of dimensions
+\2 For some system of thermodynamic coordinates A, B, C, $\delta Q = Adx + Bdy + Cdz$, as form of the first law, such that there are states of the system inaccessible by purely quasi-static adiabatic pathways, as a form of the second law ($\delta Q = 0$)
+\3 Thus, the second law is only valid if there exists some functions, T, S, such that $\delta Q = TdS$ under this form, such that by the second law, $\delta Q_R = TdS$ must be valid
+\1 For an ideal gas as a result, it is found that $dS = \frac{\delta Q_R}{T} = C_P\frac{dT}{T} - \frac{V}{T}dP = C_P \frac{dT}{T} - nR\frac{dP}{P}$
+\2 As a result, if $C_P$ is constant over the temperature range, $S - S_r = C_P ln\frac{T}{T_r} - nR ln\frac{P}{P_r}$, or $S = C_PlnT - nRlnP + S_0$, where r is the reference point for a relative entropy scale, allowing an entropy table to be calculated
+\2 The general function for entropy of an ideal gas as a result by this and the similar formula for volume, is $\Delta S = \int^T_{T_r}C_P \frac{dT}{T} - nR ln\frac{P}{P_r} = \int^T_{T_r}C_V \frac{dT}{T} - nR ln\frac{V}{V_r}$ 
+\3 For a reversible isobaric process as a result, $\frac{\partial T}{\partial S}|_P = \frac{T}{C_P}$ and for a reversible isochoric process $\frac{\partial T}{\partial S}|_V = \frac{T}{C_V}$, dependent only on the material and the temperature, rather than other coordinates
+\1 For some reversible process, the entropy change of the universe is both that due to the process and the reservoir, such that since it is quasi-static, the temperature of each is equal
+\2 As a result, the entropy of the system and the reservoirs are inverses, such that for a reversible process, there is no change in entropy of the universe
+\end{outline*}
+\subsection{Entropy Change}
+\begin{outline*}
+\1 For some irreversible process between equilibrium states, since entropy is a state function, the change in entropy is equal to that of a reversible process with the same initial and final equilibrium states
+\2 External mechanical irreversibility processes with isothermal transformation of work into internal energy of a reservoir has no change on the system due to work rather than heat and no temperature change, while since the reservoir gains heat, that is the universal entropy change
+\3 For a system with an adiabatic conversion of work into internal energy of a system, the entropy change is $\Delta S = \int^{T_f}_{T_i} C_P \frac{dT}{T} > 0$, such that if $C_P$ is constant, $\Delta S = C_P ln\frac{T_f}{T_i}$
+\2 Internal mechanical irreversibility is found by free expansion, such that $\Delta S = _R\int_{V_i}^{V_f} nR \frac{dV}{V} = nR ln\frac{V_f}{V_i}$, such the entropy in the system increased
+\2 External thermal irreversibility, such that there is a finite temperature difference, have heat flow, where the same amount of heat is transferred from high temperature to low, such that entropy increases
+\2 It is seen fundamentally thus, for some irreversible process, the change in entropy must be positive, such as chemical irreversibility of diffusion (acting as two free expansions)
+\2 This can be proven by a reversible heat medium providing heat from an external reservoir at a higher temperature to an irreversible engine at a lower temperature ($T_l$)
+\3 For the system of the engine and medium, the work done must be equal to the heat provided to the system each cycle, but by the second law, the heat provided cannot be positive, since there is no external cold reservoir, since it is irreversible, cannot be 0
+\3 As a result, the net heat provided to the system each cycle must be negative such that heat is leaving the irreversible engine
+\3 By the definition of thermodynamic temperature, $\frac{\delta Q_{Ri}}{T_{Ri}} = \frac{-\delta Q_{Rf}}{T_{Rf}} = \frac{\delta Q_{Ii}}{T_{Rf}}$, where R signifies the reversible medium, I the engine
+\3 As a result, since the heat change the system in a cycle must be negative, the heat change to temperature of heat entering ratio in a cycle of the irreversible engine must be negative ($_I\oint \frac{\delta Q}{T} < 0$, the Clausius inequality)
+\3 It is noted that this does not mean the heat change of the irreversible engine during a cycle is negative, but rather just the ratio of heat to entering temperature is, even though the total heat change of the joint system must be negative
+\3 On the other hand, heat itself can be positive if the temperature of the engine itself is lower than that of the reservoir, though the ratio is still decreasing in a cycle
+\2 As a result, the Clausius statement of the second law of thermodynamics states that $\oint \frac{\delta Q}{T} \leq 0$
+\3 It is noted though that the temperature of the entropy statement change is that of the heat entering the irreversible engine, rather than the temperature within the irreversible engine, since the temperatures are not equal due to not being quasi-static/reversible
+\1 Since entropy is a state function, for some closed loop, reversible or irreversible, $\oint dS = 0$, while since $_I\oint \frac{\delta Q}{T} < 0 = _I\oint dS$
+\2 As a result, it can be generally stated for all processes that $dS \geq \frac{\delta Q}{T}$, such that two out of isentropic, reversible, and adiabatic imply the third, but one does not imply the others
+\1 **Add 8.10**
+\1 The Entropy Principle states that for any irreversible process, the entropy of the universe increases, already shown for irreversible nonadiabatic processes, acting as an alternate form of the Second Law
+\2 For some irreversible adiabatic process, $\Delta S = S_f - S$, it can be brought through a combination of a reversible isothermal and two reversible adiabatic processes to bring to the initial state
+\3 Since for the reversible adiabatic process, there is no change in entropy, $\Delta S$ is equal to the negative of the change in entropy of the reversible isothermal process
+\3 In addition, $\Delta S$ is then equal to the negative of the heat gained then divided by the temperature during the process after the first reversible adiabatic process
+\3 As a result, during a full cycle, the only action done is the absorption of heat during the isothermal process, followed by work done on the system during the irreversible adiabatic process, such that there cannot be heat absorbed, but rather $\geq 0$
+\3 Thus, the change in entropy during the irreversible process $\geq 0$, and cannot be 0 since that would imply reversibility
+\2 For some nonhomogeneous composition, temperature, and pressure system, for an irreversible adiabatic process, the system is assumed to be able to be divided into infinitesimal parts, each with definite entropy and coordinates
+\3 Thus, each section can be viewed as a homogeneous system, such that the total entropy of the system increases for each
+\3 This assumes it can be broken up into infinitesimal parts and reversible processes for chemical reactions can be found, both of which relying on experimental proof
+\2 For some object being cooled from the surrounding temperature $T_i$ to $T_f$ by a Carnot refrigerator, the minimum work for a real refrigerator can be calculated
+\3 $\Delta S_{body} + \Delta S_{reservoir} = S_f - S_i + \frac{Q + W}{T_i} = 0$, such that it provides the minimum work for a real process, using an entropy table to determine
+\1 It can be seen from the process of irreversible, isothermal state changes or by free expansion, that an increase in entropy in the system manifests as a decrease in the atomic order/structure, describing a state just as entropy does
+\2 In the conversion of work to heat, this is viewed as the conversion of ordered kinetic energy to random microscopic kinetic energy
+\2 Thus, entropy can also be viewed as a mechanism of time, such that entropy must always increase over time, used as a measurement
+\1 The Third Law of Thermodynamics states that at absolute 0 $(0^o K)$, the entropy of the system is set to 0
 \end{outline*}
 \section{Notes}
 Boundary layer is what changes temperature, rather than the wall itself, such that it is what modifies? Convection and conduction simulaneously? Ice water == resistor in series - Homework ice problem
@@ -559,4 +629,9 @@ Air is a poor conductor, such that atmosphere has chemical change, radiation, an
 From above, $F = P(y + \Delta y)A$, from below F = P(y)A, gravity from above, such that at equilibrium, it can be solved for the density and pressure with height
 29 g/mol - air average
 -dT/dy = -9.77 K/km
+
+Heat is conversion of ordered work into unordered entropy on a microscopic scale, such that the production of heat from non-internal energy is dissipative, even if it is due to prior internal energy
+Lack of nondissipative processes is fundemental law of nature, due to view as entropy, but not as a result of first two laws of thermodynamics, under which perpertual of third kind is allowed
+Engines converted ordered energy to heat to ordered energy and heat, but increase overall universal entropy, even if geothermal machine passign heat somehow
+
 \end{document}
