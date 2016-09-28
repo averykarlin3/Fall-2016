@@ -269,7 +269,7 @@
 \2 It also contains the address of the next instruction, stored within the program counter (PC), and a finite state machine to direct all activity taking input from the IR and from a clock (CLK)
 \3 The clock is made up of a piezoelectric crystal oscillator to produce oscillating voltage, with a RUN latch connected to it and an AND gate, determining if the computer runs
 \3 Older computers used the HALT instruction to turn off the RUN latch, while newer computers, such as the LC-3 use the operating system to do so
-\2 The finite state machine has a series of command outputs, such as the two bit ALUK, controlling the operation of the ALU, or the GateALU, determining if the ALU output is sent out of the computer by the processor bus during that cycle
+\2 The finite state machine has a series of command outputs, such as, within the LC-3, the two bit ALUK, controlling the operation of the ALU, or the GateALU, determining if the ALU output is sent out of the computer by the processor bus during that cycle
 \3 The LD.MAR is the write-enabled signal for the MAR register, allowing the PC to be written into the MAR to get the subsequent command
 \3 The GatePC determines if the PC is connected to the processor bus, such that the data from it can be accessed at a particular point
 \3 The PCMUX allows it to choose the select line for modifying the PC in a specific manner, such as incrementing, giving the new value
@@ -303,8 +303,10 @@
 \1 Data types are representations of information that opcodes are able to operate on, supporting a specific format of data, such that LC-3 only supports 2's complement integers
 \1 Addressing modes specify where the operand is located, found either in the instruction mode (literal/immediate operand), register mode, or within memory
 \2 Addressing modes for within memory are either PC-relative, indirect, or base + offset modes, used only for data movement operands generally, using the other two for all operand types
+\2 Immediate operands are limited by the length of bits allowed within the command
 \1 Condition codes are single-bit registers found in the LC-3 and LC-4, set for any TEMP register function in LC-3, for any CMP function in LC-4
 \2 The three registers are N (negative), Z (zero), P (positive), setting automatically to allow instruction sequencing as a result of the returned value
 \1 General purpose registers (GPR) are the registers/memory locations used for TEMP storage within the processor, each generally word-addressable, for the register addressing mode
+\2 It is noted that the same register can be used for both the source and destination
 \end{outline*}
 \end{document}

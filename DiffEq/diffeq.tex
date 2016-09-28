@@ -70,6 +70,8 @@
 \underline{Teacher}: \teacher
 \newpage
 
+``Matrices give you the courage to do calculations you may not be able to do otherwise, representing a large amount of data as a single letter''
+
 \section{Chapter 1 (Paul) - Basic Concepts}
 \subsection{Definitions}
 \begin{outline*}
@@ -473,10 +475,28 @@
 \3 As a result, it is found that if $\vec{v}$ is an eigenvector of A, then $c\vec{v}$ is for all nonzero scalars c
 \2 Further, by definition, it can be thought that eigenvalues of A are those such that $(A - \lambda I_n)\vec{v} = 0$, such that it must have nontrivial solutions
 \3 As a result, by the fact that lack of invertibility implies infinite solutions, $det(A - \lambda I) = 0$ if $\lambda$ is an eigenvalue of A
-\3 $p(\lambda) = det(A - \lambda I_n)$ is called the characteristic polynomial of A, at degree n by the definition of a determinant, and $p(\lambda) = 0$ is called the characteristic equation of A
+\3 $p(\lambda) = det(A - \lambda I_n)$ is called the characteristic polynomial of A of degree n by the definition of the determinant, and $p(\lambda) = 0$ is called the characteristic equation of A
+\3 Thus, it is found that a matrix A is invertible iff 0 is not an eigenvalue of A
+\2 Matrices are defective if the number of linearly independent eigenvectors are not the same number as the dimensions of the matrix
+\2 Complex eigenvalues and eigenvectors for a real matrix are those found by an imaginary root of the characteristic polynomial, such that it follows that the conjugate of $\lambda$ and $\vec{v}$ are also eigenvalues and vectors
+\3 The conjugate of a complex vector is the conjugate of each component within the vector
+\3 It is noted that the transformation dilation of an eigenvector is a complex multiplier, such that n vectors are able to span the complex vector space of $\mathbb{C}^n$
+\2 For some matrix A with eigenvalue $\lambda$ and eigenvector $\vec{v}$, then $\lambda^2$ is an eigenvalue of $A^2$ and $\vec{v}$ is an eigenvector of $A^2$
 \end{outline*}
-\section{Quotes}
-\begin{itemize}
-\item ``Matrices give you the courage to do calculations you may not be able to do otherwise, representing a large amount of data as a single letter''
-\end{itemize}
+\subsection{Diagonalization}
+\begin{outline*}
+
+\end{outline*}
+\subsection{Matrix Exponential Function}
+\begin{outline*}
+\1 The matrix exponential function is defined for some square matrix $A_{nxn}$ as $e^{At} = I_n + \frac{1}{2!}(At)^2 + \frac{1}{3!}(At)^3 + \dots$, found to converge for all square matrices and values of t to a square matrix
+\2 It is also true that for some matrices, A, B, where AB = BA, $e^{(A + B)t} = e^{At}e^{Bt}$
+\2 For all square matrices, A, $(e^{At})^{-1} = e^{(-A)t} = e^{-At}$, such that it follows that the inverse of $e^{At}$ is $e^{-At}$
+\2 It is also found that for some diagonal matrix, $A = diag(d_1, \dots, d_n)$, then $e^{At} = diag(e^{d_1t}, \dots, e^{d_nt})$
+\1 \dots 
+\end{outline*}
+\subsection{Jordan-Canonical Form}
+\begin{outline*}
+
+\end{outline*}
 \end{document}
