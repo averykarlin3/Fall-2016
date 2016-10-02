@@ -262,10 +262,11 @@
 \2 The ALU for an LC-3 is able to perform addition, bitwise NOT, and bitwise AND
 \2 Most processors also have a small amount of memory, called the TEMP, next to the ALU, to store data for calculations with multiple parts needed in the near future
 \3 This is due to taking a long amount of time to access the main computer memory, relative to the time needed to  do the calculation, generally with the TEMP having a certain amount of registers, each for one word
+\3 The TEMP is also called the register file, composed in the LC-4 of three MUX, a write enabled, an input, and creating two 16 bit outputs
 \3 In the LC-3, it has 8 registers (R0, R1, \dots, R7), while the SPARC-V9 has 32 registers
 \1 Input and output are made up of peripherals able to sense and display information, generally at the simplest the monitor and keyboard for an LC-3
 \2 A simple keyboard for an LC-3 requires two registers, a KBDR for the ASCII code of the last key hit and KBSR for maintaining the status of keys hit, while a simple monitor requires two registers,  DDR for ASCII code being displayed and DSR for status information
-\1 The control unit keeps track of the order of instructions in the program, using the information register (IR) to contain the current instruction being executed
+\1 The control unit keeps track of the order of instructions in the program, using the information register (IR)/program memory to contain the current instruction being executed
 \2 It also contains the address of the next instruction, stored within the program counter (PC), and a finite state machine to direct all activity taking input from the IR and from a clock (CLK)
 \3 The clock is made up of a piezoelectric crystal oscillator to produce oscillating voltage, with a RUN latch connected to it and an AND gate, determining if the computer runs
 \3 Older computers used the HALT instruction to turn off the RUN latch, while newer computers, such as the LC-3 use the operating system to do so
@@ -275,22 +276,19 @@
 \3 The PCMUX allows it to choose the select line for modifying the PC in a specific manner, such as incrementing, giving the new value
 \3 The LD.PC is the write-enabled signal for the PC register, while the LD.IR is the write-enabled signal for the IR, allowing the values to be modified
 \3 The GateMDR determines if the MDR is connected to the processor bus, such that the value from it can be sent to other parts of the system
+\3 It is noted that while these are used for LC-3, they are specific to a particular ISA, such that they are not universally created components
 \end{outline*}
 \subsection{Instruction Processing}
 \begin{outline*}
 \1 Instructions are made up of an opcode (command) on the left, written as 4 bits $[15:12]$, in a 16 bit word, with the remaining 12 bits as the operands (data executing on)
-\2 The ADD command has the format of opcode value 1, followed by two three bit TEMP addresses for the values being summed, followed by three metacode values and the three bit TEMP address of the output storage location
-\3 This is called an operate instruction, acting to process the data
-\2 The LDR (load to temp register) command is signified by opcode value 6, the first operand as the address base register location in TEMP, the second ($[11:9]$) as the destination register for the final value
-\3 The remaining six bits on the right are thus the offset, added to the base value to give the address of the value in the memory to be loaded
-\3 This is called a data movement instruction, due to moving data from one location to another
+\2 Functions such as ADD or NOT are called an operate instruction, acting to process the data
+\2 Functions such as LDR are called a data movement instruction, due to moving data from one location to another
 \1 The commands are processed in the six phase instruction cycle, taking up a some number of machine/clock cycles, controlled by the finite state machine
 \2 It begins with the FETCH phase, taking the next instruction from memory by the address in the PC, loading it into the IR, after which the PC is incremented to point toward the next instruction, taking multiple cycles to access memory, the remaining steps each taking one
-\2 After, the DECODE phase studies the opcode to direct the command, sending an output line to the processor in one clock cycle, then the EVALUATE ADDRESS phase, which calculates any memory addresses needed
+\2 After, the DECODE phase studies the opcode to direct the command, sending an output line from the DECODE box to the processor in one clock cycle made up of all control signals (distinct from control commands), then the EVALUATE ADDRESS phase, which calculates any memory addresses needed
 \2 After, the FETCH OPERANDS phase takes the operands from either the memory from the EVALUATE ADDRESS phase, or from temporary storage, and then are used in the EXECUTE phase, finally using the STORE RESULT phase to finish the cycle
 \2 It is noted that while there are six phases, most commands such as the ADD (EVALUATE ADDRESS) and LDR (EXECUTE) do not require specific phases each
 \1 Control instructions are those which change the sequence of instructions, changing the PC after it is incremented, during the EXECUTE phase
-\2 The JMP (jump) instruction, signified by opcode value 12, containing the location of the TEMP register with the new PC address at $[8:6]$, containing 0 in the remaining values
 \end{outline*}
 \section{Chapter 5 - LC-3 and LC-4}
 \begin{outline*}
@@ -308,5 +306,28 @@
 \2 The three registers are N (negative), Z (zero), P (positive), setting automatically to allow instruction sequencing as a result of the returned value
 \1 General purpose registers (GPR) are the registers/memory locations used for TEMP storage within the processor, each generally word-addressable, for the register addressing mode
 \2 It is noted that the same register can be used for both the source and destination
+\2 Loading is the process of moving memory to a register from the memory, while the process of moving away is storing
+\2 The LC-3 has seven data movement instructions, LD, LDR, LDI, LEA, ST, STR, and STI, while the LC-4 only has LDR and STR commands, with the first three bits after the opcode being the temporary register being used for loading/storing (destination register/DR)
+\3 The remaining bits $[8:0]$ are the address generation bits, encoding the instructions for the data movement location/addressing mode
+\3 LDR and STR are the base + offset mode commands, with the leftmost three as the register for the base location (source register/SR), the remaining six bits as the literal offset value
+\3 LD and ST are PC-relative mode commands, providing all 9 bits as displacement from the current PC, after it has been incremented already
+\3 LDI and STI are indirect address mode, providing all 9 bits as the displacement from the current PC, to a location which contains the address of the data in memory
+\3 LEA is immediate mode, only able to load into a register, adding the incremented PC counter to the immediate value, which is then loaded into the register, not needing memory access
+\2 The original valuing within an algorithm of variables is called the initialization
+\1 Control instructions are used to change the sequence of instructions, allowing conditional branches, unconditional jumps, subroutine/function calls, TRAP, and return from interrupt
+\2 The BR command is used for conditionals, checking some combination of NZP registers, if found, adding the incremented PC by the immediate offset given by the remaining bits for the new PC 
+\3 The use of all three registers is called an unconditional branch
+\3 Loops can either be run by iteratively, decreasing some counter each time the body of the loop executes, by iteration, or by sentinel, testing for an occurrence of some sentinel variable to stop the loop
+\4 Sentinels are often unexpected character to search for, signifying the end of the sequence of expected characters
+\2 The JMP command allows movement to an address as an unconditional BR, with increased immediate length, such that there is a wider range
+\3 The JMPR command allows changing the PC to any address contained within a register, to allow not using the offset within a wider range
+\2 The TRAP command sets R7 to the incremented PC, moving the PC to a memory address in the operating system, called an OS service call, the rightmost 8 bits as the trapvector
+\3 The trapvector is an unsigned immediate that identifies the service call that the operating system is supposed to use
+\3 If the trapvector is 0, 0x8000 is used in the LC-4, while in the LC-3, an input character from the keyboard is x23, output to the monitor is x21, and ending a program is x25
+\3 The output and input character must be stored in R0 for the LC-3, which is the register character automatically stored and displayed
+\1 Coding in LC-3/LC-4 are done by using the mnemonic forms with spaces between the separate register codes, rather than the binary encoding or the semantic explanation
+\1 The global bus of the data path allows any structure within the computer to transmit 16 bits of information to any other structure, modifying the connections within the bus to determine the source and output, transferring one at a time, though some computers have multiple buses
+\2 Each component of the LC-3 has a tri-state device, drawn as a triangle, to allow the computers control to allow one device to send data through the bus at once, designated as the Gate control
+\2 On the receiving side, the LD (load enabled) control determines where the signal is being received
 \end{outline*}
 \end{document}

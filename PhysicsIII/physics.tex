@@ -403,7 +403,7 @@
 \subsection{Heat Capacity Measurement}
 \begin{outline*}
 \1 Heat capacities are measured by a gas in a thin-walled steel container, surrounded by a wire to add heat, measuring the rise in temperature at constant volume to get $C_V$, while $C_P$ is through a calorimeter allowing volume to vary rather than pressure
-\2 The inlet/initial and outlet/final temperatures are measured, found that for all ideal gases, $C_V(T) < C_P(T)$, $C_P - C_V = R$, and $\frac{C_P}{C_V} = \gamma$
+\2 The inlet/initial and outlet/final temperatures are measured, found that for all ideal gases, $C_V(T) < C_P(T)$, $c_P - c_V = R$, and $\frac{C_P}{C_V} = \gamma$
 \2 Monatomic gases, such as noble gases and most metallic vapors, $C_V = c \approx \frac{3R}{2}$, and $C_P = c' \approx \frac{5R}{2}$
 \2 Permanent diatomic gases, such as $H_2, O_2, N_2, NO, CO, F_2, Cl_2$, have constant values of $C_V \approx \frac{5}{2}R, C_P \appx  \frac{7}{2}R$
 \3 On the other hand though, at low temperatures, $H_2$ uniquely acts as a monatomic gas
@@ -600,7 +600,7 @@
 \3 It is noted though that the temperature of the entropy statement change is that of the heat entering the irreversible engine, rather than the temperature within the irreversible engine, since the temperatures are not equal due to not being quasi-static/reversible
 \1 Since entropy is a state function, for some closed loop, reversible or irreversible, $\oint dS = 0$, while since $_I\oint \frac{\delta Q}{T} < 0 = _I\oint dS$
 \2 As a result, it can be generally stated for all processes that $dS \geq \frac{\delta Q}{T}$, such that two out of isentropic, reversible, and adiabatic imply the third, but one does not imply the others
-\1 
+\1 For some nonequilibrium state moving toward an equilibrium state, the nonequilibrium can be broken into incremental volume/mass elements, such that it can be viewed as infinitesimal equilibrium states 
 \1 The Entropy Principle states that for any irreversible process, the entropy of the universe increases, already shown for irreversible nonadiabatic processes, acting as an alternate form of the Second Law
 \2 For some irreversible adiabatic process, $\Delta S = S_f - S$, it can be brought through a combination of a reversible isothermal and two reversible adiabatic processes to bring to the initial state
 \3 Since for the reversible adiabatic process, there is no change in entropy, $\Delta S$ is equal to the negative of the change in entropy of the reversible isothermal process
@@ -634,4 +634,10 @@ Heat is conversion of ordered work into unordered entropy on a microscopic scale
 Lack of nondissipative processes is fundemental law of nature, due to view as entropy, but not as a result of first two laws of thermodynamics, under which perpertual of third kind is allowed
 Engines converted ordered energy to heat to ordered energy and heat, but increase overall universal entropy, even if geothermal machine passign heat somehow
 
+Carnot cycle is a theoretical, but practically createable, and reversible engine, due to including no inherently irreversible processes, unlike other engines
+
+Irreversibility cannot be seen from a PV diagram, due to only paying attention to the system for dissipative, thus just changing the values, and for non-quasi-static, pressure and volume at any points except the extremes are meaningless
+
+$dS = C_V dT/T + P/T dV$ by first law
+$\frac{\partial T}{\partial S}|_V = \frac{T}{C_V}, \frac{\partial T}{\partial S}|_P = \frac{T}{C_P}$, since $C_V < C_P$, the slope of the former is greater on a TS diagram 
 \end{document}
