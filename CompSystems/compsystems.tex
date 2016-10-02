@@ -302,7 +302,7 @@
 \1 Addressing modes specify where the operand is located, found either in the instruction mode (literal/immediate operand), register mode, or within memory
 \2 Addressing modes for within memory are either PC-relative, indirect, or base + offset modes, used only for data movement operands generally, using the other two for all operand types
 \2 Immediate operands are limited by the length of bits allowed within the command
-\1 Condition codes are single-bit registers found in the LC-3 and LC-4, set for any TEMP register function in LC-3, for any CMP function in LC-4
+\1 Condition codes are single-bit registers found in the LC-3 and LC-4, set for any TEMP register writing function in LC-3, for any CMP function or any TEMP register writing in LC-4
 \2 The three registers are N (negative), Z (zero), P (positive), setting automatically to allow instruction sequencing as a result of the returned value
 \1 General purpose registers (GPR) are the registers/memory locations used for TEMP storage within the processor, each generally word-addressable, for the register addressing mode
 \2 It is noted that the same register can be used for both the source and destination
