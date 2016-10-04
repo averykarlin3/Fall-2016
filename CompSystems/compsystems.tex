@@ -145,6 +145,7 @@
 \2 As a result, keys generally have multiple associated codes, due to different characters able to be produced by each
 \1 Hexadecimal notation easily is produced from binary, taking 4 bit blocks (nibbles) into binary digits for human ease, used identically to binary of that form, able to be added similarly
 \2 An additional bit at the end is removed similarly to twos complement, and overflow is noted and dealt with by the same means
+\1 Hexadecimal notation is noted by an x before the number, while decimal notation is denoted by \# before the number, generally in assembly languages
 \end{outline*}
 \section{Chapter 3 - Digital Logic Structures}
 \subsection{Building Blocks}
@@ -276,6 +277,9 @@
 \3 The PCMUX allows it to choose the select line for modifying the PC in a specific manner, such as incrementing, giving the new value
 \3 The LD.PC is the write-enabled signal for the PC register, while the LD.IR is the write-enabled signal for the IR, allowing the values to be modified
 \3 The GateMDR determines if the MDR is connected to the processor bus, such that the value from it can be sent to other parts of the system
+\3 The MARMUX determines where the address supplied to the MAR is from, either from a register or the PC, specified by the ADDR1MUX, which then determines what length immediate/zero to add to it by the ADDR2MUX
+\4 The decision of which is controlled by a zero extended (positive sign) trap vector sent by the computer to determine which method is done
+\4 The important of using the correct immediate length is noted by the risk of removing sections as overflow should it not be chosen correctly
 \3 It is noted that while these are used for LC-3, they are specific to a particular ISA, such that they are not universally created components
 \end{outline*}
 \subsection{Instruction Processing}
