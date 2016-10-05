@@ -39,3 +39,6 @@ END
 ;Labels and functions are automatically made all capital if not put so, except BRnzp, the three (or less) are put lower case
 ;BR = BRnpz
 ;BLKW starts with the current unincremented location - Makes it so assembler can't set other - Software can, not assembler
+
+
+;MOD not working
