@@ -21,13 +21,13 @@ POSTSWITCH
 	CMP R3 R2 	;Check if done with cycle
 	BRz NEXT
 	CMP R2 R0 	;Check if done
-	BRn BSORT
-	BRnzp END
+	BRz END
+	BRnzp NEXTLOOP
 SWITCH			;Switch items
 	STR R5 R3 #0
 	STR R4 R3 #1
 	BRnzp POSTSWITCH
 NEXT			;Next cycle
 	ADD R2 R2 #-1
-	BRnzp NEXTLOOP
+	BRnzp BSORT
 END
