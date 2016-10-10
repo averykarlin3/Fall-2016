@@ -150,12 +150,18 @@
 \section{Chapter 3 - Digital Logic Structures}
 \subsection{Building Blocks}
 \begin{outline*}
-\1 Microprocessors are generally made of metal-oxide semiconductor (MOS) transistors, divided into p and n types, each with three terminals, the gate, source, and drain
+\1 Microprocessors are generally made of metal-oxide semiconductor (MOS) field effect transistors (MOSFET), divided into p and n types, each with three terminals, the gate, source, and drain
+\2 These are made up of a metal on top of the gate, with an oxide under, the main body made of Si semiconductor
+\3 The N-region under the source and drain for a P-type, at the source and drain for an N-type, is made up of Si doped with P, while the P-region is made up of Si doped with Ga
+\3 The P-region doping attracts surplus electrons easily within, while the N-regions are more difficult to do so, forced out
+\3 Thus, current in an N-type gate pulls electrons from the body to the top, flowing out, while in a p-type, current causes it to be absorbed
 \2 For some amount of voltage, generally 2.9 V, supplied to the gate of an n-type, the switch turns on, such that electricity can move from the source to the drain, forming a closed circuit
 \3 This is generally only denoted by shorthand in drawings by the gate, which is written out, while the other terminals are just drawn as wire, denoted overall by a parallel line next to the wire with the gate coming from it
 \3 p-type transistors have a small circle between the gate and the line leading to the gate
 \2 p-type transistors work the opposite manner, acting as a wire only when there is virtually no voltage, while acting as an open circuit if 2.9 V is placed in the gate
 \2 As a result, circuits with both types are called complementary metal-oxide semiconductor (CMOS) circuits
+\3 These are complementary due to the N-type transistors on the bottom connected to the grounding in PDN format, and P-type transistors on the top, connected to power in PUN format
+\2 Closed wires/switches are also called shorted wires within a transistor, such that it must be connected to a grounding to prevent shorting
 \1 Logic gate structures are transistor circuits for the purposes of logical functions, AND, OR, and NOT/Inverter gates as the fundamental gates, depending only on the current input
 \2 These can be drawn either in pull-up network (PUN), drawing from p-type transistors connected to the original source, switching from in-series to parallel or vice versa when at the n-type
 \3 In this case, AND is parallel, OR is in series, automatically adding a NOT without an inverter
@@ -245,7 +251,8 @@
 \2 Thus, the master-slave flip-flop is made up of two D-latches for each byte, the output of one as the input of the other, the clock connected as the write-enabled, but negated for one, such that it is only able to change the value of one at a time
 \2 As a result, it writes the second when the clock is activated writing the value from the first, such that it is inputted into the circuit, and when the clock is deactivated, writes the first with the new value of the circuit
 \3 The process of changing the feed-out value when the clock activates is called positive/rising edge triggered, while the process of changing the stored when it deactivates is called negative/falling edge triggered
-\3 The term clocked is used to refer to rising edge triggered generally
+\3 The term clocked is used to refer to rising edge triggered generally, such that the register is written rising edge triggered, sent out falling edge triggered
+\3 The temporary register identifier bits are called register specifiers
 \2 Registers are generally used to refer to a set of flip-flops, rather than a set of latches, though may be used for either
 \end{outline*}
 \section{Chapter 4 - Von Neumann Model}
@@ -312,6 +319,7 @@
 \2 It is noted that the same register can be used for both the source and destination
 \2 Loading is the process of moving memory to a register from the memory, while the process of moving away is storing
 \2 The LC-3 has seven data movement instructions, LD, LDR, LDI, LEA, ST, STR, and STI, while the LC-4 only has LDR and STR commands, with the first three bits after the opcode being the temporary register being used for loading/storing (destination register/DR)
+\3 The temporary register identifier bits are called register specifiers
 \3 The remaining bits $[8:0]$ are the address generation bits, encoding the instructions for the data movement location/addressing mode
 \3 LDR and STR are the base + offset mode commands, with the leftmost three as the register for the base location (source register/SR), the remaining six bits as the literal offset value
 \3 LD and ST are PC-relative mode commands, providing all 9 bits as displacement from the current PC, after it has been incremented already
@@ -333,6 +341,7 @@
 \1 The global bus of the data path allows any structure within the computer to transmit 16 bits of information to any other structure, modifying the connections within the bus to determine the source and output, transferring one at a time, though some computers have multiple buses
 \2 Each component of the LC-3 has a tri-state device, drawn as a triangle, to allow the computers control to allow one device to send data through the bus at once, designated as the Gate control
 \2 On the receiving side, the LD (load enabled) control determines where the signal is being received
+\2 As a result, tracking the datapath is the flow of data in the CPU, with each movement/calculation taking a clock cycle
 \end{outline*}
 \section{Chapter 7 - Assembly Language}
 \subsection{Assembly Programming}
@@ -344,7 +353,7 @@
 \1 The assembler program translates assembly language, also called assembling it, into machine code for the computer
 \1 Instruction lines begin with a label, then the symbolic opcode, symbolic or explicit (such as register codes) operands, and finally comments (written after a semi-colon)
 \2 The label acts as a symbolic address for the memory address at that label, either storing an instruction or data
-\3 In LC-3, labels can be placed on assembler commands, setting that label as the current location within the assembler, while this cannot be done in LC-4
+\3 In LC-3 or LC-4, labels can be placed on assembler commands .FILL and .BLKW, setting that label as the current location within the assembler to define variable names
 \3 Labels are often used to designate the start of loops or functions, as well as the end of the program overall in LC-4
 \2 Immediate values are written non-symbolically, such that binary is prefaced by a b, hex by an x, and decimal by an \#
 \2 Comments are purely to make the code more readable to other programmers, ignoring all after the semicolon by the assembler
@@ -372,5 +381,15 @@
 \2 After it is linked into an executable file, the instruction cycle is used to run the file
 \1 In LC-3, multi-object files use ``.EXTERNAL \textit{variable}'' in the assembly programs without the label, such that it would create a symbol entry for it, with a symbol notation for external
 \2 When the linker program is linking the modules, it identifies the values of each external variable
+\end{outline*}
+\section{Chapter 8 - I/O}
+\begin{outline*}
+\1 I/O devices usually have at least two registers, one to display the current status, one for data
+\1 Older devices had special input/output instructions built-in to the ISO, while modern devices simply use standard memory instructions to special registers, called memory-mapped I/O
+\1 Asynchronous I/O allows the devices to operate at a rate separate from that of the processor, due to the processor clock moving vastly faster than humans can input
+\2 Processing asynchronously requires a handshake protocol to coordinate, commonly using a flag 1-bit register, to indicate if the input/output has been processed up-to-date
+\3 Thus, this Ready bit is set to 1 when data is inputted, 0 when processed for input, and 1 when received, 0 when displayed by output
+\2 Synchronous I/O is a theoretical such that data is inputted at the same rate as the clock moves, such that a handshake is not needed
+\2 Interrupt-driven I/O is such that the keyboard notifies the processor when a key has been used, while polling I/O is such that the processor continuously checks the ready bit
 \end{outline*}
 \end{document}
