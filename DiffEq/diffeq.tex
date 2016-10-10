@@ -490,6 +490,9 @@
 \2 Similar matrices can be found to have the same eigenvalues and characteristic polynomial/equations
 \1 The simplest diagonal matrix is such that $B = diag(\lambda_1, \dots, \lambda_n)$
 \2 For any square matrix A, it is similar to a diagonal matrix iff it is nondefective, such that for some n linearly independent eigenvectors, $\vec{v}_1, \dots, \vec{v}_n$, S = $[\vec{v}_1, \dots, \vec{v}_n]$
+\2 Matrices which are similar to a diagonal matrix are called diagonalizable, equivalent to being nondefective
+\2 This allows the system of differential equations to be uncoupled, such that $y_1' = \lambda_1y_1$ and $y_2' = \lambda_2 y_2$, such that $\vec{y} = y_1 + y_2$ as the vector span
+\3 As a result, for the original system of functions x(t), the identity $\vec{x} = S\vec{y}$ can be used to get the solution
 \end{outline*}
 \subsection{Matrix Exponential Function}
 \begin{outline*}
@@ -497,10 +500,35 @@
 \2 It is also true that for some matrices, A, B, where AB = BA, $e^{(A + B)t} = e^{At}e^{Bt}$
 \2 For all square matrices, A, $(e^{At})^{-1} = e^{(-A)t} = e^{-At}$, such that it follows that the inverse of $e^{At}$ is $e^{-At}$
 \2 It is also found that for some diagonal matrix, $A = diag(d_1, \dots, d_n)$, then $e^{At} = diag(e^{d_1t}, \dots, e^{d_nt})$
-\1 \dots 
+\1 It can be found that for some square nondefective matrix, A, $e^{At} = Se^{Dt}S^{-1}$, where D is the diagonalization, such that the function result can be found by the diagonal
 \end{outline*}
 \subsection{Jordan-Canonical Form}
 \begin{outline*}
-
+\1 The Jordan-Canonical form is an approximation of diagonalization, relying on the matrix being able to have complex entries
+\2 This compensates for the lack of enough linearly independent eigenvalues to form the diagonalization matrix
+\1 Generalized eigenvectors are found by solving such that $(A - \lambda I)^p \vec{v} = 0$, where p is some positive number
+\2 As a result, for some smallest positive integer p, such that for all $\vec{v}$ where $(A - \lambda I)^p \vec{v} = 0$, $(A - \lambda I)^{p-1}\vec{v}$ is a regular eigenvector of A
+\2 This can be used to get the remaining linearly independent vector to form a base for a defective matrix
+\3 This is based on the fact that for any square matrix A with entries $\in \mathbb{C}^n over \mathbb{C}$, a basis of generalized eigenvectors can be found
+\2 For some generalized eigenvector of the lowest possible power, p, $\vec{v}$, the ordered set of the cycle of generalized eigenvectors cooresponding to $\lambda$ is $((A - \lambda I)^{p-1}\vec{v}, \dots, (A - \lambda I)\vec{v}, \vec{v})$
+\3 $\vec{v}$ is the initial vector, while $(A - \lambda I)^{p-1}\vec{v}$ is the terminal vector
+\3 The only regular/general eigenvector within the cycle is the terminal vector
+\3 The cycle of generalized eigenvectors is linearly independent, proven by multiplying by the matrix to some power for each
+\3 Further, for some matrix where $(A - \lambda I)^p = 0_n$, any vector such that $(A - \lambda I)^{p-1}\vec{v} \neq 0$ can be used as the initial vector of a cycle
+\1 Jordan blocks corresponding to $\lambda$ is a square matrix of some size, with $\lambda$ throughout the leading diagonal, 1s throughout the superdiagonal (diagonal above the leading), and 0s elsewhere
+\2 Jordan-Canonical form is thus defined as a square matrix with Jordan blocks of some size on the leading diagonal and zeroes elsewhere
+\3 All Jordan-Canonical matrices are upper triangular
+\3 It is noted that the size of the individual blocks do not have to be equal
+\2 It can be found that every square matrix is similar to a unique Jordan canonical matrix, denoted JCF(A)
+\2 It is found that the S multipler matrix to gain Jordan-Canonical form is made up of each cycle of generalized eigenvectors for each eigenvalue, starting from the terminal to initial vectors
+\3 The number of Jordan blocks as a result is the number of linearly independent regular eigenvectors, each equal in size to the number of vectors in the cooresponding generalized cycle
+\3 The order of the vector sequences must be the same as the order of the Jordan blocks in the JCF(A) matrix as well
+\1 For some system of linear differential equations, $\vec{x}' = A\vec{x}$, it can thus be converted to Jordan-Canonical form, allowing the final system to be solved, using back substitution
+\end{outline*}
+\section{Systems of Differential Equations}
+\subsection{General Results of First Order Linear Systems}
+\begin{outline*}
+\1 The Existence and Uniqueness Theorems state that for some initial value problem, $\vec{x}'(t) = A(t)\vec{x}(t) + \vec{b}(t), \vec{x}(t_0) = \vec{x}_0$, where A and B are continuous on some interval I, the problem has a unique solution on I
+\1 For some homogeneous vector differential equations ($\vec{x}'(t) = A(t)\vec{x}(t)$, the set of all solutions for some square-n matrix A, continuous on interval I, is a vector space of dimension n
 \end{outline*}
 \end{document}

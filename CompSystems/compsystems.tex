@@ -335,10 +335,40 @@
 \2 On the receiving side, the LD (load enabled) control determines where the signal is being received
 \end{outline*}
 \section{Chapter 7 - Assembly Language}
+\subsection{Assembly Programming}
 \begin{outline*}
 \1 For programming-ease, machine language given by the ISA can also be denoted by assembly language, contained within each ISA, each command representing one ISA command
 \2 This is then often translated into a high-level programming language such as C, moving it closer toward human language, which are ISA-independent
 \3 High-level languages provide less control over the individual commands, sacrificing it for readability
 \2 Each assembly command has a mnemonic name for opcodes, and allows addresses to be set equivalent to text symbolic addresses
+\1 The assembler program translates assembly language, also called assembling it, into machine code for the computer
+\1 Instruction lines begin with a label, then the symbolic opcode, symbolic or explicit (such as register codes) operands, and finally comments (written after a semi-colon)
+\2 The label acts as a symbolic address for the memory address at that label, either storing an instruction or data
+\3 In LC-3, labels can be placed on assembler commands, setting that label as the current location within the assembler, while this cannot be done in LC-4
+\3 Labels are often used to designate the start of loops or functions, as well as the end of the program overall in LC-4
+\2 Immediate values are written non-symbolically, such that binary is prefaced by a b, hex by an x, and decimal by an \#
+\2 Comments are purely to make the code more readable to other programmers, ignoring all after the semicolon by the assembler
+\3 Additional spaces and tabs are also used similarly, making the program more generally readable, though new lines can only be used at the end of a line properly
+\3 Comments are generally used at the start of the program to describe inputs, outputs, limitations, and the purpose of the program
+\1 Pseudo-ops/assembler directives are instructions directly to the assembler, not representing ISA opcodes, but rather to clarify the code for the assembler, denoted by a dot at the start
+\2 In LC-3, the .END command functions to tell the assembler when to stop reading, while the .ORIG replaces the .ADDR command
+\2 .FILL in LC-3 increments the current location within memory, then fills it with the value given, before incrementing again, while it fills the current value then increments in LC-4
+\end{outline*}
+\subsection{Assembly}
+\begin{outline*}
+\1 The assembly process converts the assembly language into machine language by the assembler software, using the ``assemble \textit{filename}.asm \textit{outfile}'' command in LC-3 assembler
+\2 In LC-4, ``as \textit{filename output}'' is used instead in the assembler, producing an object (.obj) file
+\2 The assembly and setup process in the LC-4 can be shortened by a script file, called by ``script \textit{filename}.txt'', containing commands
+\3 The reset command is used to reset all LC-4 registers to 0, while ``set \textit{register/PC value} is used to set the values of the PC and register before the program is run
+\3 The object file is loaded into the LC-4 by ``ld \textit{filename}''
+\3 Breakpoints in the program are set by ``break set \textit{label/address}''
+\1 The assembler requires a two-pass process due to the labels not necessarily being created before they are used
+\2 The first pass creates a symbol table, identifying the binary addresses corresponding to each label, while the second pass translates to machine code
+\2 During each pass, the current address code being created is kept track of by a location counter, incremented after
+\3 As a result, the incremented PC for each command is the LC + 1
+\1 As a computer program is executed, it is done in executable image, made up of several object files linked together
+\2 Object files are either user-written and assembled, compiled from a higher level language, or built in libraries
+\2 Each object file is made up of ISA binary commands as a result
+\2 After it is linked into an executable file, the instruction cycle is used to run the file
 \end{outline*}
 \end{document}

@@ -40,5 +40,5 @@ END
 ;BR = BRnpz
 ;BLKW starts with the current unincremented location - Makes it so assembler can't set other - Software can, not assembler
 
-
+; STRINGZ adds a 0 character at the end to designate the end
 ;MOD not working

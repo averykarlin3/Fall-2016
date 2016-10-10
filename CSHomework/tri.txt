@@ -1,6 +1,10 @@
 reset
-as sqrt sqrt
-ld sqrt
+as tri tri
+ld tri
 set PC 0
-set R1 x0025
+set R3 0
+set R0 x4
+set R1 xB
+set R2 xD
+set R4 x4000
 break set END
