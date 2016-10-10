@@ -1,9 +1,0 @@
-reset
-as fib fib
-ld fib
-set PC 0
-set R3 x4001
-set R0 0
-set R1 1
-set R2 18
-break set END
