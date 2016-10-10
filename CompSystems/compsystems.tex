@@ -354,7 +354,7 @@
 \2 In LC-3, the .END command functions to tell the assembler when to stop reading, while the .ORIG replaces the .ADDR command
 \2 .FILL in LC-3 increments the current location within memory, then fills it with the value given, before incrementing again, while it fills the current value then increments in LC-4
 \end{outline*}
-\subsection{Assembly}
+\subsection{Assembly and Execution}
 \begin{outline*}
 \1 The assembly process converts the assembly language into machine language by the assembler software, using the ``assemble \textit{filename}.asm \textit{outfile}'' command in LC-3 assembler
 \2 In LC-4, ``as \textit{filename output}'' is used instead in the assembler, producing an object (.obj) file
@@ -370,5 +370,7 @@
 \2 Object files are either user-written and assembled, compiled from a higher level language, or built in libraries
 \2 Each object file is made up of ISA binary commands as a result
 \2 After it is linked into an executable file, the instruction cycle is used to run the file
+\1 In LC-3, multi-object files use ``.EXTERNAL \textit{variable}'' in the assembly programs without the label, such that it would create a symbol entry for it, with a symbol notation for external
+\2 When the linker program is linking the modules, it identifies the values of each external variable
 \end{outline*}
 \end{document}
