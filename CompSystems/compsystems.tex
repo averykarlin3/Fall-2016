@@ -341,7 +341,7 @@
 \1 The global bus of the data path allows any structure within the computer to transmit 16 bits of information to any other structure, modifying the connections within the bus to determine the source and output, transferring one at a time, though some computers have multiple buses
 \2 Each component of the LC-3 has a tri-state device, drawn as a triangle, to allow the computers control to allow one device to send data through the bus at once, designated as the Gate control
 \2 On the receiving side, the LD (load enabled) control determines where the signal is being received
-\2 As a result, tracking the datapath is the flow of data in the CPU, with each movement/calculation taking a clock cycle
+\2 As a result, tracking the data path is the flow of data in the CPU through a single instruction cycle
 \end{outline*}
 \section{Chapter 7 - Assembly Language}
 \subsection{Assembly Programming}
@@ -355,7 +355,7 @@
 \2 The label acts as a symbolic address for the memory address at that label, either storing an instruction or data
 \3 In LC-3 or LC-4, labels can be placed on assembler commands .FILL and .BLKW, setting that label as the current location within the assembler to define variable names
 \3 Labels are often used to designate the start of loops or functions, as well as the end of the program overall in LC-4
-\2 Immediate values are written non-symbolically, such that binary is prefaced by a b, hex by an x, and decimal by an \#
+\2 Immediate values are written non-symbolically, such that binary is prefaced by a b, hex by an x or 0x, and decimal by an \#
 \2 Comments are purely to make the code more readable to other programmers, ignoring all after the semicolon by the assembler
 \3 Additional spaces and tabs are also used similarly, making the program more generally readable, though new lines can only be used at the end of a line properly
 \3 Comments are generally used at the start of the program to describe inputs, outputs, limitations, and the purpose of the program
@@ -386,10 +386,15 @@
 \begin{outline*}
 \1 I/O devices usually have at least two registers, one to display the current status, one for data
 \1 Older devices had special input/output instructions built-in to the ISO, while modern devices simply use standard memory instructions to special registers, called memory-mapped I/O
+\2 As a result, the MAR is loaded with the device register address, using logic to choose the device register rather than regular memory
 \1 Asynchronous I/O allows the devices to operate at a rate separate from that of the processor, due to the processor clock moving vastly faster than humans can input
 \2 Processing asynchronously requires a handshake protocol to coordinate, commonly using a flag 1-bit register, to indicate if the input/output has been processed up-to-date
 \3 Thus, this Ready bit is set to 1 when data is inputted, 0 when processed for input, and 1 when received, 0 when displayed by output
+\3 The keyboard/monitor is then disabled until the data is processed properly, such that no data is missed
 \2 Synchronous I/O is a theoretical such that data is inputted at the same rate as the clock moves, such that a handshake is not needed
 \2 Interrupt-driven I/O is such that the keyboard notifies the processor when a key has been used, while polling I/O is such that the processor continuously checks the ready bit
+\1 The keyboard is made up of the keyboard data register (KBDR) and the keyboard status register (KBSR), contained within xFE02 and xFE00 respectively
+\2 Bits [7:0] within the KBDR are used to store the ASCII key value, the remainder containing 0
+\2 Bit [15] of the KBSR contains the ready bit, while the remainder contain 0
 \end{outline*}
 \end{document}

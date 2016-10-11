@@ -104,16 +104,32 @@
 \2 Waves are also not required to be moving through a continuous medium, as long as they fulfill the definition
 \end{outline*}
 \section{Freegarde Chapter 2 - Basic Wave Equations}
+\subsection{General Concepts}
 \begin{outline*}
 \1 Wave equations are partial differential equations which relate the wavefunction (derivatives of wave displacement) to time and position, derived first from the general physical situation
 \1 It is found that for traveling waves, the shape remains the same though the location of the disturbance changes with time
-\2 As a result, it is found that $\psi(x, t) = \psi(x - \delta x, t - \delta t)$, and $\delta x = v \delta t$, such that some value, $\psi_0$ moves at v
-\3 Thus, $\psi(x_0, 0) = \psi(x_0 + vt, t) = \psi(u)$
+\2 As a result, it is found that $\psi(x, t) = \psi(x - \delta x, t - \delta t) = \psi(x - v\delta t, t - \delta t)$, since $\delta x = v \delta t$
+\3 Thus, if $\delta t = t$, $\psi(x, t) = \psi(x - vt, 0) = \psi(u)$
+\3 Thus, since the wavefunction is the same value over a specific curve, this single variable function is found for a traveling wave
 \3 This all follows from the method of viewing waves as the motions of individual particles, collectivized, such that x determines which particle is being viewed, while t is at which time
 \2 In addition, both sides can be subtracted by $\phi(x, t - \delta t)$, by the x-t relation, such that $\frac{\partial \phi}{\partial t} = -v \frac{\partial \phi}{\partial x}$
 \3 This assumes that $\phi$ is continuous, or at least can be approximated as a continuous function
 \3 Further, it is found similarly that $\frac{\partial^n \phi}{\partial t^n} = (-v)^n \frac{\partial^n \phi}{\partial x^n}$, though the equation would have to be modified due to the sign of n changing
 \1 Generally, wave motion may be done relating the derivative with respect to time at some point to that relating the derivative with respect to location at that time
 \2 This is then used to determine the overall wave equation
+\end{outline*}
+\subsection{Long String Waves}
+\begin{outline*}
+\1 For some string with tension T, assuming gravity effect is negligible, such that for some unit length mass M with length $\delta x$, tension is acting on both sides
+\2 The angle is assumed to be slightly varying on the sides of the length, with small enough total displacement that $cos\theta_1 \appx cos\theta_2 \appx 1$
+\3 Since the tension on the side in the direction of the wave is toward the positive wave function, while it is toward the negative for the other at some point, $F_{perpendicular} = T(sin\theta_2 - sin\theta_1)$
+\3 When this distance is infinitesimal, the change in angle for each side is infinitesimal, moving the wave toward the slightly steeper direction
+\2 By definition of the angle, $tan\theta = \frac{\partial \psi}{\partial x}$ for each end of $\delta x$
+\3 Since the angles are small enough that $cos\theta \appx 1$, it can be stated that $sin\theta \appx tan\theta$
+\3 As a result by this and Newton's Law, $F_n = T(\frac{\partial \psi}{\partial x}_{x_2} - \frac{\psi}{\partial x}_{x_1}) = M\delta x (\frac{\partial^2 \psi}{\partial t^2}|_x)$
+\4 This is due to the fact that the acceleration at any one point is equal to the wave function second derivative with respect to time
+\3 Thus, as divided by the length and taken to the limit as the length approaches 0, it is found that $\frac{\partial^2 \psi}{\partial t^2} = \frac{T}{M}\frac{\partial^2 \psi}{\partial x^2}$
+\1 Using the formula for traveling waves in terms of one variable combined with the chain rule and the above formula, it is found that $v^2 \frac{d^2 \psi}{du^2} = \frac{T}{M} \frac{d^2 \psi}{du^2}$
+\2 Thus, for a traveling string wave, $v = \pm \sqrt{\frac{W}{M}}$, such that the velocity depends on the tension and density
 \end{outline*}
 \end{document}
