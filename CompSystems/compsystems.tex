@@ -362,6 +362,8 @@
 \1 Pseudo-ops/assembler directives are instructions directly to the assembler, not representing ISA opcodes, but rather to clarify the code for the assembler, denoted by a dot at the start
 \2 In LC-3, the .END command functions to tell the assembler when to stop reading, while the .ORIG replaces the .ADDR command
 \2 .FILL in LC-3 increments the current location within memory, then fills it with the value given, before incrementing again, while it fills the current value then increments in LC-4
+\2 On the other hand, pseudo-instructions are instructions that are used as shorthand for other instructions, converted into proper assembly instructions within the code
+\1 It is often wise to store the register values in some location, such that preexisting values are preserved
 \end{outline*}
 \subsection{Assembly and Execution}
 \begin{outline*}
@@ -393,8 +395,10 @@
 \3 The keyboard/monitor is then disabled until the data is processed properly, such that no data is missed
 \2 Synchronous I/O is a theoretical such that data is inputted at the same rate as the clock moves, such that a handshake is not needed
 \2 Interrupt-driven I/O is such that the keyboard notifies the processor when a key has been used, while polling I/O is such that the processor continuously checks the ready bit
-\1 The keyboard is made up of the keyboard data register (KBDR) and the keyboard status register (KBSR), contained within xFE02 and xFE00 respectively
+\1 The keyboard in LC-3/LC-4 is made up of the keyboard data register (KBDR) and the keyboard status register (KBSR), contained within xFE02 and xFE00 respectively
 \2 Bits [7:0] within the KBDR are used to store the ASCII key value, the remainder containing 0
 \2 Bit [15] of the KBSR contains the ready bit, while the remainder contain 0
+\2 The display is similarly made up of the display data register (DDR) at xFE06 and the display status register (DSR) at xFE04, using similar storage distribution to the keyboard for console display
+\3 In LC-4, it is called the ASCII display status/data register (ADDR/ADSR), stored in the same locations
 \end{outline*}
 \end{document}

@@ -116,7 +116,7 @@
 \3 This assumes that $\phi$ is continuous, or at least can be approximated as a continuous function
 \3 Further, it is found similarly that $\frac{\partial^n \phi}{\partial t^n} = (-v)^n \frac{\partial^n \phi}{\partial x^n}$, though the equation would have to be modified due to the sign of n changing
 \1 Generally, wave motion may be done relating the derivative with respect to time at some point to that relating the derivative with respect to location at that time
-\2 This is then used to determine the overall wave equation
+\2 This is then used to determine the general form of the wave equation, followed by inputting specific parameters for the solution
 \end{outline*}
 \subsection{Long String Waves}
 \begin{outline*}
@@ -131,5 +131,13 @@
 \3 Thus, as divided by the length and taken to the limit as the length approaches 0, it is found that $\frac{\partial^2 \psi}{\partial t^2} = \frac{T}{M}\frac{\partial^2 \psi}{\partial x^2}$
 \1 Using the formula for traveling waves in terms of one variable combined with the chain rule and the above formula, it is found that $v^2 \frac{d^2 \psi}{du^2} = \frac{T}{M} \frac{d^2 \psi}{du^2}$
 \2 Thus, for a traveling string wave, $v = \pm \sqrt{\frac{W}{M}}$, such that the velocity depends on the tension and density
+\1 Since the wave equation has linearity, such that superposition applies to it, the general solution is equal to the linear combination of individual solutions, spanning the solution set
+\2 Thus, the two respective solutions are for a positive and negative velocity for a traveling wave, such that it is equal to the solution to a wave with positive and negative velocity
+\2 Thus, it is found that $\psi(x, t) = \psi(x \pm vt) = \psi_+(x - |v|t) + \psi_-(x + |v|t)$, taking the specific solution at t = 0
+\3 This forms $\psi(x, 0) = \psi_+(x) + \psi_-(x)$ and by the derivative with respect to t, $\frac{\partial \psi}{\partial t}(x, 0) = \frac{\partia \psi_+ (x - |v|t)}{\partial t}(x, 0) + \frac{\partial \psi_- (x + |v|t)}{\partial t}(x, 0)$
+\3 By the chain rule, the second equation becomes $\frac{\partial \psi}{\partial t}(x, 0) = |v|(\frac{d\psi_-(x)}{dx} - \frac{d\psi_+(x)}{dx})$
+\2 For some guitar string connected at two ends, [0, l], pulled at some point $x_0$ to initial height $a_0$ at t = 0, with initial velocity of 0
+\3 By integrating the velocity formula for t = 0, $\psi_-(x) = \psi_+(x) + c$, such that at t = 0, $\psi(x) = 2\psi_+(x) + c = 2\psi_-(x) - c$
+\1 By these formulas for $\psi_\pm$ in terms of the initial wavefunction of some point, $\psi(x, t) = \frac{1}{2}\psi(x - |v|t, 0) + \frac{1}{2}\psi(x - |v|t, 0)$
 \end{outline*}
 \end{document}
