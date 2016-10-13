@@ -395,10 +395,24 @@
 \3 The keyboard/monitor is then disabled until the data is processed properly, such that no data is missed
 \2 Synchronous I/O is a theoretical such that data is inputted at the same rate as the clock moves, such that a handshake is not needed
 \2 Interrupt-driven I/O is such that the keyboard notifies the processor when a key has been used, while polling I/O is such that the processor continuously checks the ready bit
+\3 The program previously running does not have to be related to the I/O device, halted to allow the I/O to be dealt with, after which it is returned to as if there was no interruption
+\3 This is used to save processor power from having to constantly poll all I/O devices to receive characters
+\3 Thus, it requires an enabling mechanism to generate the interrupt signal and a mechanism to handle the signal
+\4 For the signal to interrupt the processor, it must be more urgent than the task currently performed by the processor
+\4 The ready bit determines if the signal would be sent, with the 14th bit of the status register as the interrupt enable, able to be written or cleared by the processor depending on if desired
+\4 The interrupt request is the AND gate of the ready and interrupt enable bit
+\3 All processors have a level of urgency, PL7 at highest to PL0, such that a higher PL program causes the execution before other programs
+\4 This is done by testing for the interrupt signal (INT) before FETCH phase, after STORE RESULT
+\4 The priority encoder then determines which of the device interrupt signals is most important, and compares it to the current program
+\4 After, the control unit saves the information needed to restart the program, and loads the PC with the new value, before FETCH
 \1 The keyboard in LC-3/LC-4 is made up of the keyboard data register (KBDR) and the keyboard status register (KBSR), contained within xFE02 and xFE00 respectively
 \2 Bits [7:0] within the KBDR are used to store the ASCII key value, the remainder containing 0
 \2 Bit [15] of the KBSR contains the ready bit, while the remainder contain 0
 \2 The display is similarly made up of the display data register (DDR) at xFE06 and the display status register (DSR) at xFE04, using similar storage distribution to the keyboard for console display
 \3 In LC-4, it is called the ASCII display status/data register (ADDR/ADSR), stored in the same locations
+\2 For polling, they are not required to be writable by the CPU, though they are required to be for interrupted I/O
+\1 The memory-mapped I/O is controlled in LC-3 by the ADDR.CTL logic block, linking the MAR to the memory, such that the MIO.EN signal determines if movement from I/O memory is used
+\2 The R.W signal determines if data is being loaded or stored, coordinating the MAR, MDR, memory, and I/O
+\2 If the load signal is indicated, it controls the INMUX to pass the correct data from memory/IO to the MDR
 \end{outline*}
 \end{document}
