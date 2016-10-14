@@ -7,7 +7,7 @@ Semi-empirical Mass Formula
 
 @author: averykarlin
 """
-def AZInput():
+def AZInput(): #Problem 1a, 1b
     A = float(input("Input the mass number, A:"))
     Z = float(input("Input the atomic number, Z:"))
     
@@ -31,7 +31,7 @@ def AZInput():
     
     print("\nB/A (MeV/atom)", b)
 
-def ZInput():
+def ZInput(): #Problem 1c
     Z = float(input("Input the atomic number, Z:"))
     
     a1 = 15.8
@@ -42,7 +42,7 @@ def ZInput():
     Amax = 0
     bmax = 0
     
-    for A in range(int(Z), int(3*Z)):
+    for A in range(int(Z), int(3*Z) + 1):
         if A//2 != A/2:
             a5 = 0
         elif Z//2 != Z/2:
@@ -59,7 +59,7 @@ def ZInput():
     print("\nMost Stable A (Atomic Mass):", Amax)
     print("\nMost Stable B/A (MeV/atom):", bmax)
 
-def noInput():
+def noInput(): #Problem 1d
     a1 = 15.8
     a2 = 18.3
     a3 = 0.714
@@ -68,7 +68,7 @@ def noInput():
     Ztot = 0
     btot = 0
     
-    for Z in range(1, 100):
+    for Z in range(1, 100 + 1):
         Amax = 0
         bmax = 0
         for A in range(int(Z), int(3*Z)):
@@ -92,3 +92,20 @@ def noInput():
         print("\nMost Stable B/A (MeV/atom) for Z =", Z, ":", bmax)
     
     print("\nMost Stable Z (Atomic Number):", Ztot)
+
+#Problem 2
+
+def factorial(n):
+    prod = 1
+    if n > 0:
+        for k in range(1, n + 1):
+            prod = prod * k
+    return prod
+
+def binomial(n, k):
+    if k == 0:
+        return 1
+    else:
+        diff = n - k
+        bi = factorial(n)/(factorial(k)*factorial(diff))
+        return bi
