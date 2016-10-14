@@ -411,8 +411,27 @@
 \2 The display is similarly made up of the display data register (DDR) at xFE06 and the display status register (DSR) at xFE04, using similar storage distribution to the keyboard for console display
 \3 In LC-4, it is called the ASCII display status/data register (ADDR/ADSR), stored in the same locations
 \2 For polling, they are not required to be writable by the CPU, though they are required to be for interrupted I/O
+\2 The timer measures the time in milliseconds, written in the Timer Interval Register (TIR) at xFE0A similarly
+\3 The 15th bit of the Timer Status Register (TSR) at xFE08 is 1 when the timer expires, reset after the ready bit is read by the computer once it expires
+\3 This is used to prevent a program from running indefinitely timing out after some preset length of time
+\2 Video memory is stored in a 128 word horizontal length by 124 word vertical length array, starting in the top left from xC000, going up by one horizontally
+\3 The memory stores the blue value in [4:0], green value in [9:5], and the red value in [14:10]
 \1 The memory-mapped I/O is controlled in LC-3 by the ADDR.CTL logic block, linking the MAR to the memory, such that the MIO.EN signal determines if movement from I/O memory is used
 \2 The R.W signal determines if data is being loaded or stored, coordinating the MAR, MDR, memory, and I/O
 \2 If the load signal is indicated, it controls the INMUX to pass the correct data from memory/IO to the MDR
+\end{outline*}
+\section{Chapter 9 - TRAP Routines and Subroutines}
+\begin{outline*}
+\1 Due to hardware I/O registers being accessed by a large number of programs, giving the programmer complete control could pose problems to other programs
+\2 Thus, hardware registers are considered privileged, requiring sufficient privilege to access it
+\2 As a result, I/O is generally only accessible by the TRAP instruction working through the OS, which has privilege to access them
+\3 Within the LC-4, this is done by moving into supervisor mode, which is able to execute non-user data
+\3 This is designated in the LC-4 by the Processor Status Register bit 15, containing 0 for user mode, 1 for the supervisor mode
+\4 The NZP sequence is similarly stored in there, with NZP as bits [2:0] respectively
+\2 Thus, the TRAP instruction is said to create a service/system call, taking control of the computer from the program until after the call
+\1 The TRAP mechanism is made up of a set of service routines, built-in to the OS, a table of starting addresses for each instruction, the TRAP instruction itself, and a linkage to return control to the original program
+\2 Thus the TRAP instruction moves the PC to the routine, but creates the linkage to return to the program after (storing the incremented PC in R7), jumping at the end
+\2 Within the LC-4, it returns by the RTI instruction at the end of the TRAP instruction sequence, turning off supervisor mode
+\2 TRAP codes are written themselves with the assembler directive ``.OS'' at the start before ``.CODE'', written above both the table portion and the instruction portion of the file
 \end{outline*}
 \end{document}

@@ -525,12 +525,21 @@
 \3 The order of the vector sequences must be the same as the order of the Jordan blocks in the JCF(A) matrix as well
 \1 For some system of linear differential equations, $\vec{x}' = A\vec{x}$, it can thus be converted to Jordan-Canonical form, allowing the final system to be solved, using back substitution
 \end{outline*}
-\section{Systems of Differential Equations}
+\section{Chapter 7 - Systems of Differential Equations}
 \subsection{General Results of First Order Linear Systems}
 \begin{outline*}
+\1 For some ordered set of n-vector valued functions $X = \(x_1, \dots, x_n\)$, the Wronskian of the functions is defined as, $W[X](t) = det(x_1(t), x_2(t), \dots, x_n(t))$
+\2 For some point $t_0$ in I, on which the functions are continuous, if $W[X](t_0) \neq 0$, X is linearly independent on I
 \1 The Existence and Uniqueness Theorems state that for some initial value problem, $\vec{x}'(t) = A(t)\vec{x}(t) + \vec{b}(t), \vec{x}(t_0) = \vec{x}_0$, where A and B are continuous on some interval I, the problem has a unique solution on I
 \1 For some homogeneous vector differential equations ($\vec{x}'(t) = A(t)\vec{x}(t)$, the set of all solutions for some square-n matrix A, continuous on interval I, is a vector space of dimension n
 \2 This is due to the fact that for some functions $D(\vec{x}) = \vec{x}', T(\vec{x}) = A\vec{x}$, such that the solution set is the kernel of $(D - T)(\vec{x})$
-\2 
+\2 The initial value problem is taken such that for n solutions, $\vec{x_i}(t_0) = e_i$, where $e_i$ is the standard basis vector
+\3 Thus, the $det([x_1, \dots x_n](t_0)) = 1$, such that the matrix of solutions to the equation is linearly independent
+\3 Since this forms the standard basis vectors, any linear combination of these forms an initial value problem for those scalar multipliers
+\2 It follows that for some $x(t)$ made up of the linear combinations of the standard basis functions, it forms the unique solution
+\3 Thus, the solution set is spanned by/has a basis of the n functions that at $t_0$, form the identity matrix, such that the function formed by the linear combination is the general solution
+\1 Thus, for some linear homogeneous first order differential equation, $x' = Ax$, any set of n linearly independent solutions on I is called a fundamental solution set on I
+\2 The matrix, $X(t) = [\vec{x}_1, \dots, \vec{x}_n]$ is called the fundamental matrix for the equation as a result
+\2 As a result, $\vec{x})t) = \vec{X}(t)\vec{c}$, where $\vec{c} = [c_1, \dots, c_n]^T$
 \end{outline*}
 \end{document}
