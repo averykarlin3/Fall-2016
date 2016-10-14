@@ -530,6 +530,7 @@
 \begin{outline*}
 \1 For some ordered set of n-vector valued functions $X = \(x_1, \dots, x_n\)$, the Wronskian of the functions is defined as, $W[X](t) = det(x_1(t), x_2(t), \dots, x_n(t))$
 \2 For some point $t_0$ in I, on which the functions are continuous, if $W[X](t_0) \neq 0$, X is linearly independent on I
+\3 This is due to there being at some point that the functions are linearly independent, such that the matrix of the Wronkian is invertible at that point and over the interval, are linearly independent
 \1 The Existence and Uniqueness Theorems state that for some initial value problem, $\vec{x}'(t) = A(t)\vec{x}(t) + \vec{b}(t), \vec{x}(t_0) = \vec{x}_0$, where A and B are continuous on some interval I, the problem has a unique solution on I
 \1 For some homogeneous vector differential equations ($\vec{x}'(t) = A(t)\vec{x}(t)$, the set of all solutions for some square-n matrix A, continuous on interval I, is a vector space of dimension n
 \2 This is due to the fact that for some functions $D(\vec{x}) = \vec{x}', T(\vec{x}) = A\vec{x}$, such that the solution set is the kernel of $(D - T)(\vec{x})$
@@ -537,9 +538,30 @@
 \3 Thus, the $det([x_1, \dots x_n](t_0)) = 1$, such that the matrix of solutions to the equation is linearly independent
 \3 Since this forms the standard basis vectors, any linear combination of these forms an initial value problem for those scalar multipliers
 \2 It follows that for some $x(t)$ made up of the linear combinations of the standard basis functions, it forms the unique solution
-\3 Thus, the solution set is spanned by/has a basis of the n functions that at $t_0$, form the identity matrix, such that the function formed by the linear combination is the general solution
+\3 Thus, the solution set is spanned by/has a basis of the n functions that at $t_0$, such that the function formed by the linear combination is the general solution
 \1 Thus, for some linear homogeneous first order differential equation, $x' = Ax$, any set of n linearly independent solutions on I is called a fundamental solution set on I
 \2 The matrix, $X(t) = [\vec{x}_1, \dots, \vec{x}_n]$ is called the fundamental matrix for the equation as a result
 \2 As a result, $\vec{x})t) = \vec{X}(t)\vec{c}$, where $\vec{c} = [c_1, \dots, c_n]^T$
+\1 The converse of the Wronkian linear independence definition can be proven, such that if they are linearly independent on an interval, the Wronkian is nonzero for all points in the interval
+\2 This is due to the fact that otherwise, for some IVP, $\vec{x}(t_0) = \vec{0}$ by some linear combination of nonzero functions, 
+\end{outline*}
+\subsection{Vector Differential Equations: Nondefective Coefficient Matrices}
+\begin{outline*}
+\1 For the system $\vec{x}' = A\vec{x}$, it becomes easier to solve for some square matrix A of real constants
+\2 By the theory of eigenvalues, it was shown that the solution was of the form $\vec{x}(t) = e^{\lambda t}\vec{v}$, where $\vec{v}$ is a constant vector, where $A\vec{v} = \lambda \vec{v}$
+\2 As a result, for some nondefective matrix with real eigenvalues, the solutions are linearly independent, such that the general solution can be found as a result
+\3 This is proven by the Wronkian for the solution set, assuming linearly independent eigenvectors
+\2 The solution can then be taken from the linear combination form, to get a vector-valued function solution form
+\1 It can also be found for real-valued eigenvalues by diagonalizing the matrix, such that $A = SDS^{-1}$, such that $y' = Dy$
+\2 This allows the general solution to be found from the solution of y, by the identity that $\vec{x} = S\vec{y}$, where S is the matrix of linearly independent eigenvectors
+\1 For a matrix with complex eigenvalues, since the matrix is a real matrix, the eigenvalues and vectors are in conjugate pairs
+\2 For two real value vector functions, $\vec{u}, \vec{v}$, where the two complex solutions are $\vec{u}(t) \pm i\vec{v}(t)$, then $\vec{u}(t)$ and $\vec{v}(t)$ are real solutions of the system
+\3 This is due to the fact that any linear combination of the eigenvectors is a multiple of one of the functions
+\2 Thus, the complex solutions can be found by the formulas above, after which the two real valued vector parts are the solutions
+\2 It is then found that all real-valued solutions of the complex eigenvectors are linearly independent to each other and to all real eigenvector solutions found
+\end{outline*}
+\subsection{Vector Differential Equations: Defective Coefficient Matrices}
+\begin{outline*}
+
 \end{outline*}
 \end{document}
