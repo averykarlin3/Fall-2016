@@ -172,11 +172,110 @@ END_PIXEL
 ;;; Inputs           - R3 = y coordinate of the end point
 ;;; Inputs           - R4 = color of line
 ;;; Outputs          - none
-
 .CODE
 TRAP_DRAW_LINE
-	
-RTI       		; PC = R7 ; PSR[15]=0
+	HICONST R6 x40 ;Store initial register values
+	STR R0 R6 #0
+	STR R1 R6 #1
+	STR R2 R6 #2
+	STR R3 R6 #3
+	STR R4 R6 #4
+	STR R7 R6 #5
+	SUB R1 R3 R1 ;Check if y1-y0 > x1-x0
+	SUB R0 R2 R0
+	CMP R1 R0
+	BRp SWAP
+	CONST R5 #0
+	STR R5 R6 #6 ;ST storage
+POSTSWAP1
+	LDR R0 R6 #0 ;Check if x0 > x1
+	LDR R1 R6 #1
+	CMP R0 R1
+	BRp SWAP2
+POSTSWAP2
+	LDR R0 R6 #0 ;Calculate Delta X
+	LDR R1 R6 #2
+	SUB R0 R1 R0
+	STR R0 R6 #10 ;Delta X Storage
+	LDR R0 R6 #1 ;Calculate Delta Y
+	LDR R1 R6 #3
+	CMP R1 R0
+	BRn ABS
+	SUB R0 R1 R0
+	CONST R1 #1
+POSTABS
+	STR R0 R6 #11 ;Delta Y Storage
+	STR R1 R6 #12 ;Y Step Storage
+	CONST R5 #0
+	STR R5 R6 #15 ;Error Storage
+	LDR R1 R6 #0  ;Loop prep
+	LDR R0 R6 #1
+LOOP	
+	LDR R3 R6 #2
+	CMP R1 R3     ;For loop
+	BRp POSTLOOP
+	LDR R4 R6 #6
+	STR R1 R6 #13 ;Store X
+	STR R0 R6 #14 ;Store Y
+	LDR R2 R6 #4
+	CMPI R4 #0
+	BRp ST
+	TRAP x04
+POSTST
+	LDR R5 R6 #15 ;Add to Error
+	LDR R3 R6 #11
+	ADD R5 R5 R3
+	STR R5 R6 #15
+	ADD R5 R5 R5 ;Check if 2*error >= Delta X
+	LDR R4 R6 #10
+	CMP R5 R4
+	BRnp IF
+POSTIF
+	ADD R1 R1 #1
+	BR LOOP
+POSTLOOP
+	LDR R7 R6 #5 ;Restore R7
+	BR END
+IF
+	ADD R0 R0 R4 ;y = y + ystep
+	LDR R5 R6 #15
+	SUB R5 R5 R4 ;error = error - deltax
+	STR R5 R6 #15
+	BR POSTIF
+ST
+	ADD R5 R0 #0
+	ADD R0 R1 #0
+	ADD R1 R5 #0
+	TRAP x04
+	BR POSTST
+ABS
+	SUB R0 R0 R1
+	CONST R1 #-1
+	BR POSTABS
+SWAP			;Swap x0/y0 and x1/y1
+	LDR R0 R6 #0
+	LDR R1 R6 #1
+	STR R1 R6 #0
+	STR R0 R6 #1
+	LDR R0 R6 #2
+	LDR R1 R6 #3
+	STR R1 R6 #2
+	STR R0 R6 #3
+	CONST R5 #1
+	STR R5 R6 #6 ;ST Storage
+	BR POSTSWAP1
+SWAP2			;Swap x0/x1 and y0/y1
+	LDR R0 R6 #0
+	LDR R1 R6 #2
+	STR R1 R6 #0
+	STR R0 R6 #2
+	LDR R0 R6 #1
+	LDR R1 R6 #3
+	STR R1 R6 #1
+	STR R0 R6 #3
+	BR POSTSWAP2
+END	
+	RTI       		; PC = R7 ; PSR[15]=0
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;   TRAP_DRAW_SPRITE   ;;;;;;;;;;;;;;;;;;;;;;;;;
