@@ -338,7 +338,7 @@
 \3 The JMPR command allows changing the PC to any address contained within a register, to allow not using the offset within a wider range
 \2 The TRAP command sets R7 to the incremented PC, moving the PC to a memory address in the operating system, called an OS service call, the rightmost 8 bits as the trapvector
 \3 The trapvector is an unsigned immediate that identifies the service call that the operating system is supposed to use
-\3 If the trapvector is 0, 0x8000 is used in the LC-4, while in the LC-3, an input character from the keyboard is x23, output to the monitor is x21, and ending a program is x25
+\3 If the trapvector is 0, 0x8000 is used in the LC-4, while in the LC-3, an input character from the keyboard is x23, output to the monitor is x21, outputting a string starting at the address in R0 (PUTS) is x22, and ending a program is x25
 \3 The output and input character must be stored in R0 for the LC-3, which is the register character automatically stored and displayed
 \1 Coding in LC-3/LC-4 are done by using the mnemonic forms with spaces between the separate register codes, rather than the binary encoding or the semantic explanation
 \1 The global bus of the data path allows any structure within the computer to transmit 16 bits of information to any other structure, modifying the connections within the bus to determine the source and output, transferring one at a time, though some computers have multiple buses
@@ -441,6 +441,13 @@
 \1 TRAP routines and subroutines, due to using registers within the routine, need to save the initial values of those registers beforehand, or during the routine, restoring when needed
 \2 Caller-save is used to describe if the calling/original program saves the registers, while callee-save describes if the routine saves the registers
 \2 Within the LC-4, TRAP commands are a combination, using caller-save for the general PC-restoring R7 register, callee save for any used by the individual routines
+\1 Subroutines are called similarly to OS TRAP routines, but rather written by user programmers, often contained within libraries
+\2 These are also called procedures or functions, used by a call/return mechanism, distinct due to the lack of OS privilege without risk of damaging other programs
+\2 The call mechanism calculates the starting address of the subroutine, loads it, and saves the return address for the return mechanism to load into the PC
+\2 This is done by JSR and JSRR, the latter moving to an address in a register, the former moving to the label by the offset
+\3 JSR must have the label must be .FALIGNed, due to adding the bits after the first 4 as 0s, to extend the range
+\3 JSR is either the offset from x0000 or from x8000, depending on the original location
+\3 Both save the incremented PC within R7 for the return mechanism
 \end{outline*}
 \section{Supplemental LC-4 Notes}
 \begin{outline*}
