@@ -93,7 +93,7 @@ def noInput(): #Problem 1d
     
     print("\nMost Stable Z (Atomic Number):", Ztot)
 
-#Problem 2
+#Problem 2a
 
 def factorial(n):
     prod = 1
@@ -108,4 +108,19 @@ def binomial(n, k):
     else:
         diff = n - k
         bi = factorial(n)/(factorial(k)*factorial(diff))
-        return bi
+        return int(bi)
+        
+def tree(): #Problem 2b
+    for n in range(1, 21):
+        row = []
+        for k in range (0, n + 1):
+            row.append(binomial(n, k))
+        print(row)
+    
+def coin(): #Problem 2c
+    sixty = binomial(100, 60)/(2**100)
+    print("60 Times:", sixty)
+    gsixty = sixty
+    for k in (61, 101):
+        gsixty = gsixty + (binomial(100, k)/(2**100))
+    print("Greater Than 60 Times:", gsixty)

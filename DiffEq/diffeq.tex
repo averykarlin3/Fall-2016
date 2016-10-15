@@ -482,6 +482,7 @@
 \3 The conjugate of a complex vector is the conjugate of each component within the vector
 \3 It is noted that the transformation dilation of an eigenvector is a complex multiplier, such that n vectors are able to span the complex vector space of $\mathbb{C}^n$
 \2 For some matrix A with eigenvalue $\lambda$ and eigenvector $\vec{v}$, then $\lambda^2$ is an eigenvalue of $A^2$ and $\vec{v}$ is an eigenvector of $A^2$
+\1 The vector subspace spanned by the eigenvectors of a matrix is the eigenspace of the matrix
 \end{outline*}
 \subsection{Diagonalization}
 \begin{outline*}
@@ -512,7 +513,7 @@
 \3 This is based on the fact that for any square matrix A with entries $\in \mathbb{C}^n over \mathbb{C}$, a basis of generalized eigenvectors can be found
 \2 For some generalized eigenvector of the lowest possible power, p, $\vec{v}$, the ordered set of the cycle of generalized eigenvectors cooresponding to $\lambda$ is $((A - \lambda I)^{p-1}\vec{v}, \dots, (A - \lambda I)\vec{v}, \vec{v})$
 \3 $\vec{v}$ is the initial vector, while $(A - \lambda I)^{p-1}\vec{v}$ is the terminal vector
-\3 The only regular/general eigenvector within the cycle is the terminal vector
+\3 The only regular eigenvector within the cycle is the terminal vector
 \3 The cycle of generalized eigenvectors is linearly independent, proven by multiplying by the matrix to some power for each
 \3 Further, for some matrix where $(A - \lambda I)^p = 0_n$, any vector such that $(A - \lambda I)^{p-1}\vec{v} \neq 0$ can be used as the initial vector of a cycle
 \1 Jordan blocks corresponding to $\lambda$ is a square matrix of some size, with $\lambda$ throughout the leading diagonal, 1s throughout the superdiagonal (diagonal above the leading), and 0s elsewhere
@@ -526,11 +527,18 @@
 \1 For some system of linear differential equations, $\vec{x}' = A\vec{x}$, it can thus be converted to Jordan-Canonical form, allowing the final system to be solved, using back substitution
 \end{outline*}
 \section{Chapter 7 - Systems of Differential Equations}
-\subsection{General Results of First Order Linear Systems}
+\subsection{First Order Linear Systems}
+\begin{outline*}
+
+\end{outline*}
+\subsection{Vector Form of Linear Systems}
 \begin{outline*}
 \1 For some ordered set of n-vector valued functions $X = \(x_1, \dots, x_n\)$, the Wronskian of the functions is defined as, $W[X](t) = det(x_1(t), x_2(t), \dots, x_n(t))$
 \2 For some point $t_0$ in I, on which the functions are continuous, if $W[X](t_0) \neq 0$, X is linearly independent on I
 \3 This is due to there being at some point that the functions are linearly independent, such that the matrix of the Wronkian is invertible at that point and over the interval, are linearly independent
+\end{outline*}
+\subsection{General Results of First Order Linear Systems}
+\begin{outline*}
 \1 The Existence and Uniqueness Theorems state that for some initial value problem, $\vec{x}'(t) = A(t)\vec{x}(t) + \vec{b}(t), \vec{x}(t_0) = \vec{x}_0$, where A and B are continuous on some interval I, the problem has a unique solution on I
 \1 For some homogeneous vector differential equations ($\vec{x}'(t) = A(t)\vec{x}(t)$, the set of all solutions for some square-n matrix A, continuous on interval I, is a vector space of dimension n
 \2 This is due to the fact that for some functions $D(\vec{x}) = \vec{x}', T(\vec{x}) = A\vec{x}$, such that the solution set is the kernel of $(D - T)(\vec{x})$
@@ -562,6 +570,11 @@
 \end{outline*}
 \subsection{Vector Differential Equations: Defective Coefficient Matrices}
 \begin{outline*}
-
+\1 For some defective matrix A, it requires additional solutions for each eigenvalue, found to be of the form $\vec{x} = e^{\lambda t}(\vec{v} + t\vec{v}_0)$ where $\vec{v}_0$ is the associated eigenvector
+\2 This is found to only be the case if $\lambda \vec{v} + \vec{v_0} = A\vec{v}$, providing the system $(A - \lambda I)\vec{v} = \vec{v}_0$
+\2 Further, by the definition of an eigenvector, it is found that $\vec{v}$ is a generalized eigenvector of A ($(A - \lambda I)^2\vec{v} = 0$, where $\vec{v}$ is not an eigenvector)
+\1 This is extended to higher cycles of generalized eigenvectors, such that for a cycle of n length, n linearly independent solutions are found
+\2 For the kth vector in the cycle of generalized eigenvectors, $\vec{x}_k = e^{\lambda t}(\vec{v}_k + t\vec{v}_{k-1} + \dots + \frac{1}{k!}t^k\vec{v}_0)$, done for each vector in the cycle
+\3 This assumes that $\vec{v}_0$ is the terminal eigenvector, and thus the only regular eigenvector within the cycle
 \end{outline*}
 \end{document}

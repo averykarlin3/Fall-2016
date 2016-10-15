@@ -247,13 +247,16 @@
 \3 The internal output values of the system are written near the state, designating the code provided for the state, with the external output written inside the state bubble
 \1 State transitions are often defined by a clock circuit, with a signal alternating between 0 and 1 cyclically in some amount of time, triggering a transition when on
 \2 Clocks are denoted as an input by a small triangle pointing into a circuit at the entry point, drawn with one edge as an edge of the circuit
+\2 The clock must have a long enough time that all charge transitions complete, creating the danger of overclocking
 \1 Thus, the combinational logic circuit aspect of the circuit is created based on the combination necessary, the storage element acting as a master-slave flip-flop instead of a gated D latch, which would modify the value stored immediately, rather than waiting until the next clock cycle
 \2 Thus, the master-slave flip-flop is made up of two D-latches for each byte, the output of one as the input of the other, the clock connected as the write-enabled, but negated for one, such that it is only able to change the value of one at a time
 \2 As a result, it writes the second when the clock is activated writing the value from the first, such that it is inputted into the circuit, and when the clock is deactivated, writes the first with the new value of the circuit
 \3 The process of changing the feed-out value when the clock activates is called positive/rising edge triggered, while the process of changing the stored when it deactivates is called negative/falling edge triggered
 \3 The term clocked is used to refer to rising edge triggered generally, such that the register is written rising edge triggered, sent out falling edge triggered
+\4 The PC is considered rising edge triggered as a result
 \3 The temporary register identifier bits are called register specifiers
 \2 Registers are generally used to refer to a set of flip-flops, rather than a set of latches, though may be used for either
+\1 Static RAM is thus made up of registers, maintaining value as long as power is applied, while Dynamic RAM uses a capacitor to hold the value instead, requiring refreshing due to leaking charge
 \end{outline*}
 \section{Chapter 4 - Von Neumann Model}
 \subsection{Hardware}
@@ -276,8 +279,8 @@
 \2 A simple keyboard for an LC-3 requires two registers, a KBDR for the ASCII code of the last key hit and KBSR for maintaining the status of keys hit, while a simple monitor requires two registers,  DDR for ASCII code being displayed and DSR for status information
 \1 The control unit keeps track of the order of instructions in the program, using the information register (IR)/program memory to contain the current instruction being executed
 \2 It also contains the address of the next instruction, stored within the program counter (PC), and a finite state machine to direct all activity taking input from the IR and from a clock (CLK)
-\3 The clock is made up of a piezoelectric crystal oscillator to produce oscillating voltage, with a RUN latch connected to it and an AND gate, determining if the computer runs
-\3 Older computers used the HALT instruction to turn off the RUN latch, while newer computers, such as the LC-3 use the operating system to do so
+\3 The clock is made up of a piezoelectric crystal oscillator to produce oscillating voltage, connected to an AND gate with a RUN latch as the other, determining if the computer runs
+\3 Older computers used the HALT instruction to turn off the RUN latch, while newer computers, such as the LC-3 use the operating system to do so to avoid wasting an opcode
 \2 The finite state machine has a series of command outputs, such as, within the LC-3, the two bit ALUK, controlling the operation of the ALU, or the GateALU, determining if the ALU output is sent out of the computer by the processor bus during that cycle
 \3 The LD.MAR is the write-enabled signal for the MAR register, allowing the PC to be written into the MAR to get the subsequent command
 \3 The GatePC determines if the PC is connected to the processor bus, such that the data from it can be accessed at a particular point
@@ -364,6 +367,7 @@
 \2 .FILL in LC-3 increments the current location within memory, then fills it with the value given, before incrementing again, while it fills the current value then increments in LC-4
 \2 On the other hand, pseudo-instructions are instructions that are used as shorthand for other instructions, converted into proper assembly instructions within the code
 \1 It is often wise to store the register values in some location, such that preexisting values are preserved
+\2 This is essential if the value of the register is modified within the program, while the original value is needed later
 \end{outline*}
 \subsection{Assembly and Execution}
 \begin{outline*}
@@ -433,5 +437,33 @@
 \2 Thus the TRAP instruction moves the PC to the routine, but creates the linkage to return to the program after (storing the incremented PC in R7), jumping at the end
 \2 Within the LC-4, it returns by the RTI instruction at the end of the TRAP instruction sequence, turning off supervisor mode
 \2 TRAP codes are written themselves with the assembler directive ``.OS'' at the start before ``.CODE'', written above both the table portion and the instruction portion of the file
+\1 TRAP is able to shut off the clock by the RUN latch, stored within bit 15 of the Machine Control Register, located in xFFFE
+\1 TRAP routines and subroutines, due to using registers within the routine, need to save the initial values of those registers beforehand, or during the routine, restoring when needed
+\2 Caller-save is used to describe if the calling/original program saves the registers, while callee-save describes if the routine saves the registers
+\2 Within the LC-4, TRAP commands are a combination, using caller-save for the general PC-restoring R7 register, callee save for any used by the individual routines
+\end{outline*}
+\section{Supplemental LC-4 Notes}
+\begin{outline*}
+\1 The storage is made up of x0000-x1FFF for user code, x2000-x3FFF for user global variables, x4000-x6FFF for user dynamic storage/heap, and x7000-x7FFF for user local storage/stack
+\2 The trap vector table is then from x8000-x80FF, the OS from x8200-xBFFF, video output/memory from xC000-xFDFF, and xFE00-xFFFF for I/O device registers
+\2 Only the user portion can be accessed and modified, the code portion only able to be when loading a program, the memory portion from within the program
+\1 ``reset'' puts the computer back to the initial state, ``as \textit{filename filename}'' assembles it, and ``ld \textit{filename}'' loads it in
+\2 ``set \textit{register value}'' is able to set an initial memory location, PSR, or temp registers
+\2 These system commands can be written within a script text file, run by ``script \textit{filename}.txt''
+\3 Unlike within LC-4 code where hexadecimal is default, within scripts, decimal is the default and binary is not permitted
+\1 In the documentation, PC + 1 means that the incremented PC is used, rather than that it is incremented a second time
+\1 .FILL automatically increments the address after being done
+\2 .BLKW moves the assembler address to after the block, setting all values to 0 within, and prevents the assembler from editing the value, returning an error if it tries, though the program is able to
+\2 .CODE and .DATA directives signify which portions of the memory are able to be written by the code at any point
+\2 .FALIGN moves the address to the next multiple of 16 within the assembler
+\2 .STRINGZ adds a x0000 character at the end of the string to designate the end
+\2 .CONST/.UCONST are replaced by the assembler to the correct value during assembly, such that it is shorthand, not a variable
+\1 CONST inserts a signed value (-FF-1, FF) into some memory location, removing prior data in that location
+\2 HICONST then adds an unsigned value (0, FF) into bits [15:8] of the memory location, preserving the remainder
+\2 Thus, when combined with CONST, can be used to fully set the memory location, removing the sign bit from CONST, such that it must be done after
+\1 Upper/lowercase letters for instructions or registers are irrelevant, such that they are corrected to capital by the compiler, except the nzp after BR, corrected to lowercase
+\2 BR is used as shorthand within code for BRnzp
+\2 Tabs are ignored by the assembler, but newlines imply the next instruction begins, assuming it is not a blank line
+\3 Newlines are able to be used for an extra line spacing between instructions, and are able to separate the label from the instruction
 \end{outline*}
 \end{document}
