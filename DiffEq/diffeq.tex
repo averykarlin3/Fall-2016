@@ -529,7 +529,16 @@
 \section{Chapter 7 - Systems of Differential Equations}
 \subsection{First Order Linear Systems}
 \begin{outline*}
-
+\1 First order linear differential equations over some interval I, are those of the form $\frac{d\vec{x}}{dt} = A(t)_n\vec{x} + \vec{b}(t)$, where A and b are defined over the interval and $\vec{x}$ is a column n-vector of functions
+\2 Homogeneous systems are those where $\vec{b} = 0$, while other systems are called nonhomogeneous
+\3 The associated homogeneous system for any nonhomogeneous sytem is with the $\vec{b}$ removed from the system
+\2 As a result, there are n equations within the system, each equation with a single first order derivative of a single unknown function, purely on the left side of the equation
+\1 The solution of a linear differential system on an interval I is an ordered n-tuple of unknown functions $(x_1, \dots, x_n)$
+\2 An initial value problem is a set of n auxiliary conditions, one for each unknown function, at some single value, $t_0$, restricting the solution set to a single solution
+\1 The solution can be found for a constant coefficient matrix A, by viewing the derivative as a matrix operator, due to being a linear transformation, solving for one of the unknown functions
+\2 This then forms a second order linear differential equation, which can be solved, back substituting to get the second function
+\2 As a result, most nth order linear differential equations can be written as a first order system of n equations by a change of variables, rewriting each higher derivative except the highest as another function
+\3 Thus, the relationship with each function and its lower derivative functions as another equation in the system
 \end{outline*}
 \subsection{Vector Form of Linear Systems}
 \begin{outline*}
