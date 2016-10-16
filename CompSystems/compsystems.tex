@@ -387,6 +387,7 @@
 \2 After it is linked into an executable file, the instruction cycle is used to run the file
 \1 In LC-3, multi-object files use ``.EXTERNAL \textit{variable}'' in the assembly programs without the label, such that it would create a symbol entry for it, with a symbol notation for external
 \2 When the linker program is linking the modules, it identifies the values of each external variable
+\2 Programs working with each other can simply be loaded separately in, assuming no overlap in labels
 \end{outline*}
 \section{Chapter 8 - I/O}
 \begin{outline*}
@@ -448,6 +449,8 @@
 \3 JSR must have the label must be .FALIGNed, due to adding the bits after the first 4 as 0s, to extend the range
 \3 JSR is either the offset from x0000 or from x8000, depending on the original location
 \3 Both save the incremented PC within R7 for the return mechanism
+\2 Libraries are used to save time and prevent the programmer from having to know the details of every process required
+\3 As a result, only a pseudo-op .EXTERNAL combined with documentation are needed by the programmer to use the library
 \end{outline*}
 \section{Supplemental LC-4 Notes}
 \begin{outline*}

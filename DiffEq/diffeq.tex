@@ -545,9 +545,13 @@
 \end{outline*}
 \subsection{Vector Form of Linear Systems}
 \begin{outline*}
-\1 For some ordered set of n-vector valued functions $X = \(x_1, \dots, x_n\)$, the Wronskian of the functions is defined as, $W[X](t) = det(x_1(t), x_2(t), \dots, x_n(t))$
+\1 The vector space, $V_n(I)$, is the vector space of column n-vectors defined on the interval I
+\1 For some set of n column n-vector functions within the space, the Wronskian of the functions is defined as, $W[\vec{x}_1, \dots, \vec{x}_n](t) = det([\vec{x}_1(t), \vec{x}_2(t), \dots, \vec{x}_n(t)])$
+\2 It is noted that the Wronskian of column n-vector functions is distinct from the Wronskian of continuous functions previously used
 \2 For some point $t_0$ in I, on which the functions are continuous, if $W[X](t_0) \neq 0$, X is linearly independent on I
-\3 This is due to there being at some point that the functions are linearly independent, such that the matrix of the Wronkian is invertible at that point and over the interval, are linearly independent
+\1 Vector differential equations are systems of linear first order differential equations, such that they can be written $\vec{x}'(t) = A(t)\vec{x}(t) + \vec{b}(t)$
+\2 Thus, the unknown functions are those in the column n-vector function, $\vec{x}$
+\2 While the vector space $V_n(I)$ is infinite-dimensional, and thus there is no span for the space, for some $A_n$ matrix function, the subspace solution set of the homogeneous vector differential equation is an n-dimensional subspace
 \end{outline*}
 \subsection{General Results of First Order Linear Systems}
 \begin{outline*}
