@@ -1,5 +1,6 @@
 clear
 reset
+set PC 0
 as os os
 as user_draw_line user_draw_line
 ld os

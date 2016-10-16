@@ -110,7 +110,7 @@ TRAP_PUTS
 	CONST R4 x0
 	HICONST R4 x80
 LOOP	LDR R2 R3 #0 ;Check if ready to print
-	CMPI R2 R4
+	CMP R2 R4
 	BRz ENDLOOP
 ENDLOOP
 	STR R1 R5 #0 ;Print character
@@ -126,17 +126,18 @@ END
 
 .CODE
 TRAP_VIDEO_COLOR
+	CONST R1 x00
 	HICONST R1 xC0 ;Get initial pixel
 	LC R3 OS_VIDEO_NUM_COLS ;Load constants
 	LC R4 OS_VIDEO_NUM_ROWS
 	MUL R2 R3 R4 ;Get first post-final pixel
 	ADD R2 R1 R2
-LOOP	STR R0 R1 #0 ;Add value to pixel
+VLOOP	STR R0 R1 #0 ;Add value to pixel
 	ADD R1 R1 #1 ;Move to next pixel
 	CMP R1 R2 ;Check if done
-	BRz END
-	BRnzp LOOP
-END
+	BRz ENDV
+	BRnzp VLOOP
+ENDV
 RTI       ; PC = R7 ; PSR[15]=0
 
 
@@ -167,8 +168,13 @@ TRAP_DRAW_PIXEL
   STR R2, R4, #0      	     ; Fill in the pixel with color from user (R2)
   
 END_PIXEL
-  RTI       		     ; PC = R7 ; PSR[15]=0
-
+	CONST R3 x0		;Check for subtrap
+	HICONST R3 x80
+	CMP R3 R4
+	BRnz RETURN_TRAP
+	RTI       		     ; PC = R7 ; PSR[15]=0
+RETURN_TRAP
+	RET
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;   TRAP_DRAW_LINE   ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Function: Draws line on the video screen
@@ -216,7 +222,7 @@ POSTABS
 	STR R5 R6 #15 ;Error Storage
 	LDR R1 R6 #0  ;For Loop prep
 	LDR R0 R6 #1
-LOOP	
+LOOPL	
 	LDR R3 R6 #2
 	CMP R1 R3     ;Check if For loop complete
 	BRp POSTLOOP
@@ -226,7 +232,8 @@ LOOP
 	LDR R2 R6 #4 ;Load color
 	CMPI R4 #0 ;Check if ST (plot (y, x))
 	BRp ST
-	TRAP x04 ;Draw pixel (x, y)
+	LEA R4 TRAP_DRAW_PIXEL
+	JSRR R4 ;Draw pixel (x, y)
 POSTST
 	LDR R5 R6 #15 ;Add Delta Y to Error
 	LDR R3 R6 #11
@@ -238,10 +245,10 @@ POSTST
 	BRnp IF
 POSTIF
 	ADD R1 R1 #1 ;Move to next x value
-	BR LOOP
+	BR LOOPL
 POSTLOOP
 	LDR R7 R6 #5 ;Restore R7
-	BR END
+	BR ENDL
 IF
 	ADD R0 R0 R4 ;y = y + ystep
 	LDR R5 R6 #15
@@ -252,7 +259,8 @@ ST		;Plot (y, x) if ST
 	ADD R5 R0 #0
 	ADD R0 R1 #0
 	ADD R1 R5 #0
-	TRAP x04
+	LEA R4 TRAP_DRAW_PIXEL
+	JSRR R4
 	BR POSTST
 ABS
 	SUB R0 R0 R1
@@ -280,7 +288,7 @@ SWAP2			;Swap x0/x1 and y0/y1
 	STR R1 R6 #1
 	STR R0 R6 #3
 	BR POSTSWAP2
-END	
+ENDL	
 	RTI       		; PC = R7 ; PSR[15]=0
 
 
@@ -331,23 +339,23 @@ COUNT
 TRAP_GETC_TIMER
 	LC R6 OS_TIR_ADDR ;Store wait time in timer
 	STR R0 R6 #0
-	LC R5 OS_KSR_ADDR ;Load Constants
-	LC R4 OS_KDR_ADDR
+	LC R5 OS_KBSR_ADDR ;Load Constants
+	LC R4 OS_KBDR_ADDR
 	LC R3 OS_TSR_ADDR
 	CONST R2 #0
 	HICONST R2 x80
-LOOP
+LOOPT
 	LDR R0 R3 #0 ;Check if timer done
 	CMP R0 R2
 	BRzp NULL 
 	LDR R0 R5 #0 ;Check if character ready
 	CMP R0 R2
 	BRzp CHAR
-	BR LOOP
+	BR LOOPT
 NULL
 	CONST R0 #0 ;Insert null character if timeout
-	BR END
+	BR ENDT
 CHAR
 	LDR R0 R4 #0 ;Insert typed character
-END
+ENDT
 RTI                  ; PC = R7 ; PSR[15]=0
