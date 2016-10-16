@@ -110,7 +110,7 @@
 \1 It is found that for traveling waves, the shape remains the same though the location of the disturbance changes with time
 \2 This is due to the lack of loss of energy during propagation, such that there is no dissipation/damping of the wave
 \2 As a result, it is found that $\psi(x, t) = \psi(x - \delta x, t - \delta t) = \psi(x - v\delta t, t - \delta t)$, since $\delta x = v \delta t$
-\3 Thus, if $\delta t = t$, $\psi(x, t) = \psi(x - vt, 0) = \psi(u)$
+\3 Thus, if $\delta t = t$, $\psi(x, t) = \psi(x - vt, 0) = \psi(u)$, such that the variables must appear in that combination for a forward traveling wave
 \3 Thus, since the wavefunction is the same value over a specific curve, this single variable function is found for a traveling wave
 \3 This all follows from the method of viewing waves as the motions of individual particles, collectivized, such that x determines which particle is being viewed, while t is at which time
 \2 In addition, both sides can be subtracted by $\phi(x, t - \delta t)$, by the x-t relation, such that $\frac{\partial \phi}{\partial t} = -v \frac{\partial \phi}{\partial x}$
@@ -131,14 +131,19 @@
 \4 This is due to the fact that the acceleration at any one point is equal to the wave function second derivative with respect to time
 \3 Thus, as divided by the length and taken to the limit as the length approaches 0, it is found that $\frac{\partial^2 \psi}{\partial t^2} = \frac{T}{M}\frac{\partial^2 \psi}{\partial x^2}$
 \1 Using the formula for traveling waves in terms of one variable combined with the chain rule and the above formula, it is found that $v^2 \frac{d^2 \psi}{du^2} = \frac{T}{M} \frac{d^2 \psi}{du^2}$
-\2 Thus, for a traveling string wave, $v = \pm \sqrt{\frac{W}{M}}$, such that the velocity depends on the tension and density
+\2 Thus, for a traveling string wave, $v = \pm \sqrt{\frac{T}{M}}$, such that the velocity depends on the tension and density
 \1 Since the wave equation has linearity, such that superposition applies to it, the general solution is equal to the linear combination of individual solutions, spanning the solution set
-\2 Thus, the two respective solutions are for a positive and negative velocity for a traveling wave, such that it is equal to the solution to a wave with positive and negative velocity
-\2 Thus, it is found that $\psi(x, t) = \psi(x \pm vt) = \psi_+(x - |v|t) + \psi_-(x + |v|t)$, taking the specific solution at t = 0
+\2 Thus, the two respective solutions are for a positive and negative velocity traveling waves, such that it is equal to the solution to a wave with positive and negative velocity
+\3 Thus, this forms the idea that since the velocity can be in either direction when assuming a standing wave, all waves on the string are made up of two standing wave directions
+\2 Thus, it is found that $\psi(x, t) = \psi(x \pm vt) = \psi_+(x - |v|t) + \psi_-(x + |v|t)$, to provide the forward and backward wave components, taking the specific solution at t = 0
 \3 This forms $\psi(x, 0) = \psi_+(x) + \psi_-(x)$ and by the derivative with respect to t, $\frac{\partial \psi}{\partial t}(x, 0) = \frac{\partia \psi_+ (x - |v|t)}{\partial t}(x, 0) + \frac{\partial \psi_- (x + |v|t)}{\partial t}(x, 0)$
+\4 The first equation serves to provide the initial condition for a unique solution
 \3 By the chain rule, the second equation becomes $\frac{\partial \psi}{\partial t}(x, 0) = |v|(\frac{d\psi_-(x)}{dx} - \frac{d\psi_+(x)}{dx})$
 \2 For some guitar string connected at two ends, [0, l], pulled at some point $x_0$ to initial height $a_0$ at t = 0, with initial velocity of 0
-\3 By integrating the velocity formula for t = 0, $\psi_-(x) = \psi_+(x) + c$, such that at t = 0, $\psi(x) = 2\psi_+(x) + c = 2\psi_-(x) - c$
+\3 By integrating the velocity formula for t = 0, $\psi_-(x) = \psi_+(x) + c$, such that at t = 0, $\psi(x, 0) = 2\psi_+(x) + c = 2\psi_-(x) - c$
 \1 By these formulas for $\psi_\pm$ in terms of the initial wavefunction of some point, $\psi(x, t) = \frac{1}{2}\psi(x - |v|t, 0) + \frac{1}{2}\psi(x - |v|t, 0)$
+\2 This assumes that x is not at the endpoints at some nonzero time, since it is undefined for a negative displacement or a displacement greater than the length
+\2 This equations can be supplemented by the fact that $\psi(0, t) = \psi(l, t) = 0$ for any time t, acting as a boundary condition
+\2 
 \end{outline*}
 \end{document}

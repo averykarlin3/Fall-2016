@@ -102,15 +102,15 @@ TRAP_PUTC
 
 .CODE
 TRAP_PUTS
-	LDR R1 R0 #0
-	CMPI R1 #0
+	LDR R1 R0 #0 ;Get character
+	CMPI R1 #0 ;Check if null character
 	BRz END
-LOOP	LDR R2 OS_ADSR_ADDR #0
+LOOP	LDR R2 OS_ADSR_ADDR #0 ;Check if ready to print
 	CMPI R2 x8000
 	BRz ENDLOOP
 ENDLOOP
-	STR R1 OS_ADDR_ADDR #0
-	ADD R0 R0 #1
+	STR R1 OS_ADDR_ADDR #0 ;Print character
+	ADD R0 R0 #1 ;Move to next character
 	BRnzp TRAP_PUTS
 END
 	RTI
@@ -122,12 +122,12 @@ END
 
 .CODE
 TRAP_VIDEO_COLOR
-	HICONST R1 xC0
-	MUL R2 OS_VIDEO_NUM_COLS OS_VIDEO_NUM_ROWS
+	HICONST R1 xC0 ;Get initial pixel
+	MUL R2 OS_VIDEO_NUM_COLS OS_VIDEO_NUM_ROWS ;Get first post-final pixel
 	ADD R2 R1 R2
-LOOP	STR R0 R1 #0
-	ADD R1 R1 #1
-	CMP R1 R2
+LOOP	STR R0 R1 #0 ;Add value to pixel
+	ADD R1 R1 #1 ;Move to next pixel
+	CMP R1 R2 ;Check if done
 	BRz END
 	BRnzp LOOP
 END
