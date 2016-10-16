@@ -469,6 +469,7 @@
 \subsection{The Eigenvalue/Eigenvector Problem}
 \begin{outline*}
 \1 For some nxn matrix, A, any values of a constant, $\lambda$, such that $A\vec{v} = \lambda\vec{v}$ has non-trivial solutions, are called eigenvalues of A, while the corresponding nonzero vectors are eigenvectors of A
+\2 The set of all eigenvalues of A are the spectrum of A
 \2 This is based off being used to solve a system of linear first order differential equations, such that $\vec{\frac{d\vec{x}}{dt}} = A\vec{x}(t)$, where \vec{x} is a 2-column vectors, such that $\vec{x}(t) = e^{\lambda t}\vec{v}$
 \2 These are also called characteristic values and vectors of A respectively
 \2 The matrix can also be viewed as some matrix of a linear transformation, $T: \mathbb{C}^n \to \mathbb{C}^n$, such that $T(\vec{v}) = A\vec{v} = \lambda \vec{v}$, such that it is a transformation that purely stretches the vector
@@ -494,6 +495,7 @@
 \2 Matrices which are similar to a diagonal matrix are called diagonalizable, equivalent to being nondefective
 \2 This allows the system of differential equations to be uncoupled, such that $y_1' = \lambda_1y_1$ and $y_2' = \lambda_2 y_2$, such that $\vec{y} = y_1 + y_2$ as the vector span
 \3 As a result, for the original system of functions x(t), the identity $\vec{x} = S\vec{y}$ can be used to get the solution
+\2 Diagonalization allows matrices to be exponentiated easily, due to the fact that $A^n = SD^nS^{-1}$ and $D^n = diag(\lambda_1^n, \dots, \lambda_k^n)$
 \end{outline*}
 \subsection{Matrix Exponential Function}
 \begin{outline*}
@@ -502,6 +504,7 @@
 \2 For all square matrices, A, $(e^{At})^{-1} = e^{(-A)t} = e^{-At}$, such that it follows that the inverse of $e^{At}$ is $e^{-At}$
 \2 It is also found that for some diagonal matrix, $A = diag(d_1, \dots, d_n)$, then $e^{At} = diag(e^{d_1t}, \dots, e^{d_nt})$
 \1 It can be found that for some square nondefective matrix, A, $e^{At} = Se^{Dt}S^{-1}$, where D is the diagonalization, such that the function result can be found by the diagonal
+\1 It is found that for some system of differential equations, $\frac{d\vec{x}}{dt}(t) = A\vec{x}(t)$ has a solution as $\vec{x}(t) = e^{At}\vec{x}(0)$ for some matrix of coefficients A
 \end{outline*}
 \subsection{Jordan-Canonical Form}
 \begin{outline*}

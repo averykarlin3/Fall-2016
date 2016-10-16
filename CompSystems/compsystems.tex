@@ -415,7 +415,7 @@
 \2 The display is similarly made up of the display data register (DDR) at xFE06 and the display status register (DSR) at xFE04, using similar storage distribution to the keyboard for console display
 \3 In LC-4, it is called the ASCII display status/data register (ADDR/ADSR), stored in the same locations
 \2 For polling, they are not required to be writable by the CPU, though they are required to be for interrupted I/O
-\2 The timer measures the time in milliseconds, written in the Timer Interval Register (TIR) at xFE0A similarly
+\2 The timer measures the time in milliseconds, written from the initial set time in the Timer Interval Register (TIR) at xFE0A similarly
 \3 The 15th bit of the Timer Status Register (TSR) at xFE08 is 1 when the timer expires, reset after the ready bit is read by the computer once it expires
 \3 This is used to prevent a program from running indefinitely timing out after some preset length of time
 \2 Video memory is stored in a 128 word horizontal length by 124 word vertical length array, starting in the top left from xC000, going up by one horizontally

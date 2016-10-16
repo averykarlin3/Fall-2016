@@ -105,11 +105,15 @@ TRAP_PUTS
 	LDR R1 R0 #0 ;Get character
 	CMPI R1 #0 ;Check if null character
 	BRz END
-LOOP	LDR R2 OS_ADSR_ADDR #0 ;Check if ready to print
-	CMPI R2 x8000
+	LC R3 OS_ADSR_ADDR ;Load constants
+	LC R5 OS_ADDR_ADDR
+	CONST R4 x0
+	HICONST R4 x80
+LOOP	LDR R2 R3 #0 ;Check if ready to print
+	CMPI R2 R4
 	BRz ENDLOOP
 ENDLOOP
-	STR R1 OS_ADDR_ADDR #0 ;Print character
+	STR R1 R5 #0 ;Print character
 	ADD R0 R0 #1 ;Move to next character
 	BRnzp TRAP_PUTS
 END
@@ -123,7 +127,9 @@ END
 .CODE
 TRAP_VIDEO_COLOR
 	HICONST R1 xC0 ;Get initial pixel
-	MUL R2 OS_VIDEO_NUM_COLS OS_VIDEO_NUM_ROWS ;Get first post-final pixel
+	LC R3 OS_VIDEO_NUM_COLS ;Load constants
+	LC R4 OS_VIDEO_NUM_ROWS
+	MUL R2 R3 R4 ;Get first post-final pixel
 	ADD R2 R1 R2
 LOOP	STR R0 R1 #0 ;Add value to pixel
 	ADD R1 R1 #1 ;Move to next pixel
@@ -186,7 +192,7 @@ TRAP_DRAW_LINE
 	CMP R1 R0
 	BRp SWAP
 	CONST R5 #0
-	STR R5 R6 #6 ;ST storage
+	STR R5 R6 #6 ;ST value storage
 POSTSWAP1
 	LDR R0 R6 #0 ;Check if x0 > x1
 	LDR R1 R6 #1
@@ -206,23 +212,23 @@ POSTSWAP2
 POSTABS
 	STR R0 R6 #11 ;Delta Y Storage
 	STR R1 R6 #12 ;Y Step Storage
-	CONST R5 #0
+	CONST R5 #0 ;Initialize R5
 	STR R5 R6 #15 ;Error Storage
-	LDR R1 R6 #0  ;Loop prep
+	LDR R1 R6 #0  ;For Loop prep
 	LDR R0 R6 #1
 LOOP	
 	LDR R3 R6 #2
-	CMP R1 R3     ;For loop
+	CMP R1 R3     ;Check if For loop complete
 	BRp POSTLOOP
-	LDR R4 R6 #6
-	STR R1 R6 #13 ;Store X
-	STR R0 R6 #14 ;Store Y
-	LDR R2 R6 #4
-	CMPI R4 #0
+	LDR R4 R6 #6 ;Load ST
+	STR R1 R6 #13 ;Store Current X
+	STR R0 R6 #14 ;Store Current Y
+	LDR R2 R6 #4 ;Load color
+	CMPI R4 #0 ;Check if ST (plot (y, x))
 	BRp ST
-	TRAP x04
+	TRAP x04 ;Draw pixel (x, y)
 POSTST
-	LDR R5 R6 #15 ;Add to Error
+	LDR R5 R6 #15 ;Add Delta Y to Error
 	LDR R3 R6 #11
 	ADD R5 R5 R3
 	STR R5 R6 #15
@@ -231,7 +237,7 @@ POSTST
 	CMP R5 R4
 	BRnp IF
 POSTIF
-	ADD R1 R1 #1
+	ADD R1 R1 #1 ;Move to next x value
 	BR LOOP
 POSTLOOP
 	LDR R7 R6 #5 ;Restore R7
@@ -242,7 +248,7 @@ IF
 	SUB R5 R5 R4 ;error = error - deltax
 	STR R5 R6 #15
 	BR POSTIF
-ST
+ST		;Plot (y, x) if ST
 	ADD R5 R0 #0
 	ADD R0 R1 #0
 	ADD R1 R5 #0
@@ -323,10 +329,25 @@ COUNT
 
 .CODE
 TRAP_GETC_TIMER
-
-  ;;
-  ;; CIS 240 TO DO: complete this trap	
-  ;;
-
-  RTI                  ; PC = R7 ; PSR[15]=0
-  
+	LC R6 OS_TIR_ADDR ;Store wait time in timer
+	STR R0 R6 #0
+	LC R5 OS_KSR_ADDR ;Load Constants
+	LC R4 OS_KDR_ADDR
+	LC R3 OS_TSR_ADDR
+	CONST R2 #0
+	HICONST R2 x80
+LOOP
+	LDR R0 R3 #0 ;Check if timer done
+	CMP R0 R2
+	BRzp NULL 
+	LDR R0 R5 #0 ;Check if character ready
+	CMP R0 R2
+	BRzp CHAR
+	BR LOOP
+NULL
+	CONST R0 #0 ;Insert null character if timeout
+	BR END
+CHAR
+	LDR R0 R4 #0 ;Insert typed character
+END
+RTI                  ; PC = R7 ; PSR[15]=0
