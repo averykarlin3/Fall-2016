@@ -7,7 +7,7 @@ Semi-empirical Mass Formula
 
 @author: averykarlin
 """
-def AZInput(): #Problem 1a, 1b
+def AZInput():
     A = float(input("Input the mass number, A:"))
     Z = float(input("Input the atomic number, Z:"))
     

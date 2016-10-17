@@ -146,4 +146,21 @@
 \2 This equations can be supplemented by the fact that $\psi(0, t) = \psi(l, t) = 0$ for any time t, acting as a boundary condition
 \2 This is used to find the restriction that for any x, t, $\psi_+(x - |v|t) = -\psi_-(2l - x - |v|t) = \psi_+(x - |v|t - 2l)$, such that the component waves are triangular/sawtooth
 \end{outline*}
+\subsection{Notes}
+All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$
+
+k = wave number = 2pi/lambda
+w = 2pi * f = angular frequency
+$\phi$ = phase constant
+A = amplitude/max wavefunction
+
+Common differential trick is separation of variables
+
+$\frac{\partial^2 \psi}{\partial t^2} = v^2\frac{\partial^2 \psi}{\partial x^2}$ then $\frac{1}{v^2}\frac{1}{T}{d^2T}{dt^2} = \frac{1}{X}\frac{d^2X}{dx^2} = C$ if $\psi = X(x)T(t)$
+
+$X(x) = X_0 sin(\sqrt{C}X + \phi) = X_0sin(\kx + \phi)$
+$T(t) = T_0 sin(kvt +  \theta)$
+$\psi(x, t) = \psi_0 sin(kx + \phi) sin(\omega t + \theta)$
+
+Since $sinkxsin\omega t = \frac{1}{2}(cos(kx - \omega t) - cos(kx + \omega t))$, it can be written as travelling waves
 \end{document}
