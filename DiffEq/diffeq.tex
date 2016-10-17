@@ -504,7 +504,7 @@
 \2 For all square matrices, A, $(e^{At})^{-1} = e^{(-A)t} = e^{-At}$, such that it follows that the inverse of $e^{At}$ is $e^{-At}$
 \2 It is also found that for some diagonal matrix, $A = diag(d_1, \dots, d_n)$, then $e^{At} = diag(e^{d_1t}, \dots, e^{d_nt})$
 \1 It can be found that for some square nondefective matrix, A, $e^{At} = Se^{Dt}S^{-1}$, where D is the diagonalization, such that the function result can be found by the diagonal
-\1 It is found that for some system of differential equations, $\frac{d\vec{x}}{dt}(t) = A\vec{x}(t)$ has a solution as $\vec{x}(t) = e^{At}\vec{x}(0)$ for some matrix of coefficients A
+\1 It is notable that for some matrix A at t = 0, $e^{tA} = I, frac{d(e^{tA})}{dt} = A, \frac{d^2(e^{tA})}{dt^2} = A^2$, and so forth
 \end{outline*}
 \subsection{Jordan-Canonical Form}
 \begin{outline*}
@@ -542,6 +542,8 @@
 \2 This then forms a second order linear differential equation, which can be solved, back substituting to get the second function
 \2 As a result, most nth order linear differential equations can be written as a first order system of n equations by a change of variables, rewriting each higher derivative except the highest as another function
 \3 Thus, the relationship with each function and its lower derivative functions as another equation in the system
+\1 It is found that for some system of differential equations, $\frac{d\vec{x}}{dt}(t) = A\vec{x}(t)$ has a solution as $\vec{x}(t) = e^{tA}\vec{x}(0)$ for some matrix of coefficients A
+\2 This is due to the fact that for $\frac{d\vec{x}}{dt}(t) = ax(t)$, then $\vec{x} = Ce^{at} = x(0)e^{at}$
 \end{outline*}
 \subsection{Vector Form of Linear Systems}
 \begin{outline*}
