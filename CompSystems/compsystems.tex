@@ -339,6 +339,7 @@
 \2 The TRAP command sets R7 to the incremented PC, moving the PC to a memory address in the operating system, called an OS service call, the rightmost 8 bits as the trapvector
 \3 The trapvector is an unsigned immediate that identifies the service call that the operating system is supposed to use
 \3 If the trapvector is 0, 0x8000 is used in the LC-4, while in the LC-3, an input character from the keyboard is x23, output to the monitor is x21, outputting a string starting at the address in R0 (PUTS) is x22, and ending a program is x25
+\4 The vector location signifies a request to move to an alternate program within the OS
 \3 The output and input character must be stored in R0 for the LC-3, which is the register character automatically stored and displayed
 \1 Coding in LC-3/LC-4 are done by using the mnemonic forms with spaces between the separate register codes, rather than the binary encoding or the semantic explanation
 \1 The global bus of the data path allows any structure within the computer to transmit 16 bits of information to any other structure, modifying the connections within the bus to determine the source and output, transferring one at a time, though some computers have multiple buses
@@ -430,7 +431,7 @@
 \1 Due to hardware I/O registers being accessed by a large number of programs, giving the programmer complete control could pose problems to other programs
 \2 Thus, hardware registers are considered privileged, requiring sufficient privilege to access it
 \2 As a result, I/O is generally only accessible by the TRAP instruction working through the OS, which has privilege to access them
-\3 Within the LC-4, this is done by moving into supervisor mode, which is able to execute non-user data
+\3 Within the LC-4, this is done by moving into supervisor mode, which is able to execute both user and non-user data
 \3 This is designated in the LC-4 by the Processor Status Register bit 15, containing 0 for user mode, 1 for the supervisor mode
 \4 The NZP sequence is similarly stored in there, with NZP as bits [2:0] respectively
 \2 Thus, the TRAP instruction is said to create a service/system call, taking control of the computer from the program until after the call
