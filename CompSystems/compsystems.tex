@@ -477,4 +477,29 @@
 \2 Tabs are ignored by the assembler, but newlines imply the next instruction begins, assuming it is not a blank line
 \3 Newlines are able to be used for an extra line spacing between instructions, and are able to separate the label from the instruction
 \end{outline*}
+\section{Chapter 6 - Programming}
+\begin{outline*}
+\1 Programming is divided into problem solving, converting the natural language problem into code that the computer can convert into electrons, and debugging, removing errors/bugs in the program
+\2 Thus, the first step is to convert the problem into an algorithm with finiteness, definiteness (precisely stated), and effective computibility (able to be done by a computer)
+\1 This is commonly done by structured programming/systematic decomposition, breaking the overall task into smaller steps, until it can be done by the computer
+\2 The three constructs are sequential (each task performed until completion without option), conditional (multiple tasks, possibly vacuous (doing nothing), based on a condition), or iterative (repeating a subtask until some test returns a value)
+\2 The constructs are also made such that all three to have one entrance and exit into it definitively, each assumed to be able to be done by the ISA/programming langauge
+\2 The process of breaking down the task is called stepwise refinement, breaking down each complicated task step by step
+\3 The task is initially broken up into three sections, initialization, calculation, and output
+\3 Each is then divided into one or more constructs, until it is purely within manageable tasks for the programming language
+\2 The stepwise refinement is completed by replacing the human-termed variables with the actual computer variables initialized, followed by actual coding
+\1 Debugging is generally done by tracing the program, keeping track of the sequence of instructions and what it produced, to identify incorrect results
+\2 This is often done by breaking the program into modules, checking the results of each module, easily working with structural programming
+\2 For assembly language, this is done by setting specific values to see the resultant output, execute sequences using breakpoints or single instructions (single-stepping), and displaying values
+\3 Breakpoints allow the result of each module or iteration, rather than each instruction, to be analyzed for errors
+\2 One common bug is often corner cases as well, working for the more extreme inputs, or infinite loops
+\end{outline*}
+\section{Chapter 11 - Introduction to C}
+\begin{outline*}
+
+\end{outline*}
+\section{Appendix D - The C Programming Language}
+\begin{outline*}
+
+\end{outline*}
 \end{document}
