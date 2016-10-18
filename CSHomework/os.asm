@@ -102,6 +102,9 @@ TRAP_PUTC
 
 .CODE
 TRAP_PUTS
+	TEMP .UCONST x2000 ;Store register
+	LC R3 TEMP
+	STR R0 R3 #0
 	LDR R1 R0 #0 ;Get character
 	CMPI R1 #0 ;Check if null character
 	BRz END
@@ -117,6 +120,8 @@ ENDLOOP
 	ADD R0 R0 #1 ;Move to next character
 	BRnzp TRAP_PUTS
 END
+	LC R3 TEMP
+	LDR R0 R3 #0	;Restore register
 	RTI
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;   TRAP_VIDEO_COLOR   ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -302,7 +307,7 @@ ENDL
 
 .CODE
 TRAP_DRAW_SPRITE
-	ADD R4 R0 #0 ;Switch x and y coordinatesw
+	ADD R4 R0 #0 ;Switch x and y coordinates
 	ADD R0 R1 #0
 	ADD R1 R4 #0
 	STORAGE .UCOUNT x4000 ;Store initial registers
@@ -344,6 +349,10 @@ ENDX
 	ADD R3 R3 #1
 	BR YLOOP
 ENDY
+	SUB R3 R3 #8
+	LDR R0 R6 X0
+	LDR R1 R6 Y0
+	LDR R2 R6 COLOR
 	RTI       ; PC = R7 ; PSR[15]=0
 
 
