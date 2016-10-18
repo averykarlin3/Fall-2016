@@ -558,18 +558,21 @@
 \subsection{General Results of First Order Linear Systems}
 \begin{outline*}
 \1 The Existence and Uniqueness Theorems state that for some initial value problem, $\vec{x}'(t) = A(t)\vec{x}(t) + \vec{b}(t), \vec{x}(t_0) = \vec{x}_0$, where A and B are continuous on some interval I, the problem has a unique solution on I
-\1 For some homogeneous vector differential equations ($\vec{x}'(t) = A(t)\vec{x}(t)$, the set of all solutions for some square-n matrix A, continuous on interval I, is a vector space of dimension n
+\1 For some homogeneous vector differential equations ($\vec{x}'(t) = A(t)\vec{x}(t)$, the set of all solutions for some square matrix $A_n$, continuous on interval I, is a vector space of dimension n
 \2 This is due to the fact that for some functions $D(\vec{x}) = \vec{x}', T(\vec{x}) = A\vec{x}$, such that the solution set is the kernel of $(D - T)(\vec{x})$
 \2 The initial value problem is taken such that for n solutions, $\vec{x_i}(t_0) = e_i$, where $e_i$ is the standard basis vector
-\3 Thus, the $det([x_1, \dots x_n](t_0)) = 1$, such that the matrix of solutions to the equation is linearly independent
+\3 Thus, the $W[x_1, \dots x_n](t_0)) = 1$, such that the matrix of solutions to the equation is linearly independent
 \3 Since this forms the standard basis vectors, any linear combination of these forms an initial value problem for those scalar multipliers
-\2 It follows that for some $x(t)$ made up of the linear combinations of the standard basis functions, it forms the unique solution
+\2 It follows that for any $x(t)$, it made up of the linear combinations of the standard basis functions, it forms a solution to the homogeneous system, which thus must be the unique solution
+\3 This is due to the system being able to be written as $\vec{x}' = A\vec{x}$ with the IVP $\vec{x} = c_1\vec{x}_1 + \dots + c_n\vec{x}_n$
 \3 Thus, the solution set is spanned by/has a basis of the n functions that at $t_0$, such that the function formed by the linear combination is the general solution
 \1 Thus, for some linear homogeneous first order differential equation, $x' = Ax$, any set of n linearly independent solutions on I is called a fundamental solution set on I
 \2 The matrix, $X(t) = [\vec{x}_1, \dots, \vec{x}_n]$ is called the fundamental matrix for the equation as a result
 \2 As a result, $\vec{x})t) = \vec{X}(t)\vec{c}$, where $\vec{c} = [c_1, \dots, c_n]^T$
 \1 The converse of the Wronkian linear independence definition can be proven, such that if they are linearly independent on an interval, the Wronkian is nonzero for all points in the interval
-\2 This is due to the fact that otherwise, for some IVP, $\vec{x}(t_0) = \vec{0}$ by some linear combination of nonzero functions, 
+\2 This is due to the fact that otherwise, for some IVP, $\vec{x}(t_0) = \vec{0}$ for a system, by some linear combination of nonzero functions, there are multiple general solutions
+\2 As a result, any point, $t_0$, can have the Wronkian taken to determine if the solution set is linearly independent over the continuous interval
+\1 For some nonhomogeneous differential equation, the general solution is that of the homogeneous with a particular solution of the nonhomogeneous added
 \end{outline*}
 \subsection{Vector Differential Equations: Nondefective Coefficient Matrices}
 \begin{outline*}
