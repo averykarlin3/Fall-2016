@@ -24,10 +24,10 @@ WHITE .UCONST x7FFF	; 0 11111 11111 11111
 
 	;; setup initial arguments for TRAP
 	;;
-	LC R0, RED		; set row to draw on
-	LC R1, COL		; set first column to draw on
-	LC R4, RED		; set color for line
-	LC R2, RE		; initalize loop counter
-	LC R3, CE
-	TRAP x02		; call TRAP_DRAW_PIXEL
+	CONST R0 x10
+	CONST R1 x14
+	CONST R2 x57
+	CONST R3 x38
+	LC R4 GREEN
+	TRAP x05
 END

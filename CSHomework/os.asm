@@ -192,7 +192,7 @@ RETURN_TRAP
 .CODE
 TRAP_DRAW_LINE
 	CONST R6 x0	;Initial value for restoration
-	HICONST x30
+	HICONST R6 x30
 	STR R0 R6 #0
 	STR R1 R6 #1
 	STR R2 R6 #2
@@ -262,7 +262,7 @@ POSTIF
 POSTLOOP
 	LDR R7 R6 #5 ;Restore R7
 	CONST R6 x0	;Restore initial values
-	HICONST x30
+	HICONST R6 x30
 	STR R0 R6 #0
 	STR R1 R6 #1
 	STR R2 R6 #2
@@ -270,8 +270,10 @@ POSTLOOP
 	STR R4 R6 #4
 	BR ENDL
 IF
+	LDR R4 R6 #12
 	ADD R0 R0 R4 ;y = y + ystep
 	LDR R5 R6 #15
+	LDR R4 R6 #10 
 	SUB R5 R5 R4 ;error = error - deltax
 	STR R5 R6 #15
 	BR POSTIF
@@ -325,38 +327,33 @@ TRAP_DRAW_SPRITE
 	ADD R4 R0 #0 ;Switch x and y coordinates
 	ADD R0 R1 #0
 	ADD R1 R4 #0
-	STORAGE .UCOUNT x4000 ;Store initial registers
-	XO .CONST x0
-	YO .CONST x1
-	COLOR .CONST x2
-	OLDLOC .CONST x3
-	CHECKER .CONST x4
+	STORAGE .UCONST x4000 ;Store initial registers
 	LC R6 STORAGE
-	STR R0 R6 XO
-	STR R1 R6 YO
-	STR R2 R6 COLOR
-	STR R7 R6 OLDLOC
+	STR R0 R6 x0
+	STR R1 R6 x1
+	STR R2 R6 x2
+	STR R7 R6 x3
 	CONST R2 x01
 YLOOP
-	LDR R4 R6 Y0 ;Check if done with loop
+	LDR R4 R6 x1 ;Check if done with loop
 	ADD R4 R4 #8
 	CMP R4 R0
 	BRz ENDY
 	LDR R4 R3 #0 ;Load string for line
 XLOOP
-	LDR R5 R6 X0 ;Check if done with loop
+	LDR R5 R6 x0 ;Check if done with loop
 	ADD R5 R5 #8
 	CMP R5 R1
 	BRz ENDX
-	STR R2 R6 CHECKER ;Check if bit is filled
+	STR R2 R6 x4 ;Check if bit is filled
 	OR R2 R3 R2
 	CMPI R2 #0
 	BRz POSTPIXEL
-	LDR R2 R6 COLOR	;Color bit
+	LDR R2 R6 x2	;Color bit
 	TRAP x04
 POSTPIXEL
 	ADD R1 R1 #1 ;Move to next pixel
-	LDR R2 R6 CHECKER ;Move to next string bit
+	LDR R2 R6 x4 ;Move to next string bit
 	SLL R2 R2 #1
 	BR XLOOP
 ENDX
@@ -364,10 +361,10 @@ ENDX
 	ADD R3 R3 #1
 	BR YLOOP
 ENDY
-	SUB R3 R3 #8
-	LDR R0 R6 X0
-	LDR R1 R6 Y0
-	LDR R2 R6 COLOR
+	ADD R3 R3 #-8
+	LDR R0 R6 x0
+	LDR R1 R6 x1
+	LDR R2 R6 x2
 	RTI       ; PC = R7 ; PSR[15]=0
 
 
@@ -407,11 +404,9 @@ TRAP_GETC_TIMER
 	HICONST R2 x80
 LOOPT
 	LDR R0 R3 #0 ;Check if timer done
-	CMP R0 R2
-	BRzp NULL 
+	BRnp NULL 
 	LDR R0 R5 #0 ;Check if character ready
-	CMP R0 R2
-	BRzp CHAR
+	BRnp CHAR
 	BR LOOPT
 NULL
 	CONST R0 #0 ;Insert null character if timeout
