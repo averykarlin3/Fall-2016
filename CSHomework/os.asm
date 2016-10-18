@@ -302,12 +302,49 @@ ENDL
 
 .CODE
 TRAP_DRAW_SPRITE
-
-  ;;
-  ;; CIS 240 TO DO: complete this trap	
-  ;;
-
-  RTI       ; PC = R7 ; PSR[15]=0
+	ADD R4 R0 #0 ;Switch x and y coordinatesw
+	ADD R0 R1 #0
+	ADD R1 R4 #0
+	STORAGE .UCOUNT x4000 ;Store initial registers
+	XO .CONST x0
+	YO .CONST x1
+	COLOR .CONST x2
+	OLDLOC .CONST x3
+	CHECKER .CONST x4
+	LC R6 STORAGE
+	STR R0 R6 XO
+	STR R1 R6 YO
+	STR R2 R6 COLOR
+	STR R7 R6 OLDLOC
+	CONST R2 x01
+YLOOP
+	LDR R4 R6 Y0 ;Check if done with loop
+	ADD R4 R4 #8
+	CMP R4 R0
+	BRz ENDY
+	LDR R4 R3 #0 ;Load string for line
+XLOOP
+	LDR R5 R6 X0 ;Check if done with loop
+	ADD R5 R5 #8
+	CMP R5 R1
+	BRz ENDX
+	STR R2 R6 CHECKER ;Check if bit is filled
+	OR R2 R3 R2
+	CMPI R2 #0
+	BRz POSTPIXEL
+	LDR R2 R6 COLOR	;Color bit
+	TRAP x04
+POSTPIXEL
+	ADD R1 R1 #1 ;Move to next pixel
+	LDR R2 R6 CHECKER ;Move to next string bit
+	SLL R2 R2 #1
+	BR XLOOP
+ENDX
+	ADD R0 R0 #1 ;Move to next line
+	ADD R3 R3 #1
+	BR YLOOP
+ENDY
+	RTI       ; PC = R7 ; PSR[15]=0
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;   TRAP_TIMER   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
