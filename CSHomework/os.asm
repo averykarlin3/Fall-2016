@@ -191,6 +191,14 @@ RETURN_TRAP
 ;;; Outputs          - none
 .CODE
 TRAP_DRAW_LINE
+	CONST R6 x0	;Initial value for restoration
+	HICONST x30
+	STR R0 R6 #0
+	STR R1 R6 #1
+	STR R2 R6 #2
+	STR R3 R6 #3
+	STR R4 R6 #4
+	CONST R6 x0
 	HICONST R6 x40 ;Store initial register values
 	STR R0 R6 #0
 	STR R1 R6 #1
@@ -253,6 +261,13 @@ POSTIF
 	BR LOOPL
 POSTLOOP
 	LDR R7 R6 #5 ;Restore R7
+	CONST R6 x0	;Restore initial values
+	HICONST x30
+	STR R0 R6 #0
+	STR R1 R6 #1
+	STR R2 R6 #2
+	STR R3 R6 #3
+	STR R4 R6 #4
 	BR ENDL
 IF
 	ADD R0 R0 R4 ;y = y + ystep
