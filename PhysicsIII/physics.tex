@@ -146,6 +146,40 @@
 \2 This equations can be supplemented by the fact that $\psi(0, t) = \psi(l, t) = 0$ for any time t, acting as a boundary condition
 \2 This is used to find the restriction that for any x, t, $\psi_+(x - |v|t) = -\psi_-(2l - x - |v|t) = \psi_+(x - |v|t - 2l)$, such that the component waves are triangular/sawtooth
 \end{outline*}
+\section{Freegarde Chapter 4 - Sinusoidal Waveforms}
+\begin{outline*}
+\1 Sinusoidal wave solutions are often used to approximate a wave, such that while they are not the only form of motion, can be used to form any linear wavemotion
+\2 Pseudo-sinusoidal equations are also used for dissipative systems, able to be described generally by a main sinusoidal component
+\1 The main sinusoidal wave form, fulfilling the traveling wave criteria, is $\psi(x, t) = asin(k(x - vt) + \phi)$, where $\phi$ is the initial phase/offset (relative to an origin) and a is the amplitude
+\2 As a result, the wave angular frequency, $\omega = vk = kf\lambda$, where k is the constant wavenumber, continuing infinitely
+\2 This can be rewritten by several variables, oscillation period ($\tau f = 1$), frequency ($\omega = 2\pi f$), wavelength ($k\lambda = 2\pi$), or the spectroscopists' wavenumber ($\bar{v}\lambda = 1$)
+\1 Wavefronts are defined as a continuous function with constant sinusoidal phase, such that for the main form, $k(x - vt) + \phi = c$ for some constant c
+\2 As a result, since it describes the movement of a point of constant wavefunction over the function over time ($x = vt + (c - \phi)k$)
+\2 This includes the crest of a wave, or a point where the wavefunction remains 0, or a point that moves with the wave, keeping constant displacement
+\2 The velocity of the wavefront, moving with constant phase, is called the phase velocity, denoted $v_p$, commonly just as v
+\2 **4.1.3**
+\1 For some traveling string wave (u = x - vt), assuming amplitude is far smaller than wavelength and tension is constant, kinetic energy is by the transverse motion ($v_t = \frac{\partial \psi}{\partial t}$)
+\2 Thus, $K = \frac{1}{2}\delta m v_t^2 = \frac{M \delta x}{2}(\frac{\partial \psi}{\partial t})^2$, by chain rule, $K = \frac{v_p^2M\delta x}{2}(\frac{\partial \psi}{\partial u})^2$
+\3 Due to lack of longitudinal motion, each mass item is constant per unit length, and kinetic energy is purely transverse
+\2 Potential energy of a string element is the work done stretching the string to displace it, creating the tension
+\3 As a result, U = $\frac{W\delta x}{2}(\frac{\partial \psi}{\partial x})^2$, by the chain rule, U = $\frac{W\delta x}{2}(\frac{\partial \psi}{\partial u})^2$
+\3 Thus, potential and kinetic energy of any length element are equal, such that $E = K + U = W(\frac{\partial \psi}{\partial x})^2\delta x = W(\frac{\partial \psi}{\partial u})^2\delta x$
+\2 The energy density, $\epsilon$, is the energy per unit length
+\2 This is an example of the virial theorem, stating that potential and kinetic energy are related for any dynamic system
+\3 In addition, this shows that both forms of energy are related to the square of the wave amplitude
+\2 As a result, the power is the energy moving through some point with the wave at some moment, such that $P = Wv_p(\frac{d\psi}{du})^2 = \epsilon v_p$
+\2 It is noted that for superpositioned waves, the power and energy must take into account the sums of various directions of each
+\1 **4.3**
+\1 **4.4**
+\end{outline*}
+\section{Freegarde Chapter 6 - Huygens Wave Propagation}
+\begin{outline*}
+\1 Huygen's principle states that a wavefront of light propagates from an initial disturbance at the speed of light, equally in all directions, to form a spherical wavefront
+\2 This has since been expanded to apply to all forward-traveling waves, rather than just light waves
+\2 It also states that as the wavefront moves, it creates secondary sources, forming secondary wavefronts, being created at all positions continuously
+\2 As a result of interference, adding the amplitudes as superposition of waves from different paths to enforce or cancel out others
+\3 This results in the lack of backwards travelling waves, averaging to cancel each other out in that direction, superposed purely on the advancing planar wavefront
+\end{outline*}
 \subsection{Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$
 
@@ -155,12 +189,33 @@ $\phi$ = phase constant
 A = amplitude/max wavefunction
 
 Common differential trick is separation of variables
-
+General wave equation - 
 $\frac{\partial^2 \psi}{\partial t^2} = v^2\frac{\partial^2 \psi}{\partial x^2}$ then $\frac{1}{v^2}\frac{1}{T}{d^2T}{dt^2} = \frac{1}{X}\frac{d^2X}{dx^2} = C$ if $\psi = X(x)T(t)$
 
 $X(x) = X_0 sin(\sqrt{C}X + \phi) = X_0sin(\kx + \phi)$
 $T(t) = T_0 sin(kvt +  \theta)$
-$\psi(x, t) = \psi_0 sin(kx + \phi) sin(\omega t + \theta)$
+$\psi(x, t) = \psi_0 sin(kx + \phi) sin(\omega t + \theta)$, giving the standing wave form
 
 Since $sinkxsin\omega t = \frac{1}{2}(cos(kx - \omega t) - cos(kx + \omega t))$, it can be written as travelling waves
+For a string attached at the ends, since $\psi(0, t) = Asin\phi sin(\omega t + \theta) = 0$ for a standing wave, and $\psi(L, t) = Asin(kL + \phi)sin(\omega t + \theta) = 0$, kL is limited to specific values for a standing wave to occur
+v independent for a string, such that $f\lambda$ is constant, $f_n = \frac{nv}{2L} = nf_1$, where $f_1$ is the fundemental frequency on the string
+Fundemental frequency is the frequency of a standing wave equal to half a wavelength
+
+$\psi(x, t) = \sum a_n sin(\frac{n\pi x}{L})cos(\frac{n\pi vt}{L})$, represented as a fourier series, equal to just the sine component at t = 0, from n = $a_1$ to $a_\infy$
+
+In addition, it proceeds to get more rounded as it goes along, due to damping causing the higher frequencies to fade
+
+Each stationary standing wave point is a normal node, while normal string waves are triangular, they can be approximated by a standing wave curve, getting closer as the fourier series is allow to extend to infinity
+
+Three terms is generally enough to approximate a string properly
+Superposition of electronic states leads to electrons in many distinct states simultaneously until observed
+
+Energy in Wave Motion - $K = \frac{1}{2}\Delta mv^2  = \frac{1}{2} \mu \Delta x (\frac{\partial \psi}{\partial t}^2$
+
+For string, $\Delta L = \sqrt{(\Delta x)^2 + (\Delta \psi)^2} - \Delta x = \Delta x (\sqrt{1 - (\frac{\partial \psi}{\partial x})^2} - 1)$
+
+$\sqrt{1 + x^2} = 1 + \frac{1}{2}x^2$
+$U = T\Delta L$, $E = T(\frac{\partial \psi}{\partial x})^2 \Delta x$
+
+Energy can be expressed in normal nodes, electromagnetic waves in powerpoint
 \end{document}
