@@ -144,7 +144,8 @@
 \1 By these formulas for $\psi_\pm$ in terms of the initial wavefunction of some point, $\psi(x, t) = \frac{1}{2}\psi(x - |v|t, 0) + \frac{1}{2}\psi(x - |v|t, 0)$
 \2 This assumes that x is not at the endpoints at some nonzero time, since it is undefined for a negative displacement or a displacement greater than the length
 \2 This equations can be supplemented by the fact that $\psi(0, t) = \psi(l, t) = 0$ for any time t, acting as a boundary condition
-\2 This is used to find the restriction that for any x, t, $\psi_+(x - |v|t) = -\psi_-(2l - x + |v|t) = \psi_+(x - |v|t - 2l)$, such that the component waves are triangular/sawtooth
+\2 This is used to find the restriction that for any x, t, $\psi_+(x - |v|t) = -\psi_-(2l - x + |v|t) = \psi_+(x - |v|t - 2l)$, such that the component waves are periodic triangular/sawtooth
+\3 This is found by the fact that $u_+ = 2x - u_i$, giving the relationship between the component functions if the overall function is 0, such that $u_+ = -u_i$ and $u_+ = 2l - u_-$ must be true for all u by the boundary conditions
 \end{outline*}
 \section{Freegarde Chapter 4 - Sinusoidal Waveforms}
 \begin{outline*}
@@ -179,6 +180,10 @@
 \3 Thus, for some fixed string of length l, assuming no phase shift, $k = \frac{n\pi}{l}$, where n is some integer, or $l = \frac{n\lambda}{2}$
 \3 As a result, the allowed modes of vibration of a standing wave are all lengths of integer n for some wavelength
 \4 For n = 1, it is the fundamental mode of vibration/first harmonic, while higher modes are harmonics/overtones (n = 2, the second harmonic, first overtone)
+\3 Nodes can also be determined by the superposition of forward and backward travelling waves, such that if $\psi_+(u) = \psi_0 cos(ku)$, for each node, it must be true by boundary conditions that $\psi_+(u - 2x)$
+\4 As a result, it must be true that $kx = n\pi$ where n is some integer
+\4 This is able to be taken as well, such that $\psi_-(u) = -\psi_0 cos(k(x + |v|t))$, the standing wave equation can be derived
+\2 
 \end{outline*}
 \section{Freegarde Chapter 6 - Huygens Wave Propagation}
 \begin{outline*}
