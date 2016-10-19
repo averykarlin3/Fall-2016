@@ -175,8 +175,9 @@ TRAP_DRAW_PIXEL
 END_PIXEL
 	CONST R3 x0		;Check for subtrap
 	HICONST R3 x80
-	CMP R3 R4
-	BRnz RETURN_TRAP
+	AND R3 R3 R7
+	CMPI R3 #0
+	BRnp RETURN_TRAP
 	RTI       		     ; PC = R7 ; PSR[15]=0
 RETURN_TRAP
 	RET
@@ -329,42 +330,51 @@ TRAP_DRAW_SPRITE
 	ADD R1 R4 #0
 	STORAGE .UCONST x4000 ;Store initial registers
 	LC R6 STORAGE
-	STR R0 R6 x0
-	STR R1 R6 x1
-	STR R2 R6 x2
-	STR R7 R6 x3
+	STR R0 R6 x0 ;Y
+	STR R1 R6 x1 ;X
+	STR R2 R6 x2 ;Color
+	STR R7 R6 x3 ;Old Address
 	CONST R2 x01
+	STR R2 R6 x4 ;Checker
+	STR R3 R6 x5 ;Address
 YLOOP
-	LDR R4 R6 x1 ;Check if done with loop
+	LDR R4 R6 x0 ;Check if done with loop
 	ADD R4 R4 #8
 	CMP R4 R0
 	BRz ENDY
-	LDR R4 R3 #0 ;Load string for line
 XLOOP
-	LDR R5 R6 x0 ;Check if done with loop
+	LDR R4 R3 #0 ;Load string for line
+	LDR R5 R6 x1 ;Check if done with loop
 	ADD R5 R5 #8
 	CMP R5 R1
 	BRz ENDX
-	STR R2 R6 x4 ;Check if bit is filled
-	OR R2 R3 R2
+	LDR R2 R6 x4 ;Check if bit is filled
+	AND R2 R4 R2
 	CMPI R2 #0
 	BRz POSTPIXEL
 	LDR R2 R6 x2	;Color bit
 	TRAP x04
 POSTPIXEL
+	LDR R3 R6 x5
 	ADD R1 R1 #1 ;Move to next pixel
 	LDR R2 R6 x4 ;Move to next string bit
 	SLL R2 R2 #1
+	STR R2 R6 x4
 	BR XLOOP
 ENDX
 	ADD R0 R0 #1 ;Move to next line
 	ADD R3 R3 #1
+	STR R3 R6 x5
+	LDR R1 R6 x1
+	CONST R2 x01
+	STR R2 R6 x04
 	BR YLOOP
 ENDY
 	ADD R3 R3 #-8
 	LDR R0 R6 x0
 	LDR R1 R6 x1
 	LDR R2 R6 x2
+	LDR R7 R6 x3
 	RTI       ; PC = R7 ; PSR[15]=0
 
 

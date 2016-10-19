@@ -35,8 +35,8 @@ YMAX	.UCONST #124
 	TRAP x05
 LOOP 
 	LEA R6 TEMP ;Store initial cross coordinates
-	STR R0 R6 XCENTER
-	STR R1 R6 YCENTER
+	STR R0 R6 x1
+	STR R1 R6 x2
 	CONST R0 xD0 ;Set timer length
 	HICONST R0 x07
 	TRAP x08 ;Get character
@@ -56,7 +56,7 @@ LOOP
 	BRz RIGHT
 	LC R5 ENTER
 	CMP R0 R5
-	BRz ENTER
+	BRz ENTERM
 	BR CENTER
 DRAW	;Draw new cross and line
 	LC R2 RED
@@ -71,23 +71,23 @@ CENTER ;Change cross to center
 	CONST R1 #62
 	BR DRAW
 FORWARD ;Move cross coordinate forward
-	LDR R0 R6 XCENTER
-	LDR R1 R6 YCENTER
+	LDR R0 R6 x1
+	LDR R1 R6 x2
 	ADD R1 R1 #10
 	BR CHECK
 BACK	; Move cross coordinate back
-	LDR R0 R6 XCENTER
-	LDR R1 R6 YCENTER
+	LDR R0 R6 x1
+	LDR R1 R6 x2
 	ADD R1 R1 #-10
 	BR CHECK
 LEFT	;Move cross coordinate left
-	LDR R0 R6 XCENTER
-	LDR R1 R6 YCENTER
+	LDR R0 R6 x1
+	LDR R1 R6 x2
 	ADD R0 R0 #-10
 	BR CHECK
 RIGHT	;Move cross coordinate right
-	LDR R0 R6 XCENTER
-	LDR R1 R6 YCENTER
+	LDR R0 R6 x1
+	LDR R1 R6 x2
 	ADD R0 R0 #10
 	BR CHECK
 CHECK 	;Check for overflow
@@ -102,7 +102,7 @@ CHECK 	;Check for overflow
 	CMP R1 R5
 	BRp CENTER
 	BR DRAW
-ENTER 	;Ending message
+ENTERM 	;Ending message
 	LEA R0 TEXT
 	TRAP x02
 END
