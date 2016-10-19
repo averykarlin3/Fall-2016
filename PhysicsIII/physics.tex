@@ -144,7 +144,7 @@
 \1 By these formulas for $\psi_\pm$ in terms of the initial wavefunction of some point, $\psi(x, t) = \frac{1}{2}\psi(x - |v|t, 0) + \frac{1}{2}\psi(x - |v|t, 0)$
 \2 This assumes that x is not at the endpoints at some nonzero time, since it is undefined for a negative displacement or a displacement greater than the length
 \2 This equations can be supplemented by the fact that $\psi(0, t) = \psi(l, t) = 0$ for any time t, acting as a boundary condition
-\2 This is used to find the restriction that for any x, t, $\psi_+(x - |v|t) = -\psi_-(2l - x - |v|t) = \psi_+(x - |v|t - 2l)$, such that the component waves are triangular/sawtooth
+\2 This is used to find the restriction that for any x, t, $\psi_+(x - |v|t) = -\psi_-(2l - x + |v|t) = \psi_+(x - |v|t - 2l)$, such that the component waves are triangular/sawtooth
 \end{outline*}
 \section{Freegarde Chapter 4 - Sinusoidal Waveforms}
 \begin{outline*}
@@ -157,20 +157,28 @@
 \2 As a result, since it describes the movement of a point of constant wavefunction over the function over time ($x = vt + (c - \phi)k$)
 \2 This includes the crest of a wave, or a point where the wavefunction remains 0, or a point that moves with the wave, keeping constant displacement
 \2 The velocity of the wavefront, moving with constant phase, is called the phase velocity, denoted $v_p$, commonly just as v
-\2 **4.1.3**
 \1 For some traveling string wave (u = x - vt), assuming amplitude is far smaller than wavelength and tension is constant, kinetic energy is by the transverse motion ($v_t = \frac{\partial \psi}{\partial t}$)
 \2 Thus, $K = \frac{1}{2}\delta m v_t^2 = \frac{M \delta x}{2}(\frac{\partial \psi}{\partial t})^2$, by chain rule, $K = \frac{v_p^2M\delta x}{2}(\frac{\partial \psi}{\partial u})^2$
 \3 Due to lack of longitudinal motion, each mass item is constant per unit length, and kinetic energy is purely transverse
 \2 Potential energy of a string element is the work done stretching the string to displace it, creating the tension
-\3 As a result, U = $\frac{W\delta x}{2}(\frac{\partial \psi}{\partial x})^2$, by the chain rule, U = $\frac{W\delta x}{2}(\frac{\partial \psi}{\partial u})^2$
-\3 Thus, potential and kinetic energy of any length element are equal, such that $E = K + U = W(\frac{\partial \psi}{\partial x})^2\delta x = W(\frac{\partial \psi}{\partial u})^2\delta x$
+\3 As a result, U = $\frac{T\delta x}{2}(\frac{\partial \psi}{\partial x})^2$, by the chain rule, U = $\frac{T\delta x}{2}(\frac{\partial \psi}{\partial u})^2$
+\3 Thus, potential and kinetic energy of any length element are equal, such that $E = K + U = T(\frac{\partial \psi}{\partial x})^2\delta x = T(\frac{\partial \psi}{\partial u})^2\delta x$
 \2 The energy density, $\epsilon$, is the energy per unit length
 \2 This is an example of the virial theorem, stating that potential and kinetic energy are related for any dynamic system
 \3 In addition, this shows that both forms of energy are related to the square of the wave amplitude
-\2 As a result, the power is the energy moving through some point with the wave at some moment, such that $P = Wv_p(\frac{d\psi}{du})^2 = \epsilon v_p$
+\2 As a result, the power is the energy moving through some point with the wave at some moment, such that $P = Tv_p(\frac{d\psi}{du})^2 = \epsilon v_p$
 \2 It is noted that for superpositioned waves, the power and energy must take into account the sums of various directions of each
-\1 **4.3**
-\1 **4.4**
+\1 Sinusoidal waves are generally used as an ideal solution class to the wave equations, due to commonality, but relying on a single frequency to be able to define phase velocity
+\2 On the other hand, it is ideal due to acting as solutions to linear, dispersive systems with varying phase velocity as well, and due to standing waves and orthogonality
+\1 Standing waves are a class of solutions to a non-dispersive, linear string system, in which the motion is standard, differing only in magnitude throughout the string
+\2 As a result, it can be written in the format of $\psi(x, t) = X(x)T(t)$, placed within the string wave function to get two second order ODEs, forming sinusoidal solutions if X, T, and k are real
+\2 In this case, $X(x) = X_0sin(kx + \phi), T(t) = T_0sin(\omega t + \theta)$, where $\omega/v_p$ are constant based on string characteristics
+\3 Thus, $\psi(x, t) = \psi_0 sin(kx + \phi)sin(\omega t + \theta)$, where $\psi_0 = T_0X_0$
+\2 These appear as non-moving waves, though by the trigonometric identities, can be converted to the sum of sinusoidal travelling waves, creating an alternate wave format
+\2 Nodes of a standing wave are points where motion is always 0, such that $kx_m + \phi = m\pi$, where m is an integer, able to be fixed at those points without changing the wave
+\3 Thus, for some fixed string of length l, assuming no phase shift, $k = \frac{n\pi}{l}$, where n is some integer, or $l = \frac{n\lambda}{2}$
+\3 As a result, the allowed modes of vibration of a standing wave are all lengths of integer n for some wavelength
+\4 For n = 1, it is the fundamental mode of vibration/first harmonic, while higher modes are harmonics/overtones (n = 2, the second harmonic, first overtone)
 \end{outline*}
 \section{Freegarde Chapter 6 - Huygens Wave Propagation}
 \begin{outline*}
