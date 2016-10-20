@@ -183,7 +183,24 @@
 \3 Nodes can also be determined by the superposition of forward and backward travelling waves, such that if $\psi_+(u) = \psi_0 cos(ku)$, for each node, it must be true by boundary conditions that $\psi_+(u - 2x)$
 \4 As a result, it must be true that $kx = n\pi$ where n is some integer
 \4 This is able to be taken as well, such that $\psi_-(u) = -\psi_0 cos(k(x + |v|t))$, the standing wave equation can be derived
-\2 
+\2 The energy over an entire string, $E = T(\int (a\frac{\partial \psi_1}{\partial x} + b\frac{\partial \psi_2}{\partial x})^2)$, expanded to find that $E = a^2E_1 + b^2E_2 + 2Tab\int^l_0 \frac{\partial \psi_1}{\partial x}\frac{\partial \psi_2}{\partial x}dx$
+\3 As a result, it is found that the energy is greater than the sum of the component energies
+\3 On the other hand, it is found that sinusoidal functions, $sin(k_1x), sin(k_2x)$ have the integrated product of 0 if the functions are linearly independent, called orthogonal, making them ideal for energy analysis
+\end{outline*}
+\section{Freegarde Chapter 5 - Complex Wavefunctions}
+\begin{outline*}
+\1 Sinusoidal wave forms, due to the cycle of derivatives, are those with wavefunctions of the form $\sum_{n_i, n_j, \dots} a_{n_i, n_j, \dots} \frac{\partial^{n_i + n_j + \dots}\psi}{\partial x_i^{n_i} \partial x_j^{n_j} \dots} = 0$
+\2 This assumes that the order of the sum of partial derivatives are all even or all odd ($n_i + n_j + \dots$)
+\2 The main wave types not with sinusoidal wave forms, are dissipative waves, thermal diffusion equation, and the Schrodinger quantum equation, which are not all odd or even, and thus not fully sinusoidal
+\3 In other cases, the complex harmonic waveform is used, such that it is a well-defined sinusoidal function, but with possibly imaginary amplitudes
+\2 For some complex wavefunction, $\psi(x, t) = acos(kx - \omega t) + iasin(kx - \omega t) = ae^{i(kx - \omega t)}$, such that it is a travelling wave where $u = k(x - v_pt)$
+\3 This can be proven to be the solution to any wavefunction, with any partial derivative sum parity
+\3 It can also thus be broken up into a separable standing wave function, breaking the exponents up
+\3 It can be superimposed with other complex exponentials to produce a real sinusoidal wave, allowing for easier calculation
+\2 For some dissipative system, such as a string wave with a drag force, such that $F = -\mu v_t$, solved to find $k = \pm \sqrt{\frac{M}{T}}\omega\sqrt{1 + \frac{\mu i}{M \omega}} = \pm k_0(p + iq)$
+\3 
+\1 The displacement due to sinusoidal wave motion at some point is drawn with a phasor arrow, proportional in length to amplitude
+\2 The phasor is rotated to show the progression over time of the wave
 \end{outline*}
 \section{Freegarde Chapter 6 - Huygens Wave Propagation}
 \begin{outline*}
