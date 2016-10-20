@@ -202,7 +202,7 @@
 \3 This can then be solved for the real and imaginary parts, such that $p^2 = \frac{1}{2}(1 + \sqrt{1 + (\frac{\mu}{M\omega})^2}), q = \frac{\mu}{2M\omega}$
 \3 Weak damping is if $p \appx 1$, such that $\mu << M\omega$ and $\psi = ae^{i(k_0x - \omega t)}e^{-k_0qx}$, where $k_0q$ is the decay constant
 \3 This provides the spatial decay wave equation, though it can be rewritten to create a complex $\omega$ and real k for the temporally decaying form
-\3 These equations can also be solved by complex standing wave form, by separation of variables, creating a single variable differential equation for the same function
+\3 These equations can also be solved by complex standing wave form of each standing wave part, separating the variables, creating a single variable differential equation for the same function
 \1 The displacement due to sinusoidal wave motion at some point is drawn with a phasor arrow, proportional in length to amplitude
 \2 The phasor is rotated to show the phase of the wave propagation, able to be represented as a complex exponential, providing the time difference between each neighbor effect
 \2 The phasors are thus able to be added as vectors, providing the overall wave displacement at some point
@@ -216,8 +216,11 @@
 \2 It also states that as the wavefront moves, it creates secondary sources, forming secondary wavefronts, being created at all positions continuously
 \2 As a result of interference, adding the amplitudes as superposition of waves from different paths to enforce or cancel out others
 \3 This results in the lack of backwards travelling waves, averaging to cancel each other out in that direction, superposed purely on the advancing planar wavefront
+\3 This can be shown by phasars for each wavefront at some point, the central waves at the lowest angle due to being the first, and so forth
+\4 This can be mathematically analyzed by finding the exponential function, $a(x, y) = \frac{e^{ikr}}{r}, r = \sqrt{x^2 + y^2}$, such that the amplitude is the inverse square dependent on the distance
+\4 This can then be taken for all points at the same x value, integrated, to get the overall amplitude at that point
 \end{outline*}
-\subsection{Notes}
+\section{Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier transform
 
 Common differential trick is separation of variables
