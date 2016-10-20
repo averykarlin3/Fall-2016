@@ -136,6 +136,7 @@
 \2 Thus, the two respective solutions are for a positive and negative velocity traveling waves, such that it is equal to the solution to a wave with positive and negative velocity
 \3 Thus, this forms the idea that since the velocity can be in either direction when assuming a standing wave, all waves on the string are made up of two standing wave directions
 \2 Thus, it is found that $\psi(x, t) = \psi(x \pm vt) = \psi_+(x - |v|t) + \psi_-(x + |v|t)$, to provide the forward and backward wave components, taking the specific solution at t = 0
+\3 The constant multipliers of the linear multiplier are contained within the functions themselves
 \3 This forms $\psi(x, 0) = \psi_+(x) + \psi_-(x)$ and by the derivative with respect to t, $\frac{\partial \psi}{\partial t}(x, 0) = \frac{\partia \psi_+ (x - |v|t)}{\partial t}(x, 0) + \frac{\partial \psi_- (x + |v|t)}{\partial t}(x, 0)$
 \4 The first equation serves to provide the initial condition for a unique solution
 \3 By the chain rule, the second equation becomes $\frac{\partial \psi}{\partial t}(x, 0) = |v|(\frac{d\psi_-(x)}{dx} - \frac{d\psi_+(x)}{dx})$
@@ -198,9 +199,15 @@
 \3 It can also thus be broken up into a separable standing wave function, breaking the exponents up
 \3 It can be superimposed with other complex exponentials to produce a real sinusoidal wave, allowing for easier calculation
 \2 For some dissipative system, such as a string wave with a drag force, such that $F = -\mu v_t$, solved to find $k = \pm \sqrt{\frac{M}{T}}\omega\sqrt{1 + \frac{\mu i}{M \omega}} = \pm k_0(p + iq)$
-\3 
+\3 This can then be solved for the real and imaginary parts, such that $p^2 = \frac{1}{2}(1 + \sqrt{1 + (\frac{\mu}{M\omega})^2}), q = \frac{\mu}{2M\omega}$
+\3 Weak damping is if $p \appx 1$, such that $\mu << M\omega$ and $\psi = ae^{i(k_0x - \omega t)}e^{-k_0qx}$, where $k_0q$ is the decay constant
+\3 This provides the spatial decay wave equation, though it can be rewritten to create a complex $\omega$ and real k for the temporally decaying form
+\3 These equations can also be solved by complex standing wave form, by separation of variables, creating a single variable differential equation for the same function
 \1 The displacement due to sinusoidal wave motion at some point is drawn with a phasor arrow, proportional in length to amplitude
-\2 The phasor is rotated to show the progression over time of the wave
+\2 The phasor is rotated to show the phase of the wave propagation, able to be represented as a complex exponential, providing the time difference between each neighbor effect
+\2 The phasors are thus able to be added as vectors, providing the overall wave displacement at some point
+\3 For phasors of constant phase difference, it becomes an infinite geometric series, decreasing in magnitude from the original amplitude, such as light reflecting on oil
+\3 The light is then reflected partially at the bottom of the oil to the top, repeating infinitely, summing for the net effect
 \end{outline*}
 \section{Freegarde Chapter 6 - Huygens Wave Propagation}
 \begin{outline*}
@@ -211,12 +218,7 @@
 \3 This results in the lack of backwards travelling waves, averaging to cancel each other out in that direction, superposed purely on the advancing planar wavefront
 \end{outline*}
 \subsection{Notes}
-All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$
-
-k = wave number = 2pi/lambda
-w = 2pi * f = angular frequency
-$\phi$ = phase constant
-A = amplitude/max wavefunction
+All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier transform
 
 Common differential trick is separation of variables
 General wave equation - 
