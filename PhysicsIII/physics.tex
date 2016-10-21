@@ -194,7 +194,7 @@
 \2 This assumes that the order of the sum of partial derivatives are all even or all odd ($n_i + n_j + \dots$)
 \2 The main wave types not with sinusoidal wave forms, are dissipative waves, thermal diffusion equation, and the Schrodinger quantum equation, which are not all odd or even, and thus not fully sinusoidal
 \3 In other cases, the complex harmonic waveform is used, such that it is a well-defined sinusoidal function, but with possibly imaginary amplitudes
-\2 For some complex wavefunction, $\psi(x, t) = acos(kx - \omega t) + iasin(kx - \omega t) = ae^{i(kx - \omega t)}$, such that it is a travelling wave where $u = k(x - v_pt)$
+\2 For some complex wavefunction, $\psi(x, t) = acos(kx - \omega t) + iasin(kx - \omega t) = ae^{i(kx - \omega t)}$, such that it is a travelling wave where $u = k(x - v_pt)$, and can be broken separably
 \3 This can be proven to be the solution to any wavefunction, with any partial derivative sum parity
 \3 It can also thus be broken up into a separable standing wave function, breaking the exponents up
 \3 It can be superimposed with other complex exponentials to produce a real sinusoidal wave, allowing for easier calculation
@@ -222,7 +222,8 @@
 \4 It is found to be proportional to the Fresnel integral, $\int^\infty_{-\infty} e^{iks^2}ds$, where $r - x = s^2$ if kx >> 1
 \4 The Cornu/Euler Spiral/Clothoid is the graph on the complex plane of the result of $a_0(s_0) = \int^{s_0}_0 e^{iks^2}ds$ for all $s_0$, graphing the line from the ends of the curve for the Fresnel integral vector
 \4 This as a result approximates to a resultant with a phase of $\frac{\pi}{4}$
-\3 
+\3 Huygen's description implies a backward-travelling wavefront similarly, acting as a snapshot mechanism, such that each wavefront is replaced by the new wavefront of subsequent sources
+\4 
 \1 Reflection is explained as creating secondary wavefronts at the collision with the surface, spreading outward, the waves hitting the mirror moving further, creating a new horizontal wavefront
 \2 It can be then found geometrically that the wavefronts are at equal angles to the surface of the mirror, creating the Law of Reflection
 \2 This prevents the backward-travelling waves from being canceled out and it blocks/disrupts the forward travelling waves
@@ -232,10 +233,15 @@
 \1 The relationship between the angles and velocity are embodied by Snell's law of refraction, commonly written in terms of a refractive index, $\eta$ of the medium, such that $\eta = \frac{c}{v_p}$, such that if $\theta$ is the angle from the normal line, $\eta_1 sin(\theta_1) = \eta_2 sin(\theta_2)$
 \2 Gradual changes in the velocity, rather than at an interface, causes refraction, though not reflection since there is no sudden medium shift to trigger reflection, changing due to the density shift, such as in the atmosphere, creating mirages
 \1 Fermat's Principle of Least Time is distinct from, but consistant with, the Huygens construction, stating that a wave follows the path that takes the least time when travelling between two points
-\2 The path is defined as the ray path, either of a narrow beam from a slit blocking the light wave, or of the normal to the wavefront
+\2 The path is defined as the ray path, either of a narrow beam from a slit blocking the light wave, larger than a wavelength, smaller than the main components, such that there are enough secondary sources for the wavefront, but a narrow wavefront
+\3 This can also be viewed as the direction of energy flow or as the normal to the wavefront
 \2 This is found to coorespond to Snell's Law if applied to a medium transition, such that refraction produces the path of least time
 \3 This can be thought of in terms of phasars, such that phasars of longer time vary more in direction, cancelling each other out, such that only the shortest time remain
 \2 This law is akin to the Principle of Least Action in mechanics, such that the same law applies to particles as well as waves to an extent
+\end{outline*}
+\section{Freegarde Chapter 7 - Geometric Optics}
+\begin{outline*}
+\1 Geometric optics are the movement of a ray/wavefront moving in a straight line, and the effects of a change in medium
 \end{outline*}
 \section{Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier transform
@@ -270,4 +276,10 @@ $\sqrt{1 + x^2} = 1 + \frac{1}{2}x^2$
 $U = T\Delta L$, $E = T(\frac{\partial \psi}{\partial x})^2 \Delta x$
 
 Energy can be expressed in normal nodes, electromagnetic waves in powerpoint
+
+Poynting vector in the direction of propogation of light, equal to the cross product of the electric and magnetic fields
+$E = E_0 cos(kx - \omega t), B = B_0 cos(kx - \omega t)$
+v = c = $\frac{1}{\sqrt{\mu_0 \epsilon_0}}$
+At some angle, total internal reflection takes place, at which point there is no refraction, only reflection, only when moving from high index of refraction to low
+Called critical angle, when the transmission angle is parallel to the medium boundary
 \end{document}
