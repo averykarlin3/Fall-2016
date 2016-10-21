@@ -219,6 +219,16 @@
 \3 This can be shown by phasars for each wavefront at some point, the central waves at the lowest angle due to being the first, and so forth
 \4 This can be mathematically analyzed by finding the exponential function, $a(x, y) = \frac{e^{ikr}}{r}, r = \sqrt{x^2 + y^2}$, such that the amplitude is the inverse square dependent on the distance
 \4 This can then be taken for all points at the same x value, integrated, to get the overall amplitude at that point
+\4 It is found to be proportional to the Fresnel integral, $\int^\infty_{-\infty} e^{iks^2}ds$, where $r - x = s^2$ if kx >> 1
+\4 The Cornu/Euler Spiral/Clothoid is the graph on the complex plane of the result of $a_0(s_0) = \int^{s_0}_0 e^{iks^2}ds$ for all $s_0$, graphing the line from the ends of the curve for the Fresnel integral vector
+\4 This as a result approximates to a resultant with a phase of $\frac{\pi}{4}$
+\3 
+\1 Reflection is explained as creating secondary wavefronts at the collision with the surface, spreading outward, the waves hitting the mirror moving further, creating a new horizontal wavefront
+\2 It can be then found geometrically that the wavefronts are at equal angles to the surface of the mirror, creating the Law of Reflection
+\2 This prevents the backward-travelling waves from being canceled out and it blocks/disrupts the forward travelling waves
+\1 Refraction is described similarly, though it only partially disrupts the forward travelling wave
+\2 It must take into account the relative speeds within each medium, such that the distances are based on time, such that the wave travels at a different velocity within the new medium, causing the angle change
+\2 It is thus partially reflected, but forms a wave within the border, such that the angles must be specifically to allow the same time with different velocity
 \end{outline*}
 \section{Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier transform
