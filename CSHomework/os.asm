@@ -102,7 +102,7 @@ TRAP_PUTC
 
 .CODE
 TRAP_PUTS
-	TEMP .UCONST x2000 ;Store register
+	TEMP .UCONST xA000 ;Store register
 	LC R3 TEMP
 	STR R0 R3 #0
 	LDR R1 R0 #0 ;Get character
@@ -193,14 +193,14 @@ RETURN_TRAP
 .CODE
 TRAP_DRAW_LINE
 	CONST R6 x0	;Initial value for restoration
-	HICONST R6 x30
+	HICONST R6 xA2
 	STR R0 R6 #0
 	STR R1 R6 #1
 	STR R2 R6 #2
 	STR R3 R6 #3
 	STR R4 R6 #4
 	CONST R6 x0
-	HICONST R6 x40 ;Store initial register values
+	HICONST R6 xA1 ;Store initial register values
 	STR R0 R6 #0
 	STR R1 R6 #1
 	STR R2 R6 #2
@@ -215,7 +215,7 @@ TRAP_DRAW_LINE
 	STR R5 R6 #6 ;ST value storage
 POSTSWAP1
 	LDR R0 R6 #0 ;Check if x0 > x1
-	LDR R1 R6 #1
+	LDR R1 R6 #2
 	CMP R0 R1
 	BRp SWAP2
 POSTSWAP2
@@ -263,7 +263,7 @@ POSTIF
 POSTLOOP
 	LDR R7 R6 #5 ;Restore R7
 	CONST R6 x0	;Restore initial values
-	HICONST R6 x30
+	HICONST R6 xA2
 	STR R0 R6 #0
 	STR R1 R6 #1
 	STR R2 R6 #2
@@ -328,7 +328,7 @@ TRAP_DRAW_SPRITE
 	ADD R4 R0 #0 ;Switch x and y coordinates
 	ADD R0 R1 #0
 	ADD R1 R4 #0
-	STORAGE .UCONST x4000 ;Store initial registers
+	STORAGE .UCONST xA200 ;Store initial registers
 	LC R6 STORAGE
 	STR R0 R6 x0 ;Y
 	STR R1 R6 x1 ;X
