@@ -212,6 +212,7 @@
 \3 The light is then reflected partially at the bottom of the oil to the top, repeating infinitely, summing for the net effect
 \end{outline*}
 \section{Freegarde Chapter 6 - Huygens Wave Propagation}
+\subsection{Huygens Description}
 \begin{outline*}
 \1 Huygen's principle states that a wavefront of light propagates from an initial disturbance at the speed of light, equally in all directions, to form a spherical wavefront
 \2 This has since been expanded to apply to all forward-traveling waves, rather than just light waves
@@ -225,15 +226,22 @@
 \4 The Cornu/Euler Spiral/Clothoid is the graph on the complex plane of the result of $a_0(s_0) = \int^{s_0}_0 e^{iks^2}ds$ for all $s_0$, graphing the line from the ends of the curve for the Fresnel integral vector
 \4 This as a result approximates to a resultant with a phase of $\frac{\pi}{4}$
 \3 Huygen's description implies a backward-travelling wavefront similarly, acting as a snapshot mechanism, such that each wavefront is replaced by the new wavefront of subsequent sources
-\4 
+\end{outline*}
+\subsection{Geometric Properties}
+\begin{outline*}
 \1 Reflection is explained as creating secondary wavefronts at the collision with the surface, spreading outward, the waves hitting the mirror moving further, creating a new horizontal wavefront
-\2 It can be then found geometrically that the wavefronts are at equal angles to the surface of the mirror, creating the Law of Reflection
+\2 It can be then found geometrically that the wavefronts are at equal angles to the normal of the surface of the mirror, creating the Law of Reflection
+\3 The rays are considered to be propagating in the plane of incidence, perpendicular to the material boundary
 \2 This prevents the backward-travelling waves from being canceled out and it blocks/disrupts the forward travelling waves
+\2 Reflection at a definite angle of a smooth surface is specular reflection, while a rough surface causes diffuse reflection
+\2 Reflection takes place in all types of materials, allowing them to be seen by the colors reflected
 \1 Refraction is described similarly, though it only partially disrupts the forward travelling wave
 \2 It must take into account the relative speeds within each medium, such that the distances are based on time, such that the wave travels at a different velocity within the new medium, causing the angle change
 \2 It is thus partially reflected, but forms a wave within the border, such that the angles must be specifically to allow the same time with different velocity
-\1 The relationship between the angles and velocity are embodied by Snell's law of refraction, commonly written in terms of a refractive index, $\eta$ of the medium, such that $\eta = \frac{c}{v_p}$, such that if $\theta$ is the angle from the normal line, $\eta_1 sin(\theta_1) = \eta_2 sin(\theta_2)$
+\1 The relationship between the angles and velocity are embodied by Snell's law of refraction, commonly written in terms of a refractive index, $\eta$ of the medium, such that $\eta = \frac{c}{v_p} \geq 1$, such that if $\theta$ is the angle from the normal line, $\eta_1 sin(\theta_1) = \eta_2 sin(\theta_2)$
 \2 Gradual changes in the velocity, rather than at an interface, causes refraction, though not reflection since there is no sudden medium shift to trigger reflection, changing due to the density shift, such as in the atmosphere, creating mirages
+\2 The refractive index is distinct for different materials and since all real waves are dispersive, since the velocity depends on the wavelength/wavenumber, the index of refraction does as well
+\2 As a result of this law, the path of a ray is reversible, moving by the same path in the other direction
 \1 Fermat's Principle of Least Time is distinct from, but consistant with, the Huygens construction, stating that a wave follows the path that takes the least time when travelling between two points
 \2 The path is defined as the ray path, either of a narrow beam from a slit blocking the light wave, larger than a wavelength, smaller than the main components, such that there are enough secondary sources for the wavefront, but a narrow wavefront
 \3 This can also be viewed as the direction of energy flow or as the normal to the wavefront
@@ -243,7 +251,12 @@
 \end{outline*}
 \section{Freegarde Chapter 7 - Geometric Optics}
 \begin{outline*}
-\1 Geometric optics are the movement of a ray/wavefront moving in a straight line, and the effects of a change in medium
+\1 Geometric optics are the movement of a ray/wavefront moving in a straight line, and the effects of a change in medium, predating physical optics which requires wave behavior
+\2 Optics are generally the study of electromagnetic waves/light
+\2 Until Newton, light was believed to be a string of particles emitted, though as it displayed properties of waves, the consensus changed until Maxwell proved it was an electromagnetic wave
+\3 It was later found that light was in discrete quanta, or photons, displaying wave-particle duality, leading to the study of quantum electrodynamics
+\3 As a result, propagation is generally studied as a wave, while absorption and emission are studied as particles
+\2 Wavefronts, while realistically somewhat curved, can be viewed on some small area relative to the total size of the wavefront, as a planar wave
 \end{outline*}
 \section{Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier transform
