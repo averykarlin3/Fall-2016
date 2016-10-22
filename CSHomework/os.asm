@@ -256,9 +256,11 @@ POSTST
 	ADD R5 R5 R5 ;Check if 2*error >= Delta X
 	LDR R4 R6 #10
 	CMP R5 R4
-	BRnp IF
+	BRzp IF
 POSTIF
+	LDR R1 R6 #13
 	ADD R1 R1 #1 ;Move to next x value
+	STR R1 R6 #13
 	BR LOOPL
 POSTLOOP
 	LDR R7 R6 #5 ;Restore R7
@@ -271,19 +273,22 @@ POSTLOOP
 	STR R4 R6 #4
 	BR ENDL
 IF
+	LDR R0 R6 #14
 	LDR R4 R6 #12
 	ADD R0 R0 R4 ;y = y + ystep
 	LDR R5 R6 #15
 	LDR R4 R6 #10 
 	SUB R5 R5 R4 ;error = error - deltax
 	STR R5 R6 #15
+	STR R0 R6 #14
 	BR POSTIF
 ST		;Plot (y, x) if ST
-	ADD R5 R0 #0
-	ADD R0 R1 #0
-	ADD R1 R5 #0
+	LDR R0 R6 #13
+	LDR R1 R6 #14
 	LEA R4 TRAP_DRAW_PIXEL
 	JSRR R4
+	LDR R0 R6 #14
+	LDR R1 R6 #13
 	BR POSTST
 ABS
 	SUB R0 R0 R1
