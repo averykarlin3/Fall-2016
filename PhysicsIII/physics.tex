@@ -284,7 +284,7 @@
 \1 For some glass sphere, the paraxial approximation states that the angle made by any ray to the sphere is small, and the thin-lens approximation states that the distance from the horizontal axis is smaller than the radius
 \2 Situations where the approximations do not apply are considered optical aberrations, preventing the height from being ignored
 \2 The sphere is made up of a sphere connected to a continuing medium, found geometrically that $\frac{\eta_1}{d_1} + \frac{\eta_2}{d_2} = \frac{\eta_2 - \eta_1}{R}$
-\3 $d_1$ is the distance from the ray origin on the axis to the point of refraction $d_2$ is the distance from when the diffracted ray hits the axis, and R is the radius
+\3 $d_1$ is the distance from the ray origin on the axis to the point of refraction $d_2$ is the distance from when the diffracted ray hits the axis to the image, and R is the radius
 \3 It is noted that it is independent of the height from the horizontal axis at which the ray hits the sphere
 \3 The focus of the rays is the point at which the rays are refracted to, reversible, such that the points are images of each other
 \3 It is also found that the same point is valid for all rays from a particular initial axis point
@@ -296,8 +296,10 @@
 \3 For a greater distance, they diverge from some point beyond the original source, called a virtual image
 \3 Due to the images being reversible, the sources/objects can be real or virtual, either from a physical object or an image object
 \3 Negative sources and images are denoted with a negative distance, positive if real, with the radius positive for a source outside the interface, negative for within
-\2 Two spheres of different curvatures/radii are often combined to send the image into the original medium on the opposite side, called a lens
-\1 
+\1 Two spheres of different curvatures/radii are often combined to send the image into the original medium on the opposite side, called a lens
+\2 Lenses can have each side calculated for diffraction, combined with the thin lens approximation, to give the lensmaker's formula, such that $\frac{1}{s_1} + \frac{1}{p_2} = \frac{\eta_2 - \eta_1}{\eta_1}(\frac{1}{R_1} - \frac{1}{R_2})$
+\3 $s_1$ is the distance from the object to the lens, while $p_2$ is the distance from the lens to the image, defined purely by the lens properties
+\3 For either an infinitely distant image or source, one term can be removed, such that $\frac{1}{f} = \frac{\eta_2 - \eta_1}{\eta_1}(\frac{1}{R_1} - \frac{1}{R_2}$
 \end{outline*}
 \section{Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier transform
