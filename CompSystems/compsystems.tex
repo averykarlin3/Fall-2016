@@ -503,6 +503,24 @@
 \end{outline*}
 \section{Appendix D - The C Programming Language}
 \begin{outline*}
-
+\1 Conventions within the C programming language is divided into source files (.c) and header files (.h)
+\2 The source files are compiled into an object, linked into an executable
+\2 The header files contain function, variable, structure, and type declarations, and preprocessor macros, using one for each source file, included at the top
+\2 Comments begin with ``/*'', ending with ``*/'', able to span multiple lines, unable to be nested or within characters/strings
+\2 Literal constant values are able to be used in expressions or used to initialize variables
+\3 Integer literals beginning with 0 are octal, 0x are hexadecimal, otherwise a decimal, with the minus sign before the marker
+\4 l or L are used as a marker for a long int, while u or U are used for an unsigned int
+\3 Floating points are written with a decimal point and either a fractional, integer portion, or both, presided by a minus for negative values
+\4 Floating point can also be written in scientific notation, using either an e or E at the start of the integer exponent
+\4 It is defaulted as a double, though f or F can be used as a float marker, and l or L is used for a long double
+\3 Character literals are surrounded by single-quotes, written in normal text, converted by the computer into ASCII
+\4 \\0 or \\x are able to be used to include a non-keyboard character by the ASCII code
+\4 Special characters often also have a character escape code to include it in a string, beginning by ``\\\\''
+\3 String literals are surrounded by double quotes, signified by the type char*, allocated in a special portion of memory for literal constants, automatically given the `\\0' null character at the end
+\4 It is noted that string literals cannot be used to fill an array after it has already been initialized
+\3 Enumerator constants are symbolic integer values, defined in an enumerator list of a declaration
+\2 C is freely formatted, such that spaces, tabs, new lines, and other formatting characters are able to be included when needed for readability
+\2 Keywords, used within the C language itself, are not able to be used as any form of variable, function, or object name
+\1 
 \end{outline*}
 \end{document}
