@@ -142,7 +142,7 @@
 \3 By the chain rule, the second equation becomes $\frac{\partial \psi}{\partial t}(x, 0) = |v|(\frac{d\psi_-(x)}{dx} - \frac{d\psi_+(x)}{dx})$
 \2 For some guitar string connected at two ends, [0, l], pulled at some point $x_0$ to initial height $a_0$ at t = 0, with initial velocity of 0
 \3 By integrating the velocity formula for t = 0, $\psi_-(x) = \psi_+(x) + c$, such that at t = 0, $\psi(x, 0) = 2\psi_+(x) + c = 2\psi_-(x) - c$
-\1 By these formulas for $\psi_\pm$ in terms of the initial wavefunction of some point, $\psi(x, t) = \frac{1}{2}\psi(x - |v|t, 0) + \frac{1}{2}\psi(x - |v|t, 0)$
+\1 By these formulas for $\psi_\pm$ in terms of the initial wavefunction of some point, $\psi(x, t) = \frac{1}{2}\psi(x - |v|t, 0) + \frac{1}{2}\psi(x + |v|t, 0)$
 \2 This assumes that x is not at the endpoints at some nonzero time, since it is undefined for a negative displacement or a displacement greater than the length
 \2 This equations can be supplemented by the fact that $\psi(0, t) = \psi(l, t) = 0$ for any time t, acting as a boundary condition
 \2 This is used to find the restriction that for any x, t, $\psi_+(x - |v|t) = -\psi_-(2l - x + |v|t) = \psi_+(x - |v|t - 2l)$, such that the component waves are periodic triangular/sawtooth
@@ -170,6 +170,7 @@
 \3 In addition, this shows that both forms of energy are related to the square of the wave amplitude
 \2 As a result, the power is the energy moving through some point with the wave at some moment, such that $P = Tv_p(\frac{d\psi}{du})^2 = \epsilon v_p$
 \2 It is noted that for superpositioned waves, the power and energy must take into account the sums of various directions of each
+\2 Intensity is defined as the energy density per time, such that $I = \frac{d\epsilon}{dt}$
 \1 Sinusoidal waves are generally used as an ideal solution class to the wave equations, due to commonality, but relying on a single frequency to be able to define phase velocity
 \2 On the other hand, it is ideal due to acting as solutions to linear, dispersive systems with varying phase velocity as well, and due to standing waves and orthogonality
 \1 Standing waves are a class of solutions to a non-dispersive, linear string system, in which the motion is standard, differing only in magnitude throughout the string
@@ -219,6 +220,7 @@
 \2 It also states that as the wavefront moves, it creates secondary sources, forming secondary wavefronts, being created at all positions continuously
 \2 As a result of interference, adding the amplitudes as superposition of waves from different paths to enforce or cancel out others
 \3 This results in the lack of backwards travelling waves, averaging to cancel each other out in that direction, superposed purely on the advancing planar wavefront
+\4 This creates a wavefront tangent to the secondary wavelets, where the set of wavelets is the envelope of the wavelets
 \3 This can be shown by phasars for each wavefront at some point, the central waves at the lowest angle due to being the first, and so forth
 \4 This can be mathematically analyzed by finding the exponential function, $a(x, y) = \frac{e^{ikr}}{r}, r = \sqrt{x^2 + y^2}$, such that the amplitude is the inverse square dependent on the distance
 \4 This can then be taken for all points at the same x value, integrated, to get the overall amplitude at that point
@@ -226,6 +228,14 @@
 \4 The Cornu/Euler Spiral/Clothoid is the graph on the complex plane of the result of $a_0(s_0) = \int^{s_0}_0 e^{iks^2}ds$ for all $s_0$, graphing the line from the ends of the curve for the Fresnel integral vector
 \4 This as a result approximates to a resultant with a phase of $\frac{\pi}{4}$
 \3 Huygen's description implies a backward-travelling wavefront similarly, acting as a snapshot mechanism, such that each wavefront is replaced by the new wavefront of subsequent sources
+\4 This is due to the velocity for the wave being of equal importance to the displacement at some point, for determining the wave, providing the initial conditions for a specific solution
+\4 Thus, the lack of a specific mechanism or velocity of propagation prevents a specific waveform from being determined
+\4 For electromagnetic waves, the electric and magnetic fields provide the displacement and velocity, the cross product being the Poynting vector of the direction of energy propagation
+\4 It can also be explained by the forward wave producing secondary waves in phase with each other, while the backwards secondary waves don't produce in phase, but rather at any point after
+\3 The Fresnel integral vector is found to have a $\frac{\pi}{4}$ angle/phase, doubled for a 2D wave, as the basis of Fresnel-Kirchhoff diffraction theory
+\4 It could also be attributed to some degree to an overly literally derived mathematical model of Huygen's description, but can also be derived by Maxwell's equations
+\4 In addition, if the assumption of kx >> 1 is false, the value collapses towards the real value in the direction of the wavefront
+\1 Huygen's principle is not independent, but rather a means of calculating wave phenomena, able to be separately derived for individual wave types
 \end{outline*}
 \subsection{Geometric Properties}
 \begin{outline*}
@@ -253,6 +263,14 @@
 \2 This is found to coorespond to Snell's Law if applied to a medium transition, such that refraction produces the path of least time
 \3 This can be thought of in terms of phasars, such that phasars of longer time vary more in direction, cancelling each other out, such that only the shortest time remain
 \2 This law is akin to the Principle of Least Action in mechanics, such that the same law applies to particles as well as waves to an extent
+\1 Dispersion is the dependence of wave speed and index of refraction on wavelength, not taking place in a vacuum, allowing light to be dispersed/separated into a spectrum when diffracted
+\2 The amount of dispersion depends on the difference between the refractive indices, causing diamonds to have large dispersion
+\1 Rainbows are created partially from light being partially refracted, refracted, and dispersed, most reflected into some angle less than $\theta$, the majority at $\theta$
+\2 The down-sun point is the point at which for some drop of water, the horizontal axis intersects the angle, generally outside the drop, appearing as the bright line of the rainbow
+\3 The angle depends on the refractive index for each wavelength, such that it is the angle light at the top of the drop reflects to for the primary rainbow, bottom for secondary
+\2 The primary rainbow has one reflection and two refractions, while the secondary rainbow has two reflections and two refractions, with larger angle for each wavelength
+\2 The secondary rainbow as a result has reversed colors, with the areas between the primary and secondary and above the secondary darker than the rest, due to far fewer light waves
+\3 The second rainbow is fainter due to less light remaining after two reflections causing some diffracted
 \end{outline*}
 \section{Freegarde Chapter 7 - Geometric Optics}
 \begin{outline*}
@@ -277,7 +295,8 @@
 \3 For a greater distance, they diverge from some point beyond the original source, called a virtual image
 \3 Due to the images being reversible, the sources/objects can be real or virtual, either from a physical object or an image object
 \3 Negative sources and images are denoted with a negative distance, positive if real, with the radius positive for a source outside the interface, negative for within
-\2 Two spheres of different curvatures/radii are often combined to send the image into the original medium on the opposite side
+\2 Two spheres of different curvatures/radii are often combined to send the image into the original medium on the opposite side, called a lens
+\1 
 \end{outline*}
 \section{Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier transform
@@ -297,7 +316,7 @@ Fundemental frequency is the frequency of a standing wave equal to half a wavele
 
 $\psi(x, t) = \sum a_n sin(\frac{n\pi x}{L})cos(\frac{n\pi vt}{L})$, represented as a fourier series, equal to just the sine component at t = 0, from n = $a_1$ to $a_\infy$
 
-In addition, it proceeds to get more rounded as it goes along, due to damping causing the higher frequencies to fade
+In addition, it proceeds to get more rounded as it goes along, due to damping causing the higher frequencies to fade?? or vice versa
 
 Each stationary standing wave point is a normal node, while normal string waves are triangular, they can be approximated by a standing wave curve, getting closer as the fourier series is allow to extend to infinity
 
