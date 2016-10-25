@@ -500,6 +500,15 @@
 \2 This is done by providing symbolic names to values, without having to allocate storage or move data to access it
 \2 In addition, it allows expressive representation of calculations and tests, rather than specific line formatting, and improves readability of the code
 \2 It also has checks for bugs and error messages to aid the programmer, and has more extensive libraries
+\1 High-level languages can either be interpreted (executed by an interpreter program which reads it), or compiled (translated into an executable machine language)
+\2 Interpreters are also called virtual machines, executing the program as input data in a sequential manner, such as Perl, LISP, BASIC, LC-3, or LC-4
+\3 This allows regions to be executed at a time, allowing easier debugging and code modifications, but longer execution
+\2 Compilation requires only one time for unlimited running, but requires analyzing the complete program as a full unit, used in C and FORTRAN
+\3 This allows execution quicker and more efficient resource usage, but renders debugging during the process more difficult
+\1 C is made to allow writing compilers and operating systems, such that it is a high-level, but near-low-level language, allowing bitwise and memory manipulation
+\2 As a result, C has been a fundamental basis of many modern languages, such as Java or C++
+\2 C was made machine independent by the ANSI C version, used by most compilers, specified by the American National Standards Institute
+\1 
 \end{outline*}
 \section{Appendix D - The C Programming Language}
 \begin{outline*}
@@ -521,6 +530,13 @@
 \3 Enumerator constants are symbolic integer values, defined in an enumerator list of a declaration
 \2 C is freely formatted, such that spaces, tabs, new lines, and other formatting characters are able to be included when needed for readability
 \2 Keywords, used within the C language itself, are not able to be used as any form of variable, function, or object name
-\1 
+\1 C basic data types are int (32 bits), float, double, and char (8 bits), with char and int as integral types, the others as floating types
+\2 While it is different on some machines, all tend to follow the IEEE standard
+\2 The short int must be at least the size of a char in C, and the double must have a higher precision that that of a float
+\2 ``signed'' and ``unsigned'' specifiers can be added to integral types, the former by default
+\2 ``long'' and ``short'' specifiers can be added to either extend or shorten the length of the integral types and can shorten or lengthen the precision and/or range of floating types
+\2 ``const'' specifiers can be added for variables which are not changed to optimize compilation
+\1 Enumerated types allow objects to be specified of constant value from 0 onward, defined by the specified, ``enum \textit{name \{obj0 = first\_constant, \dots, objn\}}'', declared by ``enim \textit{name obj}''
+\2 The objects are called enumeration constants, set such that the first is 0 by default, progressing up integrally from the first
 \end{outline*}
 \end{document}
