@@ -143,6 +143,7 @@
 \2 For some guitar string connected at two ends, [0, l], pulled at some point $x_0$ to initial height $a_0$ at t = 0, with initial velocity of 0
 \3 By integrating the velocity formula for t = 0, $\psi_-(x) = \psi_+(x) + c$, such that at t = 0, $\psi(x, 0) = 2\psi_+(x) + c = 2\psi_-(x) - c$
 \1 By these formulas for $\psi_\pm$ in terms of the initial wavefunction of some point, $\psi(x, t) = \frac{1}{2}\psi(x - |v|t, 0) + \frac{1}{2}\psi(x + |v|t, 0)$
+\2 It follows from this and the general formula that the separate wave components are equal to half of the initial wavefunction, moving in each respective direction
 \2 This assumes that x is not at the endpoints at some nonzero time, since it is undefined for a negative displacement or a displacement greater than the length
 \2 This equations can be supplemented by the fact that $\psi(0, t) = \psi(l, t) = 0$ for any time t, acting as a boundary condition
 \2 This is used to find the restriction that for any x, t, $\psi_+(x - |v|t) = -\psi_-(2l - x + |v|t) = \psi_+(x - |v|t - 2l)$, such that the component waves are periodic triangular/sawtooth
@@ -300,6 +301,13 @@
 \2 Lenses can have each side calculated for diffraction, combined with the thin lens approximation, to give the lensmaker's formula, such that $\frac{1}{s_1} + \frac{1}{p_2} = \frac{\eta_2 - \eta_1}{\eta_1}(\frac{1}{R_1} - \frac{1}{R_2})$
 \3 $s_1$ is the distance from the object to the lens, while $p_2$ is the distance from the lens to the image, defined purely by the lens properties
 \3 For either an infinitely distant image or source, one term can be removed, such that $\frac{1}{f} = \frac{\eta_2 - \eta_1}{\eta_1}(\frac{1}{R_1} - \frac{1}{R_2}$
+\3 As a result, it can also be written as $\frac{1}{s} + \frac{1}{p} = \frac{1}{f}$
+\2 Converging lenses are those with a positive focal length, while those with a negative focal length are diverging lenses
+\2 This can be extended to a spherical mirror, such that $\eta_1 = -\eta_2$ to describe reflection, with $R_1 = R_2$
+\3 As a result, $\frac{1}{f} = \frac{-2}{R} = \frac{1}{s} + \frac{1}{p}$, such that the focal length is half the curvature radius
+\3 This applies to both forms of mirrors, such that R is positive if the image is outside the radius interface, negative otherwise
+\1 The focal plane is the plane that passes perpendicular to the lens axis, such that the angle of the parallel rays to the lens axis is based on the initial height of the object in the plane
+\2 Thus, it is determined by the Gaussian lens equation that $y = f\theta$
 \end{outline*}
 \section{Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier transform
