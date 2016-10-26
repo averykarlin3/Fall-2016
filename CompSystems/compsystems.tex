@@ -556,7 +556,16 @@
 \begin{outline*}
 \1 Variables hold values within a program, while operators are used to manipulate the values
 \2 Variables store data items, using symbolic representation, requiring declaration, written as ``\textit{type name;}'', reserving that amount of memory for the variable before it is used
-\2 
+\2 Declarations are also able to contain an initializer on the same line, such that it is written ``\textit{type name = value;}''
+\2 Each basic variable type (char, float, double, int) generally take up one memory location within C, though may contain differing numbers of bits (32 for int/float generally, 16 for char, 64 for double)
+\2 Variable names are called identifiers, with specific rules, such as only the first 31 characters being used, case-sensitive, and only alphanumeric and the underscore characters used
+\3 Convention has all uppercase used for symbolic preprocessor values, a starting underscore for library, users using either camel-case or underscores between lowercase words
+\3 Variables are also often given names that allow the code to be more clear to readers
+\2 Variables are given a scope of local (in a specific block of code) or global (in the whole program) based on where they are declared
+\3 Global variables are declared outside of any function or loop, while local variables are restricted to the function/control block in which they are defined
+\3 Blocks are defined as any portion of code enclosed within curly brackets, able to be defined without a defining use to change variable scope
+\3 Local variables are allowed to have the same name as local variables from other blocks, less vulnerable to be changed in other parts of the code, and more reusable
+\
 \end{outline*}
 \section{Chapter 13 - Control Structures}
 \begin{outline*}
