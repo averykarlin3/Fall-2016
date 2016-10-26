@@ -508,7 +508,19 @@
 \1 C is made to allow writing compilers and operating systems, such that it is a high-level, but near-low-level language, allowing bitwise and memory manipulation
 \2 As a result, C has been a fundamental basis of many modern languages, such as Java or C++
 \2 C was made machine independent by the ANSI C version, used by most compilers, specified by the American National Standards Institute
-\1 
+\1 C compilers are made up of a preprocessor, finding preprocessor directives (pseudo-ops), adding header files or constants
+\2 Preprocessor commands are begun by \#, generally using ``define'' to create a compiler constant, and ``include'' to add the code from a header file in
+\3 Adding header files in can be used to declare variables and functions, as well as define constants, which are standardized to multiple source files, often used to declare library functions
+\3 $<>$ are used to surround library header files within the system library storage, while ``'' are used for files within the same directory
+\2 The compiler then produces object modules, using a symbol table, parsing code in two stages (analysis/parsing into sections, synthesis/generating and optimizing code)
+\2 The linker then links all computer and user object modules together to create an executable image, finding library files in a specific OS location
+\1 Functions/subroutines are defined in code by a function definition, with the main() function, which must return an int, as the start of program execution
+\2 Functions are made up of variable declarations, and statements of the function (which express actions performed within the function)
+\2 Declarations and statements are ended with a semicolon, to allow the compiler to easily break it into blocks, though preprocessor commands do not
+\1 Input and output in C are done by library functions, commonly within ``stdio.h'', using formatted strings
+\2 Formatted strings have text to print and specifications on how to print values within the text, represented by format specifications starting with \%
+\2 Output is written as ``printf(\textit{string, value1, \dots})'', input done similarly by scanf(), either providing the specific value or the variable
+\3 It is noted that scanf must have the values as pointer variables, providing where to store the input
 \end{outline*}
 \section{Appendix D - The C Programming Language}
 \begin{outline*}
@@ -529,6 +541,7 @@
 \4 It is noted that string literals cannot be used to fill an array after it has already been initialized
 \3 Enumerator constants are symbolic integer values, defined in an enumerator list of a declaration
 \2 C is freely formatted, such that spaces, tabs, new lines, and other formatting characters are able to be included when needed for readability
+\3 It is convention to comment at the start of code when it was last modified, by whom, inputs, outputs, and the purpose of the function
 \2 Keywords, used within the C language itself, are not able to be used as any form of variable, function, or object name
 \1 C basic data types are int (32 bits), float, double, and char (8 bits), with char and int as integral types, the others as floating types
 \2 While it is different on some machines, all tend to follow the IEEE standard
@@ -538,5 +551,33 @@
 \2 ``const'' specifiers can be added for variables which are not changed to optimize compilation
 \1 Enumerated types allow objects to be specified of constant value from 0 onward, defined by the specified, ``enum \textit{name \{obj0 = first\_constant, \dots, objn\}}'', declared by ``enim \textit{name obj}''
 \2 The objects are called enumeration constants, set such that the first is 0 by default, progressing up integrally from the first
+\end{outline*}
+\section{Chapter 12 - Variables and Operators}
+\begin{outline*}
+
+\end{outline*}
+\section{Chapter 13 - Control Structures}
+\begin{outline*}
+\1 Control structures allow the dividing of an algorithm into the three programming constructs
+\2 It is noted that all variables must be initialized outside the loop if it is to remain outside the loop
+\1 Conditional constructs are divided into if and if else statements, written as ``if (\textit{conditional}) \textit{action}; else \textit{action};
+\2 These are able to be nested to form else-if statements, automatically connected an else to the closed unattached if
+\2 Action blocks can be surrounded by curly brackets to allow multiple statements within
+\2 It is noted that == is the equality operator, while = is the assignment operator, commonly causing errors
+\2 0 is a false conditional, while any nonzero value is considered to imply truth
+\1 Iterative constructs are divided into while, do-while, and for statements, the first written as ``while (\textit{conditional} \textit{action}''
+\2 While loops are generally used for a sentinel condition, and can be used for a counter condition
+\2 For loops are used generally for counter controlled loops, written as ``for (\textit{variable-initialization; conditional; reinitialization}) \textit{action}''
+\3 This defines the initial counter state, then the method of modification after each iteration of the loop
+\2 Do-while loops are similar to while loops, except with the condition checked after each iteration, rather than before, written as ``do \textit{action} while \textit{(text)};''
+\1 Other C constructs are the switch, break, and continue constructs, the first written as ``switch (variable) \{ case \textit{value}: \textit{action} break; \dots default: \textit{action}\}
+\2 Each case must be checking for a constant value of the variable, executing it otherwise, then leaving the block by the break command
+\2 The break command is not required and can also be used to leave any other iterative control structure
+\3 The continue statement is used to immediately move to the next loop iteration
+\2 The default is used if none of the cases are found, also not required for the construct
+\end{outline*}
+\section{Chapter 16 - Pointers and Arrays}
+\begin{outline*}
+
 \end{outline*}
 \end{document}
