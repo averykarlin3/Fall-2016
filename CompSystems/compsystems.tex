@@ -528,7 +528,7 @@
 \2 The source files are compiled into an object, linked into an executable
 \2 The header files contain function, variable, structure, and type declarations, and preprocessor macros, using one for each source file, included at the top
 \2 Comments begin with ``/*'', ending with ``*/'', able to span multiple lines, unable to be nested or within characters/strings
-\2 Literal constant values are able to be used in expressions or used to initialize variables, defined bitwise as in assembly
+\2 Literal constant values are able to be used in expressions or used to initialize variables, defined bitwise as in assembly, explicitly written
 \3 Integer literals beginning with 0 are octal, 0x are hexadecimal, otherwise a decimal, with the minus sign before the marker
 \4 l or L are used as a marker for a long int, while u or U are used for an unsigned int
 \3 Floating points are written with a decimal point and either a fractional, integer portion, or both, presided by a minus for negative values
@@ -540,6 +540,7 @@
 \3 String literals are surrounded by double quotes, signified by the type char*, allocated in a special portion of memory for literal constants, automatically given the `\\0' null character at the end
 \4 It is noted that string literals cannot be used to fill an array after it has already been initialized
 \3 Enumerator constants are symbolic integer values, defined in an enumerator list of a declaration
+\3 Literals are generally avoided, using constants instead to give symbolic representation to the value
 \2 C is freely formatted, such that spaces, tabs, new lines, and other formatting characters are able to be included when needed for readability
 \3 It is convention to comment at the start of code when it was last modified, by whom, inputs, outputs, and the purpose of the function
 \2 Keywords, used within the C language itself, are not able to be used as any form of variable, function, or object name
@@ -589,6 +590,19 @@
 \3 After is the logical AND, then logical OR, then ?: conditional expressions, all left associative
 \3 Last in the order is joint assignment operators with right associativity
 \3 Associativity is the order for multiple operators with equal precedence
+\1 The compiler uses a symbol table, similar to LC-4, creating an entry each time a variable is declared, allocating the storage
+\2 Each symbol table entry states the name, type, memory location, and the scope of the variable
+\3 The memory location is written in offset form, generally using negative offset
+\2 Variables are allocated within either the global data section or the run-time stack within memory, the former for ``static'' or global variables, the latter for all other variables
+\3 The offset thus describes the offset from the start of the storage region, thus in terms of a pointer to the region, such that the global pointer (R4) is a built in pointer to the start of the global data section
+\3 Local variables are allocated in an activation record/stack frame/memory template, with the pointer to the final item called the frame pointer
+\4 Each function call creates an activation record for that particular invocation, with a new frame pointer (R5) for the function
+\4 When called, the activation record is put on the top of the run-time stack, moving the stack pointer (R6) to the new top of the stake, removing the record when the function completes
+\4 As a result, variables declared locally first have an offset closer to 0, moving further negative after
+\3 The program itself is also given a portion of memory, as is the dynamically allocated data heap and the OS
+\1 Variables also have a storage class property, determining if it loses its value when the block in which it is declared completes, using the ``static'' declaration, acting as global variables
+\2 Local variables are by default in the automatic storage class, while global are by default in static
+\2 Local variables declared static are private to its block, such that it cannot be accessed/modified outside a block in which it is declared, but are able to be redeclared to be accessed further, not removed after the block
 \end{outline*}
 \section{Chapter 13 - Control Structures}
 \begin{outline*}
@@ -611,6 +625,14 @@
 \2 The default is used if none of the cases are found, also not required for the construct
 \end{outline*}
 \section{Chapter 16 - Pointers and Arrays}
+\begin{outline*}
+
+\end{outline*}
+\section{Chapter 10 - The Stack}
+\begin{outline*}
+
+\end{outline*}
+\section{Chapter 14 - Functions}
 \begin{outline*}
 
 \end{outline*}
