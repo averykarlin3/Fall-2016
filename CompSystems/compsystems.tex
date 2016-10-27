@@ -528,7 +528,7 @@
 \2 The source files are compiled into an object, linked into an executable
 \2 The header files contain function, variable, structure, and type declarations, and preprocessor macros, using one for each source file, included at the top
 \2 Comments begin with ``/*'', ending with ``*/'', able to span multiple lines, unable to be nested or within characters/strings
-\2 Literal constant values are able to be used in expressions or used to initialize variables
+\2 Literal constant values are able to be used in expressions or used to initialize variables, defined bitwise as in assembly
 \3 Integer literals beginning with 0 are octal, 0x are hexadecimal, otherwise a decimal, with the minus sign before the marker
 \4 l or L are used as a marker for a long int, while u or U are used for an unsigned int
 \3 Floating points are written with a decimal point and either a fractional, integer portion, or both, presided by a minus for negative values
@@ -565,7 +565,30 @@
 \3 Global variables are declared outside of any function or loop, while local variables are restricted to the function/control block in which they are defined
 \3 Blocks are defined as any portion of code enclosed within curly brackets, able to be defined without a defining use to change variable scope
 \3 Local variables are allowed to have the same name as local variables from other blocks, less vulnerable to be changed in other parts of the code, and more reusable
-\
+\3 Variables have the scope and value of the most recently defined version, such that they can be nested, redeclaring locally within a block, reverting back to the original outside
+\2 Local variables are not cleared when declared, such that unless they are initialized, they could have a random value
+\3 Global or other static storage class variables are automatically initialized to 0 when declared
+\1 Operators are combined with variables and literals to form an expression, grouped together to form a complete statement, terminated by a semicolon
+\2 Statements are able to be grouped together by curly brackets into a block/compound statement
+\2 The statement ``;'' is called the null statement
+\2 The assignment operator, =, evaluates the right hand side, assigning it to the variable on the left
+\3 Variables are then converted into the type the variable was declared as
+\2 Arithmetic operators return the highest length type given to the operator, with floating points considered longer than integral types, integers longer than characters
+\3 The main operators are * (multiply), / (divide), \% (modulus), +(addition), and - (subtraction), with parentheses used to clarify the order of operations
+\2 Bitwise operators include $|$ (or), \& (and), \^ (xor), ~ (not), $<<$ (left shift), and $>>$ (arithmetic right shift)
+\2 Relational operators include $>$ (greater than), $>= (\geq), <= (\leq)$, $<$ (less than), == (equal), and != (not equal)
+\2 Logical operators evaluate values where nonzero is considered logically true, zero logically false, including \&\& (and), || (or), ! (not)
+\2 Increment operators add or subtract 1 to a variable, returning the value of the variable (++, --)
+\3 If the operator is placed before the variable, it is in prefix form, returning the value of the variable after incrementing, placed after for postfix, such that it returns the value before
+\3 This is used to change a variable value without the assignment operator
+\2 Joint assignment operators are combined arithmetic/bitwise and assignment operators, placing the assignment operator directly after without a space, such that the resultant value is assigned to the left variable
+\2 Conditional operators allow simple decisions to be made, such that it is written ``x = a ? b : c'', meaning if a, then x = b, else x = c
+\2 The order of operations begins with left-associative (), [], ->, and . operators, followed by postfix increment, then prefix increment (right-associative)
+\3 The indirection * operator, \& address, unary (+/-), logical and bitwise not, ``(type)'' typecast, and ``sizeof'' operators then are next with right associativity
+\3 It is then followed by *, /, \%, then +, -, then shifts, then comparisons, then equality, then bitwise AND, then bitwise XOR, then bitwise OR, all left associativity
+\3 After is the logical AND, then logical OR, then ?: conditional expressions, all left associative
+\3 Last in the order is joint assignment operators with right associativity
+\3 Associativity is the order for multiple operators with equal precedence
 \end{outline*}
 \section{Chapter 13 - Control Structures}
 \begin{outline*}
