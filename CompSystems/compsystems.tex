@@ -626,7 +626,7 @@
 \end{outline*}
 \section{Chapter 16 - Pointers and Arrays}
 \begin{outline*}
-\1 Pointers in C are defined as the address of a memory object, indirectly accessing them, while arrays are sequential lists of data, also indirectly accessed
+\1 Pointers in C are defined as the address of a memory object, indirectly accessing them, while arrays are sequential lists of the same type of data, also indirectly accessed
 \1 Pointers allow arguments to be passed by memory instead of by value into a function, such that the memory itself can be changed, rather than simply modifying the variables in the function stack temporarily
 \2 The process of using pointers instead of calling a function by value is called calling by reference, giving the memory addresses
 \3 Pointers also allow a function to return multiple values, since the return function can only provide a single variable
@@ -636,7 +636,8 @@
 \2 The address operator, \&, returns the memory address of the variable, allowing it to be stored in the pointer, written ``\textit{pointer-var} = \&\textit{variable};''
 \2 The indirection/dereference operator, *, can be used before a pointer variable to allow accessing the data stored at the location in the pointer
 \2 Null pointers are able to be made by initializing to ``NULL'', a built-in macro for an invalid pointer value
-\1 
+\1 Arrays are declared based on the type contained within by ``\textit{type name\[size\]}'', unable to have their size changed after declaration
+\2 
 \end{outline*}
 \section{Chapter 10 - The Stack}
 \begin{outline*}

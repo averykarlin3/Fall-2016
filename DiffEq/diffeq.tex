@@ -631,4 +631,16 @@
 \2 The associated homogeneous general solution is called the complementary function for the equation
 \2 It is noted that for f(x) = Ly and g(x) = Ly, with particular solutions u and v respectively, u + v is a particular solution to f(x) + g(x) = Ly by the properties of linearity
 \end{outline*}
+\subsection{Constant Coefficient Homogeneous Linear Equations}
+\begin{outline*}
+\1 For some equation, $y^{(n)} + a_1y^{(n-1)} + \dots + a_ny = F(x)$, it can be written as P(D)y = 0, where P(D) is the polynomial differential operator, $D^n + a_1D^{n-1} + \dots + a_n$
+\2 As a result, the polynomial P(r) is the real auxiliary polynomial, with the equation P(r) = 0 as the auxiliary equation
+\2 It is found that for two polynomial operators, P(D)Q(D) = Q(D)P(D), such that it is commutative, not true for general linear operators
+\3 As a result, the P(D) operator can be factored into a series of polynomial differential operators
+\1 It thus true that for some $P(D) = P_1(D)P_2(D)\dotsP_k(D)$, then for all $1 \leq i \leq k$, $P_i(D)y = 0$ is a solution to P(D)y = 0
+\2 For some differential equation, $(D-r)^my = 0$ where m is a positive integer and r is a real/complex number, it has m solutions of the form $y = e^{rx}, xe^{rx}, \dots, x^{m-1}e^{rx}$
+\2 This set of equations is linearly independent on any interval, acting as a polynomial spanning set of $P_{m-1}(I)$
+\2 If r is a complex number, it forms the solution $x^ke^{ax}(cosbx - isinbx) = y$, able to be broken up such that for $y = u + iv$, the conjugate root can be ignored with $y = u$ and $y = v$ as solutions
+\2 This is found to form a linearly independent set of n solutions to the differential equations, spanning the solution set
+\end{outline*}
 \end{document}
