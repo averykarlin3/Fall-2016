@@ -41,6 +41,8 @@
 /** Delay between GETC_TIMER - default at 10ms */
 #define GETC_TIMER_DELAY 10
 
+#define SQUARES 10
+
 /** 2D array presenting the cursor */
 lc4uint cursorImage[] = {
   0x00,
@@ -481,6 +483,25 @@ void reset()
   (*mL).missilesLeft = MISSILES_PER_ROUND;
  }
 
+void Move(Projectile p) {
+  for(int i = 0; i < SQUARES; i++) {
+    dx = (*p).x - (*p).xf;
+    dy = (*p).y - (*p).yf;
+    if(abs(dy) >= abs(dx)) {
+      if(dy >= 0)
+        (*p).y--;
+      else
+        (*p).y++;
+    }
+    else {
+      if(dx >= 0)
+        (*p).x--;
+      else
+        (*p).x++;
+    }   
+  }
+}
+
 /************************************************
  *  main - 
  *  Initalize game state by reseting the game state
@@ -495,7 +516,7 @@ void reset()
   int destroyedCount = 0;
   while(1) 
   {
-    lc4int in = lc4_getc_timer(1);
+    lc4int in = lc4_getc_timer(GETC_TIMER_DELAY);
     switch in {
       case 'w':
       (*cursor).y++;
@@ -537,6 +558,15 @@ void reset()
           destroyedCount++;
         }
       }
+      for(int j = 0; j < NUM_TARGETS; j++) {
+        dx = abs((*incoming[i]).x - (*targets[j]).x);
+        dy = abs((*incoming[i]).y - GROUND_LEVEL;
+        d =  dx*dx + dy*dy;
+        if(d < CONTACT_RADIUS) {
+          (*incoming[i]).isActive = 0;
+          (*targets[j]).lives--;
+        }
+      }
     }
     for(int i = 0; i < MAX_INCOMING; i++) {
       if(!((*incoming[i]).isActive)) {
@@ -551,9 +581,27 @@ void reset()
         (*incoming[i]).isActive = 1;
       }
     }
-    //Move missiles
-    //Check if lost or new game
-    Redraw();
+    for(int i = 0; i < MAX_INCOMING; i++) {
+      Move(incoming[i]);
+    }
+    for(int i = 0; i < MAX_OUTGOING; i++) {
+      Move(outgoing[i]);
+    }
+    int livesLeft = 0;
+    for(int i = 0; i < NUM_TARGETS; i++) {
+      livesLeft += (*targets[i]).lives;
+    }
+    if(destroyedCount == 8) {
+      destroyedCount = 0;
+      ResetGame();
+    }
+    else if(!livesLeft) {
+      lc4_puts ((lc4uint*)"Game Over...\n");
+      break;
+    }
+    else {
+      Redraw();
+    }
   }
   return 0;
 }
