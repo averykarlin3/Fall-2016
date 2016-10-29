@@ -637,7 +637,20 @@
 \2 The indirection/dereference operator, *, can be used before a pointer variable to allow accessing the data stored at the location in the pointer
 \2 Null pointers are able to be made by initializing to ``NULL'', a built-in macro for an invalid pointer value
 \1 Arrays are declared based on the type contained within by ``\textit{type name\[size\]}'', unable to have their size changed after declaration
-\2 
+\2 Arrays must be given an explicit size within code, rather than a variable size, or a syntax error will occur
+\2 Items are able to be accessed by index, such that the ith element in the array is taken by ``\textit{name\[i-1\]}''
+\3 Indices are useful in being able to be represented by any integer representation, including symbolic
+\2 Arrays can be passed as parameters, automatically done by reference, due to the array variable name acting as a pointer to the first item in the array
+\3 As a result, ``\textit{name\[1\]}'' is equivelent to ``*(\textit{name} + 1)''
+\4 It is noted that while pointers can be reassigned as variables, array variables are fixed to the location for the duration of the stack
+\2 Arrays are also used for strings, acting as a character array, with a sentinel null character `\\0', called null-terminated strings
+\3 String literals are written within double quots, rather than single quotes, written in printf() by the \%s specifier
+\3 The compiler automatically adds the null character to the end of the string
+\3 The length of the string array states the maximum possible length of the string, but does not specify the actual string character length
+\4 If the scanf() call exceeds the length of the array, it will overwrite variables stored after the string, writing remaining characters after the array
+\4 This is due to the lack of protection built-in to C against exceeding array size to save time
+\3 It is noted that in C, scanf() only reads until the first white space for a string, keeping the remainder in a buffer for future scanf() calls
+\3 String specific functions are found within the C standard library, declared in string.h
 \end{outline*}
 \section{Chapter 10 - The Stack}
 \begin{outline*}

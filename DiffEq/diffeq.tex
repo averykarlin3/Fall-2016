@@ -522,6 +522,8 @@
 \3 The cycle of generalized eigenvectors is linearly independent, proven by multiplying by the matrix to some power for each
 \3 Further, for some matrix where $(A - \lambda I)^p = 0_n$, any vector such that $(A - \lambda I)^{p-1}\vec{v} \neq 0$ can be used as the initial vector of a cycle
 \1 Jordan blocks corresponding to $\lambda$ is a square matrix of some size, with $\lambda$ throughout the leading diagonal, 1s throughout the superdiagonal (diagonal above the leading), and 0s elsewhere
+\2 Since $J - \lambda I$ is a matrix purely of ones in the superdiagonal, it is found that $(J - \lambda I)^n$ is a matrix of ones n diagonals above the superdiagonal
+\3 Thus, for some Jordan block matrix, $J_n$, $(J - \lambda I)^n = 0$
 \2 Jordan-Canonical form is thus defined as a square matrix with Jordan blocks of some size on the leading diagonal and zeroes elsewhere
 \3 All Jordan-Canonical matrices are upper triangular
 \3 It is noted that the size of the individual blocks do not have to be equal
