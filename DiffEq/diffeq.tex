@@ -647,4 +647,24 @@
 \2 If r is a complex number, it forms the solution $x^ke^{ax}(cosbx - isinbx) = y$, able to be broken up such that for $y = u + iv$, the conjugate root can be ignored with $y = u$ and $y = v$ as solutions
 \2 This is found to form a linearly independent set of n solutions to the differential equations, spanning the solution set
 \end{outline*}
+\subsection{Undetermined Coefficient Annihilators}
+\begin{outline*}
+\1 For some linear differential equation $P(D)y = F(x)$, if there exists some function, A, such that A(D)F = 0, it forms a homogeneous differential equation A(D)P(D)y = 0
+\2 The A(D) operator is said to annihilate F(x), called the annihilator of F(x)
+\3 Annihilators thus exist for some F(x) iff y = F(x) is a solution to the homogeneous linear differential equation, A(D)y = 0
+\3 As a result, the nonhomogeneous side must be in the form $F(x) = cx^ke^{ax}$, $F(x) = cx^ke{ax}sin(bx)$, $F(x) = cx^ke^{ax}cos(bx)$, or the sum of each, for some nonnegative k and real a, b, and c
+\4 For some nonsinusoidal solution, $A(D) = (D - a)^{k+1}$ is an annihalator for all $x^pe^{ax}, p \leq k$
+\4 For some sinusoidal solutons, $x^pe^{ax}cos(bx), x^pe^{ax}sin(bx), p \leq k$, $A(D) = (D^2 - 2aD + a^2 + b^2)^{k+1}$
+\4 For some linear combination of these forms, the product of the annhilators for each is the overall anhilator
+\2 This thus forms a honogeneous linear differential equation, which is able to be solved easily, providing a particular trial solution, in terms of an unknown coefficient
+\3 This trial solution will include the complement solution, such that it can be ignored for the particular solution
+\3 This can then be plugged into the original equation to find the unknown coefficient within the particular solution
+\2 This can then be combined with the complementary solution to the original equation
+\3 This is called the method of undetermined coefficients
+\1 It is found as a result, that general trial solutions are found by annihilators, such that for $F(x) = cx^ke^{ax}$, $y_p(x) = e^{ax}(A_0 + ... + A_kx^k) if $P(a) \neq 0$
+\2 If a is a root of P(x) with multiplicity m, $y_p(x) = x^me^{ax}(A_0 + ... + A_kx^k)$
+\2 For $F(x) = cx^ke^{ax}cos(bx)$ or $F(x) = cx^ke^{ax}sin(bx)$, if P(a + ib) $\neq 0$, $y_p = e^{ax}(A_0cosbx + B_0sinbx + xA_1cos(bx) + xB_1sin(bx) + ... + x^kA_kcosbx + x^kB_ksinbx)$
+\2 If a + ib is a root of P(x) with multiplicity m, $y_p = x^me^{ax}(A_0cosbx + B_0sinbx + ... + x^kA_kcosbx + x^kB_ksinbx)$
+\2 For some F(x) as the sum of the defined functions, the trial solution is the cooresponding sum of trial solutions
+\end{outline*}
 \end{document}

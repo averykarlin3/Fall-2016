@@ -509,9 +509,12 @@
 \2 As a result, C has been a fundamental basis of many modern languages, such as Java or C++
 \2 C was made machine independent by the ANSI C version, used by most compilers, specified by the American National Standards Institute
 \1 C compilers are made up of a preprocessor, finding preprocessor directives (pseudo-ops), adding header files or constants
-\2 Preprocessor commands are begun by \#, generally using ``define'' to create a compiler constant, and ``include'' to add the code from a header file in
+\2 Preprocessor commands are begun by \#, generally using ``define'' to create a compiler macro constant, and ``include'' to add the code from a header file in, not ended by a semicolon
 \3 Adding header files in can be used to declare variables and functions, as well as define constants, which are standardized to multiple source files, often used to declare library functions
 \3 $<>$ are used to surround library header files within the system library storage, while ``'' are used for files within the same directory
+\3 Macros can take arguments, specified in parenthesis next to the definition how it is evaluated to get the value
+\4 After each occurance as a result, there must be parenthesis with the input values/variables to be evaluated, acting similar to a function call
+\4 It then replaces the marco with the expression, inserting those variables, during compilation
 \2 The compiler then produces object modules, using a symbol table, parsing code in two stages (analysis/parsing into sections, synthesis/generating and optimizing code)
 \2 The linker then links all computer and user object modules together to create an executable image, finding library files in a specific OS location
 \1 Functions/subroutines are defined in code by a function definition, with the main() function, which must return an int, as the start of program execution
@@ -549,9 +552,13 @@
 \2 The short int must be at least the size of a char in C, and the double must have a higher precision that that of a float
 \2 ``signed'' and ``unsigned'' specifiers can be added to integral types, the former by default
 \2 ``long'' and ``short'' specifiers can be added to either extend or shorten the length of the integral types and can shorten or lengthen the precision and/or range of floating types
-\2 ``const'' specifiers can be added for variables which are not changed to optimize compilation
+\2 ``const'' specifiers can be added for variables which are not changed to optimize compilation, requiring explicit initialization at the time of declaration
 \1 Enumerated types allow objects to be specified of constant value from 0 onward, defined by the specified, ``enum \textit{name \{obj0 = first\_constant, \dots, objn\}}'', declared by ``enim \textit{name obj}''
 \2 The objects are called enumeration constants, set such that the first is 0 by default, progressing up integrally from the first
+\1 The return statement, written ``return \textit{expression};'', terminates the current function, returning the expression value
+\2 All functions have an implicit return statement, with an undefined/void return value
+\2 The expression is automatically converted to the type which the function is defined to return
+\2 ``return;'' is able to be used to terminate a function, without returning any value
 \end{outline*}
 \section{Chapter 12 - Variables and Operators}
 \begin{outline*}
@@ -569,13 +576,16 @@
 \3 Variables have the scope and value of the most recently defined version, such that they can be nested, redeclaring locally within a block, reverting back to the original outside
 \2 Local variables are not cleared when declared, such that unless they are initialized, they could have a random value
 \3 Global or other static storage class variables are automatically initialized to 0 when declared
-\1 Operators are combined with variables and literals to form an expression, grouped together to form a complete statement, terminated by a semicolon
+\1 Operators are combined with variables and literals to form an expression, grouped together to form a complete statement
+\2 Statements are terminated by a semicolon, generally modifying some variable or external factor
+\2 Expressions are defined as any legal combination of constants, variables, operators, and function calls that evaluate to some specific type
 \2 Statements are able to be grouped together by curly brackets into a block/compound statement
 \2 The statement ``;'' is called the null statement
 \2 The assignment operator, =, evaluates the right hand side, assigning it to the variable on the left
 \3 Variables are then converted into the type the variable was declared as
 \2 Arithmetic operators return the highest length type given to the operator, with floating points considered longer than integral types, integers longer than characters
 \3 The main operators are * (multiply), / (divide), \% (modulus), +(addition), and - (subtraction), with parentheses used to clarify the order of operations
+\3 Modulus operators must have integer operands, but the others can have any variable types
 \2 Bitwise operators include $|$ (or), \& (and), \^ (xor), ~ (not), $<<$ (left shift), and $>>$ (arithmetic right shift)
 \2 Relational operators include $>$ (greater than), $>= (\geq), <= (\leq)$, $<$ (less than), == (equal), and != (not equal)
 \2 Logical operators evaluate values where nonzero is considered logically true, zero logically false, including \&\& (and), || (or), ! (not)
@@ -603,6 +613,9 @@
 \1 Variables also have a storage class property, determining if it loses its value when the block in which it is declared completes, using the ``static'' declaration, acting as global variables
 \2 Local variables are by default in the automatic storage class, while global are by default in static
 \2 Local variables declared static are private to its block, such that it cannot be accessed/modified outside a block in which it is declared, but are able to be redeclared to be accessed further, not removed after the block
+\2 Automatic class variables can also be given the ``register'' qualifier, indicating it is commonly used, and thus should be placed in a register for efficiency
+\3 On the other hand, if this cannot be done, it is ignored by the compiler
+\2 Both functions and variables can also have the qualifier ``extern'' added to it, stating the storage is defined in another object module for linking
 \end{outline*}
 \section{Chapter 13 - Control Structures}
 \begin{outline*}
@@ -654,7 +667,20 @@
 \end{outline*}
 \section{Chapter 10 - The Stack}
 \begin{outline*}
-
+\1 The stack is an abstract data type, such that it is defined by the operations used with it, rather than the implementation
+\2 It is based around the idea of Last In First Out (LIFO) storage, pushing an element on the top to add it, popping it to remove it
+\2 As each item on the stack is popped, the elements still within the stack move towards the top
+\1 Stacks are generally implemented by a stack pointer, keeping track of the top of the stack, with a fixed bottom, keeping the data in the same place in memory
+\2 The pop function then returns the top value, and removes it, such that the pointer moves down, while push adds a value to the top and moves the pointer up
+\3 This creates the risk of an underflow, popping the value below the base of the stack, causing data storage errors, requiring checking for the bottom, returning 0 if allowed
+\3 Similarly, there is the risk of overflow, checking to make sure the stack isn't full, keeping a pointer at the top as well, returning 0 if allowed
+\2 Stack protocol states that data can only be accessed from the stack through the pop and push functions
+\1 While the LC-3 is a three-address machine, taking two input and one output registers, due to using general purpose registers for calculations, most calculators use stacks
+\2 Stack calculators are called zero-address machines, due to purely acting on the stack values
+\3 On the other hand, most calculators have similar operations, implicitly pushing and pulling on a hardware level
+\2 This allows holding intermediate values on the stack, performing operations by popping out enough values, pushing the result
+\1 Interrupt-driven IO, in addition to relying on the interrupt bits and priority levels, require a process to manage the transfer of data
+\2 **FINISH**
 \end{outline*}
 \section{Chapter 14 - Functions}
 \begin{outline*}

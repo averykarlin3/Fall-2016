@@ -55,7 +55,7 @@ lc4uint cursorImage[] = {
   0x00
 };
 
-lc4uint 8Shot[] = {
+lc4uint VIIIShot[] = {
   0xFF,
   0xFF,
   0xFF,
@@ -66,7 +66,7 @@ lc4uint 8Shot[] = {
   0xFF
 };
 
-lc4uint 7Shot[] {
+lc4uint VIIShot[] = {
   0xE7,
   0xFF,
   0xFF,
@@ -77,7 +77,7 @@ lc4uint 7Shot[] {
   0xFF
 };
 
-lc4uint 6Shot[] {
+lc4uint VIShot[] = {
   0xE7,
   0xE7,
   0xFF,
@@ -88,7 +88,7 @@ lc4uint 6Shot[] {
   0xFF
 };
 
-lc4uint 5Shot[] {
+lc4uint VShot[] = {
   0xE7,
   0xE7,
   0xE7,
@@ -99,7 +99,7 @@ lc4uint 5Shot[] {
   0xFF
 };
 
-lc4uint 4Shot[] {
+lc4uint IVShot[] = {
   0xE7,
   0xE7,
   0xE7,
@@ -110,7 +110,7 @@ lc4uint 4Shot[] {
   0xFF
 };
 
-lc4uint 3Shot[] {
+lc4uint IIIShot[] = {
   0xE7,
   0xE7,
   0xE7,
@@ -121,7 +121,7 @@ lc4uint 3Shot[] {
   0xFF
 };
 
-lc4uint 2Shot[] {
+lc4uint IIShot[] = {
   0xE7,
   0xE7,
   0xE7,
@@ -132,7 +132,7 @@ lc4uint 2Shot[] {
   0xFF
 };
 
-lc4uint 1Shot[] {
+lc4uint IShot[] = {
   0xE7,
   0xE7,
   0xE7,
@@ -143,7 +143,7 @@ lc4uint 1Shot[] {
   0xFF
 };
 
-lc4uint 0Shot[] {
+lc4uint NoShot[] = {
   0xE7,
   0xE7,
   0xE7,
@@ -154,7 +154,7 @@ lc4uint 0Shot[] {
   0xE7
 };
 
-lc4uint LiveCity[] {
+lc4uint LiveCity[] = {
   0x10,
   0x38,
   0x38,
@@ -165,7 +165,7 @@ lc4uint LiveCity[] {
   0xFF
 };
 
-lc4uint DeadCity[] {
+lc4uint DeadCity[8] = {
   0x00,
   0x00,
   0x00,
@@ -176,7 +176,7 @@ lc4uint DeadCity[] {
   0xFF
 };
 
-lc4uint GoneCity[] {
+lc4uint GoneCity[] = {
   0x00,
   0x00,
   0x00,
@@ -185,7 +185,7 @@ lc4uint GoneCity[] {
   0x00,
   0x00,
   0x00
-}
+};
 
 /** Array of targets that the incoming will target */
 lc4uint targets[NUM_TARGETS];
@@ -222,7 +222,7 @@ MissileLauncher mL;
  ***********************************************/
 typedef struct {
   lc4bool isActive;
-  lc4uint xi
+  lc4uint xi;
   lc4uint yi;
   lc4uint x;
   lc4uint y;
@@ -331,9 +331,9 @@ int rand16 ()
  ***********************************************/
  void DrawCursor() 
  {
-	int x = (*cursor).x;
-	int y = (*cursor).y;
-	lc4_draw_sprite(x, y, WHITE, cursor_image)
+	int x = cursor.x;
+	int y = cursor.y;
+	lc4_draw_sprite(x, y, WHITE, cursorImage);
  }
 
 /************************************************
@@ -343,40 +343,40 @@ int rand16 ()
  ***********************************************/
  void DrawMissileLauncher()
  {
- 	int x = (*mL).x;
-	int mLeft = (*mL).missilesLeft;
-  switch mLeft {
+ 	int x = mL.x;
+	int mLeft = mL.missilesLeft;
+  switch (mLeft) {
     case 8:
-      (*mL).launcherImage = 8Shot;
+      mL.launcherImage = VIIIShot;
       break;
     case 7:
-      (*mL).launcherImage = 7Shot;
+      mL.launcherImage = VIIShot;
       break;
     case 6:
-      (*mL).launcherImage = 6Shot;
+      mL.launcherImage = VIShot;
       break;
     case 5:
-      (*mL).launcherImage = 5Shot;
+      mL.launcherImage = VShot;
       break;
     case 4:
-      (*mL).launcherImage = 4Shot;
+      mL.launcherImage = IVShot;
       break;  
     case 3:
-      (*mL).launcherImage = 3Shot;
+      mL.launcherImage = IIIShot;
       break;
     case 2:
-      (*mL).launcherImage = 2Shot;
+      mL.launcherImage = IIShot;
       break;
     case 1:
-      (*mL).launcherImage = 1Shot;
+      mL.launcherImage = IShot;
       break;
     default:
-      (*mL).launcherImage = 0Shot;
+      mL.launcherImage = NoShot;
       break;
     }
   lc4uint img[8];
   if(!((*mL).lives))
-    img[8] = DeadCity;
+    img[8] = GoneCity;
   else
     img[8] = (*mL).launcherImage; 
 	lc4_draw_sprite(MISSILE_COMMAND_XPOS, GROUND_LEVEL, WHITE, img);
@@ -390,10 +390,12 @@ int rand16 ()
  {
   for(int i = 0; i < sizeof(cities); i++) {
     lc4uint img[8];
-    if ((*cities[i]).isDestroyed)
+    if (!(*cities[i]).lives)
+      img = GoneCity;
+    else if((*cities[i]).lives == 1)
       img = DeadCity;
     else
-      img = CityImage;
+      img = LiveCity;
     lc4uint x = (*cities[i]).x;
     lc4_draw_sprite(x, GROUND_LEVEL, WHITE, img);
   }
