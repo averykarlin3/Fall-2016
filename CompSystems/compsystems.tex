@@ -684,6 +684,20 @@
 \end{outline*}
 \section{Chapter 14 - Functions}
 \begin{outline*}
-
+\1 Functions are subroutines, creating building blocks for larger programs to be built, allowing abstraction
+\2 C is built around functions, using the main function to begin and end execution within a program
+\3 The main function is required to return an integer type, generally using 0 to state no error
+\2 Functions are generally used if there is more than one call to it within a program, or if it is made into a library function
+\2 Functions within C have the property of being caller-independent, such that they do not change based on the caller
+\1 Functions are declared first by a function prototype at the header of the file, giving the compiler information about how the function should run/be written
+\2 This is written by ``\textit{return\_type name(input1 name1, ..., inputn namen)};''
+\3 The return type can be any data type, or can be void for no return
+\3 If the function does not have a return statement, but does have a return type, the last statement value is returned
+\3 The parameters must be in the same order they are written in the definition of the function, called the formal parameter list in the definition
+\2 Functions when called by the program or another function, take arguments, which are the specific inputted parameters
+\2 The function definition has a similar first line to the declaration, though without a semicolon, instead followed by brackets enclosing the function body
+\1 Each function has an activation record within memory for its global variables, created when the function activates
+\2 It cannot be placed at a specific location, due to the risk of recursion causing it to be overwritten, instead having each function get an unused region, by a stack
+\2 
 \end{outline*}
 \end{document}

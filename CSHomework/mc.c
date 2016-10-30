@@ -165,7 +165,7 @@ lc4uint LiveCity[] = {
   0xFF
 };
 
-lc4uint DeadCity[8] = {
+lc4uint DeadCity[] = {
   0x00,
   0x00,
   0x00,
@@ -188,7 +188,7 @@ lc4uint GoneCity[] = {
 };
 
 /** Array of targets that the incoming will target */
-lc4uint targets[NUM_TARGETS];
+//lc4uint targets[NUM_TARGETS];
 
 /** City struct that consists of the x position and 2D array */
 /** representing the city's image */
@@ -347,39 +347,36 @@ int rand16 ()
 	int mLeft = mL.missilesLeft;
   switch (mLeft) {
     case 8:
-      mL.launcherImage = VIIIShot;
+      memcpy(VIIIShot, mL.launcherImage, 8);
       break;
     case 7:
-      mL.launcherImage = VIIShot;
+      memcpy(VIIShot, mL.launcherImage, 8);
       break;
     case 6:
-      mL.launcherImage = VIShot;
+      memcpy(VIShot, mL.launcherImage, 8);
       break;
     case 5:
-      mL.launcherImage = VShot;
+      memcpy(VShot, mL.launcherImage, 8);
       break;
     case 4:
-      mL.launcherImage = IVShot;
+      memcpy(IVShot, mL.launcherImage, 8);
       break;  
     case 3:
-      mL.launcherImage = IIIShot;
+      memcpy(IIIShot, mL.launcherImage, 8);
       break;
     case 2:
-      mL.launcherImage = IIShot;
+      memcpy(IIShot, mL.launcherImage, 8);
       break;
     case 1:
-      mL.launcherImage = IShot;
+      memcpy(IShot, mL.launcherImage, 8);
       break;
     default:
-      mL.launcherImage = NoShot;
+      memcpy(NoShot, mL.launcherImage, 8);
       break;
     }
-  lc4uint img[8];
-  if(!((*mL).lives))
-    img[8] = GoneCity;
-  else
-    img[8] = (*mL).launcherImage; 
-	lc4_draw_sprite(MISSILE_COMMAND_XPOS, GROUND_LEVEL, WHITE, img);
+  if(!(mL.lives))
+    memcpy(GoneCity, mL.launcherImage, 8);
+	lc4_draw_sprite(MISSILE_COMMAND_XPOS, GROUND_LEVEL, WHITE, mL.launcherImage);
  }
 
 /************************************************
@@ -388,16 +385,19 @@ int rand16 ()
  ***********************************************/
  void DrawCities()
  {
-  for(int i = 0; i < sizeof(cities); i++) {
-    lc4uint img[8];
-    if (!(*cities[i]).lives)
-      img = GoneCity;
-    else if((*cities[i]).lives == 1)
-      img = DeadCity;
-    else
-      img = LiveCity;
-    lc4uint x = (*cities[i]).x;
-    lc4_draw_sprite(x, GROUND_LEVEL, WHITE, img);
+  int i;
+  lc4int xval;
+  for(i = 0; i < sizeof(cities); i++) {
+    if (!(cities[i].lives))
+      memcpy(GoneCity, cities[i].cityImage, 8);
+    else {
+      if(cities[i].lives == 1)
+        memcpy(DeadCity, cities[i].cityImage, 8);
+      else
+        memcpy(LiveCity, cities[i].cityImage, 8);
+    }
+    xval = cities[i].x;
+    lc4_draw_sprite(xval, GROUND_LEVEL, WHITE, cities[i].cityImage);
   }
  }
 
@@ -407,11 +407,12 @@ int rand16 ()
  ***********************************************/
  void DrawIncoming()
  {
-  for(int i = 0; i < MAX_INCOMING; i++) {
-    lc4uint xi = (*incoming[i]).xi;
-    lc4uint yi = (*incoming[i]).yi;
-    lc4uint x = (*incoming[i]).x;
-    lc4uint y = (*incoming[i]).y;
+  int i;
+  for(i = 0; i < MAX_INCOMING; i++) {
+    lc4uint xi = (incoming[i]).xi;
+    lc4uint yi = (incoming[i]).yi;
+    lc4uint x = (incoming[i]).x;
+    lc4uint y = (incoming[i]).y;
     lc4_draw_line(xi, yi, x, y, RED);
   }
  }
@@ -422,11 +423,12 @@ int rand16 ()
  ***********************************************/
  void DrawOutgoing()
  {
-  for(int i = 0; i < MAX_OUTGOING; i++) {
-    lc4uint xi = (*outgoing[i]).xi;
-    lc4uint yi = (*outgoing[i]).yi;
-    lc4uint x = (*outgoing[i]).x;
-    lc4uint y = (*outgoing[i]).y;
+  int i;
+  for(i = 0; i < MAX_OUTGOING; i++) {
+    lc4uint xi = (outgoing[i]).xi;
+    lc4uint yi = (outgoing[i]).yi;
+    lc4uint x = (outgoing[i]).x;
+    lc4uint y = (outgoing[i]).y;
     lc4_draw_line(xi, yi, x, y, BLUE);
   }
  }
@@ -467,39 +469,40 @@ void reset()
  *  Resets the game. 
  ***********************************************/
 
- void ResetGame()
- {
+ void ResetGame() {
  reset();
- (*cursor).x = SCREEN_WIDTH/2;
- (*cursor).y = SCREEN_HEIGHT - 4;
-  for(int i = 0; i < NUM_CITIES; i++) {
-    (*cities[i]).isDestroyed = 0;
-    (*cities[i]).x = rand16();
-    (*cities[i]).cityImage = LiveCity;
-    targets[i] = cities[i]
+ (cursor).x = SCREEN_WIDTH/2;
+ (cursor).y = SCREEN_HEIGHT - 4;
+ int i;
+  for(i = 0; i < NUM_CITIES; i++) {
+    (cities[i]).lives = 2;
+    (cities[i]).x = rand16();
+    memcpy(LiveCity, cities[i].cityImage, 8);
+    //targets[i] = cities[i];
   }
-  targets[NUM_TARGETS - 1] = mL;
-  (*mL).isDestroyed = 0;
-  (*mL).x = 0;
-  (*mL).launcherImage = 8Shot;
-  (*mL).missilesLeft = MISSILES_PER_ROUND;
+  //targets[NUM_TARGETS - 1] = mL;
+  (mL).lives = 2;
+  (mL).x = 0;
+  memcpy(VIIIShot, mL.launcherImage, 8);
+  (mL).missilesLeft = MISSILES_PER_ROUND;
  }
 
 void Move(Projectile p) {
-  for(int i = 0; i < SQUARES; i++) {
-    dx = (*p).x - (*p).xf;
-    dy = (*p).y - (*p).yf;
+  int i = 0;
+  for(i = 0; i < SQUARES; i++) {
+    int dx = (p).x - (p).xf;
+    int dy = (p).y - (p).yf;
     if(abs(dy) >= abs(dx)) {
       if(dy >= 0)
-        (*p).y--;
+        (p).y--;
       else
-        (*p).y++;
+        (p).y++;
     }
     else {
       if(dx >= 0)
-        (*p).x--;
+        (p).x--;
       else
-        (*p).x++;
+        (p).x++;
     }   
   }
 }
@@ -519,68 +522,85 @@ void Move(Projectile p) {
   while(1) 
   {
     lc4int in = lc4_getc_timer(GETC_TIMER_DELAY);
-    switch in {
+    switch (in) {
       case 'w':
-      (*cursor).y++;
+      (cursor).y++;
       break;
       case 'a':
-      (*cursor).x--;
+      (cursor).x--;
       break;
       case 's':
-      (*cursor).y--;
+      (cursor).y--;
       break;
       case 'd':
-      (*cursor).x++;
+      (cursor).x++;
       break;
       case 'r':
-      if(!((*mL).missilesLeft))
+      if(!((mL).missilesLeft))
         break;
-      for(int i = 0; i < MAX_OUTGOING; i++) {
-        if(!((*outgoing[i]).isActive)) {
-          (*outgoing[i]).xf = (*cursor).x;
-          (*outgoing[i]).yf = (*cursor).y;
-          (*outgoing[i]).x = (*mL).x;
-          (*outgoing[i]).xi = (*mL).x;
-          (*outgoing[i]).yi = (*mL).y;
-          (*outgoing[i]).y = (*mL).y;
-          (*outgoing[i]).isActive = 1;
+      int i;
+      for(i = 0; i < MAX_OUTGOING; i++) {
+        if(!((outgoing[i]).isActive)) {
+          (outgoing[i]).xf = (cursor).x;
+          (outgoing[i]).yf = (cursor).y;
+          (outgoing[i]).x = (mL).x;
+          (outgoing[i]).xi = (mL).x;
+          (outgoing[i]).yi = GROUND_LEVEL;
+          (outgoing[i]).y = GROUND_LEVEL;
+          (outgoing[i]).isActive = 1;
           break;
         }
       }
       break;
     }
-    for(int i = 0; i < MAX_INCOMING; i++) {
-      for(int j = 0; j < MAX_OUTGOING; j++) {
-        dx = abs((*incoming[i]).x - (*outgoing[j]).x);
-        dy = abs((*incoming[i]).y - (*outgoing[j]).y);
+    int i;
+    int j;
+    int dx;
+    int dy;
+    for(i = 0; i < MAX_INCOMING; i++) {
+      for(j = 0; j < MAX_OUTGOING; j++) {
+        dx = abs((incoming[i]).x - (outgoing[j]).x);
+        dy = abs((incoming[i]).y - (outgoing[j]).y);
         d =  dx*dx + dy*dy;
         if(d < CONTACT_RADIUS) {
-          (*incoming[i]).isActive = 0;
-          (*outgoing[j]).isActive = 0;
+          (incoming[i]).isActive = 0;
+          (outgoing[j]).isActive = 0;
           destroyedCount++;
         }
       }
       for(int j = 0; j < NUM_TARGETS; j++) {
-        dx = abs((*incoming[i]).x - (*targets[j]).x);
-        dy = abs((*incoming[i]).y - GROUND_LEVEL;
+        if(j == NUM_CITIES)
+          dx = abs((incoming[i]).x - (mL.x);
+        else
+          dx = abs((incoming[i]).x - (cities[j]).x);
+        dy = abs((incoming[i]).y - GROUND_LEVEL;
         d =  dx*dx + dy*dy;
         if(d < CONTACT_RADIUS) {
-          (*incoming[i]).isActive = 0;
-          (*targets[j]).lives--;
+          (incoming[i]).isActive = 0;
+          if(j == NUM_CITIES)
+            mL.lives--;
+          else
+            (cities[j]).lives--;
         }
       }
     }
     for(int i = 0; i < MAX_INCOMING; i++) {
-      if(!((*incoming[i]).isActive)) {
+      if(!((incoming[i]).isActive)) {
         num = rand16() % 3;
-        (*incoming[i]).xf = (*targets[num]).x;
-        (*incoming[i]).yf = (*targets[num]).y;
+        if (num == NUM_CITIES) {
+          (incoming[i]).xf = mL.x;
+          (incoming[i]).yf = mL.y;
+        }
+        else {
+          (incoming[i]).xf = (cities[num]).x;
+          (incoming[i]).yf = (cities[num]).y;
+        }
         xinitial = rand16();
-        (*incoming[i]).x = xinitial;
-        (*incoming[i]).xi = xinitial;
-        (*incoming[i]).yi = 0;
-        (*incoming[i]).y = 0;
-        (*incoming[i]).isActive = 1;
+        (incoming[i]).x = xinitial;
+        (incoming[i]).xi = xinitial;
+        (incoming[i]).yi = 0;
+        (incoming[i]).y = 0;
+        (incoming[i]).isActive = 1;
       }
     }
     for(int i = 0; i < MAX_INCOMING; i++) {
@@ -591,7 +611,10 @@ void Move(Projectile p) {
     }
     int livesLeft = 0;
     for(int i = 0; i < NUM_TARGETS; i++) {
-      livesLeft += (*targets[i]).lives;
+      if(i == NUM_CITIES)
+        livesLeft += mL.lives;
+      else
+        livesLeft += (cities[i]).lives;
     }
     if(destroyedCount == 8) {
       destroyedCount = 0;
