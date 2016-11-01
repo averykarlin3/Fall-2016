@@ -546,7 +546,8 @@
 \3 Literals are generally avoided, using constants instead to give symbolic representation to the value
 \2 C is freely formatted, such that spaces, tabs, new lines, and other formatting characters are able to be included when needed for readability
 \3 It is convention to comment at the start of code when it was last modified, by whom, inputs, outputs, and the purpose of the function
-\2 Keywords, used within the C language itself, are not able to be used as any form of variable, function, or object name
+\2 Keywords, used within the C language itself, are not able to be used as any form of object name
+\3 Object names are defined as the name of any named portion of memory, such as a variable or function
 \1 C basic data types are int (32 bits), float, double, and char (8 bits), with char and int as integral types, the others as floating types
 \2 While it is different on some machines, all tend to follow the IEEE standard
 \2 The short int must be at least the size of a char in C, and the double must have a higher precision that that of a float
@@ -555,6 +556,18 @@
 \2 ``const'' specifiers can be added for variables which are not changed to optimize compilation, requiring explicit initialization at the time of declaration
 \1 Enumerated types allow objects to be specified of constant value from 0 onward, defined by the specified, ``enum \textit{name \{obj0 = first\_constant, \dots, objn\}}'', declared by ``enim \textit{name obj}''
 \2 The objects are called enumeration constants, set such that the first is 0 by default, progressing up integrally from the first
+\1 Derived types are extensions of basic types provided by C, consisting of pointers, arrays, structures, and unions
+\2 Arrays are sequences of objects, such that the element i+1 is at the location of i + sizeof(type), such that the type must be declared at the start
+\2 Pointers are objects containing the address of other objects, able to be manipulated in expresses by pointer arithmetic, adding integer values and comparing values
+\3 Pointer arithmetic automatically adds or subtracts sizeof(type), where type is the pointer's type, from the pointer when adding or subtracting 1
+\2 Structures are aggregate types defined by ``struct \textit{tagid} \{ \textit{type1 var1; ... typeN varN;\};'', able to contain any other types within
+\3 The tag ID allows variables of the structure to be declared, by ``struct \textit{tagid varName}'', and allows multiple structures with the same member elements and identifiers to exist in the same program
+\3 Variables can also be declared without a tag, at the end of the struct definition for a sinle usage
+\2 Unions are a single object able to take on multiple different types during the program, storing enough data when declared for the largest possible type
+\3 It is defined similar to a structure, with ``union'' replacing ``struct'', calling on member items the same, though only filling on at a time
+\2 Structs and unions can directly access a member element by \textit{structUnionName.varName}, or if using a pointer to the struct/union, can use \textit{structUnionPointer}->\textit{varName}
+\2 ``typedef \textit{type name}'' allows a type to gain a pseudonym, commonly used for derived types as shorthand
+\2 ``sizeof(\textit{type})'' returns the number of bytes occupied by the type, or the total size of the array/struct
 \1 The return statement, written ``return \textit{expression};'', terminates the current function, returning the expression value
 \2 All functions have an implicit return statement, with an undefined/void return value
 \2 The expression is automatically converted to the type which the function is defined to return
@@ -570,12 +583,16 @@
 \2 Strcmp checks if each character is identical in A and B, at which point when a character is greater in ASCII, if it is in A, it returns >0, in B <0, if equal, 0
 \2 Strcpy copies every character from B into A
 \1 Math functions are within <math.h>, each taking doubles and returning doubles, including sin, cos, tan, exp (e^x), log (ln), sqrt, and pow(x, y) (x^y)
-\1 Utility functions are within <stdlib.h>
+\1 Utility functions are within <stdlib.h>, including ``void *malloc(size_t size)'', ``void free(void *ptr)'', ``int rand()'', and ``void srand(unsigned int seed)''
+\2 malloc allocates the number of bytes given, within the heap, returning a pointer to it, with the parameter automatically typedefed to the unsigned integer size_t type returned by sizeof()
+\3 free returns the allocated memory to the heap, having been previously allocated by malloc
+\2 rand() generates a random integer based on the seed value, giving an integer from 0 to RAND_MAX (slightly more than 32.767)
+\3 srand() allows reseeding of the rand() to produce a different pseudo-random integer
 \end{outline*}
 \section{Chapter 12 - Variables and Operators}
 \begin{outline*}
 \1 Variables hold values within a program, while operators are used to manipulate the values
-\2 Variables store data items, using symbolic representation, requiring declaration, written as ``\textit{type name;}'', reserving that amount of memory for the variable before it is used
+\2 Variables store data items, using symbolic representation, requiring declaration, written as ``\textit{storageClass typeQualifier type name;}'', reserving that amount of memory for the variable before it is used
 \2 Declarations are also able to contain an initializer on the same line, such that it is written ``\textit{type name = value;}''
 \2 Each basic variable type (char, float, double, int) generally take up one memory location within C, though may contain differing numbers of bits (32 for int/float generally, 16 for char, 64 for double)
 \2 Variable names are called identifiers, with specific rules, such as only the first 31 characters being used, case-sensitive, and only alphanumeric and the underscore characters used
@@ -598,9 +615,13 @@
 \2 Arithmetic operators return the highest length type given to the operator, with floating points considered longer than integral types, integers longer than characters
 \3 The main operators are * (multiply), / (divide), \% (modulus), +(addition), and - (subtraction), with parentheses used to clarify the order of operations
 \3 Modulus operators must have integer operands, but the others can have any variable types
-\2 Bitwise operators include $|$ (or), \& (and), \^ (xor), ~ (not), $<<$ (left shift), and $>>$ (arithmetic right shift)
-\2 Relational operators include $>$ (greater than), $>= (\geq), <= (\leq)$, $<$ (less than), == (equal), and != (not equal)
-\2 Logical operators evaluate values where nonzero is considered logically true, zero logically false, including \&\& (and), || (or), ! (not)
+\3 Expressions of two of the same type return the type designated by the operator, while for those of multiple types, the smaller is converted into larger bit size and integers are converted into floats
+\2 Bitwise operators include $|$ (or), \& (and), \^ (xor), ~ (not), $<<$ (left shift), and $>>$ (arithmetic right shift), usable only on integer types
+\3 If an integer is shifting more than the amount of bits it takes up, it is considered undefined
+\2 Relational operators include $>$ (greater than), $>= (\geq), <= (\leq)$, $<$ (less than), == (equal), and != (not equal), returning 1 if true, 0 if false
+\2 Logical operators evaluate values where nonzero is considered logically true, zero logically false, including \&\& (and), || (or), ! (not), returning 0 if false, 1 if true
+\3 AND and OR are short-circuit operators in C, such that if the value is found after only checking the left operand, the right is skipped
+\4 This results in any additional effects not taking place, such as incrementing the value of the right operator
 \2 Increment operators add or subtract 1 to a variable, returning the value of the variable (++, --)
 \3 If the operator is placed before the variable, it is in prefix form, returning the value of the variable after incrementing, placed after for postfix, such that it returns the value before
 \3 This is used to change a variable value without the assignment operator
@@ -608,6 +629,8 @@
 \2 Conditional operators allow simple decisions to be made, such that it is written ``x = a ? b : c'', meaning if a, then x = b, else x = c
 \2 The order of operations begins with left-associative (), [], ->, and . operators, followed by postfix increment, then prefix increment (right-associative)
 \3 The indirection * operator, \& address, unary (+/-), logical and bitwise not, ``(type)'' typecast, and ``sizeof'' operators then are next with right associativity
+\4 Unary operators are placed before the variable, such that - gives the negative of the operand, + gives the operand
+\4 Typecasting explicitly temporarily changes the type of the variable used such that it is done ``\textit{(newType) var}''
 \3 It is then followed by *, /, \%, then +, -, then shifts, then comparisons, then equality, then bitwise AND, then bitwise XOR, then bitwise OR, all left associativity
 \3 After is the logical AND, then logical OR, then ?: conditional expressions, all left associative
 \3 Last in the order is joint assignment operators with right associativity
@@ -661,6 +684,7 @@
 \2 The address operator, \&, returns the memory address of the variable, allowing it to be stored in the pointer, written ``\textit{pointer-var} = \&\textit{variable};''
 \2 The indirection/dereference operator, *, can be used before a pointer variable to allow accessing the data stored at the location in the pointer
 \2 Null pointers are able to be made by initializing to ``NULL'', a built-in macro for an invalid pointer value
+\2 For types with more than one byte, the pointer to the variable containing it points to the starting point of the variable
 \1 Arrays are declared based on the type contained within by ``\textit{type name\[size\]}'', unable to have their size changed after declaration
 \2 Arrays must be given an explicit size within code, rather than a variable size, or a syntax error will occur
 \2 Items are able to be accessed by index, such that the ith element in the array is taken by ``\textit{name\[i-1\]}''
