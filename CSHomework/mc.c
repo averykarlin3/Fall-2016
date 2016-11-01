@@ -224,6 +224,9 @@ MissileLauncher mL;
  *  lc4bool isActive - boolean representing 
  *                     if the projectile 
  *                     is active or not
+ xi, yi - initial missile location
+ x, y - current missile location
+ xf, yf - target missile location
  ***********************************************/
 typedef struct {
   lc4bool isActive;
@@ -330,6 +333,7 @@ int rand16 ()
  * End of Debugging and utility functions
  ***************************************************************/
 
+//Copy original array into copy array for sprites
 void copy(lc4uint orig[8], lc4uint cpy[8]) {
   int i;
   for(i = 0; i < 8; i++)
@@ -357,7 +361,7 @@ void DrawMissileLauncher()
 {
   int x = mL.x;
   int mLeft = mL.missilesLeft;
-  if (mLeft == 8) {
+  if (mLeft == 8) { //Choose correct image state
     copy(VIIIShot, mL.launcherImage);
   }
   else {
@@ -412,7 +416,7 @@ void DrawCities()
   int i;
   lc4uint color;
   lc4int xval;
-  for(i = 0; i < 2; i++) {
+  for(i = 0; i < 2; i++) { //Choose correct image state
     if (!(cities[i].lives)) {
       copy(GoneCity, cities[i].cityImage);
     }
@@ -512,19 +516,19 @@ void reset()
 void ResetGame() {
  int i;
  reset();
- (cursor).x = SCREEN_WIDTH/2;
- (cursor).y = SCREEN_HEIGHT - 4;
- (cities[0]).lives = 2;
+ (cursor).x = SCREEN_WIDTH/2; //Restore cursor to default
+ (cursor).y = SCREEN_HEIGHT/2;
+ (cities[0]).lives = 2; //Restore cities to default
  (cities[0]).x = LEFT_CITY_XPOS;
  copy(LiveCity, cities[0].cityImage);
  (cities[1]).lives = 2;
  (cities[1]).x = RIGHT_CITY_XPOS;
  copy(LiveCity, cities[1].cityImage);
- (mL).lives = 2;
+ (mL).lives = 2; //Restore missile launchers to default
  (mL).x = MISSILE_COMMAND_XPOS;
  copy(VIIIShot, mL.launcherImage);
  (mL).missilesLeft = MISSILES_PER_ROUND;
- for(i = 0; i < MAX_OUTGOING; i++) {
+ for(i = 0; i < MAX_OUTGOING; i++) { //Delete all missiles
   outgoing[i].isActive = 0;
 }
 for(i = 0; i < MAX_INCOMING; i++) {
@@ -532,11 +536,11 @@ for(i = 0; i < MAX_INCOMING; i++) {
 }
 }
 
+//Move projectile towards target
 void Move(Projectile* p, int multiplier) {
   int dy;
   int dx;
   int i = 0;
-  //lc4_puts((lc4uint*) "NEXT\n");
   for(i = 0; i < SQUARES * multiplier; i++) {
     dx = p->x - p->xf;
     dy = p->y - p->yf;
@@ -559,6 +563,7 @@ void Move(Projectile* p, int multiplier) {
   }
 }
 
+//Check for collisions between incoming, outgoing, cities, and launcher
 void collision(int* destroyedCount) {
   int dx;
   int xinitial;
@@ -619,6 +624,7 @@ void collision(int* destroyedCount) {
   }
 }
 
+//Calculate current outgoing multiplier
 int multiplerCalc(int destroyedCount) {
   return MULTIPLIER - ((MULTIPLIER - 1)*destroyedCount/MISSILES_PER_ROUND);
 }
@@ -635,7 +641,7 @@ int main()
   int j;
   int livesLeft;
   int destroyedCount = 0;
-  int outMultiplier = 1;
+  int inMultiplier = 1;
   lc4int in;
   lc4_puts ((lc4uint*)"Welcome to Missile Command!\n");
   lc4_puts ((lc4uint*)"WASD for Movement, R to Shoot\n");
@@ -670,7 +676,7 @@ int main()
     }
     collision(&destroyedCount);
     for(i = 0; i < MAX_INCOMING; i++) {
-      Move(&incoming[i], outMultiplier);
+      Move(&incoming[i], inMultiplier);
     }
     for(i = 0; i < MAX_OUTGOING; i++) {
       Move(&outgoing[i], multiplerCalc(destroyedCount));
@@ -684,7 +690,7 @@ int main()
     }
     if(destroyedCount == 8) {
       destroyedCount = 0;
-      outMultiplier++;
+      inMultiplier++;
       ResetGame();
     }
     else {

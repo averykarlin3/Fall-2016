@@ -924,7 +924,7 @@ ResetGame
 	LEA R7, cursor
 	CONST R3, #64
 	STR R3, R7, #0
-	CONST R3, #120
+	CONST R3, #62
 	STR R3, R7, #1
 	LEA R7, cities
 	CONST R3, #2
