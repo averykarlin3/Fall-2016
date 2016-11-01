@@ -572,8 +572,8 @@ L49_mc
 	ADD R7, R7, #3
 	ADD R6, R6, #-1
 	STR R7, R6, #0
-	CONST R7, #0
-	HICONST R7, #51
+	CONST R7, #255
+	HICONST R7, #255
 	ADD R6, R6, #-1
 	STR R7, R6, #0
 	CONST R7, #116
@@ -1032,6 +1032,7 @@ Move
 	STR R7, R5, #-3
 	CONST R7, #0
 	STR R7, R5, #-3
+	JMP L89_mc
 L86_mc
 	LDR R7, R5, #3
 	LDR R3, R7, #3
@@ -1061,45 +1062,70 @@ L86_mc
 	LDR R7, R5, #-1
 	CONST R3, #0
 	CMP R7, R3
-	BRn L92_mc
+	BRnz L92_mc
 	LDR R7, R5, #3
 	ADD R7, R7, #4
 	LDR R3, R7, #0
 	ADD R3, R3, #-1
 	STR R3, R7, #0
-	JMP L91_mc
 L92_mc
+	LDR R7, R5, #-1
+	CONST R3, #0
+	CMP R7, R3
+	BRzp L94_mc
 	LDR R7, R5, #3
 	ADD R7, R7, #4
 	LDR R3, R7, #0
 	ADD R3, R3, #1
+	STR R3, R7, #0
+L94_mc
+	LDR R7, R5, #-1
+	CONST R3, #0
+	CMP R7, R3
+	BRnp L91_mc
+	LDR R7, R5, #3
+	CONST R3, #0
 	STR R3, R7, #0
 	JMP L91_mc
 L90_mc
 	LDR R7, R5, #-2
 	CONST R3, #0
 	CMP R7, R3
-	BRn L94_mc
+	BRnz L98_mc
 	LDR R7, R5, #3
 	ADD R7, R7, #3
 	LDR R3, R7, #0
 	ADD R3, R3, #-1
 	STR R3, R7, #0
-	JMP L95_mc
-L94_mc
+L98_mc
+	LDR R7, R5, #-2
+	CONST R3, #0
+	CMP R7, R3
+	BRzp L100_mc
 	LDR R7, R5, #3
 	ADD R7, R7, #3
 	LDR R3, R7, #0
 	ADD R3, R3, #1
 	STR R3, R7, #0
-L95_mc
+L100_mc
+	LDR R7, R5, #-2
+	CONST R3, #0
+	CMP R7, R3
+	BRnp L102_mc
+	LDR R7, R5, #3
+	CONST R3, #0
+	STR R3, R7, #0
+L102_mc
 L91_mc
 L87_mc
 	LDR R7, R5, #-3
 	ADD R7, R7, #1
 	STR R7, R5, #-3
+L89_mc
 	LDR R7, R5, #-3
 	CONST R3, #1
+	LDR R2, R5, #4
+	MUL R3, R3, R2
 	CMP R7, R3
 	BRn L86_mc
 L85_mc
@@ -1111,177 +1137,23 @@ L85_mc
 	LDR R7, R6, #-2	;; restore return address
 	RET
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;main;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;collision;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		.CODE
 		.FALIGN
-main
+collision
 	;; prologue
 	STR R7, R6, #-2	;; save return address
 	STR R5, R6, #-3	;; save base pointer
 	ADD R6, R6, #-3
 	ADD R5, R6, #0
-	ADD R6, R6, #-10	;; allocate stack space for local variables
+	ADD R6, R6, #-7	;; allocate stack space for local variables
 	;; function body
 	CONST R7, #0
-	STR R7, R5, #-6
-	LEA R7, L97_mc
-	ADD R6, R6, #-1
-	STR R7, R6, #0
-	JSR lc4_puts
-	ADD R6, R6, #1	;; free space for arguments
-	LEA R7, L98_mc
-	ADD R6, R6, #-1
-	STR R7, R6, #0
-	JSR lc4_puts
-	ADD R6, R6, #1	;; free space for arguments
-	JSR ResetGame
-	ADD R6, R6, #0	;; free space for arguments
-	JMP L100_mc
-L99_mc
-	CONST R7, #10
-	ADD R6, R6, #-1
-	STR R7, R6, #0
-	JSR lc4_getc_timer
-	LDR R7, R6, #-1	;; grab return value
-	ADD R6, R6, #1	;; free space for arguments
-	STR R7, R5, #-10
-	LDR R7, R5, #-10
-	CONST R3, #119
-	CMP R7, R3
-	BRnp L102_mc
-	LEA R7, cursor
-	ADD R7, R7, #1
-	LDR R3, R7, #0
-	ADD R3, R3, #-1
-	STR R3, R7, #0
-L102_mc
-	LDR R7, R5, #-10
-	CONST R3, #97
-	CMP R7, R3
-	BRnp L104_mc
-	LEA R7, cursor
-	LDR R3, R7, #0
-	ADD R3, R3, #-1
-	STR R3, R7, #0
-L104_mc
-	LDR R7, R5, #-10
-	CONST R3, #115
-	CMP R7, R3
-	BRnp L106_mc
-	LEA R7, cursor
-	ADD R7, R7, #1
-	LDR R3, R7, #0
-	ADD R3, R3, #1
-	STR R3, R7, #0
-L106_mc
-	LDR R7, R5, #-10
-	CONST R3, #100
-	CMP R7, R3
-	BRnp L108_mc
-	LEA R7, cursor
-	LDR R3, R7, #0
-	ADD R3, R3, #1
-	STR R3, R7, #0
-L108_mc
-	LDR R7, R5, #-10
-	CONST R3, #114
-	CMP R7, R3
-	BRnp L110_mc
-	LEA R7, mL
-	LDR R7, R7, #1
-	CONST R3, #0
-	CMP R7, R3
-	BRnp L112_mc
-	JMP L101_mc
-L112_mc
-	CONST R7, #0
 	STR R7, R5, #-2
-L114_mc
-	CONST R7, #7
-	LDR R3, R5, #-2
-	MUL R7, R7, R3
-	LEA R3, outgoing
-	ADD R7, R7, R3
-	LDR R7, R7, #0
-	CONST R3, #0
-	CMP R7, R3
-	BRnp L118_mc
-	CONST R7, #7
-	LDR R3, R5, #-2
-	MUL R7, R7, R3
-	LEA R3, outgoing
-	ADD R7, R7, R3
-	LEA R3, cursor
-	LDR R3, R3, #0
-	STR R3, R7, #5
-	CONST R7, #7
-	LDR R3, R5, #-2
-	MUL R7, R7, R3
-	LEA R3, outgoing
-	ADD R7, R7, R3
-	LEA R3, cursor
-	LDR R3, R3, #1
-	STR R3, R7, #6
-	CONST R7, #7
-	LDR R3, R5, #-2
-	MUL R7, R7, R3
-	LEA R3, outgoing
-	ADD R7, R7, R3
-	LEA R3, mL
-	LDR R3, R3, #2
-	STR R3, R7, #3
-	CONST R7, #7
-	LDR R3, R5, #-2
-	MUL R7, R7, R3
-	LEA R3, outgoing
-	ADD R7, R7, R3
-	LEA R3, mL
-	LDR R3, R3, #2
-	STR R3, R7, #1
-	CONST R7, #7
-	LDR R3, R5, #-2
-	MUL R7, R7, R3
-	LEA R3, outgoing
-	ADD R7, R7, R3
-	CONST R3, #116
-	STR R3, R7, #2
-	CONST R7, #7
-	LDR R3, R5, #-2
-	MUL R7, R7, R3
-	LEA R3, outgoing
-	ADD R7, R7, R3
-	CONST R3, #116
-	STR R3, R7, #4
-	CONST R7, #7
-	LDR R3, R5, #-2
-	MUL R7, R7, R3
-	LEA R3, outgoing
-	ADD R7, R7, R3
-	CONST R3, #1
-	STR R3, R7, #0
-	LEA R7, mL
-	ADD R7, R7, #1
-	LDR R3, R7, #0
-	ADD R3, R3, #-1
-	STR R3, R7, #0
-	JMP L116_mc
-L118_mc
-L115_mc
-	LDR R7, R5, #-2
-	ADD R7, R7, #1
-	STR R7, R5, #-2
-	LDR R7, R5, #-2
-	CONST R3, #1
-	CMP R7, R3
-	BRn L114_mc
-L116_mc
-L110_mc
-	CONST R7, #0
-	STR R7, R5, #-2
-L120_mc
+L105_mc
 	CONST R7, #0
 	STR R7, R5, #-1
-L124_mc
+L109_mc
 	CONST R7, #7
 	LDR R3, R5, #-1
 	MUL R7, R7, R3
@@ -1290,7 +1162,7 @@ L124_mc
 	LDR R7, R7, #0
 	CONST R3, #0
 	CMP R7, R3
-	BRz L128_mc
+	BRz L113_mc
 	CONST R7, #7
 	LDR R3, R5, #-2
 	MUL R3, R7, R3
@@ -1334,9 +1206,9 @@ L124_mc
 	ADD R7, R7, R3
 	STR R7, R5, #-5
 	LDR R7, R5, #-5
-	CONST R3, #250
+	CONST R3, #100
 	CMP R7, R3
-	BRzp L130_mc
+	BRzp L115_mc
 	CONST R7, #7
 	LDR R3, R5, #-2
 	MUL R7, R7, R3
@@ -1351,26 +1223,27 @@ L124_mc
 	ADD R7, R7, R3
 	CONST R3, #0
 	STR R3, R7, #0
-	LDR R7, R5, #-6
-	ADD R7, R7, #1
-	STR R7, R5, #-6
-L130_mc
-L128_mc
-L125_mc
+	LDR R7, R5, #3
+	LDR R3, R7, #0
+	ADD R3, R3, #1
+	STR R3, R7, #0
+L115_mc
+L113_mc
+L110_mc
 	LDR R7, R5, #-1
 	ADD R7, R7, #1
 	STR R7, R5, #-1
 	LDR R7, R5, #-1
 	CONST R3, #1
 	CMP R7, R3
-	BRn L124_mc
+	BRn L109_mc
 	CONST R7, #0
 	STR R7, R5, #-1
-L132_mc
+L117_mc
 	LDR R7, R5, #-1
 	CONST R3, #2
 	CMP R7, R3
-	BRnp L136_mc
+	BRnp L121_mc
 	CONST R7, #7
 	LDR R3, R5, #-2
 	MUL R7, R7, R3
@@ -1386,8 +1259,8 @@ L132_mc
 	LDR R7, R6, #-1	;; grab return value
 	ADD R6, R6, #1	;; free space for arguments
 	STR R7, R5, #-3
-	JMP L137_mc
-L136_mc
+	JMP L122_mc
+L121_mc
 	CONST R7, #7
 	LDR R3, R5, #-2
 	MUL R7, R7, R3
@@ -1407,7 +1280,7 @@ L136_mc
 	LDR R7, R6, #-1	;; grab return value
 	ADD R6, R6, #1	;; free space for arguments
 	STR R7, R5, #-3
-L137_mc
+L122_mc
 	CONST R7, #7
 	LDR R3, R5, #-2
 	MUL R7, R7, R3
@@ -1429,9 +1302,9 @@ L137_mc
 	ADD R7, R7, R3
 	STR R7, R5, #-5
 	LDR R7, R5, #-5
-	CONST R3, #250
+	CONST R3, #100
 	CMP R7, R3
-	BRzp L138_mc
+	BRzp L123_mc
 	CONST R7, #7
 	LDR R3, R5, #-2
 	MUL R7, R7, R3
@@ -1442,13 +1315,27 @@ L137_mc
 	LDR R7, R5, #-1
 	CONST R3, #2
 	CMP R7, R3
-	BRnp L140_mc
+	BRnp L125_mc
+	LEA R7, mL
+	LDR R7, R7, #0
+	CONST R3, #0
+	CMP R7, R3
+	BRz L125_mc
 	LEA R7, mL
 	LDR R3, R7, #0
 	ADD R3, R3, #-1
 	STR R3, R7, #0
-	JMP L141_mc
-L140_mc
+	JMP L126_mc
+L125_mc
+	CONST R7, #10
+	LDR R3, R5, #-1
+	MUL R7, R7, R3
+	LEA R3, cities
+	ADD R7, R7, R3
+	LDR R7, R7, #0
+	CONST R3, #0
+	CMP R7, R3
+	BRz L127_mc
 	CONST R7, #10
 	LDR R3, R5, #-1
 	MUL R7, R7, R3
@@ -1457,27 +1344,28 @@ L140_mc
 	LDR R3, R7, #0
 	ADD R3, R3, #-1
 	STR R3, R7, #0
-L141_mc
-L138_mc
-L133_mc
+L127_mc
+L126_mc
+L123_mc
+L118_mc
 	LDR R7, R5, #-1
 	ADD R7, R7, #1
 	STR R7, R5, #-1
 	LDR R7, R5, #-1
 	CONST R3, #3
 	CMP R7, R3
-	BRn L132_mc
-L121_mc
+	BRn L117_mc
+L106_mc
 	LDR R7, R5, #-2
 	ADD R7, R7, #1
 	STR R7, R5, #-2
 	LDR R7, R5, #-2
 	CONST R3, #3
 	CMP R7, R3
-	BRn L120_mc
+	BRn L105_mc
 	CONST R7, #0
 	STR R7, R5, #-2
-L142_mc
+L129_mc
 	CONST R7, #7
 	LDR R3, R5, #-2
 	MUL R7, R7, R3
@@ -1486,17 +1374,17 @@ L142_mc
 	LDR R7, R7, #0
 	CONST R3, #0
 	CMP R7, R3
-	BRnp L146_mc
+	BRnp L133_mc
 	JSR rand16
 	LDR R7, R6, #-1	;; grab return value
 	ADD R6, R6, #0	;; free space for arguments
 	CONST R3, #3
 	MOD R7, R7, R3
-	STR R7, R5, #-8
-	LDR R7, R5, #-8
+	STR R7, R5, #-7
+	LDR R7, R5, #-7
 	CONST R3, #2
 	CMP R7, R3
-	BRnp L148_mc
+	BRnp L135_mc
 	CONST R7, #7
 	LDR R3, R5, #-2
 	MUL R7, R7, R3
@@ -1512,15 +1400,15 @@ L142_mc
 	ADD R7, R7, R3
 	CONST R3, #116
 	STR R3, R7, #6
-	JMP L149_mc
-L148_mc
+	JMP L136_mc
+L135_mc
 	CONST R7, #7
 	LDR R3, R5, #-2
 	MUL R7, R7, R3
 	LEA R3, incoming
 	ADD R7, R7, R3
 	CONST R3, #10
-	LDR R2, R5, #-8
+	LDR R2, R5, #-7
 	MUL R3, R3, R2
 	LEA R2, cities
 	ADD R3, R3, R2
@@ -1533,24 +1421,24 @@ L148_mc
 	ADD R7, R7, R3
 	CONST R3, #116
 	STR R3, R7, #6
-L149_mc
+L136_mc
 	JSR rand16
 	LDR R7, R6, #-1	;; grab return value
 	ADD R6, R6, #0	;; free space for arguments
-	STR R7, R5, #-7
+	STR R7, R5, #-6
 	CONST R7, #7
 	LDR R3, R5, #-2
 	MUL R7, R7, R3
 	LEA R3, incoming
 	ADD R7, R7, R3
-	LDR R3, R5, #-7
+	LDR R3, R5, #-6
 	STR R3, R7, #3
 	CONST R7, #7
 	LDR R3, R5, #-2
 	MUL R7, R7, R3
 	LEA R3, incoming
 	ADD R7, R7, R3
-	LDR R3, R5, #-7
+	LDR R3, R5, #-6
 	STR R3, R7, #1
 	CONST R7, #7
 	LDR R3, R5, #-2
@@ -1573,117 +1461,367 @@ L149_mc
 	ADD R7, R7, R3
 	CONST R3, #1
 	STR R3, R7, #0
-L146_mc
-L143_mc
+L133_mc
+L130_mc
 	LDR R7, R5, #-2
 	ADD R7, R7, #1
 	STR R7, R5, #-2
 	LDR R7, R5, #-2
 	CONST R3, #3
 	CMP R7, R3
-	BRn L142_mc
+	BRn L129_mc
+L104_mc
+	;; epilogue
+	ADD R6, R5, #0	;; pop locals off stack
+	ADD R6, R6, #3	;; free space for return address, base pointer, and return value
+	STR R7, R6, #-1	;; store return value
+	LDR R5, R6, #-3	;; restore base pointer
+	LDR R7, R6, #-2	;; restore return address
+	RET
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;multiplerCalc;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		.CODE
+		.FALIGN
+multiplerCalc
+	;; prologue
+	STR R7, R6, #-2	;; save return address
+	STR R5, R6, #-3	;; save base pointer
+	ADD R6, R6, #-3
+	ADD R5, R6, #0
+	;; function body
+	CONST R7, #3
+	LDR R3, R5, #3
+	SLL R3, R3, #1
+	CONST R2, #8
+	DIV R3, R3, R2
+	SUB R7, R7, R3
+L137_mc
+	;; epilogue
+	ADD R6, R5, #0	;; pop locals off stack
+	ADD R6, R6, #3	;; free space for return address, base pointer, and return value
+	STR R7, R6, #-1	;; store return value
+	LDR R5, R6, #-3	;; restore base pointer
+	LDR R7, R6, #-2	;; restore return address
+	RET
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;main;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		.CODE
+		.FALIGN
+main
+	;; prologue
+	STR R7, R6, #-2	;; save return address
+	STR R5, R6, #-3	;; save base pointer
+	ADD R6, R6, #-3
+	ADD R5, R6, #0
+	ADD R6, R6, #-5	;; allocate stack space for local variables
+	;; function body
 	CONST R7, #0
 	STR R7, R5, #-2
+	CONST R7, #1
+	STR R7, R5, #-4
+	LEA R7, L139_mc
+	ADD R6, R6, #-1
+	STR R7, R6, #0
+	JSR lc4_puts
+	ADD R6, R6, #1	;; free space for arguments
+	LEA R7, L140_mc
+	ADD R6, R6, #-1
+	STR R7, R6, #0
+	JSR lc4_puts
+	ADD R6, R6, #1	;; free space for arguments
+	JSR ResetGame
+	ADD R6, R6, #0	;; free space for arguments
+	JMP L142_mc
+L141_mc
+	CONST R7, #10
+	ADD R6, R6, #-1
+	STR R7, R6, #0
+	JSR lc4_getc_timer
+	LDR R7, R6, #-1	;; grab return value
+	ADD R6, R6, #1	;; free space for arguments
+	STR R7, R5, #-5
+	LDR R7, R5, #-5
+	CONST R3, #119
+	CMP R7, R3
+	BRnp L144_mc
+	LDR R7, R5, #-2
+	ADD R6, R6, #-1
+	STR R7, R6, #0
+	JSR multiplerCalc
+	LDR R7, R6, #-1	;; grab return value
+	ADD R6, R6, #1	;; free space for arguments
+	LEA R3, cursor
+	ADD R3, R3, #1
+	LDR R2, R3, #0
+	SUB R7, R2, R7
+	STR R7, R3, #0
+L144_mc
+	LDR R7, R5, #-5
+	CONST R3, #97
+	CMP R7, R3
+	BRnp L146_mc
+	LDR R7, R5, #-2
+	ADD R6, R6, #-1
+	STR R7, R6, #0
+	JSR multiplerCalc
+	LDR R7, R6, #-1	;; grab return value
+	ADD R6, R6, #1	;; free space for arguments
+	LEA R3, cursor
+	LDR R2, R3, #0
+	SUB R7, R2, R7
+	STR R7, R3, #0
+L146_mc
+	LDR R7, R5, #-5
+	CONST R3, #115
+	CMP R7, R3
+	BRnp L148_mc
+	LDR R7, R5, #-2
+	ADD R6, R6, #-1
+	STR R7, R6, #0
+	JSR multiplerCalc
+	LDR R7, R6, #-1	;; grab return value
+	ADD R6, R6, #1	;; free space for arguments
+	LEA R3, cursor
+	ADD R3, R3, #1
+	LDR R2, R3, #0
+	ADD R7, R2, R7
+	STR R7, R3, #0
+L148_mc
+	LDR R7, R5, #-5
+	CONST R3, #100
+	CMP R7, R3
+	BRnp L150_mc
+	LDR R7, R5, #-2
+	ADD R6, R6, #-1
+	STR R7, R6, #0
+	JSR multiplerCalc
+	LDR R7, R6, #-1	;; grab return value
+	ADD R6, R6, #1	;; free space for arguments
+	LEA R3, cursor
+	LDR R2, R3, #0
+	ADD R7, R2, R7
+	STR R7, R3, #0
 L150_mc
+	LDR R7, R5, #-5
+	CONST R3, #114
+	CMP R7, R3
+	BRnp L152_mc
+	LEA R7, mL
+	LDR R7, R7, #1
+	CONST R3, #0
+	CMP R7, R3
+	BRnp L154_mc
+	JMP L143_mc
+L154_mc
+	CONST R7, #0
+	STR R7, R5, #-1
+L156_mc
 	CONST R7, #7
-	LDR R3, R5, #-2
+	LDR R3, R5, #-1
+	MUL R7, R7, R3
+	LEA R3, outgoing
+	ADD R7, R7, R3
+	LDR R7, R7, #0
+	CONST R3, #0
+	CMP R7, R3
+	BRnp L160_mc
+	CONST R7, #7
+	LDR R3, R5, #-1
+	MUL R7, R7, R3
+	LEA R3, outgoing
+	ADD R7, R7, R3
+	LEA R3, cursor
+	LDR R3, R3, #0
+	STR R3, R7, #5
+	CONST R7, #7
+	LDR R3, R5, #-1
+	MUL R7, R7, R3
+	LEA R3, outgoing
+	ADD R7, R7, R3
+	LEA R3, cursor
+	LDR R3, R3, #1
+	STR R3, R7, #6
+	CONST R7, #7
+	LDR R3, R5, #-1
+	MUL R7, R7, R3
+	LEA R3, outgoing
+	ADD R7, R7, R3
+	LEA R3, mL
+	LDR R3, R3, #2
+	STR R3, R7, #3
+	CONST R7, #7
+	LDR R3, R5, #-1
+	MUL R7, R7, R3
+	LEA R3, outgoing
+	ADD R7, R7, R3
+	LEA R3, mL
+	LDR R3, R3, #2
+	STR R3, R7, #1
+	CONST R7, #7
+	LDR R3, R5, #-1
+	MUL R7, R7, R3
+	LEA R3, outgoing
+	ADD R7, R7, R3
+	CONST R3, #116
+	STR R3, R7, #2
+	CONST R7, #7
+	LDR R3, R5, #-1
+	MUL R7, R7, R3
+	LEA R3, outgoing
+	ADD R7, R7, R3
+	CONST R3, #116
+	STR R3, R7, #4
+	CONST R7, #7
+	LDR R3, R5, #-1
+	MUL R7, R7, R3
+	LEA R3, outgoing
+	ADD R7, R7, R3
+	CONST R3, #1
+	STR R3, R7, #0
+	LEA R7, mL
+	ADD R7, R7, #1
+	LDR R3, R7, #0
+	ADD R3, R3, #-1
+	STR R3, R7, #0
+	JMP L158_mc
+L160_mc
+L157_mc
+	LDR R7, R5, #-1
+	ADD R7, R7, #1
+	STR R7, R5, #-1
+	LDR R7, R5, #-1
+	CONST R3, #1
+	CMP R7, R3
+	BRn L156_mc
+L158_mc
+L152_mc
+	ADD R7, R5, #-2
+	ADD R6, R6, #-1
+	STR R7, R6, #0
+	JSR collision
+	ADD R6, R6, #1	;; free space for arguments
+	CONST R7, #0
+	STR R7, R5, #-1
+L162_mc
+	LDR R7, R5, #-4
+	ADD R6, R6, #-1
+	STR R7, R6, #0
+	CONST R7, #7
+	LDR R3, R5, #-1
 	MUL R7, R7, R3
 	LEA R3, incoming
 	ADD R7, R7, R3
 	ADD R6, R6, #-1
 	STR R7, R6, #0
 	JSR Move
-	ADD R6, R6, #1	;; free space for arguments
-L151_mc
-	LDR R7, R5, #-2
+	ADD R6, R6, #2	;; free space for arguments
+L163_mc
+	LDR R7, R5, #-1
 	ADD R7, R7, #1
-	STR R7, R5, #-2
-	LDR R7, R5, #-2
+	STR R7, R5, #-1
+	LDR R7, R5, #-1
 	CONST R3, #3
 	CMP R7, R3
-	BRn L150_mc
+	BRn L162_mc
 	CONST R7, #0
-	STR R7, R5, #-2
-L154_mc
+	STR R7, R5, #-1
+L166_mc
+	LDR R7, R5, #-2
+	ADD R6, R6, #-1
+	STR R7, R6, #0
+	JSR multiplerCalc
+	LDR R7, R6, #-1	;; grab return value
+	ADD R6, R6, #1	;; free space for arguments
+	ADD R6, R6, #-1
+	STR R7, R6, #0
 	CONST R7, #7
-	LDR R3, R5, #-2
+	LDR R3, R5, #-1
 	MUL R7, R7, R3
 	LEA R3, outgoing
 	ADD R7, R7, R3
 	ADD R6, R6, #-1
 	STR R7, R6, #0
 	JSR Move
-	ADD R6, R6, #1	;; free space for arguments
-L155_mc
-	LDR R7, R5, #-2
+	ADD R6, R6, #2	;; free space for arguments
+L167_mc
+	LDR R7, R5, #-1
 	ADD R7, R7, #1
-	STR R7, R5, #-2
-	LDR R7, R5, #-2
+	STR R7, R5, #-1
+	LDR R7, R5, #-1
 	CONST R3, #1
 	CMP R7, R3
-	BRn L154_mc
+	BRn L166_mc
 	CONST R7, #0
-	STR R7, R5, #-9
-	STR R7, R5, #-2
-L158_mc
-	LDR R7, R5, #-2
+	STR R7, R5, #-3
+	STR R7, R5, #-1
+L170_mc
+	LDR R7, R5, #-1
 	CONST R3, #2
 	CMP R7, R3
-	BRnp L162_mc
-	LDR R7, R5, #-9
+	BRnp L174_mc
+	LDR R7, R5, #-3
 	LEA R3, mL
 	LDR R3, R3, #0
 	ADD R7, R7, R3
-	STR R7, R5, #-9
-	JMP L163_mc
-L162_mc
-	LDR R7, R5, #-9
+	STR R7, R5, #-3
+	JMP L175_mc
+L174_mc
+	LDR R7, R5, #-3
 	CONST R3, #10
-	LDR R2, R5, #-2
+	LDR R2, R5, #-1
 	MUL R3, R3, R2
 	LEA R2, cities
 	ADD R3, R3, R2
 	LDR R3, R3, #0
 	ADD R7, R7, R3
-	STR R7, R5, #-9
-L163_mc
-L159_mc
-	LDR R7, R5, #-2
+	STR R7, R5, #-3
+L175_mc
+L171_mc
+	LDR R7, R5, #-1
 	ADD R7, R7, #1
-	STR R7, R5, #-2
-	LDR R7, R5, #-2
+	STR R7, R5, #-1
+	LDR R7, R5, #-1
 	CONST R3, #3
 	CMP R7, R3
-	BRn L158_mc
-	LDR R7, R5, #-6
+	BRn L170_mc
+	LDR R7, R5, #-2
 	CONST R3, #8
 	CMP R7, R3
-	BRnp L164_mc
+	BRnp L176_mc
 	CONST R7, #0
-	STR R7, R5, #-6
+	STR R7, R5, #-2
+	LDR R7, R5, #-4
+	ADD R7, R7, #1
+	STR R7, R5, #-4
 	JSR ResetGame
 	ADD R6, R6, #0	;; free space for arguments
-	JMP L165_mc
-L164_mc
-	LDR R7, R5, #-9
+	JMP L177_mc
+L176_mc
+	LDR R7, R5, #-3
 	CONST R3, #0
 	CMP R7, R3
-	BRnp L166_mc
-	LEA R7, L168_mc
+	BRz L180_mc
+	LEA R7, mL
+	LDR R7, R7, #0
+	CONST R3, #0
+	CMP R7, R3
+	BRnp L178_mc
+L180_mc
+	LEA R7, L181_mc
 	ADD R6, R6, #-1
 	STR R7, R6, #0
 	JSR lc4_puts
 	ADD R6, R6, #1	;; free space for arguments
-	JMP L101_mc
-L166_mc
+	JMP L143_mc
+L178_mc
 	JSR Redraw
 	ADD R6, R6, #0	;; free space for arguments
-L165_mc
-L100_mc
-	JMP L99_mc
-L101_mc
+L177_mc
+L142_mc
+	JMP L141_mc
+L143_mc
 	CONST R7, #0
-L96_mc
+L138_mc
 	;; epilogue
 	ADD R6, R5, #0	;; pop locals off stack
 	ADD R6, R6, #3	;; free space for return address, base pointer, and return value
@@ -1703,11 +1841,11 @@ mL 		.BLKW 11
 		.DATA
 cities 		.BLKW 20
 		.DATA
-L168_mc 		.STRINGZ "Game Over...\n"
+L181_mc 		.STRINGZ "Game Over...\n"
 		.DATA
-L98_mc 		.STRINGZ "WASD for Movement, R to Shoot\n"
+L140_mc 		.STRINGZ "WASD for Movement, R to Shoot\n"
 		.DATA
-L97_mc 		.STRINGZ "Welcome to Missile Command!\n"
+L139_mc 		.STRINGZ "Welcome to Missile Command!\n"
 		.DATA
 L21_mc 		.STRINGZ "\n"
 		.DATA

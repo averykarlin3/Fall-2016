@@ -678,6 +678,14 @@
 \2 The right hand side can be rewritten as a complex exponential, solving for the complex solution, and taking the part cooresponding to the sinusoidal
 \2 The trial solution for the right hand side of $ce^{kix}$ is then $A_0e^{kix}$, taking the cooresponding real or imaginary part
 \end{outline*}
+\subsection{Mechanical System Oscillations}
+\begin{outline*}
+\1 For some mass spring system at initial position $y_0$ at t = 0, the gravitational force and spring force are opposing, such that ma = mg - k$\delta Y$, where down has a positive sign convention
+\2 With a damping force proportional to the velocity, such that $F_d = -cv$, where c is the positive damping constant, and there may be some external force, F(t)
+\2 Thus, it is found that $m\frac{d^2y}{dt^2} = mg - k(y_0 + y) - c\frac{dy}{dt} + F(t)$, where $y(0) = y_0, y'(0) = v_0$ as the initial conditions
+\3 This is due to setting the system such that $mg = ky_0$, such that the initial position is the point of static equilibrium
+\3 This forms the second order linear differential equation, $y'' + \frac{c}{m}y' + \frac{k}{m}y = \frac{F(t)}{m}$
+\end{outline*}
 \subsection{Reduction of Order}
 \begin{outline*}
 \1 Reduction of order can identify the general solution for any second order linear differential equation from a single solution to the associated homogeneous equation

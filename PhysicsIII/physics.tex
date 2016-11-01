@@ -368,18 +368,23 @@
 \begin{outline*}
 \1 While interference is the superposition of several possible wave paths, diffraction is the interaction of a high number of wave paths, such that the interference fringes are a diffraction pattern
 \1 Fraunhofer diffraction is observed in the image plane of the source, where there is a large number of real optical paths with the same wavelength and amplitude
-\2 Fresnel diffraction are those with differing wavelengths, such that it and Bragg diffraction show interference and diffraction synonymous
+\2 Fresnel diffraction are those with close image planes, such that the range of angles is wider, such that it and Bragg diffraction show interference and diffraction synonymous
+\2 Due to the low range of angles, the angle can be viewed as fairly constant within a region, such that the amplitude change is negligable
 \1 This is analyzed, similar to Young, by a slit, but rather than several of infinitessimal width, a single slit of the same net width, projecting onto some image plane d away
 \2 As a result, when observed at some angle from the slit, $\theta$, each wave originating at position y within the slit travelled longer by $-ysin(\theta)$ from that of the center of the slit
 \3 Thus, the phasor for this point is $\psi(y) = \psi_0e^{-ikysin\theta}$, integrated for the width of the slit, such that $\psi(\theta) = a\psi_0sinc(\alpha)$ where $sinc(\alpha) = \frac{sin(\alpha)}{\alpha} = \frac{sin(\frac{ka}{2}sin(\theta))}{\frac{ka}{2}sin(\theta)}$, such that a is the width
-\1 This can also be applied in two dimensions, producing a circular aperture, or Airy pattern, defined by $I(r) = I_0(\frac{2J_1(\alpha)}{\alpha})^2$, where $J_1(\alpha)$ is a Bessel function of the first kind 
+\1 This can also be applied in two dimensions, producing a circular aperture, or Airy pattern, defined by $I(r) = I_0(\frac{2J_1(\alpha)}{\alpha})^2$, where $J_1(\alpha)$ is a Bessel function of the first kind
+\1 Fraunhofer diffraction can be viewed as a Fresnel curve, cut off at the ends, such that only a small middle portion is relevent, becoming flatting as the slit is narrowed or the distance is greater
+\2 On the other hand, a non-centered observation point cuts a different portion of the curve, forming a circular phasor formation, due to the angle range still being small, but at a greater magnitude angle
+\3 These phasor sums for each angle can be graphed, producing a cochleoid, or a spiral from the horizontal sum, shrinking toward the origin in a spiral as the angle magnitude decreases
+\2 As a result, unlike Fresnel diffraction which uses the entire curve, Fraunhofer diffraction gains a pure horizontal phasor near the middle
+\3 This results in the phasors becoming more circularly added as it progresses, such that the amplitude decreases proportionally to the angle
+\2 Increasing the width of the slit as a result causes more extreme reactions, such that the amplitude at the center is greater, but additional angles of the phasors change faster, creating a planar wave
 \end{outline*}
-\section{Notes}
+\section{Miscellaneous Wave Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier transform
 
-Common differential trick is separation of variables
-General wave equation - 
-$\frac{\partial^2 \psi}{\partial t^2} = v^2\frac{\partial^2 \psi}{\partial x^2}$ then $\frac{1}{v^2}\frac{1}{T}{d^2T}{dt^2} = \frac{1}{X}\frac{d^2X}{dx^2} = C$ if $\psi = X(x)T(t)$
+$\frac{\partial^2 \psi}{\partial t^2} = v^2\frac{\partial^2 \psi}{\partial x^2}$ is the general wave equation
 
 Since $sinkxsin\omega t = \frac{1}{2}(cos(kx - \omega t) - cos(kx + \omega t))$, it can be written as travelling waves
 For a string attached at the ends, since $\psi(0, t) = Asin\phi sin(\omega t + \theta) = 0$ for a standing wave, and $\psi(L, t) = Asin(kL + \phi)sin(\omega t + \theta) = 0$, kL is limited to specific values for a standing wave to occur
