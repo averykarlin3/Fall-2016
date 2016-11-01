@@ -1,40 +1,90 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;   OS - TRAP VECTOR TABLE   ;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; OS Code
+	.OS
+	.CODE
+	.ADDR x8000
 
-.OS
+; the TRAP vector table
+	JMP TRAP_GETC 			; x00
+	JMP TRAP_PUTC 			; x01
+	JMP TRAP_PUTS 			; x02
+	JMP BAD_TRAP	; x03
+	JMP BAD_TRAP	; x04
+	JMP BAD_TRAP    ; x05
+	JMP TRAP_DRAW_SPRITE 	; x06
+	JMP TRAP_DRAW_LINE		; x07
+  	JMP TRAP_GETC_TIMER     ; x08	
+  	JMP TRAP_LFSR_SET_SEED	; x09
+  	JMP TRAP_LFSR 			; X0A
+  	JMP BAD_TRAP	; x0B
+  	JMP BAD_TRAP	; x0C
+	JMP BAD_TRAP	; x0D
+	JMP BAD_TRAP	; x0E
+	JMP BAD_TRAP	; x0F
+	JMP BAD_TRAP	; x10
+	JMP BAD_TRAP	; x11
+	JMP BAD_TRAP	; x12
+	JMP BAD_TRAP	; x13
+	JMP BAD_TRAP	; x14
+	JMP BAD_TRAP	; x15
+	JMP BAD_TRAP	; x16
+	JMP BAD_TRAP	; x17
+	JMP BAD_TRAP	; x18
+	JMP BAD_TRAP	; x19
+	JMP BAD_TRAP	; x1A
+	JMP BAD_TRAP	; x1B
+	JMP BAD_TRAP	; x1C
+	JMP BAD_TRAP	; x1D
+	JMP BAD_TRAP	; x1E
+	JMP BAD_TRAP	; x1F
+	JMP BAD_TRAP	; x20
+	JMP BAD_TRAP	; x21
+	JMP BAD_TRAP	; x22
+	JMP BAD_TRAP	; x23
+	JMP BAD_TRAP	; x24
+	JMP BAD_TRAP	; x25
+	JMP TRAP_RESET_VMEM		; x26
+	JMP TRAP_BLT_VMEM		; x27
+
+;;; OS memory address constants
+USER_CODE_ADDR 	.UCONST x0000
+OS_CODE_ADDR 	.UCONST x8000
+
+OS_GLOBALS_ADDR .UCONST xA000
+OS_STACK_ADDR 	.UCONST xBFFF
+OS_VIDEO_ADDR 	.UCONST xC000
+				
+OS_KBSR_ADDR	.UCONST xFE00		; keyboard status register
+OS_KBDR_ADDR	.UCONST xFE02		; keyboard data register
+
+OS_ADSR_ADDR	.UCONST xFE04		; display status register
+OS_ADDR_ADDR	.UCONST xFE06		; display data register
+
+OS_TSR_ADDR	.UCONST xFE08			; timer register
+OS_TIR_ADDR	.UCONST xFE0A			; timer interval register
+
+OS_VDCR_ADDR .UCONST xFE0C			; video display control register
+
+OS_VIDEO_NUM_COLS .UCONST #128
+OS_VIDEO_NUM_ROWS .UCONST #124
+
+TIM_INIT 	.UCONST #100
+
+	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;   OS & TRAP IMPLEMENTATION   ;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	
 .CODE
-.ADDR x8000
-  ; TRAP vector table
-  JMP TRAP_GETC           ; x00
-  JMP TRAP_PUTC           ; x01
-  JMP TRAP_PUTS           ; x02
-  JMP TRAP_VIDEO_COLOR    ; x03
-  JMP TRAP_DRAW_PIXEL     ; x04
-  JMP TRAP_DRAW_LINE      ; x05
-  JMP TRAP_DRAW_SPRITE    ; x06
-  JMP TRAP_TIMER          ; x07
-  JMP TRAP_GETC_TIMER     ; x08
+.ADDR x8200
+OS_START
+	;; initialize timer
+	LC R0, TIM_INIT
+	LC R1, OS_TIR_ADDR
+	STR R0, R1, #0
 
-  OS_KBSR_ADDR .UCONST xFE00  ; alias for keyboard status reg
-  OS_KBDR_ADDR .UCONST xFE02  ; alias for keyboard data reg
-
-  OS_ADSR_ADDR .UCONST xFE04  ; alias for display status register
-  OS_ADDR_ADDR .UCONST xFE06  ; alias for display data register
-
-  OS_TSR_ADDR .UCONST xFE08 ; alias for timer status register
-  OS_TIR_ADDR .UCONST xFE0A ; alias for timer interval register
-
-  OS_VIDEO_NUM_COLS .UCONST #128
-  OS_VIDEO_NUM_ROWS .UCONST #124  
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;; OS DATA MEMORY ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-.DATA
-.ADDR xA000
-OS_GLOBALS_MEM
+	;; R7 <- User code address (x0000)
+	LC R7, USER_CODE_ADDR 
+	RTI			; RTI removes the privilege bit
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;; OS VIDEO MEMORY ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -42,391 +92,494 @@ OS_GLOBALS_MEM
 
 .DATA
 .ADDR xC000 
-OS_VIDEO_MEM .BLKW x3E00 ;128x124 words
+OS_VIDEO_MEM .BLKW x3E00
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;   OS & TRAP IMPLEMENTATION   ;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;; OS DATA MEMORY ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+.DATA
+.ADDR xA000
+;;;  LFSR value used by lfsr code
+LFSR .FILL 0x0001
+
+OS_GLOBALS_MEM	.BLKW x1000
+
+	
+.CODE
+BAD_TRAP
+	JMP OS_START 	; restart machine
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; TRAP_RESET_VMEM - In double-buffered video mode, resets the video
+;;; display, i.e., turns it to black.
+;;; Inputs - none
+;;; Outputs - none
+
+.CODE	
+TRAP_RESET_VMEM
+	LC R4, OS_VDCR_ADDR
+	CONST R5, #1
+	STR R5, R4, #0
+	RTI
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; TRAP_BLT_VMEM - In double-buffered video mode, copies the contents
+;;; of video memory to the video display.
+;;; Inputs - none
+;;; Outputs - none
 
 .CODE
-.ADDR x8200
-.FALIGN
-  ;; by default, return to usercode: PC=x0000
-  CONST R7, #0   ; R7 = 0
-  RTI            ; PC = R7 ; PSR[15]=0
+TRAP_BLT_VMEM
+	LC R4, OS_VDCR_ADDR
+	CONST R5, #2
+	STR R5, R4, #0
+	RTI
+	
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;   TRAP_GETC   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Function: Get a single character from keyboard
-;;; Inputs           - none
-;;; Outputs          - R0 = ASCII character from ASCII keyboard
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; TRAP_GETC - Check for a character from the keyboard
+;;; Inputs - none
+;;; Outputs - R0: the value of the KBSR - the MSB is 1 if a character was read
+;;; 	      R1: the value of the character read from the keyboard
 
 .CODE
 TRAP_GETC
-    LC R0, OS_KBSR_ADDR  ; R0 = address of keyboard status reg
-    LDR R0, R0, #0       ; R0 = value of keyboard status reg
-    BRzp TRAP_GETC       ; if R0[15]=1, data is waiting!
-                             ; else, loop and check again...
+	LC R4, OS_KBSR_ADDR
+	LDR R0, R4, #0		; Read the KBSR into R0
+	BRzp GETC_END		; Check if the MSB is zero
 
-    ; reaching here, means data is waiting in keyboard data reg
+	LC R4, OS_KBDR_ADDR
+	LDR R1, R4, #0		; Read the character into R1
+	
+GETC_END
 
-    LC R0, OS_KBDR_ADDR  ; R0 = address of keyboard data reg
-    LDR R0, R0, #0       ; R0 = value of keyboard data reg
-    RTI                  ; PC = R7 ; PSR[15]=0
+	RTI
+	
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;   TRAP_PUTC   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Function: Put a single character out to ASCII display
-;;; Inputs           - R0 = ASCII character to write to ASCII display
-;;; Outputs          - none
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; TRAP_PUTC - Put a character on the console
+;;; Inputs - R0: ASCII character value to be output
+;;; Outputs - none
 
 .CODE
 TRAP_PUTC
-  LC R1, OS_ADSR_ADDR 	; R1 = address of display status reg
-  LDR R1, R1, #0    	; R1 = value of display status reg
-  BRzp TRAP_PUTC    	; if R1[15]=1, display is ready to write!
-		    	    ; else, loop and check again...
+	LC R4, OS_ADSR_ADDR
+	LDR R1, R4, #0
+	BRzp TRAP_PUTC		; Loop while the MSB is zero
 
-  ; reaching here, means console is ready to display next char
-
-  LC R1, OS_ADDR_ADDR 	; R1 = address of display data reg
-  STR R0, R1, #0    	; R1 = value of keyboard data reg (R0)
-  RTI			; PC = R7 ; PSR[15]=0
+	LC R4, OS_ADDR_ADDR
+	STR R0, R4, #0		; Write out the character
+	
+	RTI
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;   TRAP_PUTS   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Function: Put a string of characters out to ASCII display
-;;; Inputs           - R0 = Address for first character
-;;; Outputs          - none
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; TRAP_PUTS - for writing null-terminated string to ASCII display
+;;; Inputs - R0: address of first character in string
+;;; Outputs - none
 
 .CODE
 TRAP_PUTS
-	TEMP .UCONST xA000 ;Store register
-	LC R3 TEMP
-	STR R0 R3 #0
-	LDR R1 R0 #0 ;Get character
-	CMPI R1 #0 ;Check if null character
-	BRz END
-	LC R3 OS_ADSR_ADDR ;Load constants
-	LC R5 OS_ADDR_ADDR
-	CONST R4 x0
-	HICONST R4 x80
-LOOP	LDR R2 R3 #0 ;Check if ready to print
-	CMP R2 R4
-	BRz ENDLOOP
-ENDLOOP
-	STR R1 R5 #0 ;Print character
-	ADD R0 R0 #1 ;Move to next character
-	BRnzp TRAP_PUTS
-END
-	LC R3 TEMP
-	LDR R0 R3 #0	;Restore register
+	LDR R1, R0, #0		; Load the next character into R1
+	BRz END_TRAP_PUTS	; Check for the zero terminating character
+
+	LC R2, OS_ADSR_ADDR
+CHECK_ADSR
+	LDR R3, R2, #0
+	BRzp CHECK_ADSR		; Loop while ADSR[15] == 0 ie output not ready
+	LC R2, OS_ADDR_ADDR
+	STR R1, R2, #0		; Write out the character
+	ADD R0, R0, #1		; Increment the pointer R0
+	BRnzp TRAP_PUTS		; Go back to the top 
+	
+END_TRAP_PUTS
 	RTI
 
-;;;;;;;;;;;;;;;;;;;;;;;;;   TRAP_VIDEO_COLOR   ;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Function: Set all pixels of VIDEO display to a certain color
-;;; Inputs           - R0 = color to set all pixels to
-;;; Outputs          - none
 
-.CODE
-TRAP_VIDEO_COLOR
-	CONST R1 x00
-	HICONST R1 xC0 ;Get initial pixel
-	LC R3 OS_VIDEO_NUM_COLS ;Load constants
-	LC R4 OS_VIDEO_NUM_ROWS
-	MUL R2 R3 R4 ;Get first post-final pixel
-	ADD R2 R1 R2
-VLOOP	STR R0 R1 #0 ;Add value to pixel
-	ADD R1 R1 #1 ;Move to next pixel
-	CMP R1 R2 ;Check if done
-	BRz ENDV
-	BRnzp VLOOP
-ENDV
-RTI       ; PC = R7 ; PSR[15]=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; TRAP_GETC_TIMER - for getting single character from keyboard
+;;; Inputs - R0: time to wait
+;;; Outputs - R0: character from keyboard or 0 otherwise
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;   TRAP_DRAW_PIXEL   ;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Function: Draw point on video display
-;;; Inputs           - R0 = row to draw on (y)
-;;;                  - R1 = column to draw on (x)
-;;;                  - R2 = color to draw with
-;;; Outputs          - none
-
-.CODE
-TRAP_DRAW_PIXEL
-  LEA R3, OS_VIDEO_MEM       ; R3=start address of video memory
-  LC  R4, OS_VIDEO_NUM_COLS  ; R4=number of columns
-  
-  CMPIU R1, #0    	     ; Checks if x coord from input is > 0
-  BRn END_PIXEL
-  CMPIU R1, #127    	     ; Checks if x coord from input is < 127
-  BRp END_PIXEL
-  CMPIU R0, #0    	     ; Checks if y coord from input is > 0
-  BRn END_PIXEL
-  CMPIU R0, #123    	     ; Checks if y coord from input is < 123
-  BRp END_PIXEL
-  
-  MUL R4, R0, R4      	     ; R4= (row * NUM_COLS)
-  ADD R4, R4, R1      	     ; R4= (row * NUM_COLS) + col
-  ADD R4, R4, R3      	     ; Add the offset to the start of video memory
-  STR R2, R4, #0      	     ; Fill in the pixel with color from user (R2)
-  
-END_PIXEL
-	CONST R3 x0		;Check for subtrap
-	HICONST R3 x80
-	AND R3 R3 R7
-	CMPI R3 #0
-	BRnp RETURN_TRAP
-	RTI       		     ; PC = R7 ; PSR[15]=0
-RETURN_TRAP
-	RET
-
-;;;;;;;;;;;;;;;;;;;;;;;;;   TRAP_DRAW_LINE   ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Function: Draws line on the video screen
-;;; Inputs           - R0 = x coordinate of start point
-;;; Inputs           - R1 = y coordinate of start point
-;;; Inputs           - R2 = x coordinate of the end point
-;;; Inputs           - R3 = y coordinate of the end point
-;;; Inputs           - R4 = color of line
-;;; Outputs          - none
-.CODE
-TRAP_DRAW_LINE
-	CONST R6 x0	;Initial value for restoration
-	HICONST R6 xA2
-	STR R0 R6 #0
-	STR R1 R6 #1
-	STR R2 R6 #2
-	STR R3 R6 #3
-	STR R4 R6 #4
-	CONST R6 x0
-	HICONST R6 xA1 ;Store initial register values
-	STR R0 R6 #0
-	STR R1 R6 #1
-	STR R2 R6 #2
-	STR R3 R6 #3
-	STR R4 R6 #4
-	STR R7 R6 #5
-	SUB R1 R3 R1 ;Check if y1-y0 > x1-x0
-	SUB R0 R2 R0
-	CMP R1 R0
-	BRp SWAP
-	CONST R5 #0
-	STR R5 R6 #6 ;ST value storage
-POSTSWAP1
-	LDR R0 R6 #0 ;Check if x0 > x1
-	LDR R1 R6 #2
-	CMP R0 R1
-	BRp SWAP2
-POSTSWAP2
-	LDR R0 R6 #0 ;Calculate Delta X
-	LDR R1 R6 #2
-	SUB R0 R1 R0
-	STR R0 R6 #10 ;Delta X Storage
-	LDR R0 R6 #1 ;Calculate Delta Y
-	LDR R1 R6 #3
-	CMP R1 R0
-	BRn ABS
-	SUB R0 R1 R0
-	CONST R1 #1
-POSTABS
-	STR R0 R6 #11 ;Delta Y Storage
-	STR R1 R6 #12 ;Y Step Storage
-	CONST R5 #0 ;Initialize R5
-	STR R5 R6 #15 ;Error Storage
-	LDR R1 R6 #0  ;For Loop prep
-	LDR R0 R6 #1
-LOOPL	
-	LDR R3 R6 #2
-	CMP R1 R3     ;Check if For loop complete
-	BRp POSTLOOP
-	LDR R4 R6 #6 ;Load ST
-	STR R1 R6 #13 ;Store Current X
-	STR R0 R6 #14 ;Store Current Y
-	LDR R2 R6 #4 ;Load color
-	CMPI R4 #0 ;Check if ST (plot (y, x))
-	BRp ST
-	LEA R4 TRAP_DRAW_PIXEL
-	JSRR R4 ;Draw pixel (x, y)
-POSTST
-	LDR R5 R6 #15 ;Add Delta Y to Error
-	LDR R3 R6 #11
-	ADD R5 R5 R3
-	STR R5 R6 #15
-	ADD R5 R5 R5 ;Check if 2*error >= Delta X
-	LDR R4 R6 #10
-	CMP R5 R4
-	BRzp IF
-POSTIF
-	LDR R1 R6 #13
-	ADD R1 R1 #1 ;Move to next x value
-	STR R1 R6 #13
-	BR LOOPL
-POSTLOOP
-	LDR R7 R6 #5 ;Restore R7
-	CONST R6 x0	;Restore initial values
-	HICONST R6 xA2
-	STR R0 R6 #0
-	STR R1 R6 #1
-	STR R2 R6 #2
-	STR R3 R6 #3
-	STR R4 R6 #4
-	BR ENDL
-IF
-	LDR R0 R6 #14
-	LDR R4 R6 #12
-	ADD R0 R0 R4 ;y = y + ystep
-	LDR R5 R6 #15
-	LDR R4 R6 #10 
-	SUB R5 R5 R4 ;error = error - deltax
-	STR R5 R6 #15
-	STR R0 R6 #14
-	BR POSTIF
-ST		;Plot (y, x) if ST
-	LDR R0 R6 #13
-	LDR R1 R6 #14
-	LEA R4 TRAP_DRAW_PIXEL
-	JSRR R4
-	LDR R0 R6 #14
-	LDR R1 R6 #13
-	BR POSTST
-ABS
-	SUB R0 R0 R1
-	CONST R1 #-1
-	BR POSTABS
-SWAP			;Swap x0/y0 and x1/y1
-	LDR R0 R6 #0
-	LDR R1 R6 #1
-	STR R1 R6 #0
-	STR R0 R6 #1
-	LDR R0 R6 #2
-	LDR R1 R6 #3
-	STR R1 R6 #2
-	STR R0 R6 #3
-	CONST R5 #1
-	STR R5 R6 #6 ;ST Storage
-	BR POSTSWAP1
-SWAP2			;Swap x0/x1 and y0/y1
-	LDR R0 R6 #0
-	LDR R1 R6 #2
-	STR R1 R6 #0
-	STR R0 R6 #2
-	LDR R0 R6 #1
-	LDR R1 R6 #3
-	STR R1 R6 #1
-	STR R0 R6 #3
-	BR POSTSWAP2
-ENDL	
-	RTI       		; PC = R7 ; PSR[15]=0
-
-
-;;;;;;;;;;;;;;;;;;;;;;;   TRAP_DRAW_SPRITE   ;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Function: Draws a circle on the video screen at a specific loc.
-;;; Inputs           - R0 = x coordinate of top left corner of sprite
-;;; Inputs           - R1 = y coordinate of top left corner of box
-;;; Inputs           - R2 = color of the sprite
-;;; Inputs           - R3 = starting address in data memory of sprite pattern
-;;; Outputs          - none
-
-.CODE
-TRAP_DRAW_SPRITE
-	ADD R4 R0 #0 ;Switch x and y coordinates
-	ADD R0 R1 #0
-	ADD R1 R4 #0
-	STORAGE .UCONST xA200 ;Store initial registers
-	LC R6 STORAGE
-	STR R0 R6 x0 ;Y
-	STR R1 R6 x1 ;X
-	STR R2 R6 x2 ;Color
-	STR R7 R6 x3 ;Old Address
-	CONST R2 x01
-	STR R2 R6 x4 ;Checker
-	STR R3 R6 x5 ;Address
-YLOOP
-	LDR R4 R6 x0 ;Check if done with loop
-	ADD R4 R4 #8
-	CMP R4 R0
-	BRz ENDY
-XLOOP
-	LDR R4 R3 #0 ;Load string for line
-	LDR R5 R6 x1 ;Check if done with loop
-	ADD R5 R5 #8
-	CMP R5 R1
-	BRz ENDX
-	LDR R2 R6 x4 ;Check if bit is filled
-	AND R2 R4 R2
-	CMPI R2 #0
-	BRz POSTPIXEL
-	LDR R2 R6 x2	;Color bit
-	TRAP x04
-POSTPIXEL
-	LDR R3 R6 x5
-	ADD R1 R1 #1 ;Move to next pixel
-	LDR R2 R6 x4 ;Move to next string bit
-	SLL R2 R2 #1
-	STR R2 R6 x4
-	BR XLOOP
-ENDX
-	ADD R0 R0 #1 ;Move to next line
-	ADD R3 R3 #1
-	STR R3 R6 x5
-	LDR R1 R6 x1
-	CONST R2 x01
-	STR R2 R6 x04
-	BR YLOOP
-ENDY
-	ADD R3 R3 #-8
-	LDR R0 R6 x0
-	LDR R1 R6 x1
-	LDR R2 R6 x2
-	LDR R7 R6 x3
-	RTI       ; PC = R7 ; PSR[15]=0
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;   TRAP_TIMER   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Function: 
-;;; Inputs           - R0 = time to wait in milliseconds
-;;; Outputs          - none
-
-.CODE
-TRAP_TIMER
-  LC R1, OS_TIR_ADDR 	; R1 = address of timer interval reg
-  STR R0, R1, #0    	; Store R0 in timer interval register
-
-COUNT
-  LC R1, OS_TSR_ADDR  	; Save timer status register in R1
-  LDR R1, R1, #0    	; Load the contents of TSR in R1
-  BRzp COUNT    	; If R1[15]=1, timer has gone off!
-
-  ; reaching this line means we've finished counting R0 
-    
-  RTI       		; PC = R7 ; PSR[15]=0
-  
-  
-;;;;;;;;;;;;;;;;;;;;;;;   TRAP_GETC_TIMER   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Function: Get a single character from keyboard
-;;; Inputs           - R0 = time to wait
-;;; Outputs          - R0 = ASCII character from keyboard (or NULL)
 
 .CODE
 TRAP_GETC_TIMER
-	LC R6 OS_TIR_ADDR ;Store wait time in timer
-	STR R0 R6 #0
-	LC R5 OS_KBSR_ADDR ;Load Constants
-	LC R4 OS_KBDR_ADDR
-	LC R3 OS_TSR_ADDR
-	CONST R2 #0
-	HICONST R2 x80
-LOOPT
-	LDR R0 R3 #0 ;Check if timer done
-	BRnp NULL 
-	LDR R0 R5 #0 ;Check if character ready
-	BRnp CHAR
-	BR LOOPT
-NULL
-	CONST R0 #0 ;Insert null character if timeout
-	BR ENDT
-CHAR
-	LDR R0 R4 #0 ;Insert typed character
-ENDT
-RTI                  ; PC = R7 ; PSR[15]=0
+	LC R1, OS_TIR_ADDR	; R1 = address of timer
+	STR R0, R1, #0		; Store time to wait in timer interval
+
+COUNT
+	LC R2, OS_KBSR_ADDR ; R2 = address of keyboard status
+	LDR R2, R2, #0		; R2 = value of keyboard status
+	BRn KEYFOUND
+
+	; if no key found
+	LC R1, OS_TSR_ADDR 	; R1 = address of timer status
+	LDR R1, R1, #0 		; R1 = value of TSR
+	BRzp COUNT 			; if the timer is still not completed
+
+	CONST R0 #0 		; if timer expired and no key found, store 0
+	BRnzp END_TRAP_GETC_TIMER
+
+KEYFOUND
+	LC R0 OS_KBDR_ADDR 	; R0 = address of keyboard data
+	LDR R0, R0, #0 		; R0 = value of keyboard data
+	BRnzp END_TRAP_GETC_TIMER
+
+END_TRAP_GETC_TIMER
+	RTI
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; TRAP_LFSR - returns a shifted bit pattern
+;;; Inputs - none
+;;; Outputs - R0: shifted bit pattern
+
+.CODE
+TRAP_LFSR
+	LEA R3, LFSR
+	LDR R0, R3, 0
+
+	SLL R1, R0, 2		; move bit 13 to MSB
+	XOR R2, R0, R1		; xor with bit 15
+
+	SLL R1, R0, 3		; move bit 12 to MSB
+	XOR R2, R1, R2
+
+	SLL R1, R0, 5		; move bit 10 to MSB
+	XOR R2, R1, R2
+
+	SRL R2, R2, 15		; Shift right logical move MSB to LSB and zeros elsewhere
+
+	SLL R0, R0, 1		; shift left by one bit
+	OR  R0, R0, R2		; add in the LSB - note upper bits of R2 are all 0
+
+	STR R0, R3, 0		; update the LFSR in memory
+
+	RTI
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; TRAP_LFSR_SET_SEED - sets the seed value used by TRAP_LFSR
+;;; Inputs - R0: initial value
+;;; Outputs - none
+
+.CODE
+TRAP_LFSR_SET_SEED
+	LEA R3, LFSR
+
+	STR R0, R3, #0
+
+	RTI
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; TRAP_DRAW_SPRITE - draws an 8x8 sprite on the screen. 
+;;; Inputs - R0: video column (left) 
+;;;          R1: video row (upper) 
+;;;          R2: color 
+;;;          R3: Address of sprite bitmap - an array of 8 words 
+;;; Outputs - video memory will be updated to include sprite of approriate color 
+
+.CODE 
+TRAP_DRAW_SPRITE 
+
+;; STORE R0, R1 and R7 
+LEA R6, OS_GLOBALS_MEM 
+STR R0, R6, #0 
+STR R1, R6, #1 
+STR R7, R6, #2 
+
+
+;;; for (i=0; i < 8; ++i, ++ptr) { 
+;;; temp = i + start_row; 
+;;; if (temp < 0) continue; 
+;;; if (temp >= NUM_ROWS) end; 
+;;; byte = *ptr & 0xFF; 
+;;; col = start_col + 7; 
+;;; temp = VIDEO_MEM + (temp * 128) + col 
+;;; do { 
+;;; if (col >= 0 && col < NUM_COLS && byte & 0x1) 
+;;; *temp = color 
+;;; --col; 
+;;; --temp; 
+;;; byte >>= 1; 
+;;; } while (byte) 
+;;; } 
+;;; 
+;;; Register Allocation 
+;;; R0 - i 
+;;; R1 - temp 
+;;; R2 - color 
+;;; R3 - ptr 
+;;; R4 - byte 
+;;; R5 - col 
+;;; R6 - scratch 
+;;; R7 - scratch 
+
+
+	CONST R0, #0 ; i = 0 
+	JMP TRAP_DRAW_SPRITE_F12 
+
+TRAP_DRAW_SPRITE_F11 
+
+	LEA R6, OS_GLOBALS_MEM 
+	LDR R1, R6, #1 ; load start_row 
+	ADD R1, R1, R0 ; temp = i + start_row 
+	BRn TRAP_DRAW_SPRITE_F13 ; temp < 0 continue 
+	LC R7 OS_VIDEO_NUM_ROWS 
+	CMP R1, R7 
+	BRzp TRAP_DRAW_SPRITE_END ; (temp >= NUM_ROWS) end 
+	LDR R4, R3, #0 ; byte = *ptr 
+	CONST R7, 0xFF 
+	AND R4, R4, R7 ; byte = byte & xFF 
+
+	LEA R6, OS_GLOBALS_MEM 
+	LDR R5, R6, #0 ; load start_col 
+	ADD R5, R5, #7 ; col = start_col + 7 
+
+	SLL R1, R1, #7 ; temp = temp * 128 
+	ADD R1, R1, R5 ; temp = temp + col 
+	LEA R7, OS_VIDEO_MEM 
+	ADD R1, R1, R7 ; temp = temp + OS_VIDEO_MEM 
+
+	LC R7, OS_VIDEO_NUM_COLS 
+
+TRAP_DRAW_SPRITE_W1 
+
+	CMPI R5, #0 
+	BRn TRAP_DRAW_SPRITE_W2 ; col < 0 continue 
+
+	CMP R5, R7 
+	BRzp TRAP_DRAW_SPRITE_W2 ; col >= NUM_COLS continue 
+
+	AND R6, R4, 0x01 
+	BRz TRAP_DRAW_SPRITE_W2 ; byte & 0x1 == 0 continue 
+
+	STR R2, R1, 0 ; *temp = color 
+
+TRAP_DRAW_SPRITE_W2 
+	
+	ADD R5, R5, #-1 ; --col 
+	ADD R1, R1, #-1 ; --temp 
+	SRL R4, R4, #1 ; byte >>= 1 
+
+	BRnp TRAP_DRAW_SPRITE_W1 
+
+TRAP_DRAW_SPRITE_F13 
+	ADD R0, R0, #1 ; ++i 
+	ADD R3, R3, #1 ; ++ptr 
+TRAP_DRAW_SPRITE_F12 
+	CMPI R0, #8 
+	BRn TRAP_DRAW_SPRITE_F11 
+
+TRAP_DRAW_SPRITE_END 
+	LEA R6, OS_GLOBALS_MEM 
+	LDR R7, R6, #2 
+RTI
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; TRAP_DRAW_LINE - draws a rectangular block on the screen.
+;;; Inputs - R0: (x0)
+;;;   		 R1: (y0)
+;;;   		 R2: (x1)
+;;;   		 R3: (y1)
+;;;   		 R4: color
+;;; Outputs - video memory will be updated to place block of approriate color
+
+.CODE
+TRAP_DRAW_LINE
+
+	;; store R7 into OS_GLOBALS_MEM at offset 0, so we can use R7 to access data
+	LEA R6, OS_GLOBALS_MEM
+	STR R7, R6, #0 	
+	LEA R7, OS_GLOBALS_MEM
+	STR R4, R6, #1 ; store color at offset 1
+
+	;; Check if x0 or y0 is <= 0 or x0 or x > OS_VIDEO_NUM_COLS or y > OS_VIDEO_NUM_ROWS
+	
+	LC R5, OS_VIDEO_NUM_COLS
+	LC R6, OS_VIDEO_NUM_ROWS
+
+	CMPI R0, #0
+	BRn TRAP_DRAW_LINE_END
+	CMPI R1, #0
+	BRn TRAP_DRAW_LINE_END
+	CMP R0, R6
+	BRzp TRAP_DRAW_LINE_END
+	CMP R1, R5
+	BRzp TRAP_DRAW_LINE_END
+
+	CMPI R2, #0
+	BRn TRAP_DRAW_LINE_END
+	CMPI R3, #0
+	BRn TRAP_DRAW_LINE_END
+	CMP R2, R6
+	BRzp TRAP_DRAW_LINE_END
+	CMP R3, R5
+	BRzp TRAP_DRAW_LINE_END
+
+	;; abs(x) and abs(y)
+	;; R5 = w = x1 - x0
+	SUB R5, R2, R0
+	;;store w in OS_GLOBALS_MEM at offset 2
+	STR R5, R7, #2
+	;; R6 = h = y1 - y0
+	SUB R6, R3, R1
+	;;store h in OS_GLOBALS_MEM at offset 3
+	STR R6, R7, #3
+	
+	;R6 = dx1
+	AND R6, R6, #0 
+	CMPI R5, #0
+	BRp TRAP_DRAW_LINE_DX1_POSITIVE
+	BRz TRAP_DRAW_LINE_DX1_END
+	ADD R6, R6, #-1
+	JMP TRAP_DRAW_LINE_DX1_END
+TRAP_DRAW_LINE_DX1_POSITIVE
+	ADD R6, R6, #1
+TRAP_DRAW_LINE_DX1_END
+	;;store dx1 in OS_GLOBALS_MEM at offset 4
+	STR R6, R7, #4
+
+	LDR R5, R7, #3
+	;R6 = dy1
+	AND R6, R6, #0 
+	CMPI R5, #0
+	BRp TRAP_DRAW_LINE_DY1_POSITIVE
+	BRz TRAP_DRAW_LINE_DY1_END
+	ADD R6, R6, #-1
+	JMP TRAP_DRAW_LINE_DY1_END
+TRAP_DRAW_LINE_DY1_POSITIVE
+	ADD R6, R6, #1
+TRAP_DRAW_LINE_DY1_END
+	;;store dy1 in OS_GLOBALS_MEM at offset 5
+	STR R6, R7, #5
+
+	LDR R5, R7, #2
+	;R6 = dx1
+	AND R6, R6, #0 
+	CMPI R5, #0
+	BRp TRAP_DRAW_LINE_DX2_POSITIVE
+	BRz TRAP_DRAW_LINE_DX2_END
+	ADD R6, R6, #-1
+	JMP TRAP_DRAW_LINE_DX2_END
+TRAP_DRAW_LINE_DX2_POSITIVE
+	ADD R6, R6, #1
+TRAP_DRAW_LINE_DX2_END
+	;;store dx2 in OS_GLOBALS_MEM at offset 6
+	STR R6, R7, #6
+
+	;;longest = math.abs(w)
+	LDR R5, R7, #2
+	CMPI R5, #0
+	BRzp TRAP_DRAW_LINE_ABS_W_END
+	NOT R5, R5
+TRAP_DRAW_LINE_ABS_W_END
+	;;store longest in OS_GLOBALS_MEM at offset 8
+	STR R5, R7, #8
+
+	;;shortest = math.abs(h)
+	LDR R5, R7, #3
+	CMPI R5, #0
+	BRzp TRAP_DRAW_LINE_ABS_H_END
+	NOT R5, R5
+TRAP_DRAW_LINE_ABS_H_END
+	;;store shortest in OS_GLOBALS_MEM at offset 9
+	STR R5, R7, #9
+
+	LDR R5, R7, #8
+	LDR R6, R7, #9
+	;;longest<shortest
+	AND R4, R4, #0
+	STR R4, R7, #7
+	CMP R5, R6
+	BRp TRAP_DRAW_LINE_LONGEST_LESS
+	STR R5, R7, #9
+	STR R6, R7, #8
+	LDR R5, R7, #3
+	AND R6, R6, #0 ; if(h < 0) dy = -1
+	CMPI R5, #0
+	BRp TRAP_DRAW_LINE_H_GREATER
+	BRz TRAP_DRAW_LINE_H_END
+	ADD R6, R6, #-1
+	JMP TRAP_DRAW_LINE_H_END
+TRAP_DRAW_LINE_H_GREATER
+	ADD R6, R6, #1
+TRAP_DRAW_LINE_H_END
+	;;store dy2 in OS_GLOBALS_MEM at offset 7
+	STR R6, R7, #7
+	LDR R6, R7, #6
+	AND R6, R6, #0
+	STR R6, R7, #6
+TRAP_DRAW_LINE_LONGEST_LESS
+
+	;;store numerator in OS_GLOBALS_MEM at offset 10
+	LDR R5, R7, #8
+	SRL R6, R5, #1 ; numerator
+	STR R6, R7, #10
+
+	;for(int i =; i < longest; i++)
+	AND R3, R3, #0
+
+TRAP_DRAW_LINE_LOOP
+	;i <= longest
+	LDR R5, R7, #8
+	CMP R3, R5
+	BRp TRAP_DRAW_LINE_END
+
+	;;setpixel(x0, y0) R0 = x0, R1 = y0
+
+	AND R6, R6, #0
+	SLL R6, R1, #7		; R6 = R1 << 7 = R1*128
+	LEA R5, OS_VIDEO_MEM
+	ADD R6, R6, R5		; OS_VIDEO_MEM = y0 * 128 + x0
+	ADD R6, R6, R0
+
+	LDR R4, R7, #1		; get color
+
+	STR R4, R6, #0 		; OS_VIDEO_MEM = color
+
+	;numerator += shortest
+	LDR R6, R7, #10 ; numerator
+	LDR R5, R7, #9 ; shortest
+
+	ADD R6, R6, R5
+	STR R6, R7, #10
+
+	LDR R5, R7, #8 ; longest
+	; numeator < longest
+	CMP R6, R5
+	BRn TRAP_DRAW_LINE_NUMERATOR_LE_LONGEST
+	;numeator -= longest
+	SUB R6, R6, R5
+	STR R6, R7, #10
+
+	;x += dx1
+	LDR R5, R7, #4
+	ADD R0, R0, R5
+	;y += dy1
+	LDR R6, R7, #5
+	ADD R1, R1, R6
+	JMP TRAP_DRAW_LINE_NUMERATOR_LE_LONGEST_END
+TRAP_DRAW_LINE_NUMERATOR_LE_LONGEST
+	;x += dx1
+	LDR R5, R7, #6
+	ADD R0, R0, R5
+	;y += dy1
+	LDR R6, R7, #7
+	ADD R1, R1, R6
+TRAP_DRAW_LINE_NUMERATOR_LE_LONGEST_END
+	ADD R3, R3, #1
+	JMP TRAP_DRAW_LINE_LOOP
+
+TRAP_DRAW_LINE_END
+	LDR R7, R7, #0
+	RTI
+

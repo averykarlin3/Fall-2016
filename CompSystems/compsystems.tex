@@ -559,6 +559,18 @@
 \2 All functions have an implicit return statement, with an undefined/void return value
 \2 The expression is automatically converted to the type which the function is defined to return
 \2 ``return;'' is able to be used to terminate a function, without returning any value
+\1 I/O functions are within <stdio.h>, consisting of ``int getchar()'' to read the next character from the standard input device/stdin
+\2 It uses the buffered I/O in the keyboard, taking in all prior characters when enter is pressed, giving each from the buffer when requested
+\2 ``putchar(int c)'' prints a character into the standard output often buffered, such that it isn't flushed until a newline is placed in the output stream
+\2 ``int printf(char* format\_string, var1, var2)'' prints the format string, filling each conversion specification with the variable listed, returning the number of characters or a negative value for error
+\3 \%d is signed decimal, \%o is octal, \%x is lowercase hex, \%X is uppercase hex, \%c is character, \%e is lowercase exponential notation, \%E is uppercase exponential, \%s is a string, \%u is unsigned integer, \%f is floating
+\2 ``int scanf(char* format\_string, *ptr1, *ptr2)'' takes a stdin input based on the format string, putting it into each pointer given, returning the number of variables assigned
+\3 It uses the same specifiers as printf, with the added \%lf for a double floating point
+\1 String functions are stored within <string.h>, including ``int strcmp(char* A, char* B)'' and ``char* strcpy(char* A, char* B)''
+\2 Strcmp checks if each character is identical in A and B, at which point when a character is greater in ASCII, if it is in A, it returns >0, in B <0, if equal, 0
+\2 Strcpy copies every character from B into A
+\1 Math functions are within <math.h>, each taking doubles and returning doubles, including sin, cos, tan, exp (e^x), log (ln), sqrt, and pow(x, y) (x^y)
+\1 Utility functions are within <stdlib.h>
 \end{outline*}
 \section{Chapter 12 - Variables and Operators}
 \begin{outline*}

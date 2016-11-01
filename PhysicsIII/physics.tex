@@ -34,7 +34,7 @@
 	urlcolor=black
 }
 
-\newcommand{\sepitem}{0pt} %Added room between items on the list, not including a list and its sublist
+\newcommand{\sepitem}{0pt} %Added room between items on the list, not including a list and itsb sublist
 \newcommand{\seppar}{1pt} %Between items and lists overall
 
 \setenumerate[1]{itemsep=\sepitem, parsep=\seppar}
@@ -122,11 +122,11 @@
 \subsection{Long String Waves}
 \begin{outline*}
 \1 For some string with tension T, assuming gravity effect is negligible, such that for some unit length mass M with length $\delta x$, tension is acting on both sides
-\2 The angle is assumed to be slightly varying on the sides of the length, with small enough total displacement that $cos\theta_1 \appx cos\theta_2 \appx 1$
+\2 The angle is assumed to be slightly varying on the sides of the length, with small enough total displacement that $cos\theta_1 \approx cos\theta_2 \approx 1$
 \3 Since the tension on the side in the direction of the wave is toward the positive wave function, while it is toward the negative for the other at some point, $F_{perpendicular} = T(sin\theta_2 - sin\theta_1)$
 \3 When this distance is infinitesimal, the change in angle for each side is infinitesimal, moving the wave toward the slightly steeper direction
 \2 By definition of the angle, $tan\theta = \frac{\partial \psi}{\partial x}$ for each end of $\delta x$
-\3 Since the angles are small enough that $cos\theta \appx 1$, it can be stated that $sin\theta \appx tan\theta$
+\3 Since the angles are small enough that $cos\theta \approx 1$, it can be stated that $sin\theta \approx tan\theta$
 \3 As a result by this and Newton's Law, $F_n = T(\frac{\partial \psi}{\partial x}_{x_2} - \frac{\psi}{\partial x}_{x_1}) = M\delta x (\frac{\partial^2 \psi}{\partial t^2}|_x)$
 \4 This is due to the fact that the acceleration at any one point is equal to the wave function second derivative with respect to time
 \3 Thus, as divided by the length and taken to the limit as the length approaches 0, it is found that $\frac{\partial^2 \psi}{\partial t^2} = \frac{T}{M}\frac{\partial^2 \psi}{\partial x^2}$
@@ -150,6 +150,18 @@
 \3 This is found by the fact that $u_+ = 2x - u_i$, giving the relationship between the component functions if the overall function is 0, such that $u_+ = -u_i$ and $u_+ = 2l - u_-$ must be true for all u by the boundary conditions
 \1 The wave solution must be valid for the entire domain of x, t values which are possible, to be a solution
 \end{outline*}
+\subsection{Light Properties}
+\begin{outline*}
+\1 By Maxwell's equations, the wave equation for light is derived, such that $\frac{\partial B_z}{\partial x} = \mu_0\epsilon_0 \frac{\partial E_y}{\partial t}$, such that it is solved to find that $c = \frac{1}{\sqrt{\mu_0\epsilon_0}}$
+\2 This results also in the fields oscillating sinusoidally, perpendicularly, and transversely in phase with each other
+\2 In addition, by Maxwell's equations, it is found that $E = cB$ at any point in the wave, giving a relationship between the amplitudes
+\2 Similarly, within other mediums, $v = \frac{1}{\sqrt{\mu\epsilon}} = \frac{1}{\kappa\epsilon_0 k_m\mu_0}$, where $\kappa$ is the dielectric constant and $k_m$ is the relative permeability
+\3 $k_m$ is generally equal to 1 for dielectrics, such that it can be ignored
+\3 This provides a relationship between these constants and the index of refraction, such that $n = \sqrt{\kappa k_m} = \sqrt{\kappa}$, such that $\kappa$ is a function of 
+\1 By Maxwell's equations, the energy density for each field is found such that $u = \frac{1}{2}\epsilon_0E^2 + \frac{1}{2\mu_0}B^2 = \epsilon_0E^2$
+\2 S = \epsilon_0E^2c = \frac{EB}{\mu_0}$, such that the Poynting vector is the vector power in the direction of propogation, $\vec{S} = \frac{1}{\mu_0}\vec{E}\times\vec{B}$
+\2 The intensity is equal to the average of the Poynting vector as a result, such that $I = <S> = \frac{E_{max}B_{max}}{2\mu_0} = \frac{1}{2}\epsilon_0cE_{max}^2$, with total power as $P = \int IA$
+\end{outline*}
 \section{Freegarde Chapter 4 - Sinusoidal Waveforms}
 \begin{outline*}
 \1 Sinusoidal wave solutions are often used to approximate a wave, such that while they are not the only form of motion, can be used to form any linear wavemotion
@@ -170,9 +182,9 @@
 \2 The energy density, $\epsilon$, is the energy per unit length
 \2 This is an example of the virial theorem, stating that potential and kinetic energy are related for any dynamic system
 \3 In addition, this shows that both forms of energy are related to the square of the wave amplitude
-\2 As a result, the power is the energy moving through some point with the wave at some moment, such that $P = Tv_p(\frac{d\psi}{du})^2 = \epsilon v_p$
-\2 It is noted that for superpositioned waves, the power and energy must take into account the sums of various directions of each
-\2 Intensity is defined as the energy density per time, such that $I = \frac{d\epsilon}{dt}$
+\2 As a result, the intensity is the energy moving through some point with the wave at some moment, or the power at some point such that $I = Tv_p(\frac{d\psi}{du})^2 = \epsilon v_p$
+\3 Thus, intensity is defined as the energy propogating through some point per unit time, such that total power through the region is $P = \int IA$
+\2 It is noted that for superpositioned waves, the intensity and energy must take into account the sums of various directions of each
 \1 Sinusoidal waves are generally used as an ideal solution class to the wave equations, due to commonality, but relying on a single frequency to be able to define phase velocity
 \2 On the other hand, it is ideal due to acting as solutions to linear, dispersive systems with varying phase velocity as well, and due to standing waves and orthogonality
 \1 Standing waves are a class of solutions to a non-dispersive, linear string system, in which the motion is standard, differing only in magnitude throughout the string
@@ -203,7 +215,7 @@
 \3 It can be superimposed with other complex exponentials to produce a real sinusoidal wave, allowing for easier calculation
 \2 For some dissipative system, such as a string wave with a drag force, such that $F = -\mu v_t$, solved to find $k = \pm \sqrt{\frac{M}{T}}\omega\sqrt{1 + \frac{\mu i}{M \omega}} = \pm k_0(p + iq)$
 \3 This can then be solved for the real and imaginary parts, such that $p^2 = \frac{1}{2}(1 + \sqrt{1 + (\frac{\mu}{M\omega})^2}), q = \frac{\mu}{2M\omega}$
-\3 Weak damping is if $p \appx 1$, such that $\mu << M\omega$ and $\psi = ae^{i(k_0x - \omega t)}e^{-k_0qx}$, where $k_0q$ is the decay constant
+\3 Weak damping is if $p \approx 1$, such that $\mu << M\omega$ and $\psi = ae^{i(k_0x - \omega t)}e^{-k_0qx}$, where $k_0q$ is the decay constant
 \3 This provides the spatial decay wave equation, though it can be rewritten to create a complex $\omega$ and real k for the temporally decaying form
 \3 These equations can also be solved by complex standing wave form of each standing wave part, separating the variables, creating a single variable differential equation for the same function
 \3 These display dispersion as a result, changing the shape during propagation, rather than being a constant travelling wave, such that phase velocity and angular frequency are dependent on wave number
@@ -346,11 +358,21 @@
 \2 For some slits at $x = 0, y_{1/2} = \pm \frac{d}{2}$, $\psi(x,y) = \psi_1(x,y) + \psi_2(x,y)$, where $\psi_{1/2} = \frac{\psi_0}{r_{1/2}}e^{ikr_{1/2}}$
 \3 This is due to the phasors acting as the components for superpositioned waves, producing constructive and destructive interference, proving wave behavior
 \3 $r_{1/2} = r_0\sqrt{1 + \frac{\mp d + \frac{d^2}{4}}{r_0^2}}$ where $r_0$ is the distance from the center of the slit sheet
-\4 If d << $r_0$, this approximates that $r_{1/2} = r_0(1 + \mp \frac{dy}{2r^2_0})$, and $\psi(x, y) = 2\frac{\psi_0}{r_0}e^{ikr_0)}cos(k\frac{d}{2r_0}y)$
-\3 **Intensity ADD**
+\4 If $d << r_0$, this approximates that $r_{1/2} = r_0(1 + \mp \frac{dy}{2r^2_0})$, and $\psi(x, y) = 2\frac{\psi_0}{r_0}e^{ikr_0}cos(k\frac{d}{2r_0}y)$
+\4 By the prior formulas for intensity of light, the intensity at any point is approximated as $I(x, y) \approx I_0cos^2(\frac{kdy}{2r_0}) = I_0cos^2(kdsin(\frac{\theta}{2}))$, where $\theta$ is the angle from the perpendicular axis to the slits to the point
 \1 Speakers use sound meant to go to each ear through headphones, made to produce the proper intensities and depth, in a wide area creating cross-talk
 \2 As a result, in theory, the cross-talk sound can be cancelled out by the same negated sound from the other speaker, adding a phase shift to cancel it out, used for surround sound
 \2 On the other hand, this can create a faint disturbance, and relies on being placed precidely between
+\end{outline*}
+\section{Chapter 9 - Fraunhofer Diffraction}
+\begin{outline*}
+\1 While interference is the superposition of several possible wave paths, diffraction is the interaction of a high number of wave paths, such that the interference fringes are a diffraction pattern
+\1 Fraunhofer diffraction is observed in the image plane of the source, where there is a large number of real optical paths with the same wavelength and amplitude
+\2 Fresnel diffraction are those with differing wavelengths, such that it and Bragg diffraction show interference and diffraction synonymous
+\1 This is analyzed, similar to Young, by a slit, but rather than several of infinitessimal width, a single slit of the same net width, projecting onto some image plane d away
+\2 As a result, when observed at some angle from the slit, $\theta$, each wave originating at position y within the slit travelled longer by $-ysin(\theta)$ from that of the center of the slit
+\3 Thus, the phasor for this point is $\psi(y) = \psi_0e^{-ikysin\theta}$, integrated for the width of the slit, such that $\psi(\theta) = a\psi_0sinc(\alpha)$ where $sinc(\alpha) = \frac{sin(\alpha)}{\alpha} = \frac{sin(\frac{ka}{2}sin(\theta))}{\frac{ka}{2}sin(\theta)}$, such that a is the width
+\1 This can also be applied in two dimensions, producing a circular aperture, or Airy pattern, defined by $I(r) = I_0(\frac{2J_1(\alpha)}{\alpha})^2$, where $J_1(\alpha)$ is a Bessel function of the first kind 
 \end{outline*}
 \section{Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier transform
@@ -411,4 +433,10 @@ Oscillating dipoles produce the partially polarized light from reflection
 Wavelets caused by oscillating electrons at the same rate, such that frequency is the same, just velocity and wavelength different
 
 Backtravelling waves are canceled out with an infinite sized plane wave with an infinite number of wavefronts
+
+Virtual image produced by plane mirror due to diverging light
+
+Magnification = y'/y = -S'/S
+
+1/S + 1/S' = 2/R = 1/f
 \end{document}

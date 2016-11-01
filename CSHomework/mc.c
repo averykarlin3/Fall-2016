@@ -41,7 +41,7 @@
 /** Delay between GETC_TIMER - default at 10ms */
 #define GETC_TIMER_DELAY 10
 
-#define SQUARES 10
+#define SQUARES 1
 
 /** 2D array presenting the cursor */
 lc4uint cursorImage[] = {
@@ -194,7 +194,7 @@ lc4uint GoneCity[] = {
 /** representing the city's image */
 typedef struct {
   lc4uint lives;
-  lc4uint x;
+  lc4int x;
   lc4uint cityImage[8];
 }City;
 
@@ -207,7 +207,7 @@ City cities[NUM_CITIES];
 typedef struct {
   lc4uint lives;
   int missilesLeft;
-  int x;
+  lc4int x;
   lc4uint launcherImage[8];
 }MissileLauncher;
 
@@ -222,8 +222,8 @@ MissileLauncher mL;
  ***********************************************/
 typedef struct {
   lc4bool isActive;
-  lc4uint xi;
-  lc4uint yi;
+  lc4int xi;
+  lc4int yi;
   lc4uint x;
   lc4uint y;
   lc4uint xf;
@@ -262,7 +262,7 @@ void printnum (int n) {
     lc4_puts ((lc4uint*)"0");
     return;
   }
- 
+
   abs_n = (n < 0) ? -n : n;
 
   // Corner case (n == -32768) no corresponding +ve value
@@ -325,113 +325,148 @@ int rand16 ()
  * End of Debugging and utility functions
  ***************************************************************/
 
+void copy(lc4uint orig[8], lc4uint cpy[8]) {
+  int i;
+  for(i = 0; i < 8; i++)
+    cpy[i] = orig[i];
+
+}
+
 /************************************************
  * DrawCursor - 
  * Draws the cursor sprite in white 
  ***********************************************/
- void DrawCursor() 
- {
+void DrawCursor() 
+{
 	int x = cursor.x;
 	int y = cursor.y;
 	lc4_draw_sprite(x, y, WHITE, cursorImage);
- }
+}
 
 /************************************************
  *  DrawMissileLauncher - 
  *  Draws the missile launcher in white based on 
  *  the number of missiles left
  ***********************************************/
- void DrawMissileLauncher()
- {
- 	int x = mL.x;
-	int mLeft = mL.missilesLeft;
-  switch (mLeft) {
-    case 8:
-      memcpy(VIIIShot, mL.launcherImage, 8);
-      break;
-    case 7:
-      memcpy(VIIShot, mL.launcherImage, 8);
-      break;
-    case 6:
-      memcpy(VIShot, mL.launcherImage, 8);
-      break;
-    case 5:
-      memcpy(VShot, mL.launcherImage, 8);
-      break;
-    case 4:
-      memcpy(IVShot, mL.launcherImage, 8);
-      break;  
-    case 3:
-      memcpy(IIIShot, mL.launcherImage, 8);
-      break;
-    case 2:
-      memcpy(IIShot, mL.launcherImage, 8);
-      break;
-    case 1:
-      memcpy(IShot, mL.launcherImage, 8);
-      break;
-    default:
-      memcpy(NoShot, mL.launcherImage, 8);
-      break;
+void DrawMissileLauncher()
+{
+  int x = mL.x;
+  int mLeft = mL.missilesLeft;
+  if (mLeft == 8) {
+    copy(VIIIShot, mL.launcherImage);
+  }
+  else {
+    if(mLeft == 7) {
+      copy(VIIShot, mL.launcherImage);
     }
+    else {
+      if(mLeft == 6) {
+        copy(VIShot, mL.launcherImage);
+      }
+      else {
+        if(mLeft == 5) {
+          copy(VShot, mL.launcherImage);
+        }
+        else {
+          if(mLeft == 4) {
+            copy(IVShot, mL.launcherImage);
+          }
+          else {
+            if(mLeft == 3) {
+              copy(IIIShot, mL.launcherImage);
+            }
+            else {
+              if(mLeft = 2) {
+                copy(IIShot, mL.launcherImage);
+              }
+              else {
+                if(mLeft == 1) {
+                  copy(IShot, mL.launcherImage);
+                }
+                else {
+                  copy(NoShot, mL.launcherImage);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   if(!(mL.lives))
-    memcpy(GoneCity, mL.launcherImage, 8);
-	lc4_draw_sprite(MISSILE_COMMAND_XPOS, GROUND_LEVEL, WHITE, mL.launcherImage);
- }
+    copy(GoneCity, mL.launcherImage);
+  lc4_draw_sprite(MISSILE_COMMAND_XPOS, GROUND_LEVEL, GREEN, mL.launcherImage);
+}
 
 /************************************************
  *  DrawCities - 
  *  Draws the cities in white
  ***********************************************/
- void DrawCities()
- {
+void DrawCities()
+{
   int i;
+  lc4uint color;
   lc4int xval;
-  for(i = 0; i < sizeof(cities); i++) {
-    if (!(cities[i].lives))
-      memcpy(GoneCity, cities[i].cityImage, 8);
+  for(i = 0; i < 2; i++) {
+    if (!(cities[i].lives)) {
+      copy(GoneCity, cities[i].cityImage);
+    }
     else {
-      if(cities[i].lives == 1)
-        memcpy(DeadCity, cities[i].cityImage, 8);
-      else
-        memcpy(LiveCity, cities[i].cityImage, 8);
+      if(cities[i].lives == 1) {
+        copy(DeadCity, cities[i].cityImage);
+      }
+      else {
+        copy(LiveCity, cities[i].cityImage);
+      }
     }
     xval = cities[i].x;
     lc4_draw_sprite(xval, GROUND_LEVEL, WHITE, cities[i].cityImage);
   }
- }
+}
 
 /************************************************
  *  DrawIncoming - 
  *  Draws each incoming
  ***********************************************/
- void DrawIncoming()
- {
+void DrawIncoming()
+{
+  lc4uint x;
+  lc4uint y;
+  lc4int xi;
+  lc4int yi;
   int i;
   for(i = 0; i < MAX_INCOMING; i++) {
-    lc4uint xi = (incoming[i]).xi;
-    lc4uint yi = (incoming[i]).yi;
-    lc4uint x = (incoming[i]).x;
-    lc4uint y = (incoming[i]).y;
-    lc4_draw_line(xi, yi, x, y, RED);
+    if(incoming[i].isActive) {
+      xi = (incoming[i]).xi;
+      yi = (incoming[i]).yi;
+      x = (incoming[i]).x;
+      y = (incoming[i]).y;
+      lc4_draw_line(xi, yi, x, y, RED);
+    }
   }
- }
+}
 
 /************************************************
  *  DrawOutgoing
  *  Draws each outgoing missile 
  ***********************************************/
- void DrawOutgoing()
- {
+void DrawOutgoing()
+{
+  lc4uint x;
+  lc4uint y;
+  lc4int xi;
+  lc4int yi;
   int i;
   for(i = 0; i < MAX_OUTGOING; i++) {
-    lc4uint xi = (outgoing[i]).xi;
-    lc4uint yi = (outgoing[i]).yi;
-    lc4uint x = (outgoing[i]).x;
-    lc4uint y = (outgoing[i]).y;
-    lc4_draw_line(xi, yi, x, y, BLUE);
+    if(outgoing[i].isActive) {
+      xi = (outgoing[i]).xi;
+      yi = (outgoing[i]).yi;
+      x = (outgoing[i]).x;
+      y = (outgoing[i]).y;
+      lc4_draw_line(xi, yi, x, y, BLUE);
+    }
   }
- }
+}
 
 /************************************************
  *  Redraw - 
@@ -469,40 +504,48 @@ void reset()
  *  Resets the game. 
  ***********************************************/
 
- void ResetGame() {
+void ResetGame() {
+ int i;
  reset();
  (cursor).x = SCREEN_WIDTH/2;
  (cursor).y = SCREEN_HEIGHT - 4;
- int i;
-  for(i = 0; i < NUM_CITIES; i++) {
-    (cities[i]).lives = 2;
-    (cities[i]).x = rand16();
-    memcpy(LiveCity, cities[i].cityImage, 8);
-    //targets[i] = cities[i];
+ (cities[0]).lives = 2;
+ (cities[0]).x = LEFT_CITY_XPOS;
+ copy(LiveCity, cities[0].cityImage);
+ (cities[1]).lives = 2;
+ (cities[1]).x = RIGHT_CITY_XPOS;
+ copy(LiveCity, cities[1].cityImage);
+ (mL).lives = 2;
+ (mL).x = MISSILE_COMMAND_XPOS;
+ copy(VIIIShot, mL.launcherImage);
+ (mL).missilesLeft = MISSILES_PER_ROUND;
+ for(i = 0; i < MAX_OUTGOING; i++) {
+  outgoing[i].isActive = 0;
   }
-  //targets[NUM_TARGETS - 1] = mL;
-  (mL).lives = 2;
-  (mL).x = 0;
-  memcpy(VIIIShot, mL.launcherImage, 8);
-  (mL).missilesLeft = MISSILES_PER_ROUND;
+  for(i = 0; i < MAX_INCOMING; i++) {
+  incoming[i].isActive = 0;
  }
+}
 
-void Move(Projectile p) {
+void Move(Projectile* p) {
+  int dy;
+  int dx;
   int i = 0;
+  //lc4_puts((lc4uint*) "NEXT\n");
   for(i = 0; i < SQUARES; i++) {
-    int dx = (p).x - (p).xf;
-    int dy = (p).y - (p).yf;
+    dx = p->x - p->xf;
+    dy = p->y - p->yf;
     if(abs(dy) >= abs(dx)) {
       if(dy >= 0)
-        (p).y--;
+        p->y--;
       else
-        (p).y++;
+        p->y++;
     }
     else {
       if(dx >= 0)
-        (p).x--;
+        p->x--;
       else
-        (p).x++;
+        p->x++;
     }   
   }
 }
@@ -512,33 +555,36 @@ void Move(Projectile p) {
  *  Initalize game state by reseting the game state
  *  Loops until the the user loses
  ***********************************************/
- int main ()
- {
+int main()
+{
   //** Print to screen and initalize game state. */
+  int i;
+  int j;
+  int dx;
+  int dy;
+  int d;
+  int num;
+  int livesLeft;
+  int xinitial;
+  int destroyedCount = 0;
+  lc4int in;
   lc4_puts ((lc4uint*)"Welcome to Missile Command!\n");
   lc4_puts ((lc4uint*)"WASD for Movement, R to Shoot\n");
   ResetGame();
-  int destroyedCount = 0;
   while(1) 
   {
-    lc4int in = lc4_getc_timer(GETC_TIMER_DELAY);
-    switch (in) {
-      case 'w':
-      (cursor).y++;
-      break;
-      case 'a':
-      (cursor).x--;
-      break;
-      case 's':
+    in = lc4_getc_timer(GETC_TIMER_DELAY);
+    if(in == 'w')
       (cursor).y--;
-      break;
-      case 'd':
+    if(in == 'a')
+      (cursor).x--;
+    if(in == 's')
+      (cursor).y++;
+    if(in == 'd')
       (cursor).x++;
-      break;
-      case 'r':
+    if(in == 'r') {
       if(!((mL).missilesLeft))
         break;
-      int i;
       for(i = 0; i < MAX_OUTGOING; i++) {
         if(!((outgoing[i]).isActive)) {
           (outgoing[i]).xf = (cursor).x;
@@ -548,32 +594,30 @@ void Move(Projectile p) {
           (outgoing[i]).yi = GROUND_LEVEL;
           (outgoing[i]).y = GROUND_LEVEL;
           (outgoing[i]).isActive = 1;
+          mL.missilesLeft--;
           break;
         }
       }
-      break;
     }
-    int i;
-    int j;
-    int dx;
-    int dy;
     for(i = 0; i < MAX_INCOMING; i++) {
       for(j = 0; j < MAX_OUTGOING; j++) {
-        dx = abs((incoming[i]).x - (outgoing[j]).x);
-        dy = abs((incoming[i]).y - (outgoing[j]).y);
-        d =  dx*dx + dy*dy;
-        if(d < CONTACT_RADIUS) {
-          (incoming[i]).isActive = 0;
-          (outgoing[j]).isActive = 0;
-          destroyedCount++;
+        if(outgoing[j].isActive) {
+          dx = abs((incoming[i]).x - (outgoing[j]).x);
+          dy = abs((incoming[i]).y - (outgoing[j]).y);
+          d =  dx*dx + dy*dy;
+          if(d < CONTACT_RADIUS) {
+            (incoming[i]).isActive = 0;
+            (outgoing[j]).isActive = 0;
+            destroyedCount++;
+          }
         }
       }
-      for(int j = 0; j < NUM_TARGETS; j++) {
+      for(j = 0; j < NUM_TARGETS; j++) {
         if(j == NUM_CITIES)
-          dx = abs((incoming[i]).x - (mL.x);
+          dx = abs((incoming[i]).x - (mL.x));
         else
           dx = abs((incoming[i]).x - (cities[j]).x);
-        dy = abs((incoming[i]).y - GROUND_LEVEL;
+        dy = abs((incoming[i]).y - GROUND_LEVEL);
         d =  dx*dx + dy*dy;
         if(d < CONTACT_RADIUS) {
           (incoming[i]).isActive = 0;
@@ -584,16 +628,16 @@ void Move(Projectile p) {
         }
       }
     }
-    for(int i = 0; i < MAX_INCOMING; i++) {
+    for(i = 0; i < MAX_INCOMING; i++) {
       if(!((incoming[i]).isActive)) {
         num = rand16() % 3;
         if (num == NUM_CITIES) {
           (incoming[i]).xf = mL.x;
-          (incoming[i]).yf = mL.y;
+          (incoming[i]).yf = GROUND_LEVEL;
         }
         else {
           (incoming[i]).xf = (cities[num]).x;
-          (incoming[i]).yf = (cities[num]).y;
+          (incoming[i]).yf = GROUND_LEVEL;
         }
         xinitial = rand16();
         (incoming[i]).x = xinitial;
@@ -603,14 +647,14 @@ void Move(Projectile p) {
         (incoming[i]).isActive = 1;
       }
     }
-    for(int i = 0; i < MAX_INCOMING; i++) {
-      Move(incoming[i]);
+    for(i = 0; i < MAX_INCOMING; i++) {
+      Move(&incoming[i]);
     }
-    for(int i = 0; i < MAX_OUTGOING; i++) {
-      Move(outgoing[i]);
+    for(i = 0; i < MAX_OUTGOING; i++) {
+      Move(&outgoing[i]);
     }
-    int livesLeft = 0;
-    for(int i = 0; i < NUM_TARGETS; i++) {
+    livesLeft = 0;
+    for(i = 0; i < NUM_TARGETS; i++) {
       if(i == NUM_CITIES)
         livesLeft += mL.lives;
       else
