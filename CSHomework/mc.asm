@@ -1137,10 +1137,10 @@ L85_mc
 	LDR R7, R6, #-2	;; restore return address
 	RET
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;collision;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;missileStatus;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		.CODE
 		.FALIGN
-collision
+missileStatus
 	;; prologue
 	STR R7, R6, #-2	;; save return address
 	STR R5, R6, #-3	;; save base pointer
@@ -1610,9 +1610,7 @@ L150_mc
 	LDR R7, R7, #1
 	CONST R3, #0
 	CMP R7, R3
-	BRnp L154_mc
-	JMP L143_mc
-L154_mc
+	BRz L154_mc
 	CONST R7, #0
 	STR R7, R5, #-1
 L156_mc
@@ -1694,11 +1692,12 @@ L157_mc
 	CMP R7, R3
 	BRn L156_mc
 L158_mc
+L154_mc
 L152_mc
 	ADD R7, R5, #-2
 	ADD R6, R6, #-1
 	STR R7, R6, #0
-	JSR collision
+	JSR missileStatus
 	ADD R6, R6, #1	;; free space for arguments
 	CONST R7, #0
 	STR R7, R5, #-1
@@ -1788,6 +1787,11 @@ L171_mc
 	CONST R3, #8
 	CMP R7, R3
 	BRnp L176_mc
+	LEA R7, L178_mc
+	ADD R6, R6, #-1
+	STR R7, R6, #0
+	JSR lc4_puts
+	ADD R6, R6, #1	;; free space for arguments
 	CONST R7, #0
 	STR R7, R5, #-2
 	LDR R7, R5, #-4
@@ -1795,31 +1799,29 @@ L171_mc
 	STR R7, R5, #-4
 	JSR ResetGame
 	ADD R6, R6, #0	;; free space for arguments
-	JMP L177_mc
 L176_mc
 	LDR R7, R5, #-3
 	CONST R3, #0
 	CMP R7, R3
-	BRz L180_mc
+	BRz L181_mc
 	LEA R7, mL
 	LDR R7, R7, #0
 	CONST R3, #0
 	CMP R7, R3
-	BRnp L178_mc
-L180_mc
-	LEA R7, L181_mc
+	BRnp L179_mc
+L181_mc
+	LEA R7, L182_mc
 	ADD R6, R6, #-1
 	STR R7, R6, #0
 	JSR lc4_puts
 	ADD R6, R6, #1	;; free space for arguments
-	JMP L143_mc
-L178_mc
+	JSR ResetGame
+	ADD R6, R6, #0	;; free space for arguments
+L179_mc
 	JSR Redraw
 	ADD R6, R6, #0	;; free space for arguments
-L177_mc
 L142_mc
 	JMP L141_mc
-L143_mc
 	CONST R7, #0
 L138_mc
 	;; epilogue
@@ -1841,7 +1843,9 @@ mL 		.BLKW 11
 		.DATA
 cities 		.BLKW 20
 		.DATA
-L181_mc 		.STRINGZ "Game Over...\n"
+L182_mc 		.STRINGZ "Game Over...\n"
+		.DATA
+L178_mc 		.STRINGZ "Next Level!\n"
 		.DATA
 L140_mc 		.STRINGZ "WASD for Movement, R to Shoot\n"
 		.DATA

@@ -619,7 +619,10 @@
 \2 As a result, a fundamental matrix can be found, such that $X(0) = I_n$, called the transition matrix of $\vec{x}' = A\vec{x}$ based at t = 0, written $X_0(t)$
 \3 Thus, $\vec{x} = X_0(t)\vec{x}(0)$ for the system, describing the system's transition from t = 0 onward
 \3 The transition matrix is able to be found from some matrix X(t), such that $X_0(t) = X(t)X^{-1}(0) = e^{At}$ by the respective solutions
-\1 **CONTINUE**
+\4 This can be made easier to calculate by the fact that for a matrix function, $(X(0))^{-1} = (X^{-1})(0)$
+\1 This can also be used to find n linearly independent solutions from the matrix exponential, such that it is reversed
+\2 For all A, $A = \lambda I + (A - \lambda I)$, for any $\lambda$, such that for n linearly independent vectors, $\vec{v}$, e^{At}\vec{v} = e^{I\lambda t}e^{(A - \lambda I)t} = e^{\lambda t}I(\vec{v} + t(A - \lambda I)\vec{v} + \frac{t^2}{2}(A - \lambda I)^2\vec{v} + ...)$
+\2 As a result, if some generalized eigenvector can be found for $\lambda$, such that the sequence would end at some point, providing one solution to the function
 \end{outline*}
 \section{Chapter 6 - Higher Order Linear Differential Equations}
 \subsection{General Theory}
@@ -653,7 +656,7 @@
 \end{outline*}
 \subsection{Undetermined Coefficient Annihilators}
 \begin{outline*}
-\1 For some linear differential equation $P(D)y = F(x)$, if there exists some function, A, such that A(D)F = 0, it forms a homogeneous differential equation A(D)P(D)y = 0
+\1 For some linear idfferential equation $P(D)y = F(x)$, if there exists some function, A, such that A(D)F = 0, it forms a homogeneous differential equation A(D)P(D)y = 0
 \2 The A(D) operator is said to annihilate F(x), called the annihilator of F(x)
 \3 Annihilators thus exist for some F(x) iff y = F(x) is a solution to the homogeneous linear differential equation, A(D)y = 0
 \3 As a result, the nonhomogeneous side must be in the form $F(x) = cx^ke^{ax}$, $F(x) = cx^ke{ax}sin(bx)$, $F(x) = cx^ke^{ax}cos(bx)$, or the sum of each, for some nonnegative k and real a, b, and c

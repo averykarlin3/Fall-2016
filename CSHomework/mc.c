@@ -544,15 +544,15 @@ void Move(Projectile* p, int multiplier) {
   for(i = 0; i < SQUARES * multiplier; i++) {
     dx = p->x - p->xf;
     dy = p->y - p->yf;
-    if(abs(dy) >= abs(dx)) {
-      if(dy > 0)
+    if(abs(dy) >= abs(dx)) { //Determine the direction to move
+      if(dy > 0) //Move y or end
         p->y--;
       if(dy < 0)
         p->y++;
       if (dy == 0)
         p->isActive = 0;
     }
-    else {
+    else { //Move x or end
       if(dx > 0)
         p->x--;
       if (dx < 0)
@@ -564,7 +564,8 @@ void Move(Projectile* p, int multiplier) {
 }
 
 //Check for collisions between incoming, outgoing, cities, and launcher
-void collision(int* destroyedCount) {
+//Also launch new incoming missiles
+void missileStatus(int* destroyedCount) {
   int dx;
   int xinitial;
   int i;
@@ -573,7 +574,7 @@ void collision(int* destroyedCount) {
   int dy;
   int d;
   for(i = 0; i < MAX_INCOMING; i++) {
-    for(j = 0; j < MAX_OUTGOING; j++) {
+    for(j = 0; j < MAX_OUTGOING; j++) { //Check for missile collisions
       if(outgoing[j].isActive) {
         dx = abs((incoming[i]).x - (outgoing[j]).x);
         dy = abs((incoming[i]).y - (outgoing[j]).y);
@@ -585,7 +586,7 @@ void collision(int* destroyedCount) {
         }
       }
     }
-    for(j = 0; j < NUM_TARGETS; j++) {
+    for(j = 0; j < NUM_TARGETS; j++) { //Check for city/launcher collisions
       if(j == NUM_CITIES)
         dx = abs((incoming[i]).x - (mL.x));
       else
@@ -603,7 +604,7 @@ void collision(int* destroyedCount) {
       }
     }
   }
-  for(i = 0; i < MAX_INCOMING; i++) {
+  for(i = 0; i < MAX_INCOMING; i++) { //Launch new incoming missiles
     if(!((incoming[i]).isActive)) {
       num = rand16() % 3;
       if (num == NUM_CITIES) {
@@ -648,7 +649,7 @@ int main()
   ResetGame();
   while(1) 
   {
-    in = lc4_getc_timer(GETC_TIMER_DELAY);
+    in = lc4_getc_timer(GETC_TIMER_DELAY); //Check for key input
     if(in == 'w')
       (cursor).y -= multiplerCalc(destroyedCount);
     if(in == 'a')
@@ -658,30 +659,30 @@ int main()
     if(in == 'd')
       (cursor).x += multiplerCalc(destroyedCount);
     if(in == 'r') {
-      if(!((mL).missilesLeft))
-        break;
-      for(i = 0; i < MAX_OUTGOING; i++) {
-        if(!((outgoing[i]).isActive)) {
-          (outgoing[i]).xf = (cursor).x;
-          (outgoing[i]).yf = (cursor).y;
-          (outgoing[i]).x = (mL).x;
-          (outgoing[i]).xi = (mL).x;
-          (outgoing[i]).yi = GROUND_LEVEL;
-          (outgoing[i]).y = GROUND_LEVEL;
-          (outgoing[i]).isActive = 1;
-          mL.missilesLeft--;
-          break;
+      if(((mL).missilesLeft)) { //Check if outgoing is sent already and send if not
+        for(i = 0; i < MAX_OUTGOING; i++) {
+          if(!((outgoing[i]).isActive)) {
+            (outgoing[i]).xf = (cursor).x;
+            (outgoing[i]).yf = (cursor).y;
+            (outgoing[i]).x = (mL).x;
+            (outgoing[i]).xi = (mL).x;
+            (outgoing[i]).yi = GROUND_LEVEL;
+            (outgoing[i]).y = GROUND_LEVEL;
+            (outgoing[i]).isActive = 1;
+            mL.missilesLeft--;
+            break;
+          }
         }
       }
     }
-    collision(&destroyedCount);
-    for(i = 0; i < MAX_INCOMING; i++) {
+    missileStatus(&destroyedCount); //Check for collisions and move missiles
+    for(i = 0; i < MAX_INCOMING; i++) { 
       Move(&incoming[i], inMultiplier);
     }
     for(i = 0; i < MAX_OUTGOING; i++) {
       Move(&outgoing[i], multiplerCalc(destroyedCount));
     }
-    livesLeft = 0;
+    livesLeft = 0; //Check if level/game over
     for(i = 0; i < NUM_TARGETS; i++) {
       if(i == NUM_CITIES)
         livesLeft += mL.lives;
@@ -689,13 +690,14 @@ int main()
         livesLeft += (cities[i]).lives;
     }
     if(destroyedCount == 8) {
+      lc4_puts ((lc4uint*)"Next Level!\n");
       destroyedCount = 0;
       inMultiplier++;
       ResetGame();
     }
     if(!livesLeft || !(mL.lives)) {
-        lc4_puts ((lc4uint*)"Game Over...\n");
-        ResetGame();
+      lc4_puts ((lc4uint*)"Game Over...\n");
+      ResetGame();
     }
     Redraw();
   }

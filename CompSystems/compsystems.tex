@@ -716,7 +716,14 @@
 \3 On the other hand, most calculators have similar operations, implicitly pushing and pulling on a hardware level
 \2 This allows holding intermediate values on the stack, performing operations by popping out enough values, pushing the result
 \1 Interrupt-driven IO, in addition to relying on the interrupt bits and priority levels, require a process to manage the transfer of data
-\2 **FINISH**
+\2 This process is made up of a initiating an interrupt, servicing it, and returning from it, such that when a higher priority device causes the INT signal to be expressed, it is prepared
+\2 First, the state of the program is preserved, saving the PC and PSR (which includes the original program priority in bits [10:8]), assumed that the service will save any registers modified
+\3 In the LC-3, this is saved in the Supervisor stack, acting the same as the regular stack, but in a protected portion of memory, replacing the User stack for when supervisor mode is activated, using R6 as the stack pointer still
+\4 As a result, there are two registers, Saved.SSP and Saved.USP to save the stack pointers when in the other stack
+\2 It then loads the service PC and PSR (privelege mode with NZP = 000), generally using 8-bit vectored interrupts, similar to TRAP vectors
+\3 These are sent along with the priority level and the interrupt request signal at the start
+\3 The vector used by the processor is designated as the INTV, corresponding to a vector from x0100 to x01FF, after the trap vectors of x0000 to x00FF
+\2 Returning from the interrupt pops the PSR and PC from the supervisor stack and restoring them, removing the remaining stack from the interrupt request
 \end{outline*}
 \section{Chapter 14 - Functions}
 \begin{outline*}
@@ -745,6 +752,10 @@
 \end{outline*}
 \section{Chapter 18 - I/O in C}
 \begin{outline*}
-
+\1 The C standard library contains a large database of components for complex software, accessed by including the header file at the start, including preprocessor micros and function declarations
+\2 I/O functions are mainly contained within <stdio.h>
+\2 The library functions themselves are linked from object files within some C library system directory if declarations are detected in the main source file
+\3 Certain libraries are also dynamically linked, not linked when producing the executable program, but rather during execution each instance
+\1 
 \end{outline*}
 \end{document}
