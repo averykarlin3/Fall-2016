@@ -685,6 +685,18 @@
 \2 Thus, it is found that $m\frac{d^2y}{dt^2} = mg - k(y_0 + y) - c\frac{dy}{dt} + F(t)$, where $y(0) = y_0, y'(0) = v_0$ as the initial conditions
 \3 This is due to setting the system such that $mg = ky_0$, such that the initial position is the point of static equilibrium
 \3 This forms the second order linear differential equation, $y'' + \frac{c}{m}y' + \frac{k}{m}y = \frac{F(t)}{m}$
+\1 Without the damping constant, the solution is found to be $y(t) = c_1cos\omega_0t + c_2sin\omega_0t$, where $c_1 = A_0cos\phi, c_2 = A_0sin\phi$, such that $y(t) = A_0cos(\omega_0t - \phi)$, called simple harmonic motion
+\2 The period of the oscillation is $T = \frac{2\pi}{\omega_0} = 2\pi\sqrt{\frac{m}{k}}$, such that it is constant for the system
+\1 If it is damped but without external force, the characteristic polynomial is such that it provides three types of damping, underdamped (complex roots), critically damped, or overdamped (two real roots)
+\2 This provides a solution for overdamped of $y = e^{-\frac{ct}{2m}}(c_1e^{\mu t} + c_2e^{-\mu t})$ where $\mu = \frac{\sqrt{c^2 - 4km}{2m}$
+\2 The critically damped solution is  $y = e^{-\frac{ct}{2m}}(c_1 + c_2t)$
+\2 The underdamped of $y = e^{-\frac{ct}{2m}}(c_1cos(\mu t) + c_2sin(\mu t))$, where $\mu = \frac{\sqrt{4km - c^2}}{2m}$
+\3 As a result, the motion is still oscillatory, but not periodic, such that $T = \frac{2\pi}{\mu}
+\2 As a result, as time moves towards infinity, the displacement moves towards 0
+\1 For a system with an external force, such that it is a nonhomogeneous system, notable only when it is periodic over time, such that $F(t) = F_0cos(\omega t)$, called forced harmonic oscillation
+\2 If c = 0 and $\omega_0 \neq \omega$, then $y_p(t) = \frac{F_0}{m(\omega_0^2 - \omega^2)}cos(\omega t)$
+\2 If c = 0 and $\omega_0 = \omega$, then $y_p(t) = \frac{F_0}{2m\omega_0^2}tsin(\omega_0 t)$
+\2 **FINISH**
 \end{outline*}
 \subsection{Reduction of Order}
 \begin{outline*}

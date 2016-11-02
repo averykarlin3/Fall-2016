@@ -734,7 +734,14 @@
 \2 The function definition has a similar first line to the declaration, though without a semicolon, instead followed by brackets enclosing the function body
 \1 Each function has an activation record within memory for its global variables, created when the function activates
 \2 It cannot be placed at a specific location, due to the risk of recursion causing it to be overwritten, instead having each function get an unused region, by a stack
-\2 
+\1 Functions are called, at which point the caller function copies the parameters onto the top of the run-time stack, right-to-left, and the callee function pushes its activation record data onto the stack
+\2 The callee then pushes a memory location for the return value to the top of the stack, and it saves any data needed for the original function, first as the return location
+\3 This then includes the caller's frame pointer, copied as the dynamic link to return control to the caller
+\2 The callee also proceeds to allocate space for any local variables needed in the runtime stack
+\2 The frame pointer is then set to the beginning of the local variables, and the stack pointer to the top of the local variables
+\3 This results in all of the functional data stored in the non-local variable region, but still considered within the activation record for the callee
+\2 After the function runs, it writes the return value, pops off the local variables, restores to the dynamic link and return address, returns control to the caller function
+\3 The return value and parameters are then popped off by the caller function, after pushing the return value into the caller stack
 \end{outline*}
 \section{Chapter 18 - I/O in C}
 \begin{outline*}

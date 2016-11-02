@@ -693,14 +693,11 @@ int main()
       inMultiplier++;
       ResetGame();
     }
-    else {
-      if(!livesLeft || !(mL.lives)) {
+    if(!livesLeft || !(mL.lives)) {
         lc4_puts ((lc4uint*)"Game Over...\n");
-        break;
-      }
-      else
-        Redraw();
+        ResetGame();
     }
+    Redraw();
   }
   return 0;
 }
