@@ -380,7 +380,9 @@
 \2 As a result, unlike Fresnel diffraction which uses the entire curve, Fraunhofer diffraction gains a pure horizontal phasor near the middle
 \3 This results in the phasors becoming more circularly added as it progresses, such that the amplitude decreases proportionally to the angle
 \2 Increasing the width of the slit as a result causes more extreme reactions, such that the amplitude at the center is greater, but additional angles of the phasors change faster, creating a planar wave
-\1 
+\1 Since for some wavefront, when hitting a surface, it combines to form high amplitude only at the 0-angle from the source, called the Dirac $\delta$-function
+\2 As a result, at any non-zero angle, the diffracted amplitude is equal and opposite to that resulting from the obstructed sources, called Babinet's Principle
+\2 This allows easier calculation of diffraction patterns, and was used to prove that the Airy diffraction pattern and Poisson's bright spot are the same, proving the lack of partical behavior alone
 \1 The diffraction grating is a series of narrow slits, either transmissive or reflective when combined with a plane mirror
 \2 This then results in a wavefunction with respect to viewing position angle, similar to that for a wide single-slit, except with a t(y) transmission multiplier either 0 or 1 for each point, $\psi(\theta) = \int^{\frac{a}{2}}_{-\frac{a}{2}} \psi_0t(y)e^{-ikysin\theta}dy$
 \3 Due to this being equal for each slit, except with a phase multiplier based on the slit height, it is written $\psi(\theta) = e^{-iky_1sin(\theta)}\int^{\frac{w}{2}}_{\frac{-w}{2}} \psi_0t(y)e^{-ikysin\theta}dy + ... + e^{-iky_nsin(\theta)}\int^{\frac{w}{2}}_{\frac{-w}{2}} \psi_0t(y)e^{-ikysin\theta}dy = (\sum^\frac{N}{2}_{n = -\frac{N}{2}} e^{-ikndsin(\theta)})\psi_0\int^{\frac{w}{2}}_{-\frac{w}{2}} e^{-ikysin\theta}dy$, where N+1 is the number of slits and d is the distance between the centers of each slit
