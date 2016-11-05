@@ -507,7 +507,8 @@
 \3 This allows execution quicker and more efficient resource usage, but renders debugging during the process more difficult
 \1 C is made to allow writing compilers and operating systems, such that it is a high-level, but near-low-level language, allowing bitwise and memory manipulation
 \2 As a result, C has been a fundamental basis of many modern languages, such as Java or C++
-\2 C was made machine independent by the ANSI C version, used by most compilers, specified by the American National Standards Institute
+\2 C was made machine independent, also called portable by the ANSI C version, used by most compilers, specified by the American National Standards Institute
+\2 C is also considered a procedural language, made up of functions
 \1 C compilers are made up of a preprocessor, finding preprocessor directives (pseudo-ops), adding header files or constants
 \2 Preprocessor commands are begun by \#, generally using ``define'' to create a compiler macro constant, and ``include'' to add the code from a header file in, not ended by a semicolon
 \3 Adding header files in can be used to declare variables and functions, as well as define constants, which are standardized to multiple source files, often used to declare library functions
@@ -548,11 +549,12 @@
 \3 It is convention to comment at the start of code when it was last modified, by whom, inputs, outputs, and the purpose of the function
 \2 Keywords, used within the C language itself, are not able to be used as any form of object name
 \3 Object names are defined as the name of any named portion of memory, such as a variable or function
-\1 C basic data types are int (32 bits), float, double, and char (8 bits), with char and int as integral types, the others as floating types
-\2 While it is different on some machines, all tend to follow the IEEE standard
+\1 C basic data types are int (32 bits), float (32), double (64), and char (8), with char and int as integral types, the others as floating types
+\2 While it is different sizes on some machines, all tend to follow the IEEE standard
+\2 LC-4 assembly only allows integer types of variables, with 16 bit ints rather than 32
 \2 The short int must be at least the size of a char in C, and the double must have a higher precision that that of a float
 \2 ``signed'' and ``unsigned'' specifiers can be added to integral types, the former by default
-\2 ``long'' and ``short'' specifiers can be added to either extend or shorten the length of the integral types and can shorten or lengthen the precision and/or range of floating types
+\2 ``long'' and ``short'' specifiers can be added to either extend or shorten the length of the integral types and can shorten or lengthen the precision and/or range of floating types, changing the bits by a factor of 2
 \2 ``const'' specifiers can be added for variables which are not changed to optimize compilation, requiring explicit initialization at the time of declaration
 \1 Enumerated types allow objects to be specified of constant value from 0 onward, defined by the specified, ``enum \textit{name \{obj0 = first\_constant, \dots, objn\}}'', declared by ``enim \textit{name obj}''
 \2 The objects are called enumeration constants, set such that the first is 0 by default, progressing up integrally from the first
@@ -566,6 +568,7 @@
 \2 Unions are a single object able to take on multiple different types during the program, storing enough data when declared for the largest possible type
 \3 It is defined similar to a structure, with ``union'' replacing ``struct'', calling on member items the same, though only filling on at a time
 \2 Structs and unions can directly access a member element by \textit{structUnionName.varName}, or if using a pointer to the struct/union, can use \textit{structUnionPointer}->\textit{varName}
+\3 Structs and unions are automatically passed by value to functions, similar to all other variables, except arrays and pointers
 \2 ``typedef \textit{type name}'' allows a type to gain a pseudonym, commonly used for derived types as shorthand
 \2 ``sizeof(\textit{type})'' returns the number of bytes occupied by the type, or the total size of the array/struct
 \1 The return statement, written ``return \textit{expression};'', terminates the current function, returning the expression value
@@ -700,6 +703,7 @@
 \4 This is due to the lack of protection built-in to C against exceeding array size to save time
 \3 It is noted that in C, scanf() only reads until the first white space for a string, keeping the remainder in a buffer for future scanf() calls
 \3 String specific functions are found within the C standard library, declared in string.h
+\1 Higher dimensional arrays are considered to be an array of arrays, denoted by $\textit{type name[2D][1D]}$, used in the same manner
 \end{outline*}
 \section{Chapter 10 - The Stack}
 \begin{outline*}
@@ -737,6 +741,7 @@
 \3 The return type can be any data type, or can be void for no return
 \3 If the function does not have a return statement, but does have a return type, the last statement value is returned
 \3 The parameters must be in the same order they are written in the definition of the function, called the formal parameter list in the definition
+\3 The prototype is not needed if the function is defined before it is used, but it is still considered correct syntax to include
 \2 Functions when called by the program or another function, take arguments, which are the specific inputted parameters
 \2 The function definition has a similar first line to the declaration, though without a semicolon, instead followed by brackets enclosing the function body
 \1 Each function has an activation record within memory for its global variables, created when the function activates
@@ -756,6 +761,19 @@
 \2 I/O functions are mainly contained within <stdio.h>
 \2 The library functions themselves are linked from object files within some C library system directory if declarations are detected in the main source file
 \3 Certain libraries are also dynamically linked, not linked when producing the executable program, but rather during execution each instance
-\1 
+\1 I/O is based on streams, adding characters typed into the end of the stream, reading from the beginning, or vice versa for output, read from the streams as needed
+\2 The standard I/O streams are called stdin and stdout, controlled by getchar and putchar functions, contained in <stdio.h>
+\3 ``void putchar(char)'' adds the ASCII character inputted as the parameter to the output stream to print
+\3 ``char getchar(void)'' waits for the next character to be added to the input stream, by default the keyboard, returning the ASCII value
+\2 Buffered I/O adds all characters into a buffer array, waiting for the ENTER/NEWLINE key to release them into the stream at once
+\3 This allows the input to be confirmed by the user before being taken by the program, erasing mistakes
+\3 Buffered I/O is automatically built-in to C in putchar() and getchar() functions, and thus must be accounted for
+\2 Formatted I/O handle more variable types and longer sequences, using printf and scanf, performing all needed conversions by the conversion specifications in the format string, adding it to the stream
+\3 Formatted functions may still be buffered, such that they require a newline to add it to the stream
+\3 The parameter for each conversion specifier in printf treats that portion of the stream as the type specified, not checking if it is properly that type
+\3 Scanf allows whitespace around designated regions of the inputted string cooresponding to the format string, indicating the end of the prior segment
+\4 On the other hand, it does check for the correct types, not assigning if mismatched, leaving the remainder in the stream
+\3 Since parameters are pushed right to left, the pointer to the format string is easily accessible within the stack, with the offset within the function run-time stack designating the number of variables, with the final at offset 0
+\4 The format string is stored with other stirngs in the literal/constant memory section
 \end{outline*}
 \end{document}
