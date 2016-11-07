@@ -6,11 +6,27 @@
 
 #define MAXSIZE 100
 
-node pop(node* curr);
-
-void push(char* str, node* curr);
-
-typedef struct {
+typedef struct stackNode {
 	double op;
-	node* next;
-} node;
+	struct stackNode* next;
+} stackNode;
+
+typedef struct queueNode {
+	char* op;
+	struct queueNode* prev;
+	struct queueNode* next;
+} queueNode;
+
+double stackPop();
+
+void stackPush(double d);
+
+char* queuePop();
+
+void queuePush(char* s);
+
+queueNode* front = 0;
+queueNode* back = 0;
+stackNode* curr = 0;
+queueNode* functFront = 0;
+queueNode* functBack = 0;

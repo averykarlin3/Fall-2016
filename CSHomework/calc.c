@@ -1,35 +1,62 @@
 #include "calc.h"
 
-double pop(node* curr) {
+double stackPop() {
 	double popped = curr->op;
-	newCurr = curr->next;
+	stackNode* newCurr = curr->next;
 	free(curr);
 	curr = newCurr;
 	return popped;
 }
 
-void push(double d, node* curr) {
-	node* new = (node*) malloc(sizeof(node));
+void stackPush(double d) {
+	stackNode* new = (stackNode*) malloc(sizeof(stackNode));
 	new->op = d;
 	new->next = curr;
-	curr = &new;
+	curr = new;
+}
+
+char* queuePop() {
+	char* popped = back->op;
+	queueNode* newBack = back->prev;
+	free(back);
+	back = newBack;
+	back->next = 0;
+	return popped;
+}
+
+void queuePush(char* s) {
+	queueNode* new = (queueNode*) malloc(sizeof(queueNode));
+	new->op = s;
+	new->next = front;
+	new->prev = 0;
+	front = new;
+}
+
+void parse(char* s) {
+	char* token;
+	token = strtok(s, " \n");
+	while(token != NULL) {
+		token = strtok(NULL, " \n");
+		queuePush(token);
+	}
 }
 
 int main() {
-	node* curr = 0;
 	int isNumber;
 	int notDone = 1;
 	while(1) {
-		char input[MAXSIZE];
-		scanf("%s", &input);
-		while(remain && notDone) { //Check if more operations
-			char op[OPSIZE]; //Take first operation from input
-			char remain[MAXSIZE];
-			remain = strtok(input, ' ');
-			strcpy(op, input);
-			isNumber = 1; //Check if operator is a number/push it
-			for(int i = 0; i < strlen(op); i++) {
-				if(i = 0 && op[i] == 45) {
+		char* input = malloc(MAXSIZE);
+		fgets(input, MAXSIZE, stdin);
+		printf("1");
+		parse(input);
+		free(input);
+		while(notDone) { //Check if more operations
+			isNumber = 1; //Check if operator is a number/stackPush it
+			char* op = queuePop();
+			if(op[0] == '\0')
+				notDone = 0;
+			for(int i = 0; i < strnlen(op, MAXSIZE); i++) {
+				if(i == 0 && op[i] == 45) {
 					continue;
 				}
 				if(op[i] < 48 || op[i] > 57) {
@@ -38,78 +65,93 @@ int main() {
 				}
 			}
 			if(isNumber) {
-				push(atof(op), curr);
+				stackPush(atof(op));
 			}
 			if(!strcmp(op, "+")) {
-				double op1 = pop(curr);
-				double op2 = pop(curr);
+				double op1 = stackPop();
+				double op2 = stackPop();
 				double newOp = op1 + op2;
-				push(newOp, curr);
+				stackPush(newOp);
 			}
 			if(!strcmp(op, "-")) {
-				double op1 = pop(curr);
-				double op2 = pop(curr);
+				double op1 = stackPop();
+				double op2 = stackPop();
 				double newOp = op2 - op1;
-				push(newOp, curr);
+				stackPush(newOp);
 			}
 			if(!strcmp(op, "*")) {
-				double op1 = pop(curr);
-				double op2 = pop(curr);
+				double op1 = stackPop();
+				double op2 = stackPop();
 				double newOp = op2 * op1;
-				push(newOp, curr);
+				stackPush(newOp);
 			}
 			if(!strcmp(op, "/")) {
-				double op1 = pop(curr);
-				double op2 = pop(curr);
+				double op1 = stackPop();
+				double op2 = stackPop();
 				double newOp = op1 / op2;
-				push(newOp, curr);
+				stackPush(newOp);
 			}
 			if(!strcmp(op, "sin")) {
-				double op1 = pop(curr);
+				double op1 = stackPop();
 				double newOp = sin(op1);
-				push(newOp, curr);
+				stackPush(newOp);
 			}
 			if(!strcmp(op, "cos")) {
-				double op1 = pop(curr);
+				double op1 = stackPop();
 				double newOp = cos(op1);
-				push(newOp, curr);
+				stackPush(newOp);
 			}
 			if(!strcmp(op, "neg")) {
-				double op1 = pop(curr);
+				double op1 = stackPop();
 				double newOp = -1*op1;
-				push(newOp, curr);
+				stackPush(newOp);
 			}
 			if(!strcmp(op, "rand")) {
 				double newOp = (rand()/((double) RAND_MAX));
-				push(newOp, curr);
+				stackPush(newOp);
 			}
 			if(!strcmp(op, "swap")) {
-				double op1 = pop(curr);
-				double op2 = pop(curr);
-				push(op1, curr);
-				push(op2, curr);
+				double op1 = stackPop();
+				double op2 = stackPop();
+				stackPush(op1);
+				stackPush(op2);
 			}
-			if(!strcmp(op, "pop")) {
-				pop(curr);
+			if(!strcmp(op, "stackPop")) {
+				stackPop();
 			}
 			if(!strcmp(op, "quit")) {
 				notDone = 0;
 			}
 			if(!strcmp(op, "sqrt")) {
-				double op1 = pop(curr);
+				double op1 = stackPop();
 				double newOp = sqrt(op1);
-				push(newOp, curr);
+				stackPush(newOp);
 			}
 			if(!strcmp(op, "pow")) {
-				double op1 = pop(curr);
-				double op2 = pop(curr);
+				double op1 = stackPop();
+				double op2 = stackPop();
 				double newOp = pow(op2, op1);
-				push(newOp, curr);
+				stackPush(newOp);
 			}
+			if(!strcmp(op, "def")) {
+				functFront = front;
+				functBack = back;
+				front = 0;
+				back = 0;
+			}
+			if(!strcmp(op, "call_function")) {
+				
+			}
+			if(!strcmp(op, "print_function")) {
+
+			}
+			double top = stackPop();
+			stackPush(top);
+			printf("Top of Stack: %f", top);
 		}
 		if(!notDone) {
 			while(curr) {
-				pop(curr);
+				stackPop();
 			}
 			break;
 		}

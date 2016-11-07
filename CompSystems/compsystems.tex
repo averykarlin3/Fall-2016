@@ -775,5 +775,11 @@
 \4 On the other hand, it does check for the correct types, not assigning if mismatched, leaving the remainder in the stream
 \3 Since parameters are pushed right to left, the pointer to the format string is easily accessible within the stack, with the offset within the function run-time stack designating the number of variables, with the final at offset 0
 \4 The format string is stored with other stirngs in the literal/constant memory section
+\1 I/O streams work with files, with stdin/stdout as special system files mapping to the keyboard and monitor, using more general functions to work with other files
+\2 fprintf and fscanf are used for file I/O, acting similarly to other I/O, but allowing the stream to be specified, used similarly but with an added first parameter for the file pointer
+\2 Thus, a file pointer must be declared first, with the type ``FILE*'', contained within <stdio.h>, opening it by ``\textit{filePointer = fopen("filename", "operations")''
+\3 The file operations are r for reading, w for overwriting, a for appending, r+ for reading and appending
+\3 If the fopen fails, it will return a NULL file pointer
+\2 For scanf, the end of file is denoted by the EOF character macro, and is limited to reading 10000 characters at a time 
 \end{outline*}
 \end{document}
