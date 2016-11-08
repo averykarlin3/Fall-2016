@@ -12,21 +12,26 @@ typedef struct stackNode {
 } stackNode;
 
 typedef struct queueNode {
-	char* op;
-	struct queueNode* prev;
-	struct queueNode* next;
+	char op[MAXSIZE];
+	struct queueNode* below;
+	struct queueNode* above;
 } queueNode;
 
 double stackPop();
 
 void stackPush(double d);
 
-char* queuePop();
+void queuePop(char* op);
 
 void queuePush(char* s);
+
+void readTop();
 
 queueNode* front = 0;
 queueNode* back = 0;
 stackNode* curr = 0;
 queueNode* functFront = 0;
 queueNode* functBack = 0;
+int functCall = 0;
+queueNode* saveFront = 0;
+queueNode* saveBack = 0;
