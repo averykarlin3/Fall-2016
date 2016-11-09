@@ -35,3 +35,4 @@ queueNode* functBack = 0;
 int functCall = 0;
 queueNode* saveFront = 0;
 queueNode* saveBack = 0;
+int stackSize = 0;
