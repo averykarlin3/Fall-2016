@@ -27,6 +27,8 @@ void queuePush(char* s);
 
 void readTop();
 
+int check(char* s);
+
 queueNode* front = 0;
 queueNode* back = 0;
 stackNode* curr = 0;

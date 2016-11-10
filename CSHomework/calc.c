@@ -61,6 +61,55 @@ void readTop() {
 		printf("None in Stack\n");
 }
 
+int check(char* s) {
+	if(!strcmp(s, "+"))
+		return 1;
+	if(!strcmp(s, "-"))
+		return 1;
+	if(!strcmp(s, "*"))
+		return 1;
+	if(!strcmp(s, "/"))
+		return 1;
+	if(!strcmp(s, "sin"))
+		return 1;
+	if(!strcmp(s, "cos"))
+		return 1;
+	if(!strcmp(s, "rand"))
+		return 1;
+	if(!strcmp(s, "sqrt"))
+		return 1;
+	if(!strcmp(s, "pow"))
+		return 1;
+	if(!strcmp(s, "neg"))
+		return 1;
+	if(!strcmp(s, "swap"))
+		return 1;
+	if(!strcmp(s, "pop"))
+		return 1;
+	if(!strcmp(s, "print"))
+		return 1;
+	if(!strcmp(s, "quit"))
+		return 1;
+	int isNumber = 1;
+	int decimalFound = 0;
+	for(int i = 0; i < strnlen(s, MAXSIZE); i++) {
+		if(i == 0 && s[i] == 45 && strnlen(s, MAXSIZE) > 1) {
+			continue;
+		}
+		if(s[i] == 46 && !decimalFound) {
+			decimalFound = 1;
+			continue;
+		}
+		if(s[i] < 48 || s[i] > 57) {
+			isNumber = 0;
+			break;
+		}
+	}
+	if(isNumber)
+		return 1;
+	return 0;
+}
+
 int action(char* op) {
 	int notEnough = 1;
 	int isNumber = 1;
@@ -201,14 +250,56 @@ int action(char* op) {
 	if(!strcmp(op, "def")) {
 		notEnough = 0;
 		functFound = 1;
-		functFront = front;
-		functBack = back;
+		queueNode* test = back;
+		int allowed = check(test->op);
+		test = test->above;
+		while(test && allowed) {
+			allowed = check(test->op);
+			test = test->above;
+		}
+		if(allowed) {
+			functFront = front;
+			functBack = back;
+		}
+		else {
+			printf("INVALID DEF\n");
+		}
 		front = 0;
 		back = 0;
 	}
 	if(!strcmp(op, "print")) {
 		functFound = 1;
-		//ADD
+		notEnough = 0;
+		queueNode* first = 0;
+		queueNode* next = 0;
+		queueNode* top;
+		double value;
+		if(curr) {
+			first = (queueNode*) malloc(sizeof(queueNode));
+			value = stackPop();
+			sprintf(first->op, "%f", value);
+			first->below = 0;
+			first->above = 0;
+			top = first;
+			printf("%s\n", first->op);
+			next = first;
+		}
+		while(curr) {
+			next = (queueNode*) malloc(sizeof(queueNode));
+			value = stackPop();
+			sprintf(next->op, "%f", value);
+			next->below = top;
+			next->above = 0;
+			top->above = next;
+			top = next;
+			printf("%s\n", next->op);
+		}
+		while(next) {
+			stackPush(atof(next->op));
+			next = next->below;
+		} 
+
+
 	}
 	if(!strcmp(op, "call_func")) {
 		notEnough = 0;
@@ -264,7 +355,7 @@ int main() {
 			parse(input);
 			free(input);
 		}
-		while(notDone && front) { //Check if more operations
+		while(notDone && front) {
 			char op[MAXSIZE];
 			queuePop(op);
 			for(int i = 0; i < strnlen(op, MAXSIZE); i++)
@@ -272,8 +363,6 @@ int main() {
 			notDone = action(op);
 			readTop();
 		}
-		//if(!functCall || !notDone)
-		//	printf("\n");
 		if(!notDone) {
 			while(curr) {
 				stackPop();
