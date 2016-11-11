@@ -564,7 +564,10 @@
 \3 Pointer arithmetic automatically adds or subtracts sizeof(type), where type is the pointer's type, from the pointer when adding or subtracting 1
 \2 Structures are aggregate types defined by ``struct \textit{tagid} \{ \textit{type1 var1; ... typeN varN;\};'', able to contain any other types within
 \3 The tag ID allows variables of the structure to be declared, by ``struct \textit{tagid varName}'', and allows multiple structures with the same member elements and identifiers to exist in the same program
-\3 Variables can also be declared without a tag, at the end of the struct definition for a sinle usage
+\3 Variables can also be declared without a tag, at the end of the struct definition for a single usage
+\3 It is allocated in memory by the same manner as fundamental types, given enough space for all member variables
+\3 Member elements are called by ``\textit{structVar.memberVar}'', or called by a pointer to the struct by ``\textit{structVar->memberVar}''
+\4 This is due to the variable name providing the location of the start of the struct, and the member variable name providing the offset from the start
 \2 Unions are a single object able to take on multiple different types during the program, storing enough data when declared for the largest possible type
 \3 It is defined similar to a structure, with ``union'' replacing ``struct'', calling on member items the same, though only filling on at a time
 \2 Structs and unions can directly access a member element by \textit{structUnionName.varName}, or if using a pointer to the struct/union, can use \textit{structUnionPointer}->\textit{varName}
@@ -588,7 +591,9 @@
 \1 Math functions are within <math.h>, each taking doubles and returning doubles, including sin, cos, tan, exp (e^x), log (ln), sqrt, and pow(x, y) (x^y)
 \1 Utility functions are within <stdlib.h>, including ``void *malloc(size_t size)'', ``void free(void *ptr)'', ``int rand()'', and ``void srand(unsigned int seed)''
 \2 malloc allocates the number of bytes given, within the heap, returning a pointer to it, with the parameter automatically typedefed to the unsigned integer size_t type returned by sizeof()
+\3 Malloc returns a null pointer (the NULL macro, generally 0) if the memory cannot be allocated
 \3 free returns the allocated memory to the heap, having been previously allocated by malloc
+\3 Void* implies a generic data pointer, needing to be typecasted to the desired type, though free() automatically typecasts it
 \2 rand() generates a random integer based on the seed value, giving an integer from 0 to RAND_MAX (slightly more than 32.767)
 \3 srand() allows reseeding of the rand() to produce a different pseudo-random integer
 \end{outline*}
@@ -688,6 +693,7 @@
 \2 The indirection/dereference operator, *, can be used before a pointer variable to allow accessing the data stored at the location in the pointer
 \2 Null pointers are able to be made by initializing to ``NULL'', a built-in macro for an invalid pointer value
 \2 For types with more than one byte, the pointer to the variable containing it points to the starting point of the variable
+\2 Pointers are able to point to pointers, called double pointers, functioning similarly to single pointers, allowing passing a pointer by memory
 \1 Arrays are declared based on the type contained within by ``\textit{type name\[size\]}'', unable to have their size changed after declaration
 \2 Arrays must be given an explicit size within code, rather than a variable size, or a syntax error will occur
 \2 Items are able to be accessed by index, such that the ith element in the array is taken by ``\textit{name\[i-1\]}''
@@ -728,6 +734,7 @@
 \3 These are sent along with the priority level and the interrupt request signal at the start
 \3 The vector used by the processor is designated as the INTV, corresponding to a vector from x0100 to x01FF, after the trap vectors of x0000 to x00FF
 \2 Returning from the interrupt pops the PSR and PC from the supervisor stack and restoring them, removing the remaining stack from the interrupt request
+\1 Queues are a similar abstract data type, acting through LIFO, or last in first out, built in the same manner
 \end{outline*}
 \section{Chapter 14 - Functions}
 \begin{outline*}
@@ -781,5 +788,22 @@
 \3 The file operations are r for reading, w for overwriting, a for appending, r+ for reading and appending
 \3 If the fopen fails, it will return a NULL file pointer
 \2 For scanf, the end of file is denoted by the EOF character macro, and is limited to reading 10000 characters at a time 
+\end{outline*}
+\section{Data Structures}
+\begin{outline*}
+\1 Data structures to allow describing of real world objects is called object orientation, using multiple separate values within, held in different manners
+\2 Arrays are used for a fixed quantity ordered storage of the same data type, while structures are used for aggregates of fundamental types
+\2 Structs, like primitive data types, are passed by value, unlike arrays and pointers
+\1 Arrays of structures and pointers to structures can be created as for any other variable
+\1 Memory objects/variables in C are able to be allocated to the run-time stack, global data section, or the dynamic memory section/heap
+\2 The heap takes up a portion of memory below global data but above the runtime stack, growing downward toward the stack
+\2 This is managed by the memory allocator, with the program able to request a portion of the heap as needed, to allow unknown sizes of data structures without wasting space
+\3 Memory allocated remains so until explicitly deallocated, done by the computer automatically on shutdown or within the code
+\2 Due to being contiguous memory, both array and pointer notation are able to be used, such that malloc can be thought to create a dynamically sized array
+\1 Linked lists store data as a sequential list of elements, similar to an array, but not sequentially adjacent, rather storing as a collection of data units/nodes, each containing a pointer to the next node
+\2 The head pointer points to the start of the list, each pointing to the next, with the final pointing to a NULL pointer
+\2 As a result, they cannot be accessed in a random order like an array, but rather must be viewed sequentially, but are more dynamic than an array
+\3 Items are able to be added or removed at any point in the list, rather than just from the end like a dynamically sized array
+\2 Dummy head nodes are used often to eliminate the case of an empty list, serving as a placeholder, rather than a proper data node
 \end{outline*}
 \end{document}

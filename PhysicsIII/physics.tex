@@ -348,7 +348,7 @@
 \2 As a result, the initial direction by which a ray is emitted is independent of the time to reach the image
 \2 The image can thus be defined as the point in which all rays from a source are in phase together
 \end{outline*}
-\section{Chapter 8 - Interference}
+\section{Freegarde Chapter 8 - Interference}
 \begin{outline*}
 \1 Wave interference and superposition state that the field can be added for all different wave paths at a specific point
 \2 The theory of interference ignores the phase differences and use the paraxial approximation again to allow angle approximations, preventing the measurement at the interference directly
@@ -364,7 +364,7 @@
 \2 As a result, in theory, the cross-talk sound can be cancelled out by the same negated sound from the other speaker, adding a phase shift to cancel it out, used for surround sound
 \2 On the other hand, this can create a faint disturbance, and relies on being placed precidely between
 \end{outline*}
-\section{Chapter 9 - Fraunhofer Diffraction}
+\section{Freegarde Chapter 9 - Fraunhofer Diffraction}
 \begin{outline*}
 \1 While interference is the superposition of several possible wave paths, diffraction is the interaction of a high number of wave paths, such that the interference fringes are a diffraction pattern
 \1 Fraunhofer diffraction is observed in the image plane of the source, where there is a large number of real optical paths with the same wavelength and amplitude
@@ -390,12 +390,18 @@
 \3 This can be combined with the expression for the integral found for a single slit, providing the function $\psi(\theta) = \frac{sin(\frac{N+1}{2}kdsin(\theta))}{sin(\frac{1}{2}kdsin(\theta))}\psi_0d\frac{sin(\frac{1}{2}kw\sin(\theta))}{\frac{1}{2}kwsin(\theta)}$
 \2 This produces a series of narrow peaks when the denominator approaches 0, such that $\frac{kdsin\theta}{2} = m\pi$, or $dsin\theta = m\wavelength$, such that m is the diffraction order
 \3 As a result, the beam of light is dispersed at each order of diffraction, such that the spectrum can be recorded
-\2 **EXAMPLES**
+\2 **MISSING EXAMPLES (9.4.1-3)**
 \end{outline*}
-\section{Chapter 10 - Longitudinal Waves}
+\section{Freegarde Chapter 10 - Longitudinal Waves}
 \begin{outline*}
-\1 Sound waves are one-dimensional longitudinal motion in an elastic medium, such that it follows Hooke's Law, visualized as the medium uniformly filling a cylinder
+\1 Sound waves are one-dimensional longitudinal motion/compressions and refractions in an elastic medium, such that it follows Hooke's Law, visualized as the medium uniformly filling a cylinder
 \2 The wave motion results in some section of the medium both changing the location and the thickness
+\2 As a result, for some element from x to $x + \delta x$, when displaced, it occupies $x + \epsilon$ to $x + \delta x + \epsilon + \delta\epsilon$
+\3 Tension is written by $T = EA\frac{\delta\epsilon}{\delta x}$, where the mass is given by $\delta m = \rho A \delta x$, where E is Young's modulus and $\rho$ is density
+\3 As a result, the difference of the tension on both sides is the force on the mass element as a whole, related to Newton's Second Law, dividing both sides by $\delta x$ and using the limit as it approaches 0
+\3 This provides the wave equation, $\rho\frac{\partial^2 \epsilon}{\partial t^2} = E\frac{\partial^2 \epsilon}{\partial x^2}$
+\2 As a result, for some sound wave, $v_p = \sqrt{\frac{E}{\rho}}$
+\1 **MISSING SPEED IN AIR/PRESSURE (10.2.1-2)**
 \end{outline*}
 \section{Miscellaneous Wave Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier series of normal modes
@@ -476,7 +482,7 @@ $\psi(x, t) = \sum_{n=1}^{\infty} sin(\frac{n\pi v}{L}t)cos(\frac{n\pi v}{L}t)$
 dB^2, not dB
 
 Intensity = Instantaneous power/Area of Solid wave reached
-\subsection{Waves Studying Notes}
+
 Chapter 4 - Potential energy string derivation rely on not using small angle approximation, and using binomial approximation (sqrt(1 + x^2) - 1 = 1/2 * x^2)'
 Chapter 8 - Approximation as d approaches 0
 
@@ -484,4 +490,30 @@ Focal length inside radius is negative for non-lenses
 For a lens, rays moving through the center are considered to be negligably refracted, continuing straight approximately
 Positive focal radius lens = converging/convex, negative = diverging/concave
 Erect = not upside down
+\section{Helliwell Chapter 1 - Inertial Frames and Classical Mechanics}
+\begin{outline*}
+\1 Frames of reference are necessary to describe motion, creating a coordinate axis, easiest to measure motion when inertial frames
+\2 Inertial frames of reference are those where Newton's First Law is true, found to be those not accelerating or rotating relative to any other inertial frame
+\3 This is compensated for on Earth by local reference frames only being negligably rotating and accelerating with the Earth
+\2 This allows infinite inertial frames of reference, moving with different velocities
+\2 Newton's other laws are only valid for describing motion by inertial observers
+\1 Events are defined as something that happens at an instant in time and in space, requiring both to measure position
+\2 The measurement of position of an event depends on the frame of reference
+\2 For some frame F, and some frame F' moving with velocity v with respect to F, some event at (x, t), x' = x - vt, t' = t, called the Galilean transformation of F to F'
+\3 Within a Galilean transformation, length and time intervals are the same between frames
+\3 It is noted that to measure length of an object, the two event measurements must be simultaneous for the lengths to be measured equally, and clocks must be synchronized
+\2 As a result of Galilean transformations, space and time are distinct and do not affect motion as a result
+\2 It also follows that $v'_x = v_x - v$ and $a')x = a_x$, providing the relationship between velocities and accelerations in different frames
+\3 Since mass is assumed to also be a constant quantity, force is independent of frame of reference as a result within inertial frames
+\2 Thus, within classical mechanics, it is assumed that there is no perferred frame of reference, also called the principle of relativity
+\1 
+\end{outline*}
+\section{Helliwell Chapter 2 - Light and the Ether}
+\begin{outline*}
+
+\end{outline*}
+\section{Helliwell Chapter 3 - Einstein's Postulates}
+\begin{outline*}
+
+\end{outline*}
 \end{document}
