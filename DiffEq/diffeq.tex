@@ -698,8 +698,10 @@
 \2 As a result, as time moves towards infinity, the displacement moves towards 0
 \1 For a system with an external force, such that it is a nonhomogeneous system, notable only when it is periodic over time, such that $F(t) = F_0cos(\omega t)$, called forced harmonic oscillation
 \2 If c = 0 and $\omega_0 \neq \omega$, then $y_p(t) = \frac{F_0}{m(\omega_0^2 - \omega^2)}cos(\omega t)$
-\2 If c = 0 and $\omega_0 = \omega$, then $y_p(t) = \frac{F_0}{2m\omega_0^2}tsin(\omega_0 t)$
-\2
+\2 If c = 0 and $\omega_0 = \omega$, then $y_p(t) = \frac{F_0}{2m\omega_0^2}tsin(\omega_0 t)$, called resonance, the oscillation amplitude increasing over time infinitely
+\2 If $c \neq 0$, then $y_p = Acos(\omega t) + Bsin(\omega t) = \frac{F_0((k - m\omega^2)cos(\omega t) + c\omega sin(\omega t))}{(k - m\omega^2)^2 + c^2\omega^2}$
+\3 This can be rewritten as $y_p(t) = \frac{F_0}{H}cos(\omega t - \eta)$, where $cos(\eta) = \frac{m(\omega_0^2 - \omega^2)}{H}, sin(\eta) = \frac{c\omega}{H}, H = \sqrt{m^2(\omega^2_0 - \omega^2)^2 + c^2\omega^2}$
+\3 As a result, over time, the particular solution is dominent, such that it is called the steady-state solution, decaying to simple harmonic motion of it, while the complementary part is the transient part
 \end{outline*}
 \subsection{Reduction of Order}
 \begin{outline*}
