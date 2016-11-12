@@ -1,0 +1,6 @@
+clear
+reset
+as os os
+as mc libc mc
+ld os
+ld mc
