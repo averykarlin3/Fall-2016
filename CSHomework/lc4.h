@@ -31,19 +31,14 @@ typedef struct {
 typedef struct {
   // Current value of the program counter register
   unsigned short int PC;
-
   // Processor status register; bit[2]=N, [1]=Z, [0]=P, bit[15]=privilege bit
   unsigned short int PSR;
-
   // Machine registers - all 8
   unsigned short int R[8];
-
   // Machine memory - all rows
   unsigned short int memory[65536];
-
   // Control signals - struct containing all 16
   control_signals control;
-
 } machine_state;
 
 /*
