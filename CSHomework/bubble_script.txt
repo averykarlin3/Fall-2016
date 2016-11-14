@@ -1,7 +1,0 @@
-reset
-as bubble bubble
-ld bubble
-set PC 0
-set R0 x4000
-set R1 x4200
-break set END

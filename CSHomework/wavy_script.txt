@@ -1,7 +1,0 @@
-reset
-as wavy wavy
-ld wavy
-set PC 0
-set R0 0
-set R1 999
-break set END
