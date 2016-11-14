@@ -1,6 +1,6 @@
 #include "calc.h"
 
-double stackPop() {
+double stackPop() { //Pop the top value from the calculator stack, and return as double
 	double popped = curr->op;
 	stackNode* newCurr = curr->next;
 	free(curr);
@@ -9,7 +9,7 @@ double stackPop() {
 	return popped;
 }
 
-void stackPush(double d) {
+void stackPush(double d) { //Push a double onto the top of the stack
 	stackNode* new = (stackNode*) malloc(sizeof(stackNode));
 	new->op = d;
 	new->next = curr;
@@ -17,7 +17,7 @@ void stackPush(double d) {
 	stackSize++;
 }
 
-void queuePop(char* op) {
+void queuePop(char* op) { //Pop the last item off of the queue into the string variable inputted
 	strncpy(op, back->op, MAXSIZE);
 	queueNode* newBack = back->above;
 	if(!functCall)
@@ -29,7 +29,7 @@ void queuePop(char* op) {
 		front = 0;
 }
 
-void queuePush(char* s) {
+void queuePush(char* s) { //Push the string onto the start of the queue
 	queueNode* new = (queueNode*) malloc(sizeof(queueNode));
 	strncpy(new->op, s, MAXSIZE);
 	new->below = front;
@@ -42,7 +42,7 @@ void queuePush(char* s) {
 	}
 }
 
-void parse(char* s) {
+void parse(char* s) { //Divide the input string into a series of tokens, pushing each onto the queue in order
 	char* token;
 	token = strtok(s, " \n\0\t");
 	while(token != NULL) {
@@ -51,7 +51,7 @@ void parse(char* s) {
 	}
 }
 
-void readTop() {
+void readTop() { //Read the top item in the stack
 	if(curr) {
 		double top = stackPop();
 		stackPush(top);
@@ -62,7 +62,7 @@ void readTop() {
 }
 
 int check(char* s) {
-	if(!strcmp(s, "+"))
+	if(!strcmp(s, "+")) //Check if string is command
 		return 1;
 	if(!strcmp(s, "-"))
 		return 1;
@@ -90,41 +90,41 @@ int check(char* s) {
 		return 1;
 	if(!strcmp(s, "quit"))
 		return 1;
-	int isNumber = 1;
+	int isNumber = 1; //Check if string is number
 	int decimalFound = 0;
 	for(int i = 0; i < strnlen(s, MAXSIZE); i++) {
-		if(i == 0 && s[i] == 45 && strnlen(s, MAXSIZE) > 1) {
+		if(i == 0 && s[i] == 45 && strnlen(s, MAXSIZE) > 1) { //Check for digits
 			continue;
 		}
-		if(s[i] == 46 && !decimalFound) {
+		if(s[i] == 46 && !decimalFound) { //Check for decimal point
 			decimalFound = 1;
 			continue;
 		}
-		if(s[i] < 48 || s[i] > 57) {
+		if(s[i] < 48 || s[i] > 57) { //Check for illegitimate character
 			isNumber = 0;
 			break;
 		}
 	}
 	if(isNumber)
 		return 1;
-	return 0;
+	return 0; //Return 0 if not command or number
 }
 
 int action(char* op) {
-	int notEnough = 1;
+	int notEnough = 1; //Enough parameters for command?
 	int isNumber = 1;
-	int notDone = 1;
+	int notDone = 1; //Quit command not given?
 	int decimalFound = 0;
-	int functFound = 0;
-	for(int i = 0; i < strnlen(op, MAXSIZE); i++) {
-		if(i == 0 && op[i] == 45 && strnlen(op, MAXSIZE) > 1) {
+	int functFound = 0; //Legitimate command given?
+	for(int i = 0; i < strnlen(op, MAXSIZE); i++) { 
+		if(i == 0 && op[i] == 45 && strnlen(op, MAXSIZE) > 1) { //Check for digits
 			continue;
 		}
-		if(op[i] == 46 && !decimalFound) {
+		if(op[i] == 46 && !decimalFound) { //Check for decimal point
 			decimalFound = 1;
 			continue;
 		}
-		if(op[i] < 48 || op[i] > 57) {
+		if(op[i] < 48 || op[i] > 57) { //Check for illegitimate character
 			isNumber = 0;
 			break;
 		}
@@ -134,7 +134,7 @@ int action(char* op) {
 		stackPush(atof(op));
 		notEnough = 0;
 	}
-	if(!strcmp(op, "+")) {
+	if(!strcmp(op, "+")) { //Arithmatic commands
 		functFound = 1;
 		if(stackSize >= 2) {
 			notEnough = 0;
@@ -216,7 +216,7 @@ int action(char* op) {
 			stackPush(op2);
 		}
 	}
-	if(!strcmp(op, "pop")) {
+	if(!strcmp(op, "pop")) { //Remove top value from stack
 		functFound = 1;
 		if(stackSize >= 1) {
 			notEnough = 0;
@@ -247,20 +247,20 @@ int action(char* op) {
 			stackPush(newOp);
 		}
 	}
-	if(!strcmp(op, "def")) {
+	if(!strcmp(op, "def")) { //Define function
 		notEnough = 0;
 		functFound = 1;
 		queueNode* test = back;
 		int allowed = 1;
-		if(test) {
+		if(test) {	//Check if empty function
+			allowed = check(test->op); //Test first item in function
+			test = test->above;
+		}
+		while(test && allowed) { //Test next items in function
 			allowed = check(test->op);
 			test = test->above;
 		}
-		while(test && allowed) {
-			allowed = check(test->op);
-			test = test->above;
-		}
-		if(allowed) {
+		if(allowed) { //Store function if allowed
 			functFront = front;
 			functBack = back;
 		}
@@ -270,24 +270,24 @@ int action(char* op) {
 		front = 0;
 		back = 0;
 	}
-	if(!strcmp(op, "print")) {
+	if(!strcmp(op, "print")) { //Print stack without popping
 		functFound = 1;
 		notEnough = 0;
-		queueNode* first = 0;
+		queueNode* first = 0; 
 		queueNode* next = 0;
 		queueNode* top;
 		double value;
-		if(curr) {
+		if(curr) { //If there is a first node
 			first = (queueNode*) malloc(sizeof(queueNode));
 			value = stackPop();
 			sprintf(first->op, "%f", value);
-			first->below = 0;
+			first->below = 0; //Load value into a queue
 			first->above = 0;
 			top = first;
 			printf("%s\n", first->op);
 			next = first;
 		}
-		while(curr) {
+		while(curr) { //Read next node by popping, reading, and adding to queue
 			next = (queueNode*) malloc(sizeof(queueNode));
 			value = stackPop();
 			sprintf(next->op, "%f", value);
@@ -297,14 +297,12 @@ int action(char* op) {
 			top = next;
 			printf("%s\n", next->op);
 		}
-		while(next) {
-			stackPush(atof(next->op));
+		while(next) { //
+			stackPush(atof(next->op)); //Restore values from queue
 			next = next->below;
 		} 
-
-
 	}
-	if(!strcmp(op, "call_func")) {
+	if(!strcmp(op, "call_func")) { //Move function definition into input queue
 		notEnough = 0;
 		functFound = 1;
 		if(functFront) {
@@ -318,7 +316,7 @@ int action(char* op) {
 			printf("NO FUNCTION DEFINED\n");
 		}
 	}
-	if(!strcmp(op, "print_func")) {
+	if(!strcmp(op, "print_func")) { //Print items in function definition
 		notEnough = 0;
 		functFound = 1;
 		if(functFront) {
@@ -341,24 +339,24 @@ int action(char* op) {
 
 
 int main() {
-	int isNumber;
+	int isNumber; //Signifies if done with calculator
 	int notDone = 1;
 	while(1) {
-		if(functCall) {
+		if(functCall) { //Check if just finished function call and restore
 			functCall = 0;
 			front = saveFront;
 			back = saveBack;
 			saveFront = 0;
 			saveBack = 0;
 		}
-		if(!front) {
+		if(!front) { //Get new command
 			printf("\n");
 			char* input = (char*) malloc(MAXSIZE);
 			fgets(input, MAXSIZE, stdin);
 			parse(input);
 			free(input);
 		}
-		while(notDone && front) {
+		while(notDone && front) { //Iterate through command stream
 			char op[MAXSIZE];
 			queuePop(op);
 			for(int i = 0; i < strnlen(op, MAXSIZE); i++)
@@ -366,7 +364,7 @@ int main() {
 			notDone = action(op);
 			readTop();
 		}
-		if(!notDone) {
+		if(!notDone) { //Clear structures
 			while(curr) {
 				stackPop();
 			}

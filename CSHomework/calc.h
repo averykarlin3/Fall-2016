@@ -17,7 +17,7 @@ typedef struct queueNode {
 	struct queueNode* above;
 } queueNode;
 
-double stackPop();
+double stackPop(); //Function declarations
 
 void stackPush(double d);
 
@@ -32,9 +32,9 @@ int check(char* s);
 queueNode* front = 0;
 queueNode* back = 0;
 stackNode* curr = 0;
-queueNode* functFront = 0;
+queueNode* functFront = 0; //Function queue save location
 queueNode* functBack = 0;
-int functCall = 0;
-queueNode* saveFront = 0;
+int functCall = 0; //Check if inside function call
+queueNode* saveFront = 0; //Temporary queue save location
 queueNode* saveBack = 0;
-int stackSize = 0;
+int stackSize = 0; //Current size of stack
