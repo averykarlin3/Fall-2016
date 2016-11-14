@@ -596,6 +596,7 @@
 \3 Void* implies a generic data pointer, needing to be typecasted to the desired type, though free() automatically typecasts it
 \2 rand() generates a random integer based on the seed value, giving an integer from 0 to RAND_MAX (slightly more than 32.767)
 \3 srand() allows reseeding of the rand() to produce a different pseudo-random integer
+\1 Character type functions are stored within ``<ctype.h>'', such as islower(), isupper(), tolower(), and toupper(), checking and modifying strings to the correct type of character
 \end{outline*}
 \section{Chapter 12 - Variables and Operators}
 \begin{outline*}
@@ -787,7 +788,8 @@
 \2 Thus, a file pointer must be declared first, with the type ``FILE*'', contained within <stdio.h>, opening it by ``\textit{filePointer = fopen("filename", "operations")''
 \3 The file operations are r for reading, w for overwriting, a for appending, r+ for reading and appending
 \3 If the fopen fails, it will return a NULL file pointer
-\2 For scanf, the end of file is denoted by the EOF character macro, and is limited to reading 10000 characters at a time 
+\2 For scanf, the end of file is denoted by the EOF character macro, and is limited to reading 10000 characters at a time
+\2 After using the file, ``fclose(\textit{file-pointer})'' must be used to close and save the file
 \end{outline*}
 \section{Data Structures}
 \begin{outline*}
@@ -799,11 +801,14 @@
 \2 The heap takes up a portion of memory below global data but above the runtime stack, growing downward toward the stack
 \2 This is managed by the memory allocator, with the program able to request a portion of the heap as needed, to allow unknown sizes of data structures without wasting space
 \3 Memory allocated remains so until explicitly deallocated, done by the computer automatically on shutdown or within the code
+\3 Not freeing memory is called a memory leak, due to C not automatically doing garbage collection/freeing memory, like in Java
+\4 Garbage is memory that is not connected to anything, unable to be accessed, yet not freed
 \2 Due to being contiguous memory, both array and pointer notation are able to be used, such that malloc can be thought to create a dynamically sized array
 \1 Linked lists store data as a sequential list of elements, similar to an array, but not sequentially adjacent, rather storing as a collection of data units/nodes, each containing a pointer to the next node
 \2 The head pointer points to the start of the list, each pointing to the next, with the final pointing to a NULL pointer
 \2 As a result, they cannot be accessed in a random order like an array, but rather must be viewed sequentially, but are more dynamic than an array
 \3 Items are able to be added or removed at any point in the list, rather than just from the end like a dynamically sized array
 \2 Dummy head nodes are used often to eliminate the case of an empty list, serving as a placeholder, rather than a proper data node
+\2 Singly linked lists allow traversing in one direction, while doubly linked lists allow in both directions, adding an extra pointer for the previous node
 \end{outline*}
 \end{document}
