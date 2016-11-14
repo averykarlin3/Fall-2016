@@ -251,8 +251,11 @@ int action(char* op) {
 		notEnough = 0;
 		functFound = 1;
 		queueNode* test = back;
-		int allowed = check(test->op);
-		test = test->above;
+		int allowed = 1;
+		if(test) {
+			allowed = check(test->op);
+			test = test->above;
+		}
 		while(test && allowed) {
 			allowed = check(test->op);
 			test = test->above;
