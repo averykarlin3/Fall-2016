@@ -1,6 +1,48 @@
 #include "calc.h"
 
-void parse(char* s) { //Divide the input string into a series of tokens, pushing each onto the queue in order
+double stackPop() {
+	double popped = curr->op;
+	stackNode* newCurr = curr->next;
+	free(curr);
+	curr = newCurr;
+	stackSize--;
+	return popped;
+}
+
+void stackPush(double d) {
+	stackNode* new = (stackNode*) malloc(sizeof(stackNode));
+	new->op = d;
+	new->next = curr;
+	curr = new;
+	stackSize++;
+}
+
+void queuePop(char* op) {
+	strncpy(op, back->op, MAXSIZE);
+	queueNode* newBack = back->above;
+	if(!functCall)
+		free(back);
+	back = newBack;
+	if(back)
+		back->below = 0;
+	else
+		front = 0;
+}
+
+void queuePush(char* s) {
+	queueNode* new = (queueNode*) malloc(sizeof(queueNode));
+	strncpy(new->op, s, MAXSIZE);
+	new->below = front;
+	new->above = 0;
+	if(front)
+		front->above = new;
+	front = new;
+	if(!back) {
+		back = new;
+	}
+}
+
+void parse(char* s) {
 	char* token;
 	token = strtok(s, " \n\0\t");
 	while(token != NULL) {
@@ -9,7 +51,7 @@ void parse(char* s) { //Divide the input string into a series of tokens, pushing
 	}
 }
 
-void readTop() { //Read the top item in the stack
+void readTop() {
 	if(curr) {
 		double top = stackPop();
 		stackPush(top);
@@ -20,7 +62,7 @@ void readTop() { //Read the top item in the stack
 }
 
 int check(char* s) {
-	if(!strcmp(s, "+")) //Check if string is command
+	if(!strcmp(s, "+"))
 		return 1;
 	if(!strcmp(s, "-"))
 		return 1;
@@ -48,24 +90,24 @@ int check(char* s) {
 		return 1;
 	if(!strcmp(s, "quit"))
 		return 1;
-	int isNumber = 1; //Check if string is number
+	int isNumber = 1;
 	int decimalFound = 0;
 	for(int i = 0; i < strnlen(s, MAXSIZE); i++) {
-		if(i == 0 && s[i] == 45 && strnlen(s, MAXSIZE) > 1) { //Check for digits
+		if(i == 0 && s[i] == 45 && strnlen(s, MAXSIZE) > 1) {
 			continue;
 		}
-		if(s[i] == 46 && !decimalFound) { //Check for decimal point
+		if(s[i] == 46 && !decimalFound) {
 			decimalFound = 1;
 			continue;
 		}
-		if(s[i] < 48 || s[i] > 57) { //Check for illegitimate character
+		if(s[i] < 48 || s[i] > 57) {
 			isNumber = 0;
 			break;
 		}
 	}
 	if(isNumber)
 		return 1;
-	return 0; //Return 0 if not command or number
+	return 0;
 }
 
 int action(char* op) {
@@ -296,7 +338,8 @@ int action(char* op) {
 
 
 int main() {
-	int notDone = 1; //Signifies if done with calculator
+	int isNumber;
+	int notDone = 1;
 	while(1) {
 		if(functCall) {
 			functCall = 0;
