@@ -6,6 +6,18 @@
 /*
  * Struct representing all 16 control signals.
  */
+
+#define INST_OP(I) ((I) >> 12)
+#define INST_11_9(I) ((I) >> 9 & 0x7)
+#define INST_8_6(I) ((I) >> 6 & 0x7)
+#define INST_2_0(I) ((I) & 0x7)
+#define INST_8_7(I) ((I) >> 8 & 0x3)
+#define INST_11(I) ((I) >> 11 & 0x1)
+#define INST_5_3(I) ((I) >> 3 & 0x7)
+#define INST_5_4(I) ((I) >> 4 & 0x3)
+
+typedef unsigned short int word;
+
 typedef struct {
     unsigned char pc_mux_ctl;
     unsigned char rs_mux_ctl;
