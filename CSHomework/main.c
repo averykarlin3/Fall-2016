@@ -11,5 +11,5 @@ int sext(word n, int len) {
 
 int main() {
 	word inst = 0x0013;
-	printf("%u\n", sext(UIMM5(inst), 5));
+	printf("%04x\n", UIMM5(inst));
 }
