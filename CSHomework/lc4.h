@@ -9,6 +9,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #define INST_OP(I) ((I) >> 12)
 #define INST_11_9(I) ((I) >> 9 & 0x7)
