@@ -3,6 +3,7 @@
 int sext(word n, int len) {
 	if(n > pow(2, len - 1)) {
 		int mask = ~((int) pow(2, len) - 1);
+		printf("%08x\n", mask);
 		return mask | n;
 	}
 	else	
@@ -11,5 +12,5 @@ int sext(word n, int len) {
 
 int main() {
 	word inst = 0x0013;
-	printf("%04x\n", UIMM5(inst));
+	printf("%08x\n", sext(UIMM5(inst), 5));
 }
