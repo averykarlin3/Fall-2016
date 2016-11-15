@@ -7,6 +7,9 @@
  * Struct representing all 16 control signals.
  */
 
+#include <stdlib.h>
+#include <stdio.h>
+
 #define INST_OP(I) ((I) >> 12)
 #define INST_11_9(I) ((I) >> 9 & 0x7)
 #define INST_8_6(I) ((I) >> 6 & 0x7)
