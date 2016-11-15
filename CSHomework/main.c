@@ -10,8 +10,15 @@ signed int sext(word n, int len) {
 		return n;
 }
 
-int main() {
-	word inst = 0x0013;
-	printf("%08x\n", sext(UIMM5(inst), 5));
+signWord complement2Dec(word n) {
+	if(!(n & 0x8000))
+		return n;
+	else {
+		return -((~n) + 1);
+	}
 }
 
+int main() {
+	word inst = 0x0013;
+	printf("%08x\n", complement2Dec(sext(UIMM5(inst), 5)));
+}

@@ -25,6 +25,7 @@
 #define UIMM11(I) ((I) & 0x7FF)
 
 typedef unsigned short int word;
+typedef short int signWord;
 
 typedef struct {
     unsigned char pc_mux_ctl;
@@ -120,3 +121,5 @@ unsigned short int reg_input_mux(machine_state* state,
 unsigned short int pc_mux(machine_state* state, unsigned short int rs_out);
 
 int sext(word n, int len);
+
+int complement2Dec(int n);
