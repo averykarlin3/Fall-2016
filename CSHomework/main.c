@@ -1,9 +1,8 @@
 #include "lc4.h"
 
-signed int sext(word n, int len) {
+word sext(word n, int len) {
 	if(n > pow(2, len - 1)) {
-		int mask = ~((int) pow(2, len) - 1);
-		printf("%08x\n", mask);
+		word mask = ~((word) pow(2, len) - 1);
 		return mask | n;
 	}
 	else	
@@ -11,15 +10,16 @@ signed int sext(word n, int len) {
 }
 
 signWord complement2Dec(word n) {
-	if(!(n & 0x8000))
+	if(!(n & 0x8000)) {
+		printf("Here\n");
 		return n;
+	}
 	else {
-		printf("%08x\n", ~n);
-		return -((~n) + 1);
+		return -((signWord) ~n + 1);
 	}
 }
 
 int main() {
 	word inst = 0x0013;
-	printf("%08x\n", complement2Dec(sext(UIMM5(inst), 5)));
+	printf("%i\n", complement2Dec(sext(UIMM5(inst), 5)));
 }

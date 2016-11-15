@@ -120,6 +120,6 @@ unsigned short int reg_input_mux(machine_state* state,
  */
 unsigned short int pc_mux(machine_state* state, unsigned short int rs_out);
 
-int sext(word n, int len);
+word sext(word n, int len);
 
 signWord complement2Dec(word n);

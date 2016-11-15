@@ -171,6 +171,8 @@ unsigned short int rt_mux(machine_state* state) {
 	return -1;
 }
 
+//FIX ALL BELOW HERE
+
 unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsigned short int rt_out) {
 	word control = (state->control).alu_mux_ctl;
 	word arith = (state->control).arith_ctl;
@@ -225,7 +227,7 @@ unsigned short int reg_input_mux(machine_state* state, unsigned short int alu_ou
 	if(!control)
 		return alu_out;
 	if(control == 1)
-		return (state->memory)[alu_out]
+		return getData(alu_out)
 	if(control == 2)
 		return (state->PC) + 1;
 	return -1;
@@ -233,7 +235,7 @@ unsigned short int reg_input_mux(machine_state* state, unsigned short int alu_ou
 
 unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
 	word control = (state->control).rs_mux_ctl;
-	word inst = (state->memory)[state->PC];
+	word inst = getData(state->PC);
 	if(!control)
 		//ADD
 	if(control == 1)
@@ -254,7 +256,7 @@ unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
 
 word sext(word n, int len) {
 	if(n > pow(2, len - 1))
-		int mask = ~(pow(2, len) - 1);
+		word mask = ~(pow(2, len) - 1);
 		return mask | n;
 	else	
 		return n;
@@ -266,4 +268,8 @@ signWord complement2Dec(word n) {
 	else {
 		return -((~n) + 1);
 	}
+}
+
+word getData(word loc) {
+	return (state->memory)[loc];
 }
