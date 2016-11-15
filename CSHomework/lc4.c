@@ -173,21 +173,49 @@ unsigned short int rt_mux(machine_state* state) {
 
 unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsigned short int rt_out) {
 	word control = (state->control).alu_mux_ctl;
+	word arith = (state->control).arith_ctl;
+	word logic = (state->control).logic_ctl;
+	word shift = (state->control).shift_ctl;
+	word constant = (state->control).const_ctl;
+	word comp = (state->control).cmp_ctl;
 	word inst = (state->memory)[state->PC];
 	if(!control) {
-		if(!arith_mux_ctl)
-			return rs_out + rt_out;
-		if(arith_mux_ctl == 1)
-			//ADD IMMEDIATE
-		if(arith_mux_ctl == 2)
-			//ADD IMMEDIATE
+		if(!arith) {
+			if(!arith_mux_ctl)
+				return rs_out + rt_out;
+			if(arith_mux_ctl == 1)
+				return rs_out + sext(UIMM5(inst), 5);
+			if(arith_mux_ctl == 2)
+				return rs_out + sext(UIMM6(inst), 6);
+		}
+		if(arith == 1)
+			return rs_out * rt_out;
+		if(arith == 2)
+			return rs_out - rt_out;
+		if(arith == 3)
+			return (unsigned short int) (rs_out / rt_out);
+		if(arith == 4)
+			return rs_out % rt_out;
 	}
 	if(control == 1)
-		return rs_out * rt_out;
+		if(!logic) {
+			if(!logic_mux_ctl)
+				return rs_out & rt_out;
+			if(logic_mux_ctl == 1)
+				return rs_out & sext(UIMM5(inst), 5);
+		}
+		if(logic == 1)
+			return ~rs_out;
+		if(logic == 2)
+			return rs_out | rt_out;
+		if(logic == 3)
+			return rs_out ^ rt_out;
 	if(control == 2)
-		return rs_out - rt_out;
+		//SHIFT
 	if(control == 3)
-		return (unsigned short int) (rs_out / rt_out);
+		//CONSTANT
+	if(control == 4)
+		//COMPARE
 	return -1;
 }
 
@@ -211,12 +239,23 @@ unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
 	if(control == 1)
 		return (state->PC) + 1;
 	if(control == 2)
-		//ADD
+		return (state->PC) + 1 + sext(UIMM11(inst), 11);
 	if(control == 3)
+		state->PSR = state->PSR & 0x7FFF;
 		return rs_out;
-	if(control == 4)
-		//ADD
+	if(control == 4) {
+		state->PSR = state->PSR | 0x8000;
+		return 0x8000 | UIMM8(inst);
+	}
 	if(control == 5)
-		//ADD
+		return ((state->PC) & 0x8000) | (UIMM11(inst) << 4)
 	return -1;
+}
+
+int sext(word n, int len) {
+	if(n > pow(2, len - 1))
+		int mask = ~(pow(2, len) - 1);
+		return mask | n;
+	else	
+		return n;
 }

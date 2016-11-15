@@ -15,6 +15,10 @@
 #define INST_11(I) ((I) >> 11 & 0x1)
 #define INST_5_3(I) ((I) >> 3 & 0x7)
 #define INST_5_4(I) ((I) >> 4 & 0x3)
+#define UIMM5(I) ((I) & 0x1F)
+#define UIMM6(I) ((I) & 0x3F)
+#define UIMM8(I) ((I) & 0xFF)
+#define UIMM11(I) ((I) & 0x7FF)
 
 typedef unsigned short int word;
 
@@ -110,3 +114,5 @@ unsigned short int reg_input_mux(machine_state* state,
  * Params: current RS mux output and pointer to current machine state.
  */
 unsigned short int pc_mux(machine_state* state, unsigned short int rs_out);
+
+int sext(word n, int len);
