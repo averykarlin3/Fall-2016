@@ -123,3 +123,7 @@ unsigned short int pc_mux(machine_state* state, unsigned short int rs_out);
 word sext(word n, int len);
 
 signWord complement2Dec(word n);
+
+word getData(machine_state* state, word loc)
+
+word getRegister(machine_state* state, word loc)

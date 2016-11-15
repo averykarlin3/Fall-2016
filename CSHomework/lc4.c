@@ -139,7 +139,7 @@ void decode(unsigned short int I, control_signals* control)  {
 }
 
 int update_state(machine_state* state) {
-	word inst = (state->memory)[state->PC];
+	word inst = getData(state, state->PC);
 	decode(inst, state->control);
 	//EXCEPTION CHECK
 	word rs = rs_mux(state);
@@ -151,7 +151,7 @@ int update_state(machine_state* state) {
 
 unsigned short int rs_mux(machine_state* state) {
 	word control = (state->control).rs_mux_ctl;
-	word inst = (state->memory)[state->PC];
+	word inst = getData(state, state->PC);
 	if(!control)
 		return INST_8_6(inst);
 	if(control == 1)
@@ -163,7 +163,7 @@ unsigned short int rs_mux(machine_state* state) {
 
 unsigned short int rt_mux(machine_state* state) {
 	word control = (state->control).rt_mux_ctl;
-	word inst = (state->memory)[state->PC];
+	word inst = getData(state, state->PC);
 	if(!control)
 		return INST_2_0(inst);
 	if(control == 1)
@@ -180,38 +180,38 @@ unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsi
 	word shift = (state->control).shift_ctl;
 	word constant = (state->control).const_ctl;
 	word comp = (state->control).cmp_ctl;
-	word inst = (state->memory)[state->PC];
+	word inst = getData(state, state->PC);
 	if(!control) {
 		if(!arith) {
 			if(!arith_mux_ctl)
-				return rs_out + rt_out;
+				return getRegister(state, rs_out) + getRegister(state, rt_out);
 			if(arith_mux_ctl == 1)
-				return rs_out + sext(UIMM5(inst), 5);
+				return getRegister(state, rs_out) + sext(UIMM5(inst), 5);
 			if(arith_mux_ctl == 2)
-				return rs_out + sext(UIMM6(inst), 6);
+				return getRegister(state, rs_out) + sext(UIMM6(inst), 6);
 		}
 		if(arith == 1)
-			return rs_out * rt_out;
+			return getRegister(state, rs_out) * getRegister(state, rt_out);
 		if(arith == 2)
-			return rs_out - rt_out;
+			return getRegister(state, rs_out) - getRegister(state, rt_out);
 		if(arith == 3)
-			return (unsigned short int) (rs_out / rt_out);
+			return (word) (getRegister(state, rs_out) / getRegister(state, rt_out));
 		if(arith == 4)
-			return rs_out % rt_out;
+			return getRegister(state, rs_out) % getRegister(state, rt_out);
 	}
 	if(control == 1)
 		if(!logic) {
 			if(!logic_mux_ctl)
-				return rs_out & rt_out;
+				return getRegister(state, rs_out) & getRegister(state, rt_out);
 			if(logic_mux_ctl == 1)
-				return rs_out & sext(UIMM5(inst), 5);
+				return getRegister(state, rs_out) & sext(UIMM5(inst), 5);
 		}
 		if(logic == 1)
-			return ~rs_out;
+			return ~getRegister(state, rs_out);
 		if(logic == 2)
-			return rs_out | rt_out;
+			return getRegister(state, rs_out) | getRegister(state, rt_out);
 		if(logic == 3)
-			return rs_out ^ rt_out;
+			return getRegister(state, rs_out) ^ getRegister(state, rt_out);
 	if(control == 2)
 		//SHIFT
 	if(control == 3)
@@ -227,7 +227,7 @@ unsigned short int reg_input_mux(machine_state* state, unsigned short int alu_ou
 	if(!control)
 		return alu_out;
 	if(control == 1)
-		return getData(alu_out)
+		return getData(state, alu_out)
 	if(control == 2)
 		return (state->PC) + 1;
 	return -1;
@@ -235,7 +235,7 @@ unsigned short int reg_input_mux(machine_state* state, unsigned short int alu_ou
 
 unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
 	word control = (state->control).rs_mux_ctl;
-	word inst = getData(state->PC);
+	word inst = getData(state, state->PC);
 	if(!control)
 		//ADD
 	if(control == 1)
@@ -270,6 +270,10 @@ signWord complement2Dec(word n) {
 	}
 }
 
-word getData(word loc) {
+word getData(machine_state* state, word loc) {
 	return (state->memory)[loc];
+}
+
+word getRegister(machine_state* state, word loc) {
+	return (state->R)[loc];
 }
