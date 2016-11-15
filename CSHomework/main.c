@@ -19,7 +19,19 @@ signWord complement2Dec(word n) {
 	}
 }
 
+word dec2Complement(signWord n) {
+	if(n > 0)
+		return n;
+	else {
+		return ~((word) (-n) - 1);
+	}
+}
+
+
 int main() {
-	word inst = 0x0013;
-	printf("%i\n", complement2Dec(sext(UIMM5(inst), 5)));
+	word inst = 0x001A;
+	printf("%x\n", inst);
+	signWord in = complement2Dec(sext(UIMM5(inst), 5));
+	printf("%i\n", in);
+	printf("%x\n", dec2Complement(in));
 }

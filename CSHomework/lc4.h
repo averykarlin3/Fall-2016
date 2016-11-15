@@ -19,9 +19,11 @@
 #define INST_11(I) ((I) >> 11 & 0x1)
 #define INST_5_3(I) ((I) >> 3 & 0x7)
 #define INST_5_4(I) ((I) >> 4 & 0x3)
+#define UIMM4(I) ((I) & 0xF)
 #define UIMM5(I) ((I) & 0x1F)
 #define UIMM6(I) ((I) & 0x3F)
 #define UIMM8(I) ((I) & 0xFF)
+#define UIMM9(I) ((I) & 0x1FF)
 #define UIMM11(I) ((I) & 0x7FF)
 
 typedef unsigned short int word;
@@ -124,6 +126,8 @@ word sext(word n, int len);
 
 signWord complement2Dec(word n);
 
-word getData(machine_state* state, word loc)
+word getData(machine_state* state, word loc);
 
-word getRegister(machine_state* state, word loc)
+word getRegister(machine_state* state, word loc);
+
+word dec2Complement(signWord n);

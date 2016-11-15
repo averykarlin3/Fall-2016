@@ -30,8 +30,9 @@ void reset(machine_state* state) {
 void decode(unsigned short int I, control_signals* control)  {
 	clear_signals(control);
 	if(INST_OP(I) == 0x0) { //BR
-		if(INST_11_9(I) == 0x0)
+		if(INST_11_9(I) == 0x0) {
 			control->pc_mux_ctl = 1
+		}
 	}
 	if(INST_OP(I) == 0x1) { //ARITH
 		if(INST_5_3(I) == 0x1) {
@@ -58,10 +59,12 @@ void decode(unsigned short int I, control_signals* control)  {
 		control->alu_mux_ctl = 4;
 	}
 	if(INST_OP(I) == 0x4) { //JSR/R
-		if(!INST_11(I))
+		if(!INST_11(I)) {
 			control->pc_mux_ctl = 3;
-		else
+		}
+		else {
 			control->pc_mux_ctl = 5;
+		}
 		control->reg_file_we = 1;
 		control->reg_input_mux_ctl = 2;
 		control->nzp_we = 1;
@@ -112,15 +115,18 @@ void decode(unsigned short int I, control_signals* control)  {
 		control->reg_file_we = 1;
 		control->arith_ctl = 4;
 		control->shift_ctl = INST_5_4(I);
-		if(INST_5_4(I) != 0x3)
+		if(INST_5_4(I) != 0x3) {
 			control->alu_mux_ctl = 2;
+		}
 		control->nzp_we = 1;
 	}
 	if(INST_OP(I) == 0xC) { //JMP
-		if(!INST_11(I))
+		if(!INST_11(I)) {
 			control->pc_mux_ctl = 3;
-		else
+		}
+		else {
 			control->pc_mux_ctl = 2;
+		}
 	}
 	if(INST_OP(I) == 0xD) { //HICONST
 		control->pc_mux_ctl = 1;
@@ -146,32 +152,40 @@ int update_state(machine_state* state) {
 	word rt = rt_mux(state);
 	word alu = alu_mux(state, rs, rt);
 	word regin = reg_input_mux(state, alu);
+	if(reg_input_mux_ctl) {
+		//ADD TO REGISTER
+	}
+	//DATA STORING
+	//NZP
 	state->PC = pc_mux(state, rs);
 }
 
 unsigned short int rs_mux(machine_state* state) {
 	word control = (state->control).rs_mux_ctl;
 	word inst = getData(state, state->PC);
-	if(!control)
+	if(!control) {
 		return INST_8_6(inst);
-	if(control == 1)
+	}
+	if(control == 1) {
 		return R7;
-	if(control == 2)
+	}
+	if(control == 2) {
 		return INST_11_9(inst);
+	}
 	return -1;
 }
 
 unsigned short int rt_mux(machine_state* state) {
 	word control = (state->control).rt_mux_ctl;
 	word inst = getData(state, state->PC);
-	if(!control)
+	if(!control) {
 		return INST_2_0(inst);
-	if(control == 1)
+	}
+	if(control == 1) {
 		return INST_11_9(inst);
+	}
 	return -1;
 }
-
-//FIX ALL BELOW HERE
 
 unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsigned short int rt_out) {
 	word control = (state->control).alu_mux_ctl;
@@ -183,90 +197,139 @@ unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsi
 	word inst = getData(state, state->PC);
 	if(!control) {
 		if(!arith) {
-			if(!arith_mux_ctl)
-				return getRegister(state, rs_out) + getRegister(state, rt_out);
-			if(arith_mux_ctl == 1)
-				return getRegister(state, rs_out) + sext(UIMM5(inst), 5);
-			if(arith_mux_ctl == 2)
-				return getRegister(state, rs_out) + sext(UIMM6(inst), 6);
+			if(!arith_mux_ctl) {
+				return dec2Complement(complement2Dec(getRegister(state, rs_out)) + complement2Dec(getRegister(state, rt_out)));
+			}
+			if(arith_mux_ctl == 1) {
+				return dec2Complement(complement2Dec(getRegister(state, rs_out)) + complement2Dec(sext(UIMM5(inst), 5)));
+			}
+			if(arith_mux_ctl == 2) {
+				return dec2Complement(complement2Dec(getRegister(state, rs_out)) + complement2Dec(sext(UIMM6(inst), 6)));
+			}
 		}
-		if(arith == 1)
-			return getRegister(state, rs_out) * getRegister(state, rt_out);
-		if(arith == 2)
-			return getRegister(state, rs_out) - getRegister(state, rt_out);
-		if(arith == 3)
-			return (word) (getRegister(state, rs_out) / getRegister(state, rt_out));
-		if(arith == 4)
-			return getRegister(state, rs_out) % getRegister(state, rt_out);
+		if(arith == 1) {
+			return dec2Complement(complement2Dec(getRegister(state, rs_out)) * complement2Dec(getRegister(state, rt_out)));
+		}
+		if(arith == 2) {
+			return dec2Complement(complement2Dec(getRegister(state, rs_out)) - complement2Dec(getRegister(state, rt_out)));
+		}
+		if(arith == 3) {
+			return dec2Complement((signWord) complement2Dec(getRegister(state, rs_out)) / complement2Dec(getRegister(state, rt_out)));
+		}
+		if(arith == 4) {
+			return return dec2Complement(complement2Dec(getRegister(state, rs_out)) % complement2Dec(getRegister(state, rt_out)));
+		}
 	}
-	if(control == 1)
+	if(control == 1) {
 		if(!logic) {
-			if(!logic_mux_ctl)
+			if(!logic_mux_ctl) {
 				return getRegister(state, rs_out) & getRegister(state, rt_out);
-			if(logic_mux_ctl == 1)
+			}
+			if(logic_mux_ctl == 1) {
 				return getRegister(state, rs_out) & sext(UIMM5(inst), 5);
+			}
 		}
-		if(logic == 1)
+		if(logic == 1) {
 			return ~getRegister(state, rs_out);
-		if(logic == 2)
+		}
+		if(logic == 2) {
 			return getRegister(state, rs_out) | getRegister(state, rt_out);
-		if(logic == 3)
+		}
+		if(logic == 3) {
 			return getRegister(state, rs_out) ^ getRegister(state, rt_out);
-	if(control == 2)
-		//SHIFT
-	if(control == 3)
+		}
+	}
+	if(control == 2) {
+		if(!shift) {
+			return getRegister(rs_out) << UIMM4(inst);
+		}
+		if(shift == 1) {
+			return getRegister(rs_out) >>> UIMM4(inst);
+		}
+		if(shift == 2) {
+			return getRegister(rs_out) >> UIMM4(inst);
+		}
+	}
+	if(control == 3) {
 		//CONSTANT
-	if(control == 4)
+	}
+	if(control == 4) {
 		//COMPARE
+	}
 	return -1;
 }
 
 unsigned short int reg_input_mux(machine_state* state, unsigned short int alu_out) {
 	word control = (state->control).reg_input_mux_ctl;
 	word inst = (state->memory)[state->PC];
-	if(!control)
+	if(!control) {
 		return alu_out;
-	if(control == 1)
+	}
+	if(control == 1) {
 		return getData(state, alu_out)
-	if(control == 2)
+	}
+	if(control == 2) {
 		return (state->PC) + 1;
+	}
 	return -1;
 }
 
 unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
 	word control = (state->control).rs_mux_ctl;
 	word inst = getData(state, state->PC);
-	if(!control)
-		//ADD
-	if(control == 1)
+	if(!control) {
+		if(INST_11_9(inst) | INST_2_0(state->PSR)) {
+			return (state->PC) + 1 + complement2Dec(sext(UIMM9(inst)));
+		}
+		else {
+			return (state->PC) + 1;
+		}
+	}
+	if(control == 1) {
 		return (state->PC) + 1;
-	if(control == 2)
-		return (state->PC) + 1 + sext(UIMM11(inst), 11);
-	if(control == 3)
+	}
+	if(control == 2) {
+		return (state->PC) + 1 + complement2Dec(sext(UIMM11(inst), 11));
+	}
+	if(control == 3) {
 		state->PSR = state->PSR & 0x7FFF;
 		return rs_out;
+	}
 	if(control == 4) {
 		state->PSR = state->PSR | 0x8000;
 		return 0x8000 | UIMM8(inst);
 	}
-	if(control == 5)
+	if(control == 5) {
 		return ((state->PC) & 0x8000) | (UIMM11(inst) << 4)
+	}
 	return -1;
 }
 
 word sext(word n, int len) {
-	if(n > pow(2, len - 1))
+	if(n > pow(2, len - 1)) {
 		word mask = ~(pow(2, len) - 1);
 		return mask | n;
-	else	
+	}
+	else {
 		return n;
+	}
 }
 
 signWord complement2Dec(word n) {
-	if(!(n & 0x8000))
+	if(!(n & 0x8000)) {
 		return n;
+	}
 	else {
 		return -((~n) + 1);
+	}
+}
+
+word dec2Complement(signWord n) {
+	if(n > 0) {
+		return n;
+	}
+	else {
+		return ~((word) (-n) - 1);
 	}
 }
 
@@ -277,3 +340,5 @@ word getData(machine_state* state, word loc) {
 word getRegister(machine_state* state, word loc) {
 	return (state->R)[loc];
 }
+
+//WHEN TO USE COMPLEMENT TO DECIMAL AND WHEN NOT
