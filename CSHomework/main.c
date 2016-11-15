@@ -2,5 +2,5 @@
 
 int main() {
 	word inst = 0x0013;
-	printf("%u\n", UIMM5(inst));
+	printf("%u\n", sext(UIMM5(inst), 5));
 }
