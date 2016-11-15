@@ -152,12 +152,23 @@ int update_state(machine_state* state) {
 	word rt = rt_mux(state);
 	word alu = alu_mux(state, rs, rt);
 	word regin = reg_input_mux(state, alu);
-	if(reg_input_mux_ctl) {
+	if(reg_file_we) {
 		loc = rd_mux(state);
 		(state->R)[loc] = regin;
-		//NZP
+		signWord calc = complement2Dec(regin);
+		if(calc > 0) {
+			state->PSR = (state->PSR & 0xFFF8) | 0x1;
+		}
+		if(calc < 0) {
+			state->PSR = (state->PSR & 0xFFF8) | 0x4;
+		}
+		if(calc == 0) {
+			state->PSR = (state->PSR & 0xFFF8) | 0x2;
+		}
 	}
-	//DATA STORING
+	if(data_we) {
+		(state->memory)[regin] = rt;
+	}
 	state->PC = pc_mux(state, rs);
 }
 
