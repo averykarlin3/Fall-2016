@@ -14,6 +14,7 @@ signWord complement2Dec(word n) {
 	if(!(n & 0x8000))
 		return n;
 	else {
+		printf("%08x\n", ~n);
 		return -((~n) + 1);
 	}
 }
