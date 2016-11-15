@@ -153,12 +153,26 @@ int update_state(machine_state* state) {
 	word alu = alu_mux(state, rs, rt);
 	word regin = reg_input_mux(state, alu);
 	if(reg_input_mux_ctl) {
-		//ADD TO REGISTER
+		loc = rd_mux(state);
+		(state->R)[loc] = regin;
+		//NZP
 	}
 	//DATA STORING
-	//NZP
 	state->PC = pc_mux(state, rs);
 }
+
+unsigned short int rd_mux(machine_state* state) {
+	word control = (state->control).rd_mux_ctl;
+	word inst = getData(state, state->PC);
+	if(control == 1) {
+		return 0x7;
+	}
+	if(!control) {
+		return INST_11_9(inst);
+	}
+	return -1;
+}
+
 
 unsigned short int rs_mux(machine_state* state) {
 	word control = (state->control).rs_mux_ctl;
@@ -167,7 +181,7 @@ unsigned short int rs_mux(machine_state* state) {
 		return INST_8_6(inst);
 	}
 	if(control == 1) {
-		return R7;
+		return 0x7;
 	}
 	if(control == 2) {
 		return INST_11_9(inst);
@@ -217,7 +231,7 @@ unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsi
 			return dec2Complement((signWord) complement2Dec(getRegister(state, rs_out)) / complement2Dec(getRegister(state, rt_out)));
 		}
 		if(arith == 4) {
-			return return dec2Complement(complement2Dec(getRegister(state, rs_out)) % complement2Dec(getRegister(state, rt_out)));
+			return dec2Complement(complement2Dec(getRegister(state, rs_out)) % complement2Dec(getRegister(state, rt_out)));
 		}
 	}
 	if(control == 1) {
@@ -251,10 +265,37 @@ unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsi
 		}
 	}
 	if(control == 3) {
-		//CONSTANT
+		if(!constant) {
+			return sext(UIMM9(inst), 9);
+		}
+		if(constant == 1) {
+			word rd = rd_mux(state);
+			return (rd & 0xFF) | (UIMM8(inst) << 8);
+		}
 	}
 	if(control == 4) {
-		//COMPARE
+		word calc;
+		if(!comp) {
+			calc = complement2Dec(getRegister(rs_out)) - complement2Dec(getRegister(rt_out));
+		}
+		if(comp == 1) {
+			calc = (signWord) getRegister(rs_out) - (signWord) getRegister(rt_out);
+		}
+		if(comp == 2) {
+			calc = complement2Dec(getRegister(rs_out)) - complement2Dec(sext(UIMM7(inst), 7));
+		}
+		if(comp == 3) {
+			calc = (signWord) getRegister(rs_out) - (signWord) UIMM7(inst);
+		}
+		if(calc > 0) {
+			state->PSR = (state->PSR & 0xFFF8) | 0x1;
+		}
+		if(calc < 0) {
+			state->PSR = (state->PSR & 0xFFF8) | 0x4;
+		}
+		if(calc == 0) {
+			state->PSR = (state->PSR & 0xFFF8) | 0x2;
+		}
 	}
 	return -1;
 }
@@ -340,5 +381,3 @@ word getData(machine_state* state, word loc) {
 word getRegister(machine_state* state, word loc) {
 	return (state->R)[loc];
 }
-
-//WHEN TO USE COMPLEMENT TO DECIMAL AND WHEN NOT

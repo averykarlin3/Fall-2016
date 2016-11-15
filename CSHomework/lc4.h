@@ -22,6 +22,7 @@
 #define UIMM4(I) ((I) & 0xF)
 #define UIMM5(I) ((I) & 0x1F)
 #define UIMM6(I) ((I) & 0x3F)
+#define UIMM7(I) ((I) & 0x7F)
 #define UIMM8(I) ((I) & 0xFF)
 #define UIMM9(I) ((I) & 0x1FF)
 #define UIMM11(I) ((I) & 0x7FF)
@@ -131,3 +132,5 @@ word getData(machine_state* state, word loc);
 word getRegister(machine_state* state, word loc);
 
 word dec2Complement(signWord n);
+
+unsigned short int rd_mux(machine_state* state);
