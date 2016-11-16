@@ -16,6 +16,7 @@ int flip_endian (int w) {
 }
 
 int read_object_file (char *filename, machine_state *state) {
+	printf("%s\n", filename);
 	FILE* f;
 	printf("Dos\n");
 	int check = file_check(f, filename);
