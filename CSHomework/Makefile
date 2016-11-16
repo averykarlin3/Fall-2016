@@ -1,7 +1,7 @@
 all: trace
 
-lc4:
-	# TODO: Impelemnt
+lc4: lc4.c lc4.h
+	clang lc4.c -o lc4
 
 objectfiles:
 	# TODO: implement

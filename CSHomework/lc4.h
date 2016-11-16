@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 #define INST_OP(I) ((I) >> 12)
 #define INST_11_9(I) ((I) >> 9 & 0x7)
@@ -26,6 +27,9 @@
 #define UIMM8(I) ((I) & 0xFF)
 #define UIMM9(I) ((I) & 0x1FF)
 #define UIMM11(I) ((I) & 0x7FF)
+
+#define DATA_START 0x2000
+#define OS_START 0x8000
 
 typedef unsigned short int word;
 typedef short int signWord;
