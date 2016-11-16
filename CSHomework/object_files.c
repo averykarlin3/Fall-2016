@@ -24,39 +24,50 @@ int read_object_file (char *filename, machine_state *state) {
 		return -1;
 	}
 	printf("arrived\n");
-	int wordVal = getWord(f);
+	int wordVal = getWord(f, FULL_WORD);
 	printf("%i\n", wordVal);
 	word currentLoc;
 	int remainingStream;
 	while(wordVal != -1) {
 		printf("hereNow\n");
 		if(wordVal == 0xCADE || wordVal == 0xDADA) {
-			wordVal = getWord(f);
+			wordVal = getWord(f, FULL_WORD);
 			currentLoc = wordVal;
-			wordVal = getWord(f);
+			wordVal = getWord(f, FULL_WORD);
 			remainingStream = wordVal;
 			for(int i = 0; i < remainingStream; i++) {
-				(state->memory)[currentLoc] = getWord(f);
+				(state->memory)[currentLoc] = getWord(f, FULL_WORD);
 				currentLoc++;
 			}
 		}
 		if(wordVal == 0xC3B7) {
-
+			getWord(f, FULL_WORD);
+			wordVal = getWord(f, FULL_WORD);
+			remainingStream = wordVal;
+			for(int i = 0; i < remainingStream; i++) {
+				getWord(f, HALF_WORD);
+			}
 		}
 		if(wordVal == 0xF17E) {
-
+			wordVal = getWord(f, FULL_WORD);
+			remainingStream = wordVal;
+			for(int i = 0; i < remainingStream; i++) {
+				getWord(f, HALF_WORD);
+			}
 		}
 		if(wordVal == 0x715E) {
-
+			getWord(f, FULL_WORD);
+			getWord(f, FULL_WORD);
+			getWord(f, FULL_WORD);
 		}
 		return -2;
 	}
 	return 0;
 }
 
-int getWord(FILE* file) {
-	char word[4];
-	for(int i = 0; i < 4; i++) {
+int getWord(FILE* file, int size) {
+	char word[size];
+	for(int i = 0; i < size; i++) {
 		printf("%p\n", file);
 		int in = fgetc(file);
 		printf("fuck%i\n", in);
@@ -105,7 +116,7 @@ int readWord (char* in) {
 int main() {
 	machine_state* m = (machine_state*) malloc(sizeof(machine_state));
 	reset(m);
-	read_object_file("C:/Users/Avery Karlin/Github/Fall-2016/CSHomework/testcases/public-test_basic.obj", m);
+	read_object_file("./testcases/public-test_basic.obj", m);
 }
 
-//WHAT IF THE END IS NOT A FULL WORD
+//ADD SYMBOLIC FUNCTIONALITY

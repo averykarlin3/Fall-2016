@@ -29,4 +29,7 @@ int read_object_file (char *filename, machine_state *state);
 
 int readWord (char* in);
 
-int getWord(FILE* file);
+int getWord(FILE* file, int size);
+
+#define FULL_WORD 4
+#define HALF_WORD 2
