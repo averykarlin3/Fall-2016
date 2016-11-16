@@ -22,6 +22,7 @@ int main(int argc, char const *argv[]) {
 	while(state->PC != 0x80FF) {
 		update_machine_state(state);
 	}
+	free(state);
 	printf("Trace completed without error.\n");
 	return 0;
 }
