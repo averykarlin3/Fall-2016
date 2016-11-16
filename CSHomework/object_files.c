@@ -113,10 +113,10 @@ int readWord (char* in) {
 	return result;
 }
 
-int main() {
+/*int main() {
 	machine_state* m = (machine_state*) malloc(sizeof(machine_state));
 	reset(m);
 	read_object_file("./testcases/public-test_basic.obj", m);
-}
+}*/
 
 //ADD SYMBOLIC FUNCTIONALITY

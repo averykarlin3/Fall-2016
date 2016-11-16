@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "objectfiles.h"
+#include "object_files.h"
 
 int main(int argc, char const *argv[]) {
 	machine_state* state = (machine_state*) malloc(sizeof(machine_state));
@@ -20,7 +20,7 @@ int main(int argc, char const *argv[]) {
 		}
 	}
 	while(state->PC != 0x80FF) {
-		update_machine_state(state);
+		update_state(state);
 	}
 	free(state);
 	printf("Trace completed without error.\n");
