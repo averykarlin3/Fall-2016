@@ -3,11 +3,9 @@
  * trace.c
  */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "object_files.h"
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
 	machine_state* state = (machine_state*) malloc(sizeof(machine_state));
 	reset(state);
 	for(int i = 1; i < argc; i++) {
