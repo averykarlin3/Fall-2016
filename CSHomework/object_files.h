@@ -5,6 +5,7 @@
 
 #include "lc4.h"
 #include <unistd.h>
+#include <ctype.h>
 
 /*
  * Check that the given file exists.

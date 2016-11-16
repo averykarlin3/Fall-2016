@@ -554,7 +554,7 @@ char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word 
 	return ret;
 }
 
-int main() {
+/*int main() {
 	machine_state* m = (machine_state*) malloc(sizeof(machine_state));
 	reset(m);
 	m->R[0] = 0x2000;
@@ -563,7 +563,7 @@ int main() {
 	int test = update_state(m);
 	printf("%x\n", m->R[0]);
 	free(m);
-}
+} */
 
 //CHECK SHIFTS AND FORMATTING OF STORED DATA (IS FULL?)
 //PART 3 OF READ ME?
