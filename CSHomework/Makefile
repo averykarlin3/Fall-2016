@@ -6,8 +6,8 @@ lc4: lc4.c lc4.h
 objectfiles: object_files.c object_files.h lc4.c lc4.h
 	clang object_files.c lc4.c -o objectfiles
 
-trace:
-	# TODO: Implement
+trace: object_files.c object_files.h lc4.c lc4.h trace.c
+	clang trace.c object_files.c lc4.c -o trace
 
 #
 # THIS IS FOR GRADING. DO NOT MODIFY THIS TARGET.

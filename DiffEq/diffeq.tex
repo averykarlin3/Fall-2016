@@ -694,7 +694,7 @@
 \2 This provides a solution for overdamped of $y = e^{-\frac{ct}{2m}}(c_1e^{\mu t} + c_2e^{-\mu t})$ where $\mu = \frac{\sqrt{c^2 - 4km}}{2m}$
 \2 The critically damped solution is  $y = e^{-\frac{ct}{2m}}(c_1 + c_2t)$
 \2 The underdamped of $y = e^{-\frac{ct}{2m}}(c_1cos(\mu t) + c_2sin(\mu t))$, where $\mu = \frac{\sqrt{4km - c^2}}{2m}$
-\3 As a result, the motion is still oscillatory, but not periodic, such that $T = \frac{2\pi}{\mu}
+\3 As a result, the motion is still oscillatory, but not periodic, such that $T = \frac{2\pi}{\mu}$
 \2 As a result, as time moves towards infinity, the displacement moves towards 0
 \1 For a system with an external force, such that it is a nonhomogeneous system, notable only when it is periodic over time, such that $F(t) = F_0cos(\omega t)$, called forced harmonic oscillation
 \2 If c = 0 and $\omega_0 \neq \omega$, then $y_p(t) = \frac{F_0}{m(\omega_0^2 - \omega^2)}cos(\omega t)$
@@ -702,6 +702,16 @@
 \2 If $c \neq 0$, then $y_p = Acos(\omega t) + Bsin(\omega t) = \frac{F_0((k - m\omega^2)cos(\omega t) + c\omega sin(\omega t))}{(k - m\omega^2)^2 + c^2\omega^2}$
 \3 This can be rewritten as $y_p(t) = \frac{F_0}{H}cos(\omega t - \eta)$, where $cos(\eta) = \frac{m(\omega_0^2 - \omega^2)}{H}, sin(\eta) = \frac{c\omega}{H}, H = \sqrt{m^2(\omega^2_0 - \omega^2)^2 + c^2\omega^2}$
 \3 As a result, over time, the particular solution is dominent, such that it is called the steady-state solution, decaying to simple harmonic motion of it, while the complementary part is the transient part
+\end{outline*}
+\subsection{Differential Equation with Nonconstant Coefficients}
+\begin{outline*}
+\1 Cauchy-Euler equations are differential equations of the form $x^n\frac{d^ny}{dx^n} + ... + a_ny = 0$, also called equidimensional equations, due to being able to replace x by a scaling factor of x without a change to the equation
+\2 As a result, it is found that for some $y = x^r$, such that all terms have the same power of x, able to be factored out to give the indicial equation in terms of r
+\2 For distinct real roots, they each form an individual solution, while for repeating roots, $y_2(x) = x^{r_1}u(x)$, where $u'(x) \neq 0$, solving for some second equation, to get $y_2(x) = x^{r_1}ln(x)$
+\3 For imaginary root conjugates, the real and imaginary parts of one conjugate each form a solution, such that for r = a + ib, $y_1(x) = x^a cos(b ln(x))$, $y_2(x) = x^a sin(b ln(x))$
+\2 Higher order root multiplicity is dealt with similarly, with the natural logarithm raised to a higher power for additional solutions
+\3 This is proven by the fact that $x^k\frac{d^ky}{dx^k} = D(D-1)...(D-k+1)y$ if $x = e^z$ and **FINISH**
+\1 Nonhomogeneous Cauchy-Euler equations have the complementary solutions found by these means, using other means to gain the particular solution
 \end{outline*}
 \subsection{Reduction of Order}
 \begin{outline*}

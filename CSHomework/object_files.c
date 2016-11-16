@@ -9,9 +9,9 @@ int file_check (FILE *file, char *filename) {
 	return 0;
 }
 
-int flip_endian (int word) {
-	word first = word & 0xFF00;
-	word second = word & 0x00FF;
+int flip_endian (int w) {
+	word first = w & 0xFF00;
+	word second = w & 0x00FF;
 	return second | first;
 }
 
@@ -22,12 +22,13 @@ int read_object_file (char *filename, machine_state *state) {
 		return -1;
 	}
 	int wordVal = getWord(f);
+	//ADD STUFF
 }
 
 int getWord(FILE* file) {
 	char* word[4];
 	for(int i = 0; i < 4; i++) {
-		char in = fgetc(f);
+		char in = fgetc(file);
 		if((in >= 48 && in <= 57) || (in >= 97 && in <= 102)) {
 			word[i] = in;
 		}
@@ -45,25 +46,25 @@ int readWord (char* in) {
 	word result;
 	for(int i = 0; i < sizeof(in); i++) {
 		if(input[i] < 97) {
-			result += (atoi(input[i]) * exp(16, i));
+			result += (atoi(input[i]) * pow(16, i));
 		}
 		if(input[i] == 97) {
-			result += (10 * exp(16, i));
+			result += (10 * pow(16, i));
 		}
 		if(input[i] == 98) {
-			result += (11 * exp(16, i));
+			result += (11 * pow(16, i));
 		}
 		if(input[i] == 99) {
-			result += (12 * exp(16, i));
+			result += (12 * pow(16, i));
 		}
 		if(input[i] == 100) {
-			result += (13 * exp(16, i));
+			result += (13 * pow(16, i));
 		}
 		if(input[i] == 101) {
-			result += (14 * exp(16, i));
+			result += (14 * pow(16, i));
 		}
 		if(input[i] == 102) {
-			result += (15 * exp(16, i));
+			result += (15 * pow(16, i));
 		}
 	}
 	return result;

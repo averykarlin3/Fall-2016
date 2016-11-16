@@ -16,7 +16,7 @@ int file_check (FILE *file, char *filename);
  * Changes a 4-bit word's endian.
  * Params: int to convert.
  */
-int flip_endian (int word);
+int flip_endian (int w);
 
 /*
  * Read an object file and modify the machine state accordingly.
