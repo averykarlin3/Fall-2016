@@ -152,6 +152,7 @@ int update_state(machine_state* state) {
 	decode(inst, &(state->control));
 	word rs = rs_mux(state);
 	word rt = rt_mux(state);
+	word loc = rd_mux(state);
 	word alu = alu_mux(state, rs, rt);
 	word readData = (state->control).reg_input_mux_ctl;
 	if(readData == 1 && alu < DATA_START) {
@@ -162,7 +163,6 @@ int update_state(machine_state* state) {
 	}
 	word regin = reg_input_mux(state, alu);
 	if((state->control).reg_file_we) {
-		word loc = rd_mux(state);
 		(state->R)[loc] = regin;
 		signWord calc = complement2Dec(regin);
 		if(calc > 0  && (state->control).nzp_we) {
@@ -184,6 +184,8 @@ int update_state(machine_state* state) {
 		}
 		(state->memory)[regin] = getRegister(state, rt);
 	}
+	char* runStr = stringFind(state, rs, rt, loc, inst);
+	printf("%x: %s\n", state->PC, runStr);
 	state->PC = pc_mux(state, rs);
 	return 0;
 }
@@ -409,18 +411,160 @@ word getRegister(machine_state* state, word loc) {
 	return (state->R)[loc];
 }
 
+char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word inst) {
+	char* ret = (char*) malloc(MAX_STRING);
+	switch(INST_OP(inst)) {
+		case 0x0:
+			switch(INST_11_9(inst)) {
+				case 0x0:
+					sprintf(ret, "NOP");
+					break;
+				case 0x1:
+					sprintf(ret, "BRp");
+					break;
+				case 0x2:
+					sprintf(ret, "BRz");
+					break;
+				case 0x3:
+					sprintf(ret, "BRzp");
+					break;
+				case 0x4:
+					sprintf(ret, "BRn");
+					break;
+				case 0x5:
+					sprintf(ret, "BRnp");
+					break;
+				case 0x6:
+					sprintf(ret, "BRnz");
+					break;
+				case 0x7:
+					sprintf(ret, "BRnzp");
+					break;
+			}
+			break;
+		case 0x1:
+			switch(INST_5_3(inst)) {
+				case 0x0:
+					sprintf(ret, "ADD %x %x %x", rd_out, rs_out, rt_out);
+					break;
+				case 0x1:
+					sprintf(ret, "MUL %x %x %x", rd_out, rs_out, rt_out);
+					break;
+				case 0x2:
+					sprintf(ret, "SUB %x %x %x", rd_out, rs_out, rt_out);
+					break;
+				case 0x3:
+					sprintf(ret, "DIV %x %x %x", rd_out, rs_out, rt_out);
+					break;
+				default:
+					sprintf(ret, "ADD %x %x %x", rd_out, rs_out, complement2Dec(sext(UIMM5(inst), 5)));
+					break;
+			}
+			break;
+		case 0x2:
+			switch(INST_8_7(inst)) {
+				case 0x0:
+					sprintf(ret, "CMP %x %x", rs_out, rt_out);
+					break;
+				case 0x1:
+					sprintf(ret, "CMPU %x %x", rs_out, rt_out);
+					break;
+				case 0x2:
+					sprintf(ret, "CMPI %x %x", rs_out, complement2Dec(sext(UIMM7(inst), 7)));
+					break;
+				case 0x3:
+					sprintf(ret, "CMPIU %x %x", rs_out, complement2Dec(UIMM7(inst)));
+					break;
+			}
+			break;
+		case 0x4:
+			switch(INST_11(inst)) {
+				case 0x0:
+					sprintf(ret, "JSRR %x", rs_out);
+					break;
+				case 0x1:
+					sprintf(ret, "JSR");
+					break;
+			}
+			break;
+		case 0x5:
+			switch(INST_5_3(inst)) {
+				case 0x0:
+					sprintf(ret, "AND %x %x %x", rd_out, rs_out, rt_out);
+					break;
+				case 0x1:
+					sprintf(ret, "NOT %x %x", rd_out, rs_out);
+					break;
+				case 0x2:
+					sprintf(ret, "OR %x %x %x", rd_out, rs_out, rt_out);
+					break;
+				case 0x3:
+					sprintf(ret, "XOR %x %x %x", rd_out, rs_out, rt_out);
+					break;
+				default:
+					sprintf(ret, "AND %x %x %x", rd_out, rs_out, complement2Dec(sext(UIMM5(inst), 5)));
+					break;
+			}
+			break;
+		case 0x6:
+			sprintf(ret, "LDR %x %x %x", rd_out, rs_out, complement2Dec(sext(UIMM6(inst), 6)));
+			break;
+		case 0x7:
+			sprintf(ret, "STR %x %x %x", rt_out, rs_out, complement2Dec(sext(UIMM6(inst), 6)));
+			break;
+		case 0x8:
+			sprintf(ret, "RTI");
+			break;
+		case 0x9:
+			sprintf(ret, "HICONST %x %x", rd_out, complement2Dec(sext(UIMM9(inst), 9)));
+			break;
+		case 0xA:
+			switch(INST_5_4(inst)) {
+				case 0x0:
+					sprintf(ret, "SLL %x %x %x", rd_out, rs_out, complement2Dec(UIMM4(inst)));
+					break;
+				case 0x1:
+					sprintf(ret, "SRA %x %x %x", rd_out, rs_out, complement2Dec(UIMM4(inst)));
+					break;
+				case 0x2:
+					sprintf(ret, "SRL %x %x %x", rd_out, rs_out, complement2Dec(UIMM4(inst)));
+					break;
+				case 0x3:
+					sprintf(ret, "MOD %x %x %x", rd_out, rs_out, rt_out);
+					break;
+			}
+			break;
+		case 0xC:
+			switch(INST_11(inst)) {
+				case 0x0:
+					sprintf(ret, "JMPR %x", rs_out);
+					break;
+				case 0x1:
+					sprintf(ret, "JMP");
+					break;
+			}
+			break;
+		case 0xD:
+			sprintf(ret, "HICONST %x %x", rd_out, complement2Dec(UIMM8(inst)));
+			break;
+		case 0xF:
+			sprintf(ret, "TRAP %x", complement2Dec(UIMM8(inst)));
+			break;
+	}
+	return ret;
+}
+
 int main() {
 	machine_state* m = (machine_state*) malloc(sizeof(machine_state));
 	reset(m);
 	m->R[0] = 0x2000;
 	m->R[1] = 0x0C0F;
-	m->memory[0] = 0x7200;
-	m->memory[1] = 0x6000;
+	m->memory[0] = 0x1040;
 	int test = update_state(m);
-	test = update_state(m);
 	printf("%x\n", m->R[0]);
+	free(m);
 }
 
 //CHECK SHIFTS AND FORMATTING OF STORED DATA (IS FULL?)
-
+//PART 3 OF READ ME?
 //STR CHECKED AND WORKS, LDR CHECKED AND WORKS

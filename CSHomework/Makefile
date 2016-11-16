@@ -3,8 +3,8 @@ all: trace
 lc4: lc4.c lc4.h
 	clang lc4.c -o lc4
 
-objectfiles:
-	# TODO: implement
+objectfiles: object_files.c object_files.h lc4.c lc4.h
+	clang object_files.c lc4.c -o objectfiles
 
 trace:
 	# TODO: Implement

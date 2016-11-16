@@ -4,12 +4,13 @@
  */
 
 #include "lc4.h"
+#include <unistd.h>
 
 /*
  * Check that the given file exists.
  * Params: pointer to file, pointer to filename.
  */
-void file_check (FILE *file, char *filename);
+int file_check (FILE *file, char *filename);
 
 /*
  * Changes a 4-bit word's endian.
@@ -24,3 +25,7 @@ int flip_endian (int word);
  * Params: poitner to filename, pointer to current machine state.
  */
 int read_object_file (char *filename, machine_state *state);
+
+int readWord (char* in);
+
+int getWord(FILE* file);

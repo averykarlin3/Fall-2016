@@ -30,6 +30,7 @@
 
 #define DATA_START 0x2000
 #define OS_START 0x8000
+#define MAX_STRING 100
 
 typedef unsigned short int word;
 typedef short int signWord;
@@ -138,3 +139,5 @@ word getRegister(machine_state* state, word loc);
 word dec2Complement(signWord n);
 
 unsigned short int rd_mux(machine_state* state);
+
+char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word inst);
