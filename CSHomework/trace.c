@@ -6,9 +6,13 @@
 #include "object_files.h"
 
 int main(int argc, char *argv[]) {
+	if(argc < 3) {
+		printf("Input Error - Not Enough Inputs\n");
+		return -3;
+	}
 	machine_state* state = (machine_state*) malloc(sizeof(machine_state));
 	reset(state);
-	for(int i = 1; i < argc; i++) {
+	for(int i = 2; i < argc; i++) {
 		int read = read_object_file(argv[i], state);
 		if(read == -1) {
 			printf("Read Error - File %s Note Found\n", argv[i]);

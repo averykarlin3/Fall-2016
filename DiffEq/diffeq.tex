@@ -706,11 +706,13 @@
 \subsection{Differential Equation with Nonconstant Coefficients}
 \begin{outline*}
 \1 Cauchy-Euler equations are differential equations of the form $x^n\frac{d^ny}{dx^n} + ... + a_ny = 0$, also called equidimensional equations, due to being able to replace x by a scaling factor of x without a change to the equation
-\2 As a result, it is found that for some $y = x^r$, such that all terms have the same power of x, able to be factored out to give the indicial equation in terms of r
-\2 For distinct real roots, they each form an individual solution, while for repeating roots, $y_2(x) = x^{r_1}u(x)$, where $u'(x) \neq 0$, solving for some second equation, to get $y_2(x) = x^{r_1}ln(x)$
+\2 As a result, it is found that for some $y = x^r \forall x > 0$, such that all terms have the same power of x, able to be factored out to give the indicial equation in terms of r
+\2 For distinct real roots, they each form an individual solution, while for repeating roots, $y_2(x) = x^{r_1}u(x)$, where $u'(x) \neq 0$, solving for some second equation, to get $y_2(x) = x^{r_1}ln(x)$ for $x > 0$
 \3 For imaginary root conjugates, the real and imaginary parts of one conjugate each form a solution, such that for r = a + ib, $y_1(x) = x^a cos(b ln(x))$, $y_2(x) = x^a sin(b ln(x))$
 \2 Higher order root multiplicity is dealt with similarly, with the natural logarithm raised to a higher power for additional solutions
-\3 This is proven by the fact that $x^k\frac{d^ky}{dx^k} = D(D-1)...(D-k+1)y$ if $x = e^z$ and **FINISH**
+\3 This is proven by the fact that $x^k\frac{d^ky}{dx^k} = D(D-1)...(D-k+1)y$ if $x = e^z$ for $x > 0$, where D = $\frac{d}{dz}$, such that the equation can be written as $(D(D - 1)...(D - n + 1) + a_1D(D - 1)...(D - n + 2) + ... + a_{n-1}D + a_n)y = 0$
+\3 This then provides an auxiliary equation equal to the indicial equation, substituting back for $x = e^z$ to provide the previous solutions
+\1 For some equation of $x < 0$, $y = (-x)^r$ is used to provide similar solutions, such that $y = |x|^r$ can be used as a general form for all $x \neq 0$, using x, -x, $|x|$ for the respective regions
 \1 Nonhomogeneous Cauchy-Euler equations have the complementary solutions found by these means, using other means to gain the particular solution
 \end{outline*}
 \subsection{Reduction of Order}
