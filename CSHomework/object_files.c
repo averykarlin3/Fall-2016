@@ -38,7 +38,7 @@ int read_object_file (char *filename, machine_state *state) {
 			for(int i = 0; i < remainingStream; i++) {
 				word inst = getWord(f, FULL_WORD);
 				(state->memory)[currentLoc] = inst;
-				printf("Memory Address: %x = %x\n", currentLoc, inst);
+				printf("Memory Address: %X = %X\n", currentLoc, inst);
 				currentLoc++;
 			}
 			wordVal = getWord(f, FULL_WORD);

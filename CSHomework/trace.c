@@ -25,27 +25,25 @@ int main(int argc, char *argv[]) {
 			return read;
 		}
 	}
-	while(state->PC != 0x80FF) {
+	/*while(state->PC != 0x80FF) {
 		int ret = update_state(state);
 		if(ret == 1) {
-			printf("%x: Runtime Error - Executing Data Memory\n", state->PC);
+			printf("%X: Runtime Error - Executing Data Memory\n", state->PC);
 			free(state);
 			return ret;
 		}
 		if(ret == 2) {
-			printf("%x: Runtime Error - Accessing Code Memory as Data\n", state->PC);
+			printf("%X: Runtime Error - Accessing Code Memory as Data\n", state->PC);
 			free(state);
 			return ret;
 		}
 		if(ret == 3) {
-			printf("%x: Runtime Error - User Mode Accessing OS\n", state->PC);
+			printf("%X: Runtime Error - User Mode Accessing OS\n", state->PC);
 			free(state);
 			return ret;
 		}
 	}
-	free(state);
+	free(state);*/
 	printf("Trace completed without error.\n");
 	return 0;
 }
-
-//CHECK OTHER ERROR POSSIBILITIES
