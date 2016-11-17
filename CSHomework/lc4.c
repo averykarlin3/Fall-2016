@@ -185,7 +185,7 @@ int update_state(machine_state* state) {
 		(state->memory)[regin] = getRegister(state, rt);
 	}
 	char* runStr = stringFind(state, rs, rt, loc, inst);
-	printf("%x: %s\n", state->PC, runStr);
+	//printf("%x: %s\n", state->PC, runStr);
 	state->PC = pc_mux(state, rs);
 	return 0;
 }
@@ -413,6 +413,8 @@ word getRegister(machine_state* state, word loc) {
 
 char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word inst) {
 	char* ret = (char*) malloc(MAX_STRING);
+	if(INST_OP(inst))
+		printf("%x\n", INST_OP(inst));
 	switch(INST_OP(inst)) {
 		case 0x0:
 			switch(INST_11_9(inst)) {

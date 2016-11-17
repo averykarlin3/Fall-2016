@@ -31,6 +31,7 @@ int read_object_file (char *filename, machine_state *state) {
 			remainingStream = wordVal;
 			for(int i = 0; i < remainingStream; i++) {
 				(state->memory)[currentLoc] = getWord(f, FULL_WORD);
+				printf("%x\n", (state->memory)[currentLoc]);
 				currentLoc++;
 			}
 			wordVal = getWord(f, FULL_WORD);
