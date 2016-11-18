@@ -521,6 +521,7 @@
 \1 Functions/subroutines are defined in code by a function definition, with the main() function, which must return an int, as the start of program execution
 \2 Functions are made up of variable declarations, and statements of the function (which express actions performed within the function)
 \2 Declarations and statements are ended with a semicolon, to allow the compiler to easily break it into blocks, though preprocessor commands do not
+\2 The main function can also have parameters, ``int argc, char** argv'', allowing command line inputs, where argc is the number of inputs including the executable file call itself and argv is the array of each string input
 \1 Input and output in C are done by library functions, commonly within ``stdio.h'', using formatted strings
 \2 Formatted strings have text to print and specifications on how to print values within the text, represented by format specifications starting with \%
 \2 Output is written as ``printf(\textit{string, value1, \dots})'', input done similarly by scanf(), either providing the specific value or the variable
@@ -773,6 +774,8 @@
 \2 The standard I/O streams are called stdin and stdout, controlled by getchar and putchar functions, contained in <stdio.h>
 \3 ``void putchar(char)'' adds the ASCII character inputted as the parameter to the output stream to print
 \3 ``char getchar(void)'' waits for the next character to be added to the input stream, by default the keyboard, returning the ASCII value
+\3 stderr is the third input stream, appearing similarly to stdout, except used purely as the console for errors
+\3 stdin, stdout, and stderr are built-in file pointers to refer to the input and output consoles in which the program is being run
 \2 Buffered I/O adds all characters into a buffer array, waiting for the ENTER/NEWLINE key to release them into the stream at once
 \3 This allows the input to be confirmed by the user before being taken by the program, erasing mistakes
 \3 Buffered I/O is automatically built-in to C in putchar() and getchar() functions, and thus must be accounted for
@@ -790,6 +793,9 @@
 \3 If the fopen fails, it will return a NULL file pointer
 \2 For scanf, the end of file is denoted by the EOF character macro, and is limited to reading 10000 characters at a time
 \2 After using the file, ``fclose(\textit{file-pointer})'' must be used to close and save the file
+\2 In addition, ``int fgetc(\textit{file-pointer})'', ``fputc(\textit{char, file-pointer})'', and ```int fgets(\textit{str, char_num, file-pointer})'', ``fputs(\textit{str, file-pointer})'' read (get) and write (put) into files respectively for characters and strings
+\1 Binary files are those written in binary text, unable to be read by a computer except if converted into ASCII format
+\2 
 \end{outline*}
 \section{Data Structures}
 \begin{outline*}
