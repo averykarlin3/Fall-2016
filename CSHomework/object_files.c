@@ -25,11 +25,13 @@ int read_object_file (char *filename, machine_state *state) {
 	int wordVal = getWord(f, FULL_WORD);
 	while(wordVal != -1) {
 		if(wordVal == 0xCADE || wordVal == 0xDADA) {
-			if(wordVal == 0xCADE) {
-				printf("Code:\n");
-			}
-			else {
-				printf("Data:\n");
+			if(TRACE_OFF) {
+				if(wordVal == 0xCADE) {
+					printf("Code:\n");
+				}
+				else {
+					printf("Data:\n");
+				}
 			}
 			wordVal = getWord(f, FULL_WORD);
 			currentLoc = wordVal;
@@ -38,7 +40,9 @@ int read_object_file (char *filename, machine_state *state) {
 			for(int i = 0; i < remainingStream; i++) {
 				word inst = getWord(f, FULL_WORD);
 				(state->memory)[currentLoc] = inst;
-				printf("Memory Address: %X = %X\n", currentLoc, inst);
+				if(TRACE_OFF) {
+					printf("Memory Address: 0x%X = %X\n", currentLoc, inst);
+				}
 				currentLoc++;
 			}
 			wordVal = getWord(f, FULL_WORD);

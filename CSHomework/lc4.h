@@ -31,6 +31,7 @@
 #define DATA_START 0x2000
 #define OS_START 0x8000
 #define MAX_STRING 100
+#define TRACE_OFF 1
 
 typedef unsigned short int word;
 typedef short int signWord;

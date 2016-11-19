@@ -705,7 +705,14 @@
 \end{outline*}
 \subsection{Variation of Parameters Method}
 \begin{outline*}
-\1 
+\1 The variation of parameters method is able to find a particular solution to any linear nonhomogeneous differential equation assuming the complementary solution is known, not requiring constant coefficients
+\2 For some $y_c(x) = c_1y_1(x) + c_2y_2(x)$, particular solutions of the form $y_p = u_1(x)y_1(x) + u_2(x)y_2(x)$ with the constraint $u_1'y_1 + u_2'y_2 = 0$ are used, such that it can easily be differentiated to higher orders
+\2 Thus, it is found that when plugged into the differential equation, the equation reduces to $u'_1y'_1 + u'_2y'_2 = F$, forming a system of linear equations with the constraint
+\3 For this system, the matrix of coefficients is the functional Wronskian of y, able to be solved by Cramer's Rule to find that $u_1(x) = -\int^x_{x_0} \frac{y_2(t)F(t)}{W[y_1, y_2](t)}dt$ and $u_2(x) = \int^x_{x_0} \frac{y_1(t)F(t)}{W[y_1, y_2](t)}dt$
+\1 This can be summed, such that $y_p(x) = \int^x_{x_0} (\frac{y_1(t)y_2(x) - y_2(t)y_1(x)}{W[y_1, y_2](t)})F(t)dt = \int^x_{x_0} K(x, t)F(t)dt$, where K(x, t) is the Green's function
+\1 Higher order equations reduce to a similar system of equations, such that $y_1^{(n-1)}u_1' + ... + y_n^{(n-1)}u_n' = F$ with cooresponding constraints of $u_1'y_1^k + ... + u_n'y_n^k = 0 \forall k < n-1$, such that $y_p = u_1y_1 + ... + u_ny_n$
+\2 This can be solved by Gaussian elimination on the matrix, rather than by Cramer's rule and the Wronskian matrix, due to more variables
+\2 This matrix is proven to have a solution by the fact that the determinant of the matrix is the Wronksian of the complementary solutions, which are linearly independent on I, such that it must be nonzero
 \end{outline*}
 \subsection{Differential Equation with Nonconstant Coefficients}
 \begin{outline*}

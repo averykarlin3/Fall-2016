@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 			return read;
 		}
 	}
-	/*while(state->PC != 0x80FF) {
+	while(state->PC != 0x80FF) {
 		int ret = update_state(state);
 		if(ret == 1) {
 			printf("%X: Runtime Error - Executing Data Memory\n", state->PC);
@@ -42,8 +42,10 @@ int main(int argc, char *argv[]) {
 			free(state);
 			return ret;
 		}
+		if(state->PC == 30)
+			break;
 	}
-	free(state);*/
+	free(state);
 	printf("Trace completed without error.\n");
 	return 0;
 }
