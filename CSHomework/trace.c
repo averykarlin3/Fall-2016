@@ -10,6 +10,11 @@ int main(int argc, char *argv[]) {
 		printf("Input Error - Not Enough Inputs\n");
 		return -3;
 	}
+	outbin = fopen(argv[1], "a");
+	if(!outbin) {
+		printf("Write Error - File Unable to be Written\n");
+		return -4;
+	}
 	machine_state* state = (machine_state*) malloc(sizeof(machine_state));
 	reset(state);
 	for(int i = 2; i < argc; i++) {

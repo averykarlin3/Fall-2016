@@ -186,7 +186,11 @@ int update_state(machine_state* state) {
 	}
 	char* runStr = stringFind(state, rs, rt, loc, inst);
 	if(!TRACE_OFF) {
+		word output[2];
+		output[0] = state->PC;
+		output[1] = inst;
 		printf("%X: %s\n", state->PC, runStr);
+		fwrite(output, sizeof(word), 2, outbin);
 	}
 	state->PC = pc_mux(state, rs);
 	return 0;
