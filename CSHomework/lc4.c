@@ -563,5 +563,4 @@ char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word 
 }
 
 //CHECK SHIFTS AND FORMATTING OF STORED DATA (IS FULL?)
-//PART 3 OF READ ME?
 //STR CHECKED AND WORKS, LDR CHECKED AND WORKS, ADD WORKS

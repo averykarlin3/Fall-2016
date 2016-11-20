@@ -30,20 +30,20 @@ int main(int argc, char *argv[]) {
 			return read;
 		}
 	}
-	while(state->PC != 0x80FF) {
+	while(state->PC != 0x80FF && !TRACE_OFF) {
 		int ret = update_state(state);
 		if(ret == 1) {
-			printf("%X: Runtime Error - Executing Data Memory\n", state->PC);
+			printf("PC %X: Runtime Error - Executing Data Memory\n", state->PC);
 			free(state);
 			return ret;
 		}
 		if(ret == 2) {
-			printf("%X: Runtime Error - Accessing Code Memory as Data\n", state->PC);
+			printf("PC %X: Runtime Error - Accessing Code Memory as Data\n", state->PC);
 			free(state);
 			return ret;
 		}
 		if(ret == 3) {
-			printf("%X: Runtime Error - User Mode Accessing OS\n", state->PC);
+			printf("PC %X: Runtime Error - User Mode Accessing OS\n", state->PC);
 			free(state);
 			return ret;
 		}
