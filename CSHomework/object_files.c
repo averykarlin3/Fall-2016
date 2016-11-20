@@ -40,8 +40,8 @@ int read_object_file (char *filename, machine_state *state) {
 			for(int i = 0; i < remainingStream; i++) {
 				word inst = getWord(f, FULL_WORD);
 				(state->memory)[currentLoc] = inst;
-				if(TRACE_OFF) {
-					printf("Memory Address: 0x%X = %X\n", currentLoc, inst);
+				if(TRACE_OFF && inst) {
+					printf("Memory Address: %x = %x\n", currentLoc, inst);
 				}
 				currentLoc++;
 			}

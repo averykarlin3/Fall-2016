@@ -583,11 +583,13 @@
 \2 ``putchar(int c)'' prints a character into the standard output often buffered, such that it isn't flushed until a newline is placed in the output stream
 \2 ``int printf(char* format\_string, var1, var2)'' prints the format string, filling each conversion specification with the variable listed, returning the number of characters or a negative value for error
 \3 \%d is signed decimal, \%o is octal, \%x is lowercase hex, \%X is uppercase hex, \%c is character, \%e is lowercase exponential notation, \%E is uppercase exponential, \%s is a string, \%u is unsigned integer, \%f is floating
+\3 Special characters can also be written starting with \\, such that \\n is newline or \\t is tab
 \2 ``int scanf(char* format\_string, *ptr1, *ptr2)'' takes a stdin input based on the format string, putting it into each pointer given, returning the number of variables assigned
 \3 It uses the same specifiers as printf, with the added \%lf for a double floating point
-\1 String functions are stored within <string.h>, including ``int strcmp(char* A, char* B)'' and ``char* strcpy(char* A, char* B)''
+\1 String functions are stored within <string.h>, including ``int strcmp(char* A, char* B)'' and ``char* strcpy(char* A, char* B)'', ``strncpy(char* A, char*B, n)'', where n is the max number of bytes to copy
 \2 Strcmp checks if each character is identical in A and B, at which point when a character is greater in ASCII, if it is in A, it returns >0, in B <0, if equal, 0
 \2 Strcpy copies every character from B into A
+\2 It also includes ``strcat(char *d, char *s)'', appending s to d, and ``strlen(char* s)'', returning the length of s not including the null character
 \1 Math functions are within <math.h>, each taking doubles and returning doubles, including sin, cos, tan, exp (e^x), log (ln), sqrt, and pow(x, y) (x^y)
 \1 Utility functions are within <stdlib.h>, including ``void *malloc(size_t size)'', ``void free(void *ptr)'', ``int rand()'', and ``void srand(unsigned int seed)''
 \2 malloc allocates the number of bytes given, within the heap, returning a pointer to it, with the parameter automatically typedefed to the unsigned integer size_t type returned by sizeof()
@@ -597,6 +599,7 @@
 \2 rand() generates a random integer based on the seed value, giving an integer from 0 to RAND_MAX (slightly more than 32.767)
 \3 srand() allows reseeding of the rand() to produce a different pseudo-random integer
 \1 Character type functions are stored within ``<ctype.h>'', such as islower(), isupper(), tolower(), and toupper(), checking and modifying strings to the correct type of character
+\1 The assert command is contained within ``<assert.h>'', checking some condition, allowing the program to continue if true, but if false, ending the program and asserting an error into stderr
 \end{outline*}
 \section{Chapter 12 - Variables and Operators}
 \begin{outline*}
@@ -809,7 +812,8 @@
 \1 Arrays of structures and pointers to structures can be created as for any other variable
 \1 Memory objects/variables in C are able to be allocated to the run-time stack, global data section, or the dynamic memory section/heap
 \2 The heap takes up a portion of memory below global data but above the runtime stack, growing downward toward the stack
-\2 This is managed by the memory allocator, with the program able to request a portion of the heap as needed, to allow unknown sizes of data structures without wasting space
+\2 This is managed by the memory allocator, with the program able to request a portion of the heap as needed during runtime, to allow unknown sizes of data structures without wasting space
+\3 This contrasts global or stack memory, which is allocated at compile-time, rather than run-time
 \3 Memory allocated remains so until explicitly deallocated, done by the computer automatically on shutdown or within the code
 \3 Not freeing memory is called a memory leak, due to C not automatically doing garbage collection/freeing memory, like in Java
 \4 Garbage is memory that is not connected to anything, unable to be accessed, yet not freed
