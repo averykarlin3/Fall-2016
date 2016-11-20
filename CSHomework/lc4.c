@@ -354,7 +354,7 @@ unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
 	word control = (state->control).pc_mux_ctl;
 	word inst = getData(state, state->PC);
 	if(!control) {
-		if(INST_11_9(inst) | INST_2_0(state->PSR)) {
+		if(INST_11_9(inst) & INST_2_0(state->PSR)) {
 			return (state->PC) + 1 + complement2Dec(sext(UIMM9(inst), 9));
 		}
 		else {
