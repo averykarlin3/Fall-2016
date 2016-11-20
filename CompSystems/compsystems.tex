@@ -790,11 +790,16 @@
 \2 Thus, a file pointer must be declared first, with the type ``FILE*'', contained within <stdio.h>, opening it by ``\textit{filePointer = fopen("filename", "operations")''
 \3 The file operations are r for reading, w for overwriting, a for appending, r+ for reading and appending
 \3 If the fopen fails, it will return a NULL file pointer
+\3 File pointers inherently point to a location in the file based on previous functions and if the operation used ("r"/"w" at start, "a" at the end), moving as a stream does
+\4 This is able to be moved by ``rewind(\textit{filePointer})'' to the start of the file, and ``fseek(\textit{filePointer, offset, origin})'' to move to a particular location
+\4 The origin is either SEEK_SET for the start, SEEK_CUR for the current position, or SEEK_END for the end of the file
+\3 ``feof(\textit{filePointer})'' returns 1 if the pointer is at the end of the file, and ``ftell(\textit{filePointer})'' returns the location in the file of the pointer
 \2 For scanf, the end of file is denoted by the EOF character macro, and is limited to reading 10000 characters at a time
 \2 After using the file, ``fclose(\textit{file-pointer})'' must be used to close and save the file
 \2 In addition, ``int fgetc(\textit{file-pointer})'', ``fputc(\textit{char, file-pointer})'', and ```int fgets(\textit{str, char_num, file-pointer})'', ``fputs(\textit{str, file-pointer})'' read (get) and write (put) into files respectively for characters and strings
 \1 Binary files are those written in binary text, unable to be read by a computer except if converted into ASCII format
-\2 
+\2 Binary files are read and written by ``fread(\textit{pointer, elementSize, elementNumber, filePointer})'' and ``fread(\textit{pointer, elementSize, elementNumber, filePointer})'', where pointer is the pointer to the array of data written, with elementNumber entries of elementSize
+\2 Binary files are written bite by bite in the order they are stored in memory, either big-endian (largest magnitude bite first) or little-endian (smallest magnitude bite first)
 \end{outline*}
 \section{Chapter 19 - Data Structures}
 \begin{outline*}
