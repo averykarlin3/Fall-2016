@@ -37,7 +37,7 @@
 #define MAX_STRING 100 //Max command string length
 
 //TRACE MODE OR MILESTONE MODE
-#define TRACE_OFF 1
+#define TRACE_OFF 0
 
 FILE* outbin; //output value
 
