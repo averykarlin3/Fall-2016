@@ -144,8 +144,8 @@ void decode(unsigned short int I, control_signals* control)  {
 	}
 }
 
-int update_state(machine_state* state) {
-	if(state->PC >= DATA_START && state->PC < OS_START) {
+int update_state(machine_state* state) { //Instruction cycle of LC-4 state
+	if(state->PC >= DATA_START && state->PC < OS_START) { //Exception 1
 		return 1;
 	}
 	word inst = getData(state, state->PC);
@@ -154,18 +154,18 @@ int update_state(machine_state* state) {
 	word rt = rt_mux(state);
 	word loc = rd_mux(state);
 	word alu = alu_mux(state, rs, rt);
-	word readData = (state->control).reg_input_mux_ctl;
-	if(readData == 1 && alu < DATA_START) {
+	word readData = (state->control).reg_input_mux_ctl; //Get MUX results
+	if(readData == 1 && alu < DATA_START) { //Exception 2
 		return 2;
 	}
-	if(readData == 1 && alu >= OS_START && !(state->PSR & 0x8000)) {
+	if(readData == 1 && alu >= OS_START && !(state->PSR & 0x8000)) { //Exception 3
 		return 3;
 	}
 	word regin = reg_input_mux(state, alu);
 	if((state->control).reg_file_we) {
 		(state->R)[loc] = regin;
 		signWord calc = complement2Dec(regin);
-		if(calc > 0  && (state->control).nzp_we) {
+		if(calc > 0  && (state->control).nzp_we) { //Change NZP registers
 			state->PSR = (state->PSR & 0xFFF8) | 0x1;
 		}
 		if(calc < 0 && (state->control).nzp_we) {
@@ -176,23 +176,23 @@ int update_state(machine_state* state) {
 		}
 	}
 	if((state->control).data_we) {
-		if(regin < DATA_START) {
+		if(regin < DATA_START) { //Exception 2
 			return 2;
 		}
-		if(regin >= OS_START && !(state->PSR & 0x8000)) {
+		if(regin >= OS_START && !(state->PSR & 0x8000)) { //Exception 3
 			return 3;
 		}
 		(state->memory)[regin] = getRegister(state, rt);
 	}
 	char* runStr = stringFind(state, rs, rt, loc, inst);
-	if(!TRACE_OFF) {
+	if(!TRACE_OFF) { //Trace PC printing
 		word output[2];
 		output[0] = state->PC;
 		output[1] = inst;
 		printf("%X: %s\n", state->PC, runStr);
 		fwrite(output, sizeof(word), 2, outbin);
 	}
-	state->PC = pc_mux(state, rs);
+	state->PC = pc_mux(state, rs); //Modify PC
 	return 0;
 }
 
@@ -309,6 +309,7 @@ unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsi
 		}
 	}
 	if(control == 4) {
+		//Calculate input value difference
 		word calc;
 		if(!comp) {
 			calc = complement2Dec(getRegister(state, rs_out)) - complement2Dec(getRegister(state, rt_out));
@@ -322,6 +323,7 @@ unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsi
 		if(comp == 3) {
 			calc = (signWord) getRegister(state, rs_out) - (signWord) UIMM7(inst);
 		}
+		//Set NZP registers
 		if(calc > 0 && (state->control).nzp_we) {
 			state->PSR = (state->PSR & 0xFFF8) | 0x1;
 		}
@@ -381,7 +383,7 @@ unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
 	return -1;
 }
 
-word sext(word n, int len) {
+word sext(word n, int len) { //Sign extend twos complement value to 16 bit
 	if(n > pow(2, len - 1)) {
 		word mask = ~((int) pow(2, len) - 1);
 		return mask | n;
@@ -391,7 +393,7 @@ word sext(word n, int len) {
 	}
 }
 
-signWord complement2Dec(word n) {
+signWord complement2Dec(word n) { //Convert twos complement hex to integer value
 	if(!(n & 0x8000)) {
 		return n;
 	}
@@ -400,7 +402,7 @@ signWord complement2Dec(word n) {
 	}
 }
 
-word dec2Complement(signWord n) {
+word dec2Complement(signWord n) { //Convert integer value to twos complement hex
 	if(n > 0) {
 		return n;
 	}
@@ -417,9 +419,10 @@ word getRegister(machine_state* state, word loc) {
 	return (state->R)[loc];
 }
 
+//Return string description of instruction based on rs, rt, rd, and the instruction itself
 char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word inst) {
 	char* ret = (char*) malloc(MAX_STRING);
-	switch(INST_OP(inst)) {
+	switch(INST_OP(inst)) { //Check opcode
 		case 0x0:
 			switch(INST_11_9(inst)) {
 				case 0x0:
@@ -556,7 +559,7 @@ char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word 
 		case 0xF:
 			sprintf(ret, "TRAP x%X", UIMM8(inst));
 			break;
-		default:
+		default: //If opcode not found
 			sprintf(ret, "Unknown Opcode");
 	}
 	return ret;

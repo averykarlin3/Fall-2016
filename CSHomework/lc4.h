@@ -12,6 +12,8 @@
 #include <math.h>
 #include <string.h>
 
+//MACRO COMMANDS TO PARSE LC4 INSTRUCTIONS
+
 #define INST_OP(I) ((I) >> 12)
 #define INST_11_9(I) ((I) >> 9 & 0x7)
 #define INST_8_6(I) ((I) >> 6 & 0x7)
@@ -28,12 +30,16 @@
 #define UIMM9(I) ((I) & 0x1FF)
 #define UIMM11(I) ((I) & 0x7FF)
 
+//LC4 MACROS
+
 #define DATA_START 0x2000
 #define OS_START 0x8000
-#define MAX_STRING 100
+#define MAX_STRING 100 //Max command string length
+
+//TRACE MODE OR MILESTONE MODE
 #define TRACE_OFF 1
 
-FILE* outbin;
+FILE* outbin; //output value
 
 typedef unsigned short int word;
 typedef short int signWord;
