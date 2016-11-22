@@ -10,12 +10,12 @@ int main(int argc, char *argv[]) {
 		printf("Input Error - Not Enough Inputs\n");
 		return -3;
 	}
-	outbin = fopen(argv[1], "a"); //If output file cannot be opened
+	outbin = fopen(argv[1], "w"); //If output file cannot be opened
 	if(!outbin) {
 		printf("Write Error - File Unable to be Written\n");
 		return -4;
 	}
-	outpbm = fopen(strcat(argv[1], ".ppm"), "a"); //If output file cannot be opened
+	outpbm = fopen(strcat(argv[1], ".ppm"), "w"); //If output file cannot be opened
 	if(!outpbm) {
 		printf("Write Error - Image File Unable to be Written\n");
 		return -6;
