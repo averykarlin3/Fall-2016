@@ -47,6 +47,11 @@ int main(int argc, char *argv[]) {
 			free(state);
 			return ret;
 		}
+		if(ret == -5) {
+			printf("PC %X: Runtime Error - Invalid Signals\n", state->PC);
+			free(state);
+			return ret;
+		}
 	}
 	free(state);
 	printf("Trace completed without error.\n");

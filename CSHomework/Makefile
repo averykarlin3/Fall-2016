@@ -13,7 +13,7 @@ trace: object_files.c object_files.h lc4.c lc4.h trace.c
 # THIS IS FOR GRADING. DO NOT MODIFY THIS TARGET.
 #
 testlc4: testlc4.c lc4
-	clang -g -o testlc4.c lc4.o
+	clang -g -o testlc4 lc4.o
 
 clean:
 	rm -f *.o

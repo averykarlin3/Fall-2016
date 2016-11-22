@@ -192,7 +192,11 @@ int update_state(machine_state* state) { //Instruction cycle of LC-4 state
 		printf("%X: %s\n", state->PC, runStr);
 		fwrite(output, sizeof(word), 2, outbin);
 	}
-	state->PC = pc_mux(state, rs); //Modify PC
+	word pc = pc_mux(state, rs); //Modify PC
+	state->PC = pc;
+	if(rs == -1 || rt == -1 || loc == -1 || pc == -1 || alu == -1 || regin == -1) {
+		return -5;
+	}
 	return 0;
 }
 
@@ -333,8 +337,9 @@ unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsi
 		if(calc == 0 && (state->control).nzp_we) {
 			state->PSR = (state->PSR & 0xFFF8) | 0x2;
 		}
+		return 0;
 	}
-	return 0;
+	return -1;
 }
 
 unsigned short int reg_input_mux(machine_state* state, unsigned short int alu_out) {
@@ -349,7 +354,7 @@ unsigned short int reg_input_mux(machine_state* state, unsigned short int alu_ou
 	if(control == 2) {
 		return (state->PC) + 1;
 	}
-	return 0;
+	return -1;
 }
 
 unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
@@ -564,6 +569,3 @@ char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word 
 	}
 	return ret;
 }
-
-//CHECK SHIFTS AND FORMATTING OF STORED DATA (IS FULL?)
-//STR CHECKED AND WORKS, LDR CHECKED AND WORKS, ADD WORKS
