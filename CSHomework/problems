@@ -1,0 +1,63 @@
+Question #1.
+
+Create a program that accepts as input an unsigned integer and
+outputs the number of 1's in the binary representation of the 
+integer.
+
+Sample program run:
+
+Enter number: 5
+Answer: 2
+
+
+--------------------------------------------------------------
+
+Question #2.
+
+This program simulates an airplane ticketing system.  At the 
+prompt, you should accept one of the following options:
+
+   n - Create a new airplane with the specified number of 
+       seats and delete the information about the previous
+       airplane.  There is no restriction on airplane size.
+
+   a - Add a new passenger to a seat.  All entered seats will
+       be unique (no duplicate seat locations will be 
+       entered).  Names have a maximum of 50 characters.
+
+   f - Find a passenger with a given row and column.  If the 
+       seat is empty, print out a message.
+
+   q - Quit the program.  Your program should loop continuously
+       until the user enters quit.
+
+
+   Tips:
+      -you do not need any 2-D arrays for this problem
+      -read in a single character using " %c" with scanf
+      -fgets saves the ending newline character
+
+Sample program run:
+
+Choice (a,f,n,q): n           //create new airplane
+Number of seats: 2
+Choice (a,f,n,q): a           //add passenger
+Enter name: CJ Taylor
+Enter row: 1
+Enter col: 1
+Choice (a,f,n,q): a           //add passenger
+Enter name: Tom Farmer
+Enter row: 1
+Enter col: 2
+Choice (a,f,n,q): a           //add passenger to full airplane
+Airplane full
+Choice (a,f,n,q): f           //find passenger
+Enter row: 1
+Enter col: 2
+Name: Tom Farmer
+Choice (a,f,n,q): f           //search for seat not found
+Enter row: 2
+Enter col: 2
+Not found
+Choice (a,f,n,q): q           //quit
+
