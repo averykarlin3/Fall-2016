@@ -22,25 +22,28 @@ int read_object_file (char *filename, machine_state *state) {
 	}
 	word currentLoc;
 	int remainingStream;
+	int dataStore; //Check if storing data, such that only nonzero commands are recorded in milestone
 	int wordVal = getWord(f, FULL_WORD);
 	while(wordVal != -1) {
-		if(wordVal == 0xCADE || wordVal == 0xDADA) {
+		dataStore = 0;
+		if(wordVal == 0xCADE || wordVal == 0xDADA) { //Code or Data block
 			if(TRACE_OFF) {
 				if(wordVal == 0xCADE) {
 					printf("Code:\n");
 				}
 				else {
 					printf("Data:\n");
+					dataStore = 1;
 				}
 			}
-			wordVal = getWord(f, FULL_WORD);
+			wordVal = getWord(f, FULL_WORD); //Get block information
 			currentLoc = wordVal;
 			wordVal = getWord(f, FULL_WORD);
 			remainingStream = wordVal;
-			for(int i = 0; i < remainingStream; i++) {
+			for(int i = 0; i < remainingStream; i++) { //Memory value stream
 				word inst = getWord(f, FULL_WORD);
 				(state->memory)[currentLoc] = inst;
-				if(TRACE_OFF && inst) {
+				if(TRACE_OFF && (inst || dataStore)) { //Milestone printing
 					printf("Memory Address: %x = %x\n", currentLoc, inst);
 				}
 				currentLoc++;
@@ -48,7 +51,7 @@ int read_object_file (char *filename, machine_state *state) {
 			wordVal = getWord(f, FULL_WORD);
 			continue;
 		}
-		if(wordVal == 0xC3B7) {
+		if(wordVal == 0xC3B7) { //Skip symbol  block
 			getWord(f, FULL_WORD);
 			wordVal = getWord(f, FULL_WORD);
 			remainingStream = wordVal;
@@ -58,7 +61,7 @@ int read_object_file (char *filename, machine_state *state) {
 			wordVal = getWord(f, FULL_WORD);
 			continue;
 		}
-		if(wordVal == 0xF17E) {
+		if(wordVal == 0xF17E) { //Skip file name block
 			wordVal = getWord(f, FULL_WORD);
 			remainingStream = wordVal;
 			for(int i = 0; i < remainingStream; i++) {
@@ -67,7 +70,7 @@ int read_object_file (char *filename, machine_state *state) {
 			wordVal = getWord(f, FULL_WORD);
 			continue;
 		}
-		if(wordVal == 0x715E) {
+		if(wordVal == 0x715E) { //Skip line number block
 			getWord(f, FULL_WORD);
 			getWord(f, FULL_WORD);
 			getWord(f, FULL_WORD);
@@ -80,7 +83,7 @@ int read_object_file (char *filename, machine_state *state) {
 }
 
 int getWord(FILE* file, int size) {
-	int word[size/2];
+	int word[size/2]; //Get sequence of hex values from file of length size/2
 	for(int i = 0; i < size/2; i++) {
 		int in = fgetc(file);
 		if(in == EOF) {
@@ -88,7 +91,10 @@ int getWord(FILE* file, int size) {
 		}
 		word[i] = in;
 	}
-	int val = word[0] + word[1]*16*16;
+	int val = 0; //Convert big-endian array of hex values to single little-endian value
+	for(int i = 0; i < size/2; i++) {
+		val += word[i] * pow(16, 2*i);
+	}
 	val = flip_endian(val);
 	return val;
 }

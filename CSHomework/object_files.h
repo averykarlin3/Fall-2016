@@ -30,5 +30,5 @@ int read_object_file (char *filename, machine_state *state);
 
 int getWord(FILE* file, int size);
 
-#define FULL_WORD 4
-#define HALF_WORD 2
+#define FULL_WORD 4 //Hex values per word
+#define HALF_WORD 2 //Hex values per character

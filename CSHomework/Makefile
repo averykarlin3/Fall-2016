@@ -15,9 +15,8 @@ trace: object_files.c object_files.h lc4.c lc4.h trace.c
 testlc4: testlc4.c lc4
 	clang -g -o testlc4.c lc4.o
 
-#
-# Add more if necessary.
-#
 clean:
 	rm -f *.o
 	rm -f trace
+	rm -f *.exe
+	rm -f *.trace
