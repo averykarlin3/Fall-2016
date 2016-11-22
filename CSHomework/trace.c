@@ -53,7 +53,9 @@ int main(int argc, char *argv[]) {
 			return ret;
 		}
 	}
-	pictureStore(state);
+	if(!TRACE_OFF) {
+		pictureStore(state);
+	}
 	free(state);
 	printf("Trace completed without error.\n");
 	return 0;

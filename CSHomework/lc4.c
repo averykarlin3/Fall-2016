@@ -568,12 +568,13 @@ char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word 
 }
 
 void pictureStore(machine_state* state) {
-	fprintf(outpbm, "P6\n128 124\n31\n");
-	for(int i = 0xC000; i < 0xFE00; i++) {
-		word rgb[3];
-		rgb[0] = INST_14_10(getRegister(state, i));
-		rgb[1] = INST_9_5(getRegister(state, i));
-		rgb[2] = INST_4_0(getRegister(state, i));
-		fwrite(rgb, 5, 3, outpbm);
+	fprintf(outpbm, "P6\n128 124\n31\n"); //Print image information
+	for(int i = 0xC000; i < 0xFE00; i++) { //Get RGB info for each pizel and add to file
+		(state->memory)[i] = 0x7C00;
+		unsigned char rgb[3];
+		rgb[0] = INST_14_10(getData(state, i));
+		rgb[1] = INST_9_5(getData(state, i));
+		rgb[2] = INST_4_0(getData(state, i));
+		fwrite(rgb, sizeof(char), 3, outpbm);
 	}
 }
