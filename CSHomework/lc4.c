@@ -194,9 +194,6 @@ int update_state(machine_state* state) { //Instruction cycle of LC-4 state
 	}
 	word pc = pc_mux(state, rs); //Modify PC
 	state->PC = pc;
-	if(rs == -1 || rt == -1 || loc == -1 || pc == -1 || alu == -1 || regin == -1) {
-		return -5;
-	}
 	return 0;
 }
 
@@ -209,7 +206,7 @@ unsigned short int rd_mux(machine_state* state) {
 	if(!control) {
 		return INST_11_9(inst);
 	}
-	return -1;
+	return 0;
 }
 
 
@@ -225,7 +222,7 @@ unsigned short int rs_mux(machine_state* state) {
 	if(control == 2) {
 		return INST_11_9(inst);
 	}
-	return -1;
+	return 0;
 }
 
 unsigned short int rt_mux(machine_state* state) {
@@ -237,7 +234,7 @@ unsigned short int rt_mux(machine_state* state) {
 	if(control == 1) {
 		return INST_11_9(inst);
 	}
-	return -1;
+	return 0;
 }
 
 unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsigned short int rt_out) {
@@ -339,7 +336,7 @@ unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsi
 		}
 		return 0;
 	}
-	return -1;
+	return 0;
 }
 
 unsigned short int reg_input_mux(machine_state* state, unsigned short int alu_out) {
@@ -354,7 +351,7 @@ unsigned short int reg_input_mux(machine_state* state, unsigned short int alu_ou
 	if(control == 2) {
 		return (state->PC) + 1;
 	}
-	return -1;
+	return 0;
 }
 
 unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
@@ -385,7 +382,7 @@ unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
 	if(control == 5) {
 		return ((state->PC) & 0x8000) | (UIMM11(inst) << 4);
 	}
-	return -1;
+	return 0;
 }
 
 word sext(word n, int len) { //Sign extend twos complement value to 16 bit
@@ -568,4 +565,15 @@ char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word 
 			sprintf(ret, "Unknown Opcode");
 	}
 	return ret;
+}
+
+void pictureStore(machine_state* state) {
+	fprintf(outpbm, "P6\n128 124\n31\n");
+	for(int i = 0xC000; i < 0xFE00; i++) {
+		word rgb[3];
+		rgb[0] = INST_14_10(getRegister(state, i));
+		rgb[1] = INST_9_5(getRegister(state, i));
+		rgb[2] = INST_4_0(getRegister(state, i));
+		fwrite(rgb, 5, 3, outpbm);
+	}
 }

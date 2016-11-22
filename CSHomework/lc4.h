@@ -15,6 +15,9 @@
 //MACRO COMMANDS TO PARSE LC4 INSTRUCTIONS
 
 #define INST_OP(I) ((I) >> 12)
+#define INST_14_10(I) ((I) >> 10 & 0x1F)
+#define INST_9_5(I) ((I) >> 5 & 0x1F)
+#define INST_4_0(I) ((I) & 0x1F)
 #define INST_11_9(I) ((I) >> 9 & 0x7)
 #define INST_8_6(I) ((I) >> 6 & 0x7)
 #define INST_2_0(I) ((I) & 0x7)
@@ -39,7 +42,8 @@
 //TRACE MODE OR MILESTONE MODE
 #define TRACE_OFF 0
 
-FILE* outbin; //output value
+FILE* outbin; //output file
+FILE* outpbm; //output image file
 
 typedef unsigned short int word;
 typedef short int signWord;
@@ -150,3 +154,5 @@ word dec2Complement(signWord n);
 unsigned short int rd_mux(machine_state* state);
 
 char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word inst);
+
+void pictureStore(machine_state* state);

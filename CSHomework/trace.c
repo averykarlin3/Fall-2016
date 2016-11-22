@@ -15,6 +15,11 @@ int main(int argc, char *argv[]) {
 		printf("Write Error - File Unable to be Written\n");
 		return -4;
 	}
+	outpbm = fopen(strcat(argv[1], ".ppm"), "a"); //If output file cannot be opened
+	if(!outpbm) {
+		printf("Write Error - Image File Unable to be Written\n");
+		return -6;
+	}
 	machine_state* state = (machine_state*) malloc(sizeof(machine_state));
 	reset(state);
 	for(int i = 2; i < argc; i++) { //Read files in order of command line inputs
@@ -47,12 +52,8 @@ int main(int argc, char *argv[]) {
 			free(state);
 			return ret;
 		}
-		if(ret == -5) {
-			printf("PC %X: Runtime Error - Invalid Signals\n", state->PC);
-			free(state);
-			return ret;
-		}
 	}
+	pictureStore(state);
 	free(state);
 	printf("Trace completed without error.\n");
 	return 0;
