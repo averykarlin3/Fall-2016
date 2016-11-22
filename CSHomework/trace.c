@@ -1,6 +1,6 @@
 /*
  * CIS 240 HW 9: LC4 Simulator
- * trace.c
+ * trace.c 
  */
 
 #include "object_files.h"
