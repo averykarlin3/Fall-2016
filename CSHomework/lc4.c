@@ -185,13 +185,13 @@ int update_state(machine_state* state) { //Instruction cycle of LC-4 state
 		(state->memory)[regin] = getRegister(state, rt);
 	}
 	char* runStr = stringFind(state, rs, rt, loc, inst);
-	if(!TRACE_OFF) { //Trace PC printing
-		word output[2];
-		output[0] = state->PC;
-		output[1] = inst;
-		printf("%X: %s\n", state->PC, runStr);
-		fwrite(output, sizeof(word), 2, outbin);
-	}
+	//if(!TRACE_OFF) { //Trace PC printing
+		//word output[2];
+	//	output[0] = state->PC;
+		// output[1] = inst;
+		// printf("%X: %s\n", state->PC, runStr);
+		// fwrite(output, sizeof(word), 2, outbin);
+	// }
 	word pc = pc_mux(state, rs); //Modify PC
 	state->PC = pc;
 	return 0;
@@ -306,12 +306,12 @@ unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsi
 		}
 		if(constant == 1) {
 			word rd = rd_mux(state);
-			return (rd & 0xFF) | (UIMM8(inst) << 8);
+			return (getRegister(state, rd) & 0xFF) | (UIMM8(inst) << 8);
 		}
 	}
 	if(control == 4) {
 		//Calculate input value difference
-		word calc;
+		signWord calc;
 		if(!comp) {
 			calc = complement2Dec(getRegister(state, rs_out)) - complement2Dec(getRegister(state, rt_out));
 		}
@@ -570,7 +570,6 @@ char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word 
 void pictureStore(machine_state* state) {
 	fprintf(outpbm, "P6\n128 124\n31\n"); //Print image information
 	for(int i = 0xC000; i < 0xFE00; i++) { //Get RGB info for each pizel and add to file
-		(state->memory)[i] = 0x7C00;
 		unsigned char rgb[3];
 		rgb[0] = INST_14_10(getData(state, i));
 		rgb[1] = INST_9_5(getData(state, i));
