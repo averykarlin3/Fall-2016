@@ -20,3 +20,4 @@ clean:
 	rm -f trace
 	rm -f *.exe
 	rm -f *.trace
+	rm -f *.ppm

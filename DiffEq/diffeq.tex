@@ -510,6 +510,7 @@
 \2 For all square matrices, A, $(e^{At})^{-1} = e^{(-A)t} = e^{-At}$, such that it follows that the inverse of $e^{At}$ is $e^{-At}$
 \2 It is also found that for some diagonal matrix, $A = diag(d_1, \dots, d_n)$, then $e^{At} = diag(e^{d_1t}, \dots, e^{d_nt})$
 \1 It can be found that for some square nondefective matrix, A, $e^{At} = Se^{Dt}S^{-1}$, where D is the diagonalization, such that the function result can be found by the diagonal
+\2 For some complex eigenvalue, it is exponentiated and multiplied by the cooresponding eigenvector, breaking it up into two columns, one as the real, one as the imaginary portions, to get the $Se^{Dt}$ matrix, using in place of the conjugate column
 \1 It is notable that for some matrix A at t = 0, $e^{tA} = I, frac{d(e^{tA})}{dt} = A, \frac{d^2(e^{tA})}{dt^2} = A^2$, and so forth
 \end{outline*}
 \subsection{Jordan-Canonical Form}
@@ -643,8 +644,23 @@
 \3 For only one linearly independent eigenvector, it is called a degenerate node, due to there not being four half-line trajectories, instead using $x(t) = e^{\lambda t}(c_0\vec{v}_0 + c_1(\vec{1} + t\vec{v}_0))$
 \4 Besides the eigenvector solution halflines, for $\lambda > 0$, as $t \to \infty$, all trajectories are parallel to the eigenvector, while as $t \to -\infty$, they approach the equilibrium point tangentially, moving past the origin and turning back around, forming an unstable node
 \4 For $\lambda < 0$, the directions are reversed, forming a stable node
-\2 For complex conjugate eigenvalues...
-\1 The system is drawn as a slope, or direction, field, with arrowheads to indicate the direction in the direction of trajectory movement
+\2 For complex conjugate eigenvalues, the solutions are $x_1 = e^{at}(cos(bt)\vec{r} - sin(bt)\vec{s}), x_2 = e^{at}(sin(bt)\vec{r} + cos(bt)\vec{s})$ for eigenvector $\vec{v} = \vec{r} + i\vec{s}$, such that $\vec{x}(t) = e^{at}\vec{v}(t), \vec{v}(t) = c_1(cos(bt)\vec{r} - sin(bt)\vec{s}) + c_2(sin(bt)\vec{r} + cos(bt)\vec{s})$
+\3 As a result, the period of the solution is $\frac{2\pi}{b}$, such that if a = 0, it forms ellipses around the equilibrium point, called the center, considered stable
+\3 For $a \neq 0$, the equilibrium point is called the spiral point, the trajectories spiral about the origin, such that $a > 0$, it spirals away, called an unstable spiral point, otherwise $a < 0$, it is stable
+\4 It is then determined based on the system if it spirals clockwise or counterclockwise based on the system, checking $\frac{dx}{dt}$ when x = 0
+\1 The system is drawn as a slope/direction field, with arrowheads to indicate the direction in the direction of trajectory movement
+\end{outline*}
+\subsection{Nonlinear Systems}
+\begin{outline*}
+\1 For some autonomous system, $\frac{dx}{dt} = F(x, y), \frac{dy}{dt} = G(x, y)$, assuming both F and G are at least $C^2(I)$, where F(x, y) and G(x, y) are nonlinear combinations of x and y
+\2 By the fact that for some function z = f(x, y), it can be approximated around some point by the tangent plane, $z = f(x_0, y_0) + (x - x_0)\frac{\partial f}{\partial x}(x_0, y_0) + (y - y_0)\frac{\partial f}{\partial y}(x_0, y_0)$
+\2 As a result, F(x, y) and G(x, y) can be approximated similarly, such that for some equilibrium point, the first term can be ignored
+\2 Thus, it can be approximated at an equilibrium point by the linear system, $\vec{u}' = J(x_0, y_0)\vec{u}$, where J is the Jacobian matrix, \begin{bmatrix} \frac{\partial F}{\partial x} & \frac{\partial F}{\partial y} \\ \frac{\partial G}{\partial x} & \frac{\partial G}{\partial y} \end{bmatrix} and $\vec{u}$ is the matrix of $\vec{x} - \vec{x}_0$
+\1 Around the equilibrium point, the direction field and trajectories of the linear approximation mirror that of the non-linear system, except for pure imaginary eigenvalues, which could be either a center, stable spiral, or unstable spiral
+\1 The Van der Pol equation is $\frac{d^2y}{dt^2} + \mu (y^2 - 1) \frac{dy}{dt} + y = 0, \mu > 0$, describing the behavior of nonliner circuits
+\2 $\mu$ acts as the damping factor, such that if it is 0, it acts as an oscillation circuit
+\3 Thus, it damps for $|y| > 1$, amplifying if less, implying, though not confirming, the existance of a specific cyclical, closed trajectory, by which those outside and inside move towards, called the limit cycle
+\2 It is noted that the only equilibrium point, (0, 0), provides information on the structure of the center, but cannot confirm the existance of the limit cycle, due to not providing information on the outside region
 \end{outline*}
 \section{Chapter 6 - Higher Order Linear Differential Equations}
 \subsection{General Theory}

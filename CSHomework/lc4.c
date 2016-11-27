@@ -185,13 +185,13 @@ int update_state(machine_state* state) { //Instruction cycle of LC-4 state
 		(state->memory)[regin] = getRegister(state, rt);
 	}
 	char* runStr = stringFind(state, rs, rt, loc, inst);
-	//if(!TRACE_OFF) { //Trace PC printing
-		//word output[2];
-	//	output[0] = state->PC;
-		// output[1] = inst;
-		// printf("%X: %s\n", state->PC, runStr);
-		// fwrite(output, sizeof(word), 2, outbin);
-	// }
+	if(!TRACE_OFF) { //Trace PC printing
+		word output[2];
+		output[0] = state->PC;
+		output[1] = inst;
+		printf("%X: %s\n", state->PC, runStr);
+		fwrite(output, sizeof(word), 2, outbin);
+	}
 	word pc = pc_mux(state, rs); //Modify PC
 	state->PC = pc;
 	return 0;
