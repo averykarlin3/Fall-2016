@@ -55,6 +55,10 @@ int main(int argc, char *argv[]) {
 	}
 	if(!TRACE_OFF) {
 		pictureStore(state);
+		word output[2]; //Write end of file instruction
+		output[0] = state->PC;
+		output[1] = 0xC907; //Default exit file instruction
+		fwrite(output, sizeof(word), 2, outbin);
 	}
 	free(state);
 	printf("Trace completed without error.\n");

@@ -539,8 +539,8 @@
 \4 Floating point can also be written in scientific notation, using either an e or E at the start of the integer exponent
 \4 It is defaulted as a double, though f or F can be used as a float marker, and l or L is used for a long double
 \3 Character literals are surrounded by single-quotes, written in normal text, converted by the computer into ASCII
-\4 \\0 or \\x are able to be used to include a non-keyboard character by the ASCII code
-\4 Special characters often also have a character escape code to include it in a string, beginning by ``\\\\''
+\4 \textbackslash 0 or \textbackslash x are able to be used to include a non-keyboard character by the ASCII code
+\4 Special characters often also have a character escape code to include it in a string, beginning by ``\textbackslash\textbackslash''
 \3 String literals are surrounded by double quotes, signified by the type char*, allocated in a special portion of memory for literal constants, automatically given the `\\0' null character at the end
 \4 It is noted that string literals cannot be used to fill an array after it has already been initialized
 \3 Enumerator constants are symbolic integer values, defined in an enumerator list of a declaration
@@ -592,15 +592,15 @@
 \2 Strcpy copies every character from B into A
 \2 It also includes ``strcat(char *d, char *s)'', appending s to d, and ``strlen(char* s)'', returning the length of s not including the null character
 \1 Math functions are within <math.h>, each taking doubles and returning doubles, including sin, cos, tan, exp ($e^x$), log (ln), sqrt, and pow(x, y) ($x^y$)
-\1 Utility functions are within $<$stdlib.h$>$, including ``void *malloc(size_t size)'', ``void free(void *ptr)'', ``int rand()'', and ``void srand(unsigned int seed)''
-\2 malloc allocates the number of bytes given, within the heap, returning a pointer to it, with the parameter automatically typedefed to the unsigned integer size_t type returned by sizeof()
+\1 Utility functions are within $<$stdlib.h$>$, including ``void *malloc(size\_t size)'', ``void free(void *ptr)'', ``int rand()'', and ``void srand(unsigned int seed)''
+\2 malloc allocates the number of bytes given, within the heap, returning a pointer to it, with the parameter automatically typedefed to the unsigned integer size\_t type returned by sizeof()
 \3 Malloc returns a null pointer (the NULL macro, generally 0) if the memory cannot be allocated
 \3 free returns the allocated memory to the heap, having been previously allocated by malloc
 \3 Void* implies a generic data pointer, needing to be typecasted to the desired type, though free() automatically typecasts it
-\2 rand() generates a random integer based on the seed value, giving an integer from 0 to RAND_MAX (slightly more than 32.767)
+\2 rand() generates a random integer based on the seed value, giving an integer from 0 to RAND\_MAX (slightly more than 32.767)
 \3 srand() allows reseeding of the rand() to produce a different pseudo-random integer
-\1 Character type functions are stored within ``<ctype.h>'', such as islower(), isupper(), tolower(), and toupper(), checking and modifying strings to the correct type of character
-\1 The assert command is contained within ``<assert.h>'', checking some condition, allowing the program to continue if true, but if false, ending the program and asserting an error into stderr
+\1 Character type functions are stored within ``$<$ctype.h$>$'', such as islower(), isupper(), tolower(), and toupper(), checking and modifying strings to the correct type of character
+\1 The assert command is contained within ``$<$assert.h$>$'', checking some condition, allowing the program to continue if true, but if false, ending the program and asserting an error into stderr
 \end{outline*}
 \section{Chapter 12 - Variables and Operators}
 \begin{outline*}
@@ -791,6 +791,7 @@
 \3 Since parameters are pushed right to left, the pointer to the format string is easily accessible within the stack, with the offset within the function run-time stack designating the number of variables, with the final at offset 0
 \4 The format string is stored with other stirngs in the literal/constant memory section
 \3 Printf used before scanf does not require a newline variable at the end to print it, automatically printing when the buffer is released before scanf
+\2 String I/O is performed similarly to formatted I/O, except either reading to or from strings, rather than from stdin/stdout, using ``sprintf(\textit{strPointer, formattedString, variables})'', similar for sscanf, using strPointer as the input/output string
 \1 I/O streams work with files, with stdin/stdout as special system files mapping to the keyboard and monitor, using more general functions to work with other files
 \2 fprintf and fscanf are used for file I/O, acting similarly to other I/O, but allowing the stream to be specified, used similarly but with an added first parameter for the file pointer
 \2 Thus, a file pointer must be declared first, with the type ``FILE*'', contained within <stdio.h>, opening it by ``\textit{filePointer = fopen("filename", "operations")}''
@@ -798,11 +799,11 @@
 \3 If the fopen fails, it will return a NULL file pointer
 \3 File pointers inherently point to a location in the file based on previous functions and if the operation used ("r"/"w" at start, "a" at the end), moving as a stream does
 \4 This is able to be moved by ``rewind(\textit{filePointer})'' to the start of the file, and ``fseek(\textit{filePointer, offset, origin})'' to move to a particular location
-\4 The origin is either SEEK_SET for the start, SEEK_CUR for the current position, or SEEK_END for the end of the file
+\4 The origin is either SEEK\_SET for the start, SEEK\_CUR for the current position, or SEEK\_END for the end of the file
 \3 ``feof(\textit{filePointer})'' returns 1 if the pointer is at the end of the file, and ``ftell(\textit{filePointer})'' returns the location in the file of the pointer
 \2 For scanf, the end of file is denoted by the EOF character macro, and is limited to reading 10000 characters at a time
 \2 After using the file, ``fclose(\textit{file-pointer})'' must be used to close and save the file
-\2 In addition, ``int fgetc(\textit{file-pointer})'', ``fputc(\textit{char, file-pointer})'', and ```int fgets(\textit{str, char_num, file-pointer})'', ``fputs(\textit{str, file-pointer})'' read (get) and write (put) into files respectively for characters and strings
+\2 In addition, ``int fgetc(\textit{file-pointer})'', ``fputc(\textit{char, file-pointer})'', and ```int fgets(\textit{str, char\_num, file-pointer})'', ``fputs(\textit{str, file-pointer})'' read (get) and write (put) into files respectively for characters and strings
 \1 Binary files are those written in binary text, unable to be read by a computer except if converted into ASCII format
 \2 Binary files are read and written by ``fread(\textit{pointer, elementSize, elementNumber, filePointer})'' and ``fread(\textit{pointer, elementSize, elementNumber, filePointer})'', where pointer is the pointer to the array of data written, with elementNumber entries of elementSize
 \2 Binary files are written bite by bite in the order they are stored in memory, either big-endian (largest magnitude bite first) or little-endian (smallest magnitude bite first)

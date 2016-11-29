@@ -137,7 +137,7 @@
 \3 Thus, this forms the idea that since the velocity can be in either direction when assuming a standing wave, all waves on the string are made up of two standing wave directions
 \2 Thus, it is found that $\psi(x, t) = \psi(x \pm vt) = \psi_+(x - |v|t) + \psi_-(x + |v|t)$, to provide the forward and backward wave components, taking the specific solution at t = 0
 \3 The constant multipliers of the linear multiplier are contained within the functions themselves
-\3 This forms $\psi(x, 0) = \psi_+(x) + \psi_-(x)$ and by the derivative with respect to t, $\frac{\partial \psi}{\partial t}(x, 0) = \frac{\partia \psi_+ (x - |v|t)}{\partial t}(x, 0) + \frac{\partial \psi_- (x + |v|t)}{\partial t}(x, 0)$
+\3 This forms $\psi(x, 0) = \psi_+(x) + \psi_-(x)$ and by the derivative with respect to t, $\frac{\partial \psi}{\partial t}(x, 0) = \frac{\partial \psi_+ (x - |v|t)}{\partial t}(x, 0) + \frac{\partial \psi_- (x + |v|t)}{\partial t}(x, 0)$
 \4 The first equation serves to provide the initial condition for a unique solution
 \3 By the chain rule, the second equation becomes $\frac{\partial \psi}{\partial t}(x, 0) = |v|(\frac{d\psi_-(x)}{dx} - \frac{d\psi_+(x)}{dx})$
 \2 For some guitar string connected at two ends, [0, l], pulled at some point $x_0$ to initial height $a_0$ at t = 0, with initial velocity of 0
@@ -265,7 +265,7 @@
 \1 The relationship between the angles and velocity are embodied by Snell's law of refraction, commonly written in terms of a refractive index, $\eta$ of the medium, such that $\eta = \frac{c}{v_p} \geq 1$, such that if $\theta$ is the angle from the normal line, $\eta_1 sin(\theta_1) = \eta_2 sin(\theta_2)$
 \2 Gradual changes in the velocity, rather than at an interface, causes refraction, though not reflection since there is no sudden medium shift to trigger reflection, changing due to the density shift, such as in the atmosphere, creating mirages
 \2 The refractive index is distinct for different materials and since all real waves are dispersive, since the velocity depends on the wavelength/wavenumber, the index of refraction does as well
-\3 It follows that since $v = \lambda f$, if $\lambda_0$ is the wavelength in a vacuum, $\lamdba = \frac{\lambda_0}{\eta}$
+\3 It follows that since $v = \lambda f$, if $\lambda_0$ is the wavelength in a vacuum, $\lambda = \frac{\lambda_0}{\eta}$
 \2 As a result of this law, the path of a ray is reversible, moving by the same path in the other direction
 \2 It is possible for all light to be reflected from a non-opaque medium shift if the resultant angle is $90^o$, called the critical angle, such that above that, none can be refracted
 \3 This is called total internal reflection, only able to occur if the index of refraction of the original medium is larger than that of the other medium, such that there is no refraction
@@ -388,7 +388,7 @@
 \3 Due to this being equal for each slit, except with a phase multiplier based on the slit height, it is written $\psi(\theta) = e^{-iky_1sin(\theta)}\int^{\frac{w}{2}}_{\frac{-w}{2}} \psi_0t(y)e^{-ikysin\theta}dy + ... + e^{-iky_nsin(\theta)}\int^{\frac{w}{2}}_{\frac{-w}{2}} \psi_0t(y)e^{-ikysin\theta}dy = (\sum^\frac{N}{2}_{n = -\frac{N}{2}} e^{-ikndsin(\theta)})\psi_0\int^{\frac{w}{2}}_{-\frac{w}{2}} e^{-ikysin\theta}dy$, where N+1 is the number of slits and d is the distance between the centers of each slit
 \3 This creates an infinite geometric series for the first component, such that $\sum^\frac{N}{2}_{n = -\frac{N}{2}} e^{-ikndsin(\theta)} = \frac{sin(\frac{N+1}{2}kdsin(\theta))}{sin(\frac{1}{2}kdsin(\theta))}$
 \3 This can be combined with the expression for the integral found for a single slit, providing the function $\psi(\theta) = \frac{sin(\frac{N+1}{2}kdsin(\theta))}{sin(\frac{1}{2}kdsin(\theta))}\psi_0d\frac{sin(\frac{1}{2}kw\sin(\theta))}{\frac{1}{2}kwsin(\theta)}$
-\2 This produces a series of narrow peaks when the denominator approaches 0, such that $\frac{kdsin\theta}{2} = m\pi$, or $dsin\theta = m\wavelength$, such that m is the diffraction order
+\2 This produces a series of narrow peaks when the denominator approaches 0, such that $\frac{kdsin\theta}{2} = m\pi$, or $dsin\theta = m\lambda$, such that m is the diffraction order
 \3 As a result, the beam of light is dispersed at each order of diffraction, such that the spectrum can be recorded
 \2 **MISSING EXAMPLES (9.4.1-3)**
 \end{outline*}
@@ -413,7 +413,7 @@ For a string attached at the ends, since $\psi(0, t) = Asin\phi sin(\omega t + \
 v independent for a string, such that $f\lambda$ is constant, $f_n = \frac{nv}{2L} = nf_1$, where $f_1$ is the fundemental frequency on the string
 Fundemental frequency is the frequency of a standing wave equal to half a wavelength
 
-$\psi(x, t) = \sum a_n sin(\frac{n\pi x}{L})cos(\frac{n\pi vt}{L})$, represented as a fourier series, equal to just the sine component at t = 0, from n = $a_1$ to $a_\infy$
+$\psi(x, t) = \sum a_n sin(\frac{n\pi x}{L})cos(\frac{n\pi vt}{L})$, represented as a fourier series, equal to just the sine component at t = 0, from n = $a_1$ to $a_{\infty}$
 
 In addition, it proceeds to get more rounded as it goes along, due to damping causing the higher frequencies to fade?? or vice versa
 
@@ -476,14 +476,14 @@ Complete solutions need boundary + specific velocity/displacement
 
 Normal mode of oscillation all at same frequency in standing wave
 
-Energy of solutions psi = apsi + bpsi is E = a^2E + b^2E for superposition of normal modes, which all can be broken into fourier series of
+Energy of solutions psi = apsi + bpsi is $E = a^2E + b^2E$ for superposition of normal modes, which all can be broken into fourier series of
 $\psi(x, t) = \sum_{n=1}^{\infty} sin(\frac{n\pi v}{L}t)cos(\frac{n\pi v}{L}t)$
 
-dB^2, not dB
+$dB^2$, not dB
 
 Intensity = Instantaneous power/Area of Solid wave reached
 
-Chapter 4 - Potential energy string derivation rely on not using small angle approximation, and using binomial approximation (sqrt(1 + x^2) - 1 = 1/2 * x^2)'
+Chapter 4 - Potential energy string derivation rely on not using small angle approximation, and using binomial approximation ($\sqrt{1 + x^2} - 1 = \frac{1}{2}x^2$)'
 Chapter 8 - Approximation as d approaches 0
 
 Focal length inside radius is negative for non-lenses
@@ -613,9 +613,38 @@ Erect = not upside down
 \2 It is also calculated from this that $v_{F'} = c$ if $v_F = c$ for all v between the frames of reference, such that it follows Einsteins second postulate
 \2 It also follows from these equations that for any velocity greater than the speed of light, the value is imaginary, such that it is not possible
 \end{outline*}
+\section{Helliwell Chapter 9 - Spacetime}
+\begin{outline*}
+\1 Within relativistic physics, distance and time depend on each other, warping together as the frame of reference changes, such that it can be viewed as a coordinate system, called Minkowski spacetime
+\2 Lorenz transformations are viewed as a rotation of the coordinate system, though not following the same rotation equations as a normal coordinate plane, using ct as the time axis such that it is the same units
+\2 This allowed general relativity, based on the idea of curved spacetime, rather than Euclidean perpendicular axes
+\2 As a result, for some light ray on the 2D graph of time and space in one dimension, it appears as the lines y = x and y = -x, both moving forward in time, intersecting at the origin, forming the locus of light rays
+\3 With a second spacial dimension, it forms a light cone as the locus of light rays, all at the same angle to the time axis, and with a third spacial dimension, forming a sphere changing in size over time, still called the light cone
+\3 For any particle, it moves within the cone, through the origin, staying inside due to moving less than at the speed of light, drawn over time called the worldline
+\1 Thus, the absolute past for the particle is defined as all events on or within the lower light cone, while the absolute future are those of the upper light cone, due to only those events being able to influence or be influenced by the particle
+\2 The relative past and future of the particle are those taking place outside the cone, depending on the frame of reference velocity relative to the particle, to determine the time of the event relative to the particle
+\2 All observers will agree on an event within the absolute past, due to the effects being present in any frame of reference
+\1 For some standard displacement vector in 3D space, it is noted that even if the coordinate plane is rotated, the magnitude is still constant, called invariant
+\2 Similarly, the position vector in spacetime is denoted by $(x_\mu), \mu = 0, 1, 2, 3 = (ct, x, y, z)$, called a four-vector, defined such that the magnitude is constant in all frames
+\3 This is found to not be true for the Euclidean space magnitude vector formula, but rather with the magnitude defined for four-vectors as $\sqrt{-c^2t^2 + x^2 + y^2 + z^2} = |(x_\mu)|$, such that Minkowski space is called a pseudo-Euclidean space
+\4 Similarly, the magnitude is given the term, four-scalars, remaining constant under rotation
+\3 This is due to the fact that longer time results in longer length, rather than shorter length as the alternate formula would imply
+\2 Displacement within spacetime is called the spacetime interval, such that the magnitude is the same within all frames of reference
+\3 It is noted that it can be both positive or negative, and may be zero even if the location of the events are not the same
+\3 For some events with spacetime interval magnitude greater than 0 is called spacelike, with spacial separation greater than $c\Delta t$
+\4 As a result, there is some frame of reference, such that $\Delta t = 0$, such that the events are simultaneous, where the distance between in that frame is the proper length, only able to be found in a spacelike interval
+\3 For some events with spacetime interval magnitude less than 0 is called timelike, such that it is possible to find a frame of reference where $\Delta x = \Delta y = \Delta z = 0$, such that the proper time can be measured
+\3 For some events with a null spacetime interval ($(\Delta s)^2 = 0$), it is possible for them to be at different coordinates, such that they must exist along some specific light ray
+\4 Thus, $\Delta x = \pm c\Delta t$, and there is no frame of reference in which they are simultaneous events, or in which they are at the same spacial location
+\end{outline*}
+\section{Helliwell Chapter 10 - Momentum}
+\begin{outline*}
+\1 Within classical mechanics, momentum is defined as $\vec{p} = m\vec{v}$, where if there is no net external forces acting on an object, it is conserved in all inertial frames of reference, found to not be valid under a Lorentz transformation
+\1 
+\end{outline*}
 \section{Relativity Miscellaneous Notes}
 Lorentz Factor = $\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}$
 Blue shift when approaching, red shifted when leaving
-Binomial approximation - $(1 + x)^a \appx 1 + ax$
+Binomial approximation - $(1 + x)^a \approx 1 + ax$
 Is simultaneous clock lag based on difference within moving or stationary frame?
 \end{document}

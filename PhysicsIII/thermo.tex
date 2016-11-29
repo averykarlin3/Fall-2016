@@ -187,7 +187,7 @@
 \3 Once the temperature pathway is found for the particular quasi-static process, it can be integrated purely in terms of V
 \1 For the system, a PV diagram can be drawn for the relationship between pressure and volume as the piston moves, traversing the curve in opposite directions for expansion and contraction
 \2 As a result, for some closed figure, it moves back to the original equilibrium state through other equilibrium states, called a cycle, such that the net work of the cycle is the difference between the work of the expansion and contraction temperature pathways
-\2 It is noted that changing the direction of the cycle would change the sign of the line integral, due to depending on which path direction is traversed for expansion and contraction ($\ointPdV$ for a clockwise curve due to each pathway integral being negative)
+\2 It is noted that changing the direction of the cycle would change the sign of the line integral, due to depending on which path direction is traversed for expansion and contraction ($\oint PdV$ for a clockwise curve due to each pathway integral being negative)
 \2 Due to the infinitesimal force differences and possible chemical and thermal movement which is ignored, the path does not have to reverse directly, but rather use a different path such that net work is done, as well as the rate of the multiple controlled changing conditions
 \3 Thus, the path itself matters, such that for an isobaric process, in which pressure is constant, followed by an isochoric process in which volume is constant, it would be different in area from a direct path, such that it is path dependent
 \3 Since the integral is not path-independent, due to infinite possible P(V) functions changing the outcome, $dW = PdV$ is not valid, due to infinite possible values, but rather only valid for a  specific path of P(V), denoted as an inexact differential, $\delta W = PdV$
@@ -264,7 +264,7 @@
 \2 Thus, it is found experimentally that $\frac{\delta Q}{dt} = -KA\frac{dT}{dx}$, where $\frac{dT}{dx}$ is the temperature gradient, showing the rate of heat flow between the edges
 \3 K is the thermal conductivity, such that a large valued object is a thermal conductor, a small value is a thermal insulator
 \2 Thermal conductivity varies as a function of temperature, such that for a large gradient, it varies throughout the object, though if small enough, it can be considered constant
-\3 For some small temperature difference, $K = \frac{-L}{A\DeltaT}\frac{\delta Q}{dt}$, due to the temperature gradient and length being
+\3 For some small temperature difference, $K = \frac{-L}{A\Delta T}\frac{\delta Q}{dt}$, due to the temperature gradient and length being
 \2 It has been found that thermal conductivity of metal is reduced by a large amount by any impurities, as well as changes in pressure of gases below a certain level and composition
 \3 Liquids have lower thermal conductivity, increasing as the temperature is raised, while metals tend to remain fairly constant until some minimum temperature where it decreases
 \3 Nonmetals are poor conductors, similar to liquids, decreasing as temperature is raised, rising drastically at low temperatures
@@ -333,7 +333,7 @@
 \1 Heat capacities are measured by a gas in a thin-walled steel container, surrounded by a wire to add heat, measuring the rise in temperature at constant volume to get $C_V$, while $C_P$ is through a calorimeter allowing volume to vary rather than pressure
 \2 The inlet/initial and outlet/final temperatures are measured, found that for all ideal gases, $C_V(T) < C_P(T)$, $c_P - c_V = R$, and $\frac{C_P}{C_V} = \gamma$
 \2 Monatomic gases, such as noble gases and most metallic vapors, $C_V = c \approx \frac{3R}{2}$, and $C_P = c' \approx \frac{5R}{2}$
-\2 Permanent diatomic gases, such as $H_2, O_2, N_2, NO, CO, F_2, Cl_2$, have constant values of $C_V \approx \frac{5}{2}R, C_P \appx  \frac{7}{2}R$
+\2 Permanent diatomic gases, such as $H_2, O_2, N_2, NO, CO, F_2, Cl_2$, have constant values of $C_V \approx \frac{5}{2}R, C_P \approx \frac{7}{2}R$
 \3 On the other hand though, at low temperatures, $H_2$ uniquely acts as a monatomic gas
 \3 For all temperatures, it may be written as $\frac{C_P}{R} = \frac{7}{2} + f(T)$, where $f(T) = (\frac{b}{T})^2 \frac{e^{\frac{b}{T}}}{(e^{\frac{b}{T}} - 1)^2}$ generally for some constant b, generally too difficult to calculate, such that it is measured experimentally
 \2 Polyatomic gases and chemically active gases are those with values for $C_P, C_V$ varying with temperature
@@ -371,11 +371,11 @@
 \2 Atomic collisions are assumed to be elastic against a smooth wall of the container, where only the perpendicular velocity with respect to the wall is changed, negated as a result without different speed
 \1 For some velocity vector from the origin, $\vec{v}$, to some elementary area, dA, on the surface of the sphere, such that for the sphere around the origin, $dA = (rd\theta)(rsin\theta d\phi)$
 \2 The solid angle of a circle, as a 3D extension of angle, $d\Omega = \frac{dA}{r^2} = sin \theta d\theta d\phi$, the maximum being that of the entire sphere, $4\pi$ steradians (sr), such that it is the surface area for a circle of radius 1
-\1 It is stated that there is no preferred atomic direction, it is written that $dN|_{\vec{v}, \theta, \phi} = dN|_\vec{v} \frac{d\Omega}{4\pi}$, where N is the total number of atoms, such that the atoms going in any direction in a specific solid angle is equal to the fraction of the total atoms going in that direction
+\1 It is stated that there is no preferred atomic direction, it is written that $dN|_{\vec{v}, \theta, \phi} = dN|_{\vec{v}} \frac{d\Omega}{4\pi}$, where N is the total number of atoms, such that the atoms going in any direction in a specific solid angle is equal to the fraction of the total atoms going in that direction
 \1 It is stated that atoms have no preferred location, such that for some portion of the wall, dA, some cylinder can be constructed of length $\vec{v}dt$, such that it is a short enough time that atoms won't collide, moving in the direction of $\vec{v}$
 \2 Due to the cylinder being non perpendicular to the base, dV = $\vec{v}dt cos\theta dA$, such that it is stated that $dC|_{\vec{v}, \theta, dV, \phi} = dN|_{\vec{v}, \theta, \phi}\frac{dV}{V}$, such that the total atoms in that location moving in that direction divided by the total amount moving in that direction is equal to the percentage of volume
-\1 Since collisions are perfectly elastic, $\Delta p$ per collision = $2m\vec{v}cos\theta$, such that per dt, the total change in momentum for collisions against dA = $m\vec{v}^2\frac{dN|_\vec{v}}{V}(\frac{1}{2\pi}\int^{2\pi}_0 d\phi \int^{\frac{\pi}{2}}_0 cos^2\theta sin\theta d\theta$
-\2 Since the change in momentum due to collisions against some area is the definition of pressure, this is equal to $dP|_\vec{v} = \frac{m}{3V}dN|_\vec{v}$, integrated from 0 to $\infty$ by the earlier assumption
+\1 Since collisions are perfectly elastic, $\Delta p$ per collision = $2m\vec{v}cos\theta$, such that per dt, the total change in momentum for collisions against dA = $m\vec{v}^2\frac{dN|_{\vec{v}}}{V}(\frac{1}{2\pi}\int^{2\pi}_0 d\phi \int^{\frac{\pi}{2}}_0 cos^2\theta sin\theta d\theta$
+\2 Since the change in momentum due to collisions against some area is the definition of pressure, this is equal to $dP|_{\vec{v}} = \frac{m}{3V}dN|_{\vec{v}}$, integrated from 0 to $\infty$ by the earlier assumption
 \2 By definition, the average square of atomic velocity, $<\vec{v}^2> = \frac{1}{N}\int \vec{v}^2 dN|_w$, such that $PV = \frac{Nm<\vec{v}^2>}{3}$
 \2 Combining with the ideal gas law, produces the fact that $T = \frac{2N}{3nR}\frac{1}{2}m<\vec{v}^2> = \frac{2*<KE>}{3nR}$, where since for monatomic ideal gas atoms there are no rotational or vibrational kinetic energies, and due to lack of effect on other atoms, no potential, $<K>N = \sum KE$ = U
 \3 Thus, it is shown that for a monatomic ideal gas, the internal energy and average kinetic energy are proportional purely to temperature
@@ -494,8 +494,8 @@
 \2 Since adiabatic and isothermal lines are unable to intersect due to being parallel relatively, any number of isothermal and adiabatic alternating processes can be written for the same process
 \2 For two isothermal reactions between the same adiabatic curves, it forms a Carnot cycle, such that $\frac{|Q_1|}{T_1} = \frac{|Q_2|}{T_2}$, going in opposite directions, such that the heat signs are opposite
 \3 Thus, for reversible Carnot cycles, these reactions can be summed, such that $\sum_n \frac{Q_n}{T_n} = \oint_R \frac{\delta Q}{T} = 0$, such that any reversible cycle can be thought of as a series of Carnot cycles such that this equation is true, called the Claudius Theorem
-\1 By Claudius's Theorem, for any two reversible paths making a closed cycle, $\int_{R_1}_i^f \frac{\delta Q}{T} + \int_{R_2}_f^i \frac{\delta Q}{T} = 0$
-\2 Since each path is reversible, $\int_{R_2}_f^i \frac{\delta Q}{T} = -\int_{R_2}_i^f \frac{\delta Q}{T}$, such that the integral of $\frac{\delta Q}{T}$ for each reversible path with the same initial and final state is equal
+\1 By Claudius's Theorem, for any two reversible paths making a closed cycle, $\int_{R_1i}^f \frac{\delta Q}{T} + \int_{R_2f}^i \frac{\delta Q}{T} = 0$
+\2 Since each path is reversible, $\int_{R_2f}^i \frac{\delta Q}{T} = -\int_{R_2i}^f \frac{\delta Q}{T}$, such that the integral of $\frac{\delta Q}{T}$ for each reversible path with the same initial and final state is equal
 \2 Thus, the state function of this integral is called entropy, S, such that $\delta Q_R = TdS$, allowing an exact differential form of heat for a reversible process
 \3 T-S diagrams can thus be plotted similar to a P-V diagrams for a reversible process, such that for some T(S) curve, the region under the heat done, forming a rectangle for a Carnot cycle
 \3 In addition, for some reversible adiabatic process, it must be isentropic, such that the entropy remains constant as well

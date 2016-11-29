@@ -20,8 +20,8 @@ void clear_signals(control_signals* control) {
 }
 
 void reset(machine_state* state) {
-	state->PC = 0;
-	state->PSR = 0;
+	state->PC = 0x8200;
+	state->PSR = 0x8002;
 	clear_signals(&(state->control));
 	memset(state->R, 0, sizeof(state->R));
 	memset(state->memory, 0, sizeof(state->memory));
@@ -258,16 +258,16 @@ unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsi
 			}
 		}
 		if(arith == 1) {
-			return dec2Complement(complement2Dec(getRegister(state, rs_out)) * complement2Dec(getRegister(state, rt_out)));
+			return getRegister(state, rs_out) * getRegister(state, rt_out);
 		}
 		if(arith == 2) {
 			return dec2Complement(complement2Dec(getRegister(state, rs_out)) - complement2Dec(getRegister(state, rt_out)));
 		}
 		if(arith == 3) {
-			return dec2Complement((signWord) complement2Dec(getRegister(state, rs_out)) / complement2Dec(getRegister(state, rt_out)));
+			return getRegister(state, rs_out) / getRegister(state, rt_out);
 		}
 		if(arith == 4) {
-			return dec2Complement(complement2Dec(getRegister(state, rs_out)) % complement2Dec(getRegister(state, rt_out)));
+			return getRegister(state, rs_out) % getRegister(state, rt_out);
 		}
 	}
 	if(control == 1) {
@@ -456,35 +456,35 @@ char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word 
 		case 0x1:
 			switch(INST_5_3(inst)) {
 				case 0x0:
-					sprintf(ret, "ADD R%X R%X R%X", rd_out, rs_out, rt_out);
+					sprintf(ret, "ADD R%X, R%X, R%X", rd_out, rs_out, rt_out);
 					break;
 				case 0x1:
-					sprintf(ret, "MUL R%X R%X R%X", rd_out, rs_out, rt_out);
+					sprintf(ret, "MUL R%X, R%X, R%X", rd_out, rs_out, rt_out);
 					break;
 				case 0x2:
-					sprintf(ret, "SUB R%X R%X R%X", rd_out, rs_out, rt_out);
+					sprintf(ret, "SUB R%X, R%X, R%X", rd_out, rs_out, rt_out);
 					break;
 				case 0x3:
-					sprintf(ret, "DIV R%X R%X R%X", rd_out, rs_out, rt_out);
+					sprintf(ret, "DIV R%X, R%X, R%X", rd_out, rs_out, rt_out);
 					break;
 				default:
-					sprintf(ret, "ADD R%X R%X #%i", rd_out, rs_out, complement2Dec(sext(UIMM5(inst), 5)));
+					sprintf(ret, "ADD R%X, R%X, #%i", rd_out, rs_out, complement2Dec(sext(UIMM5(inst), 5)));
 					break;
 			}
 			break;
 		case 0x2:
 			switch(INST_8_7(inst)) {
 				case 0x0:
-					sprintf(ret, "CMP R%X R%X", rs_out, rt_out);
+					sprintf(ret, "CMP R%X, R%X", rs_out, rt_out);
 					break;
 				case 0x1:
-					sprintf(ret, "CMPU R%X R%X", rs_out, rt_out);
+					sprintf(ret, "CMPU R%X, R%X", rs_out, rt_out);
 					break;
 				case 0x2:
-					sprintf(ret, "CMPI R%X #%i", rs_out, complement2Dec(sext(UIMM7(inst), 7)));
+					sprintf(ret, "CMPI R%X, #%i", rs_out, complement2Dec(sext(UIMM7(inst), 7)));
 					break;
 				case 0x3:
-					sprintf(ret, "CMPIU R%X #%i", rs_out, complement2Dec(UIMM7(inst)));
+					sprintf(ret, "CMPIU R%X, #%i", rs_out, complement2Dec(UIMM7(inst)));
 					break;
 			}
 			break;
@@ -501,47 +501,47 @@ char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word 
 		case 0x5:
 			switch(INST_5_3(inst)) {
 				case 0x0:
-					sprintf(ret, "AND R%X R%X R%X", rd_out, rs_out, rt_out);
+					sprintf(ret, "AND R%X, R%X, R%X", rd_out, rs_out, rt_out);
 					break;
 				case 0x1:
-					sprintf(ret, "NOT R%X R%X", rd_out, rs_out);
+					sprintf(ret, "NOT R%X, R%X", rd_out, rs_out);
 					break;
 				case 0x2:
-					sprintf(ret, "OR R%X R%X R%X", rd_out, rs_out, rt_out);
+					sprintf(ret, "OR R%X, R%X, R%X", rd_out, rs_out, rt_out);
 					break;
 				case 0x3:
-					sprintf(ret, "XOR R%X R%X R%X", rd_out, rs_out, rt_out);
+					sprintf(ret, "XOR R%X, R%X, R%X", rd_out, rs_out, rt_out);
 					break;
 				default:
-					sprintf(ret, "AND R%X R%X x%X", rd_out, rs_out, sext(UIMM5(inst), 5));
+					sprintf(ret, "AND R%X, R%X, x%X", rd_out, rs_out, sext(UIMM5(inst), 5));
 					break;
 			}
 			break;
 		case 0x6:
-			sprintf(ret, "LDR R%X R%X #%i", rd_out, rs_out, complement2Dec(sext(UIMM6(inst), 6)));
+			sprintf(ret, "LDR R%X, R%X, #%i", rd_out, rs_out, complement2Dec(sext(UIMM6(inst), 6)));
 			break;
 		case 0x7:
-			sprintf(ret, "STR R%X R%X #%i", rt_out, rs_out, complement2Dec(sext(UIMM6(inst), 6)));
+			sprintf(ret, "STR R%X, R%X, #%i", rt_out, rs_out, complement2Dec(sext(UIMM6(inst), 6)));
 			break;
 		case 0x8:
 			sprintf(ret, "RTI");
 			break;
 		case 0x9:
-			sprintf(ret, "HICONST R%X x%X", rd_out, sext(UIMM9(inst), 9));
+			sprintf(ret, "HICONST R%X, x%X", rd_out, sext(UIMM9(inst), 9));
 			break;
 		case 0xA:
 			switch(INST_5_4(inst)) {
 				case 0x0:
-					sprintf(ret, "SLL R%X R%X #%i", rd_out, rs_out, complement2Dec(UIMM4(inst)));
+					sprintf(ret, "SLL R%X, R%X, #%i", rd_out, rs_out, complement2Dec(UIMM4(inst)));
 					break;
 				case 0x1:
-					sprintf(ret, "SRA R%X R%X #%i", rd_out, rs_out, complement2Dec(UIMM4(inst)));
+					sprintf(ret, "SRA R%X, R%X, #%i", rd_out, rs_out, complement2Dec(UIMM4(inst)));
 					break;
 				case 0x2:
-					sprintf(ret, "SRL R%X R%X #%i", rd_out, rs_out, complement2Dec(UIMM4(inst)));
+					sprintf(ret, "SRL R%X, R%X, #%i", rd_out, rs_out, complement2Dec(UIMM4(inst)));
 					break;
 				case 0x3:
-					sprintf(ret, "MOD R%X R%X R%X", rd_out, rs_out, rt_out);
+					sprintf(ret, "MOD R%X, R%X, R%X", rd_out, rs_out, rt_out);
 					break;
 			}
 			break;
@@ -556,7 +556,7 @@ char* stringFind(machine_state* state, int rs_out, int rt_out, int rd_out, word 
 			}
 			break;
 		case 0xD:
-			sprintf(ret, "HICONST R%X x%X", rd_out, UIMM8(inst));
+			sprintf(ret, "HICONST R%X, x%X", rd_out, UIMM8(inst));
 			break;
 		case 0xF:
 			sprintf(ret, "TRAP x%X", UIMM8(inst));
