@@ -68,18 +68,19 @@ void decode(unsigned short int I, control_signals* control)  {
 		control->reg_file_we = 1;
 		control->reg_input_mux_ctl = 2;
 		control->nzp_we = 1;
+		control->rd_mux_ctl = 1;
 	}
 	if(INST_OP(I) == 0x5) { //LOGIC
 		control->pc_mux_ctl = 1;
 		control->reg_file_we = 1;
 		if(INST_5_3(I) == 0x1) {
-			control->arith_ctl = 1;
+			control->logic_ctl = 1;
 		}
 		if(INST_5_3(I) == 0x2) {
-			control->arith_ctl = 2;
+			control->logic_ctl = 2;
 		}
 		if(INST_5_3(I) == 0x3) {
-			control->arith_ctl = 3;
+			control->logic_ctl = 3;
 		}
 		if(INST_5_3(I) > 0x3) {
 			control->logic_mux_ctl = 1;
@@ -191,6 +192,9 @@ int update_state(machine_state* state) { //Instruction cycle of LC-4 state
 		output[1] = inst;
 		printf("%X: %s\n", state->PC, runStr);
 		fwrite(output, sizeof(word), 2, outbin);
+	}
+	if(INST_OP(inst) == 0x8) {
+		state->PSR = state->PSR & 0x7FFF;
 	}
 	word pc = pc_mux(state, rs); //Modify PC
 	state->PC = pc;
@@ -316,13 +320,29 @@ unsigned short int alu_mux(machine_state* state, unsigned short int rs_out, unsi
 			calc = complement2Dec(getRegister(state, rs_out)) - complement2Dec(getRegister(state, rt_out));
 		}
 		if(comp == 1) {
-			calc = (signWord) getRegister(state, rs_out) - (signWord) getRegister(state, rt_out);
+			if((getRegister(state, rs_out)) < (getRegister(state, rt_out))) {
+				calc = -1;
+			}
+			if((getRegister(state, rs_out)) > (getRegister(state, rt_out))) {
+				calc = 1;
+			}
+			if((getRegister(state, rs_out)) ==(getRegister(state, rt_out))) {
+				calc = 0;
+			}
 		}
 		if(comp == 2) {
 			calc = complement2Dec(getRegister(state, rs_out)) - complement2Dec(sext(UIMM7(inst), 7));
 		}
 		if(comp == 3) {
-			calc = (signWord) getRegister(state, rs_out) - (signWord) UIMM7(inst);
+			if((getRegister(state, rs_out)) < (UIMM7(inst))) {
+				calc = -1;
+			}
+			if((getRegister(state, rs_out)) > (UIMM7(inst))) {
+				calc = 1;
+			}
+			if((getRegister(state, rs_out)) == (UIMM7(inst))) {
+				calc = 0;
+			}
 		}
 		//Set NZP registers
 		if(calc > 0 && (state->control).nzp_we) {
@@ -372,7 +392,6 @@ unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
 		return (state->PC) + 1 + complement2Dec(sext(UIMM11(inst), 11));
 	}
 	if(control == 3) {
-		state->PSR = state->PSR & 0x7FFF;
 		return getRegister(state, rs_out);
 	}
 	if(control == 4) {
@@ -386,7 +405,7 @@ unsigned short int pc_mux(machine_state* state, unsigned short int rs_out) {
 }
 
 word sext(word n, int len) { //Sign extend twos complement value to 16 bit
-	if(n > pow(2, len - 1)) {
+	if(n >= pow(2, len - 1)) {
 		word mask = ~((int) pow(2, len) - 1);
 		return mask | n;
 	}
