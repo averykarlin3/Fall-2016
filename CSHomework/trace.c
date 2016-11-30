@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
 		pictureStore(state);
 		word output[2]; //Write end of file instruction
 		output[0] = state->PC;
-		output[1] = 0xC907; //Default exit file instruction
+		output[1] = getData(state, state->PC); //Exit file instruction
 		fwrite(output, sizeof(word), 2, outbin);
 	}
 	free(state);
