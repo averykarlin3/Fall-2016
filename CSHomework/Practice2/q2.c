@@ -10,6 +10,8 @@ int main() {
 	char fileText[200];
 	fgets(fileText, 200, f);
 	int frequency[26];
+	for(int i = 0; i < 26; i++)
+		frequency[i] = 0;
 	for(int i = 0; i < 200; i++) {
 		if(fileText[i] == '\n') {
 			break;
