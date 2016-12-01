@@ -57,7 +57,8 @@ int main(int argc, char* argv[]) {
 			if(!strcmp(next->str, "gt")) {
 				fprintf(output, "BRnz ZERO\n");
 			}
-			fprintf(output, "CONST R2 #1\nJMP AFTERZ\nZERO CONST R2 #0\nAFTERZ STR R2 R6 #2\nADD R6 R6 #1\n");
+			fprintf(output, "CONST R2 #1\nJMP AFTERZ\nZERO CONST R2 #0\n");
+			fprintf(output, "AFTERZ STR R2 R6 #2\nADD R6 R6 #1\n");
 		}
 		if(next->type == 3) {
 			if(!strcmp(next->str, "and")) {
@@ -82,7 +83,7 @@ int main(int argc, char* argv[]) {
 				fprintf(output, "LDR R0 R6 #1\nLDR R1 R6 #2\nSTR R1 R6 #1\nSTR R0 R6 #2\n");
 			}
 			if(!strcmp(next->str, "max")) {
-				//INCLUDE MAX
+				fprintf(output, "LDR R0 R6 #1\nLDR R1 R6 #2\n");
 			}
 		}
 		if(next->type == 7) {
