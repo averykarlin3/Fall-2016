@@ -4,4 +4,4 @@
 #define OS_START 0x8000
 
 FILE* output;
-int stackTop;
+int functNext = 0x1000;

@@ -66,5 +66,20 @@ int read_token (token *theToken, FILE *theFile) {
 			strcpy(theToken->str, strTok);
 			return end;
 		}
-	}	
+	}
+	if(!strcmp(strTok, "if") || !strcmp(strTok, "else") || !strcmp(strTok, "endif")) {
+		theToken->type = 6;
+		strcpy(theToken->str, strTok);
+		return end;
+	}
+	if(!strcmp(strTok, ";")) {
+		theToken->type = 7;
+		strcpy(theToken->str, strTok);
+		return end;
+	}
+	if(!strcmp(strTok, "defun") || !strcmp(strTok, "return")) {
+		theToken->type = 8;
+		strcpy(theToken->str, strTok);
+		return end;
+	}
 }

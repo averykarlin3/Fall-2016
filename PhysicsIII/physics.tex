@@ -607,11 +607,13 @@ Erect = not upside down
 \2 For the time transformation, it is assumed the clocks are synchronized at t = 0 as they are at the same location, such that $t = t'\sqrt{1 - \frac{v^2}{c^2}}$ 
 \3 For some following clock within F', it is leading by $\frac{vx}{c^2}$, since the distance from the origin initially is independent of frame, such that for some clock at (x, y, z) in F', the relationship between F and F' is $t = t'\sqrt{1 - \frac{v^2}{c^2}} + \frac{vx}{c^2}$
 \2 This transformation is reversible, such that F can be viewed as moving with -v from the stationary F' for the same result
+\1 Thus, the overeall Lorenz transformation in terms of F is $x' = \gamma (x - Vt), y' = y, z' = z, t' = \gamma (t - \frac{vx}{c^2})$, where $\gamma$ is the Lorentz factor, or $\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}$
 \1 This can be taken for t' where x = x' for all t in the F frame to get time dilation, $x_1 - x_2$ at the same time within the F frame to get the formula for length contraction, and $t_1' - t_2'$ for simultaneous time measurements ($t_1 = t_2$) in the same frame based on location
 \1 It is found by differentiating that $\frac{dx'}{dt'} = \frac{\frac{dx'}{dt}}{\frac{dt'}{dt}}$, similar for y and z, such that $v_x' = \frac{v_x - v}{1 - \frac{vv_x}{c^2}}$ and $v_{y/z}' = \frac{v_{y/z}\sqrt{1 - \frac{v^2}{c^2}}}{1 - \frac{vv_x}{c^2}}$
 \2 As a result, as the speed of light approaches infinity, it becomes the Galilean transformation, but otherwise, it depends on both $v_x$ and the velocity on the axis itself
 \2 It is also calculated from this that $v_{F'} = c$ if $v_F = c$ for all v between the frames of reference, such that it follows Einsteins second postulate
 \2 It also follows from these equations that for any velocity greater than the speed of light, the value is imaginary, such that it is not possible
+\1 The transformation can be rewritten in terms of F, such that $x = \gamma (x' + vt'), y = y', z = z', t = \gamma(t' + \frac{vx'}{c^2})$
 \end{outline*}
 \section{Helliwell Chapter 9 - Spacetime}
 \begin{outline*}
@@ -628,6 +630,7 @@ Erect = not upside down
 \2 Similarly, the position vector in spacetime is denoted by $(x_\mu), \mu = 0, 1, 2, 3 = (ct, x, y, z)$, called a four-vector, defined such that the magnitude is constant in all frames
 \3 This is found to not be true for the Euclidean space magnitude vector formula, but rather with the magnitude defined for four-vectors as $\sqrt{-c^2t^2 + x^2 + y^2 + z^2} = |(x_\mu)|$, such that Minkowski space is called a pseudo-Euclidean space
 \4 Similarly, the magnitude is given the term, four-scalars, remaining constant under rotation
+\4 It is noted that ct is used such that the units are the same for all, and that the Lorentz transformation for ct results in the same equation as used for x ($x_0' = \gamma (x_0 - \frac{vx_1}{c})$)
 \3 This is due to the fact that longer time results in longer length, rather than shorter length as the alternate formula would imply
 \2 Displacement within spacetime is called the spacetime interval, such that the magnitude is the same within all frames of reference
 \3 It is noted that it can be both positive or negative, and may be zero even if the location of the events are not the same
@@ -640,7 +643,8 @@ Erect = not upside down
 \section{Helliwell Chapter 10 - Momentum}
 \begin{outline*}
 \1 Within classical mechanics, momentum is defined as $\vec{p} = m\vec{v}$, where if there is no net external forces acting on an object, it is conserved in all inertial frames of reference, found to not be valid under a Lorentz transformation
-\1 
+\1 Momentum must be defined as a four-vector, denoted $(p_{\mu}) = m(v_{\mu})$, where the four-vector velocity, $v_{\mu} = \frac{dx_\mu}{d\tau}$, where $\tau$ is the proper time, such that it is a four-scalar rather than a four-vector
+\2 
 \end{outline*}
 \section{Relativity Miscellaneous Notes}
 Lorentz Factor = $\frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}$
