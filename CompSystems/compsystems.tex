@@ -654,8 +654,8 @@
 \2 Variables are allocated within either the global data section or the run-time stack within memory, the former for ``static'' or global variables, the latter for all other variables
 \3 The offset thus describes the offset from the start of the storage region, thus in terms of a pointer to the region, such that the global pointer (R4) is a built in pointer to the start of the global data section
 \3 Local variables are allocated in an activation record/stack frame/memory template, with the pointer to the final item called the frame pointer
-\4 Each function call creates an activation record for that particular invocation, with a new frame pointer (R5) for the function
-\4 When called, the activation record is put on the top of the run-time stack, moving the stack pointer (R6) to the new top of the stake, removing the record when the function completes
+\4 Each function call creates an activation record for that particular invocation, with a new frame pointer (R5) for the function directly to the location below the first local variable
+\4 When called, the activation record is put on the top of the run-time stack, moving the stack pointer (R6) to the location right above the top of the stack, removing the record when the function completes
 \4 As a result, variables declared locally first have an offset closer to 0, moving further negative after
 \3 The program itself is also given a portion of memory, as is the dynamically allocated data heap and the OS
 \1 Variables also have a storage class property, determining if it loses its value when the block in which it is declared completes, using the ``static'' declaration, acting as global variables
@@ -759,13 +759,14 @@
 \2 The function definition has a similar first line to the declaration, though without a semicolon, instead followed by brackets enclosing the function body
 \1 Each function has an activation record within memory for its global variables, created when the function activates
 \2 It cannot be placed at a specific location, due to the risk of recursion causing it to be overwritten, instead having each function get an unused region, by a stack
-\1 Functions are called, at which point the caller function copies the parameters onto the top of the run-time stack, right-to-left, and the callee function pushes its activation record data onto the stack
-\2 The callee then pushes a memory location for the return value to the top of the stack, and it saves any data needed for the original function, first as the return location
-\3 This then includes the caller's frame pointer, copied as the dynamic link to return control to the caller
+\1 Functions are called, at which point the caller function copies the parameters onto the top of the run-time stack, right-to-left, and then control is given to the callee function, which pushes its activation record data onto the stack
+\2 This involves the callee pushing a memory location for the return value to the top of the stack, and it saves any data needed for the original function, first as the return address
+\3 This then includes the caller's frame pointer, copied as the dynamic link to return control to the caller, at which points the new frame pointer points here
 \2 The callee also proceeds to allocate space for any local variables needed in the runtime stack
 \2 The frame pointer is then set to the beginning of the local variables, and the stack pointer to the top of the local variables
 \3 This results in all of the functional data stored in the non-local variable region, but still considered within the activation record for the callee
-\2 After the function runs, it writes the return value, pops off the local variables, restores to the dynamic link and return address, returns control to the caller function
+\2 All aspects of this process are considered the prologue of the function
+\2 After the function runs, it writes the return value, pops off the local variables, restores to the dynamic link and return address, returns control to the caller function, called the epilogue
 \3 The return value and parameters are then popped off by the caller function, after pushing the return value into the caller stack
 \end{outline*}
 \section{Chapter 18 - I/O in C}
