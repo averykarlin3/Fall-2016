@@ -82,4 +82,7 @@ int read_token (token *theToken, FILE *theFile) {
 		strcpy(theToken->str, strTok);
 		return end;
 	}
+	theToken->type = -1;
+	strcpy(theToken->str, strTok);
+	return end;
 }

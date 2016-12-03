@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
 		if(next->type == 5) {
 			functLen += 4;
 			int len = strlen(next->str);
-			int val = atoi((next->str)[3]);
+			int val = atoi(&((next->str)[3]));
 			fprintf(output, "ADD R0 R5 #%i\nLDR R0 R0 #0\nSTR R0 R6 #0\nADD R6 R6 #1\n", -val-2);
 		}
 		if(next->type == 6) {
@@ -118,20 +118,20 @@ int main(int argc, char* argv[]) {
 				currentIf->prev = oldIf;
 				currentIf->elseFound = 0;
 				currentIf->ifLayer = (oldIf->ifLayer)++;
-				fprintf(output, "LDR R0 R6 #1\nBRz NOT%i\n", ifLayer);
+				fprintf(output, "LDR R0 R6 #1\nBRz NOT%i\n", currentIf->ifLayer);
 			}
 			if(!strcmp(next->str, "else")) {
 				functLen += 2;
 				currentIf->elseFound = 1;
-				fprintf(output, "BR ENDIF%i\nNOT%i\n", ifLayer, ifLayer);
+				fprintf(output, "BR ENDIF%i\nNOT%i\n", currentIf->ifLayer, currentIf->ifLayer);
 			}
 			if(!strcmp(next->str, "endif")) {
 				functLen += 1;
 				if(currentIf->elseFound) {
-					fprintf(output, "ENDIF%i\n", ifLayer);
+					fprintf(output, "ENDIF%i\n", currentIf->ifLayer);
 				}
 				else {
-					fprintf(output, "NOT%i\n", ifLayer);
+					fprintf(output, "NOT%i\n", currentIf->ifLayer);
 				}
 				condLoop* oldIf = currentIf->prev;
 				free(currentIf);
@@ -142,17 +142,22 @@ int main(int argc, char* argv[]) {
 			if(!strcmp(next->str, "defun")) {
 				functLast += functLen;
 				functLen = 0;
-				fprintf(output, ".ADDR 0x%X\n", functNext);
-				//ADD FUNCTION NAME
+				fprintf(output, ".ADDR 0x%X\n.FALIGN\n", functNext);
+				retToken = read_token(next, input);
+				fprintf(output, "%s\n", next->str);
 			}
 			if(!strcmp(next->str, "return")) {
-				functLen++;
-				fprintf(output, "RET\n.ADDR 0x%X\n", functLast);
+				functLen += 7;
+				fprintf(output, "LDR R0 R6 #1\nSTR R0 R5 #2\nLDR R7 R5 #1\nADD R6 R5 #1\nLDR R5 R5 #0\n");
+				fprintf(output, "JMPR R7\n.ADDR 0x%X\n", functLast);
 				functNext += functLen;
 				functLen = 0;
 			}
 		}
-		//ADD FUNCTION CALLS
+		if(next->type == -1) {
+			functLen++;
+			fprintf(output, "JSR %s\nSTR R7 R6 #-1\nSTR R5 R6 #-2\nADD R6 R6 #-3\n", next->str);
+		}
 		if(retToken == 1) {
 			break;
 		}
