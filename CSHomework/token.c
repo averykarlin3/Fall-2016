@@ -72,7 +72,7 @@ int read_token (token *theToken, FILE *theFile) {
 		strcpy(theToken->str, strTok);
 		return end;
 	}
-	if(!strcmp(strTok, ";")) {
+	if(!strcmp(strTok, ";") || !strcmp(strTok, "endl")) {
 		theToken->type = 7;
 		strcpy(theToken->str, strTok);
 		return end;

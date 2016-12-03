@@ -10,9 +10,6 @@ typedef struct condLoop {
 } condLoop;
 
 FILE* output;
-int functNext = 0x1000;
-int functLast = 0x0000;
-int functLen = 0;
 int compCount = 0;
 
 condLoop* currentIf = 0;
