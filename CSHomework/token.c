@@ -30,6 +30,7 @@ int read_token (token *theToken, FILE *theFile) {
 	}
 	if(isNumber == 1) {
 		theToken->type = 0;
+		strcpy(theToken->str, strTok);
 		sscanf(strTok, "%i", &(theToken->literal_value));
 		return end;
 	}
@@ -72,7 +73,7 @@ int read_token (token *theToken, FILE *theFile) {
 		strcpy(theToken->str, strTok);
 		return end;
 	}
-	if(!strcmp(strTok, ";") || !strcmp(strTok, "endl")) {
+	if(strTok[0] == ';') {
 		theToken->type = 7;
 		strcpy(theToken->str, strTok);
 		return end;

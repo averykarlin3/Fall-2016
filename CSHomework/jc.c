@@ -10,7 +10,11 @@ int main(int argc, char* argv[]) {
 		printf("Runtime Error - Input File Unable to be Opened\n");
 		return -2;
 	}
-	FILE* output = fopen("output.asm", "w");
+	int fileLen = strlen(argv[1]);
+	char outputName[fileLen + 3];
+	memcpy(outputName, argv[1], fileLen - 1);
+	strcat(outputName, "asm");
+	FILE* output = fopen(outputName, "w");
 	if(input == NULL) {
 		printf("Runtime Error - Output File Unable to be Opened\n");
 		return -3;
@@ -19,6 +23,7 @@ int main(int argc, char* argv[]) {
 	while(1) {
 		token* next = (token*) malloc(sizeof(token));
 		int retToken = read_token(next, input);
+		printf("%s\n", next->str);
 		if(next->type == 0) {
 			int p1 = next->literal_value & 0xFF;
 			int p2 = (next->literal_value >> 8) & 0xFF;
@@ -88,7 +93,7 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		if(next->type == 7) {
-			char c;
+			char c = 0;
 			while(c != '\n') {
 				c = getc(input);
 			}
@@ -104,7 +109,12 @@ int main(int argc, char* argv[]) {
 				currentIf = (condLoop*) malloc(sizeof(condLoop));
 				currentIf->prev = oldIf;
 				currentIf->elseFound = 0;
-				currentIf->ifLayer = (oldIf->ifLayer)++;
+				if(oldIf) {
+					currentIf->ifLayer = (oldIf->ifLayer)++;
+				}
+				else {
+					currentIf->ifLayer = 1;
+				}
 				fprintf(output, "LDR R0 R6 #1\nBRz NOT%i\n", currentIf->ifLayer);
 			}
 			if(!strcmp(next->str, "else")) {
@@ -127,6 +137,8 @@ int main(int argc, char* argv[]) {
 			if(!strcmp(next->str, "defun")) {
 				fprintf(output, ".FALIGN\n");
 				retToken = read_token(next, input);
+				printf("%i\n", retToken);
+				printf("%s\n", next->str);
 				fprintf(output, "%s\n", next->str);
 			}
 			if(!strcmp(next->str, "return")) {
