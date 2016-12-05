@@ -2,9 +2,10 @@
 
 int read_token (token *theToken, FILE *theFile) {
 	char strTok[MAX_TOKEN_LENGTH];
-	fscanf(theFile, " %s ", strTok);
+	fscanf(theFile, " %s", strTok);
 	int isNumber = 1; //1 == decimal, 2 == hex
 	int end = feof(theFile);
+	theToken->type = 0;
 	if(end) {
 		end = 1;
 	}
@@ -29,13 +30,13 @@ int read_token (token *theToken, FILE *theFile) {
 		}
 	}
 	if(isNumber == 1) {
-		theToken->type = 0;
+		theToken->type = -2;
 		strcpy(theToken->str, strTok);
 		sscanf(strTok, "%i", &(theToken->literal_value));
 		return end;
 	}
 	if(isNumber == 2) {
-		theToken->type = 0;
+		theToken->type = -2;
 		sscanf(strTok, "%x", &(theToken->literal_value));
 		return end;
 	}
@@ -83,7 +84,18 @@ int read_token (token *theToken, FILE *theFile) {
 		strcpy(theToken->str, strTok);
 		return end;
 	}
-	theToken->type = -1;
-	strcpy(theToken->str, strTok);
+	int tokLen = strlen(strTok);
+	int isFunc = 1;
+	for(int i = 0; i < tokLen; i++) {
+		char c = strTok[i];
+		if(c == '_' || isalnum(c)) {
+			continue;
+		}
+		isFunc = 0;
+	}
+	if(isFunc) {
+		theToken->type = -1;
+		strcpy(theToken->str, strTok);
+	}
 	return end;
 }

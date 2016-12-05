@@ -23,8 +23,7 @@ int main(int argc, char* argv[]) {
 	while(1) {
 		token* next = (token*) malloc(sizeof(token));
 		int retToken = read_token(next, input);
-		printf("%s\n", next->str);
-		if(next->type == 0) {
+		if(next->type == -2) {
 			int p1 = next->literal_value & 0xFF;
 			int p2 = (next->literal_value >> 8) & 0xFF;
 			fprintf(output, "CONST R0 %X\nHICONST R0 %X\nSTR R0 R6 #0\nADD R6 R6 #-1\n", p1, p2);
@@ -94,6 +93,7 @@ int main(int argc, char* argv[]) {
 		}
 		if(next->type == 7) {
 			char c = 0;
+			int tokLen = strlen(next->str);
 			while(c != '\n') {
 				c = getc(input);
 			}
@@ -137,8 +137,6 @@ int main(int argc, char* argv[]) {
 			if(!strcmp(next->str, "defun")) {
 				fprintf(output, ".FALIGN\n");
 				retToken = read_token(next, input);
-				printf("%i\n", retToken);
-				printf("%s\n", next->str);
 				fprintf(output, "%s\n", next->str);
 			}
 			if(!strcmp(next->str, "return")) {
@@ -165,3 +163,5 @@ int main(int argc, char* argv[]) {
 //CHECK FOR ITEMS IN THE STACK//ELSE IF ISSUES//FUNCTION ERROR
 
 //NEWSTACK -> CFP -> RA -> RV -> STACK
+
+//FGETC VS FGETS ETC -- FGETC READING NEWLINE AS SPACE
