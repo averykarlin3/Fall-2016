@@ -304,9 +304,9 @@
 \2 $det(A) = \sum_{\vec{p}} \sigma(\vec{p})a_{1(p_1)}a_{2(p_2)}\dots a_{n(p_n)}$, where $\vec{p}$ is each distinct permutation of $\{1, 2, 3, \dots, n\}$, said to have an order of n
 \3 This can be visually calculated by taking arrows from each of the top and bottom rows of the matrix diagonally to the right, going down from the top, getting positive terms for each, up from the bottom, getting negative terms for each, wrapped to the left
 \2 The determinant is also denoted by $|A|$, where A is the matrix
-\2 This can be geometrically found to be equivalent to the cross product of $\vec{a}, \vec{b}$ when written as \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \\ \end{vmatrix}
+\2 This can be geometrically found to be equivalent to the cross product of $\vec{a}, \vec{b}$ when written as $\begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \\ \end{vmatrix}$
 \3 Thus, the area of a parallelogram represented by two vectors is equal to the absolute value of the cross product/determinant similarly
-\3 In addition, for some parallelepiped represented by three vectors, the volume is equal to the absolute value of the determinant A, \begin{vmatrix} \vec{a} \\ \vec{b} \\ \vec{c} \\ \end{vmatrix}
+\3 In addition, for some parallelepiped represented by three vectors, the volume is equal to the absolute value of the determinant A, $\begin{vmatrix} \vec{a} \\ \vec{b} \\ \vec{c} \\ \end{vmatrix}$
 \4 Thus, if all three are in the same plane, the determinant would be zero, since the volume is 0, able to test if vectors are coplanar
 \1 The Wronskian matrix is the 3x3 matrix of three solutions to some differential equation in the first row, and their first and second derivatives below
 \1 The cofactor matrix is the matrix of the discriminants of the submatrices having removed the row and column of that position, alternating positives and negatives, with the main diagonal being positive $(-1^{i + j})$
@@ -470,7 +470,7 @@
 \begin{outline*}
 \1 For some nxn matrix, A, any values of a constant, $\lambda$, such that $A\vec{v} = \lambda\vec{v}$ has non-trivial solutions, are called eigenvalues of A, while the corresponding nonzero vectors are eigenvectors of A
 \2 The set of all eigenvalues of A are the spectrum of A
-\2 This is based off being used to solve a system of linear first order differential equations, such that $\vec{\frac{d\vec{x}}{dt}} = A\vec{x}(t)$, where \vec{x} is a 2-column vectors, such that $\vec{x}(t) = e^{\lambda t}\vec{v}$
+\2 This is based off being used to solve a system of linear first order differential equations, such that $\vec{\frac{d\vec{x}}{dt}} = A\vec{x}(t)$, where $\vec{x}$ is a 2-column vectors, such that $\vec{x}(t) = e^{\lambda t}\vec{v}$
 \2 These are also called characteristic values and vectors of A respectively
 \2 The matrix can also be viewed as some matrix of a linear transformation, $T: \mathbb{C}^n \to \mathbb{C}^n$, such that $T(\vec{v}) = A\vec{v} = \lambda \vec{v}$, such that it is a transformation that purely stretches the vector
 \3 As a result, it is found that if $\vec{v}$ is an eigenvector of A, then $c\vec{v}$ is for all nonzero scalars c
@@ -655,7 +655,7 @@
 \1 For some autonomous system, $\frac{dx}{dt} = F(x, y), \frac{dy}{dt} = G(x, y)$, assuming both F and G are at least $C^2(I)$, where F(x, y) and G(x, y) are nonlinear combinations of x and y
 \2 By the fact that for some function z = f(x, y), it can be approximated around some point by the tangent plane, $z = f(x_0, y_0) + (x - x_0)\frac{\partial f}{\partial x}(x_0, y_0) + (y - y_0)\frac{\partial f}{\partial y}(x_0, y_0)$
 \2 As a result, F(x, y) and G(x, y) can be approximated similarly, such that for some equilibrium point, the first term can be ignored
-\2 Thus, it can be approximated at an equilibrium point by the linear system, $\vec{u}' = J(x_0, y_0)\vec{u}$, where J is the Jacobian matrix, \begin{bmatrix} \frac{\partial F}{\partial x} & \frac{\partial F}{\partial y} \\ \frac{\partial G}{\partial x} & \frac{\partial G}{\partial y} \end{bmatrix} and $\vec{u}$ is the matrix of $\vec{x} - \vec{x}_0$
+\2 Thus, it can be approximated at an equilibrium point by the linear system, $\vec{u}' = J(x_0, y_0)\vec{u}$, where J is the Jacobian matrix, $\begin{bmatrix} \frac{\partial F}{\partial x} & \frac{\partial F}{\partial y} \\ \frac{\partial G}{\partial x} & \frac{\partial G}{\partial y} \end{bmatrix}$ and $\vec{u}$ is the matrix of $\vec{x} - \vec{x}_0$
 \1 Around the equilibrium point, the direction field and trajectories of the linear approximation mirror that of the non-linear system, except for pure imaginary eigenvalues, which could be either a center, stable spiral, or unstable spiral
 \1 The Van der Pol equation is $\frac{d^2y}{dt^2} + \mu (y^2 - 1) \frac{dy}{dt} + y = 0, \mu > 0$, describing the behavior of nonliner circuits
 \2 $\mu$ acts as the damping factor, such that if it is 0, it acts as an oscillation circuit
@@ -686,7 +686,7 @@
 \2 As a result, the polynomial P(r) is the real auxiliary polynomial, with the equation P(r) = 0 as the auxiliary equation
 \2 It is found that for two polynomial operators, P(D)Q(D) = Q(D)P(D), such that it is commutative, not true for general linear operators
 \3 As a result, the P(D) operator can be factored into a series of polynomial differential operators
-\1 It thus true that for some $P(D) = P_1(D)P_2(D)\dotsP_k(D)$, then for all $1 \leq i \leq k$, $P_i(D)y = 0$ is a solution to P(D)y = 0
+\1 It thus true that for some $P(D) = P_1(D)P_2(D)\dots P_k(D)$, then for all $1 \leq i \leq k$, $P_i(D)y = 0$ is a solution to P(D)y = 0
 \2 For some differential equation, $(D-r)^my = 0$ where m is a positive integer and r is a real/complex number, it has m solutions of the form $y = e^{rx}, xe^{rx}, \dots, x^{m-1}e^{rx}$
 \2 This set of equations is linearly independent on any interval, acting as a polynomial spanning set of $P_{m-1}(I)$
 \2 If r is a complex number, it forms the solution $x^ke^{ax}(cosbx - isinbx) = y$, able to be broken up such that for $y = u + iv$, the conjugate root can be ignored with $y = u$ and $y = v$ as solutions
@@ -706,7 +706,7 @@
 \3 This can then be plugged into the original equation to find the unknown coefficient within the particular solution
 \2 This can then be combined with the complementary solution to the original equation
 \3 This is called the method of undetermined coefficients
-\1 It is found as a result, that general trial solutions are found by annihilators, such that for $F(x) = cx^ke^{ax}$, $y_p(x) = e^{ax}(A_0 + ... + A_kx^k) if $P(a) \neq 0$
+\1 It is found as a result, that general trial solutions are found by annihilators, such that for $F(x) = cx^ke^{ax}$, $y_p(x) = e^{ax}(A_0 + ... + A_kx^k)$ if $P(a) \neq 0$
 \2 If a is a root of P(x) with multiplicity m, $y_p(x) = x^me^{ax}(A_0 + ... + A_kx^k)$
 \2 For $F(x) = cx^ke^{ax}cos(bx)$ or $F(x) = cx^ke^{ax}sin(bx)$, if P(a + ib) $\neq 0$, $y_p = e^{ax}(A_0cosbx + B_0sinbx + xA_1cos(bx) + xB_1sin(bx) + ... + x^kA_kcosbx + x^kB_ksinbx)$
 \2 If a + ib is a root of P(x) with multiplicity m, $y_p = x^me^{ax}(A_0cosbx + B_0sinbx + ... + x^kA_kcosbx + x^kB_ksinbx)$
@@ -763,11 +763,13 @@
 \3 This then provides an auxiliary equation equal to the indicial equation, substituting back for $x = e^z$ to provide the previous solutions
 \1 For some equation of $x < 0$, $y = (-x)^r$ is used to provide similar solutions, such that $y = |x|^r$ can be used as a general form for all $x \neq 0$, using x, -x, $|x|$ for the respective regions
 \1 Nonhomogeneous Cauchy-Euler equations have the complementary solutions found by these means, using other means to gain the particular solution
+\2 In addition, for Cauchy-Euler with a right-side term of $Kx^r$ has a particular trial root to the indicial equation of r, or $Kx^rln^p(x)$ with p+1 trial roots of r, and so forth
 \end{outline*}
 \subsection{Reduction of Order}
 \begin{outline*}
 \1 Reduction of order can identify the general solution for any second order linear differential equation from a single solution to the associated homogeneous equation
 \2 This is done by substituting $y(x) = y_1u(x)$ into the original equation as the general solution, to solve for u, giving an equation without a 0th order derivative, allowing it to be substituted to the lower order
 \2 It can then generally be separated or solved as a first order linear equation, solving for u(x) to get y(x), providing two coefficients in the integration
+\1 It is noted for ease of calculation that $\int x^t e^{ax}dx = e^{ax}(\frac{x^t}{a} - \frac{(x^t)'}{a^2} + \frac{(x^t)''}{a^3} \dots$
 \end{outline*}
 \end{document}

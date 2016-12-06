@@ -19,17 +19,16 @@ int main(int argc, char* argv[]) {
 		printf("Runtime Error - Output File Unable to be Opened\n");
 		return -3;
 	}
-	fprintf(output, ".ADDR 0x0\n.CODE\nCONST R5 0x00\nHICONST R5 0x80\nADD R6 R5 #-1\nJMP MAIN\n");
 	while(1) {
 		token* next = (token*) malloc(sizeof(token));
 		int retToken = read_token(next, input);
 		if(next->type == -2) {
 			int p1 = next->literal_value & 0xFF;
 			int p2 = (next->literal_value >> 8) & 0xFF;
-			fprintf(output, "CONST R0 %X\nHICONST R0 %X\nSTR R0 R6 #0\nADD R6 R6 #-1\n", p1, p2);
+			fprintf(output, "CONST R0 %X\nHICONST R0 %X\nSTR R0 R6 #-1\nADD R6 R6 #-1\n", p1, p2);
 		}
 		if(next->type == 1) {
-			fprintf(output, "LDR R0 R6 #1\nLDR R1 R6 #2\n");
+			fprintf(output, "LDR R0 R6 #0\nLDR R1 R6 #1\n");
 			if(!strcmp(next->str, "+")) {
 				fprintf(output, "ADD R0 R0 R1\n");
 			}
@@ -42,10 +41,10 @@ int main(int argc, char* argv[]) {
 			if(!strcmp(next->str, "/")) {
 				fprintf(output, "DIV R0 R0 R1\n");
 			}
-			fprintf(output, "STR R0 R6 #2\nADD R6 R6 #1\n");
+			fprintf(output, "STR R0 R6 #1\nADD R6 R6 #1\n");
 		}
 		if(next->type == 2) {
-			fprintf(output, "LDR R0 R6 #1\nLDR R1 R6 #2\nCMP R0 R1\n");
+			fprintf(output, "LDR R0 R6 #0\nLDR R1 R6 #1\nCMP R0 R1\n");
 			if(!strcmp(next->str, "lt")) {
 				fprintf(output, "BRzp ZERO%i\n", compCount);
 			}
@@ -62,33 +61,41 @@ int main(int argc, char* argv[]) {
 				fprintf(output, "BRnz ZERO%i\n", compCount);
 			}
 			fprintf(output, "CONST R2 #1\nJMP AFTERZ%i\nZERO%i CONST R2 #0\n", compCount, compCount);
-			fprintf(output, "AFTERZ%i STR R2 R6 #2\nADD R6 R6 #1\n", compCount);
+			fprintf(output, "AFTERZ%i STR R2 R6 #1\nADD R6 R6 #1\n", compCount);
 			compCount++;
 		}
 		if(next->type == 3) {
 			if(!strcmp(next->str, "and")) {
-				fprintf(output, "LDR R0 R6 #1\nLDR R1 R6 #2\nAND R0 R0 R1\n");
+				fprintf(output, "LDR R0 R6 #0\nLDR R1 R6 #1\nAND R0 R0 R1\n");
+				fprintf(output, "STR R0 R6 #1\nADD R6 R6 #1\n");
 			}
 			if(!strcmp(next->str, "or")) {
-				fprintf(output, "LDR R0 R6 #1\nLDR R1 R6 #2\nOR R0 R0 R1\n");
+				fprintf(output, "LDR R0 R6 #0\nLDR R1 R6 #1\nOR R0 R0 R1\n");
+				fprintf(output, "STR R0 R6 #1\nADD R6 R6 #1\n");
 			}
 			if(!strcmp(next->str, "not")) {
-				fprintf(output, "LDR R0 R6 #1\nNOT R0 R0\n");
+				fprintf(output, "LDR R0 R6 #0\nNOT R0 R0\n");
+				fprintf(output, "STR R0 R6 #0\n");
 			}
-			fprintf(output, "STR R0 R6 #2\nADD R6 R6 #1\n");
 		}
 		if(next->type == 4) {
 			if(!strcmp(next->str, "drop")) {
 				fprintf(output, "ADD R6 R6 #1\n");
 			}
 			if(!strcmp(next->str, "dup")) {
-				fprintf(output, "LDR R0 R6 #1\nSTR R0 R6 #-1\nADD R6 R6 #-1\n");
+				fprintf(output, "LDR R0 R6 #0\nSTR R0 R6 #-1\nADD R6 R6 #-1\n");
 			}
 			if(!strcmp(next->str, "swap")) {
-				fprintf(output, "LDR R0 R6 #1\nLDR R1 R6 #2\nSTR R1 R6 #1\nSTR R0 R6 #2\n");
+				fprintf(output, "LDR R0 R6 #0\nLDR R1 R6 #1\nSTR R1 R6 #0\nSTR R0 R6 #1\n");
 			}
 			if(!strcmp(next->str, "max")) {
-				fprintf(output, "LDR R0 R6 #1\nLDR R1 R6 #2\n");
+				fprintf(output, "LDR R0 R6 #0\nLDR R1 R6 #1\nCMP R0 R1\nBRzp ZERO");
+				fprintf(output, "ADD R2 R1 #0\nJMP AFTERZ%i\nZERO%i ADD R2 R0 #0\n", compCount, compCount);
+				fprintf(output, "AFTERZ%i STR R2 R6 #1\nADD R6 R6 #1\n", compCount);
+				compCount++;
+			}
+			if(!strcmp(next->str, "low8")) {
+				fprintf(output, "LDR R0 R6 #0\nCONST R1 xFF\nAND R0 R0 R1\nSTR R0 R6 #0\n");
 			}
 		}
 		if(next->type == 7) {
@@ -98,12 +105,12 @@ int main(int argc, char* argv[]) {
 				c = getc(input);
 			}
 		}
-		if(next->type == 5) {
+		if(next->type == 5) { //Check for double digit
 			int len = strlen(next->str);
 			int val = atoi(&((next->str)[3]));
-			fprintf(output, "ADD R0 R5 #%i\nLDR R0 R0 #0\nSTR R0 R6 #0\nADD R6 R6 #1\n", -val-2);
+			fprintf(output, "ADD R0 R5 #%i\nLDR R0 R0 #0\nSTR R0 R6 #-1\nADD R6 R6 #-1\n", val+2);
 		}
-		if(next->type == 6) {
+		if(next->type == 6) { //CHECK
 			if(!strcmp(next->str, "if")) {
 				condLoop* oldIf = currentIf;
 				currentIf = (condLoop*) malloc(sizeof(condLoop));
@@ -115,7 +122,7 @@ int main(int argc, char* argv[]) {
 				else {
 					currentIf->ifLayer = 1;
 				}
-				fprintf(output, "LDR R0 R6 #1\nBRz NOT%i\n", currentIf->ifLayer);
+				fprintf(output, "LDR R0 R6 #0\nBRz NOT%i\n", currentIf->ifLayer);
 			}
 			if(!strcmp(next->str, "else")) {
 				currentIf->elseFound = 1;
@@ -133,21 +140,28 @@ int main(int argc, char* argv[]) {
 				currentIf = oldIf;
 			}
 		}
-		if(next->type == 8) {
+		if(next->type == -1) { //CHECK
+			fprintf(output, "JSR %s\n", next->str);
+		}
+		if(next->type == 8) { //CHECK
 			if(!strcmp(next->str, "defun")) {
-				fprintf(output, ".FALIGN\n");
+				fprintf(output, ".FALIGN\n.CODE\n");
 				retToken = read_token(next, input);
 				fprintf(output, "%s\n", next->str);
+				if(!strcmp("main", next->str)) {
+					fprintf(output, "CONST R5 0x00\nHICONST R5 0x80\nADD R6 R5 #0\n");
+				}
+				else {
+					fprintf(output, "STR R7 R6 #-2\nSTR R5 R6 #-3\nADD R6 R6 #-3\nADD R5 R6 #0\n");
+				}
 			}
-			if(!strcmp(next->str, "return")) {
-				fprintf(output, "LDR R0 R6 #1\nSTR R0 R5 #2\nLDR R7 R5 #1\nADD R6 R5 #1\nLDR R5 R5 #0\n");
+			if(!strcmp(next->str, "return") && retToken != 1) {
+				fprintf(output, "LDR R0 R6 #0\nSTR R0 R5 #2\nLDR R7 R5 #1\nADD R6 R5 #1\nLDR R5 R5 #0\n");
 				fprintf(output, "JMPR R7\n");
-			}
-		}
-		if(next->type == -1) {
-			fprintf(output, "JSR %s\nSTR R7 R6 #-1\nSTR R5 R6 #-2\nADD R6 R6 #-3\n", next->str);
+			}	
 		}
 		if(retToken == 1) {
+			fprintf(output, "TRAP x25\n");
 			break;
 		}
 		if(retToken == 2) {
@@ -165,3 +179,5 @@ int main(int argc, char* argv[]) {
 //NEWSTACK -> CFP -> RA -> RV -> STACK
 
 //FGETC VS FGETS ETC -- FGETC READING NEWLINE AS SPACE
+
+//MAKE STACK POINTER POINT TO TOP OF THE STACK - STACK POINTER DIFFERENCE??
