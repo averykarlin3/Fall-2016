@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
 		if(next->type == -2) {
 			int p1 = next->literal_value & 0xFF;
 			int p2 = (next->literal_value >> 8) & 0xFF;
-			fprintf(output, "CONST R0 %X\nHICONST R0 %X\nSTR R0 R6 #-1\nADD R6 R6 #-1\n", p1, p2);
+			fprintf(output, "CONST R0 x%X\nHICONST R0 x%X\nSTR R0 R6 #-1\nADD R6 R6 #-1\n", p1, p2);
 		}
 		if(next->type == 1) {
 			fprintf(output, "LDR R0 R6 #0\nLDR R1 R6 #1\n");
@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
 				fprintf(output, "LDR R0 R6 #0\nLDR R1 R6 #1\nSTR R1 R6 #0\nSTR R0 R6 #1\n");
 			}
 			if(!strcmp(next->str, "max")) {
-				fprintf(output, "LDR R0 R6 #0\nLDR R1 R6 #1\nCMP R0 R1\nBRzp ZERO");
+				fprintf(output, "LDR R0 R6 #0\nLDR R1 R6 #1\nCMP R0 R1\nBRzp ZERO%i\n", compCount);
 				fprintf(output, "ADD R2 R1 #0\nJMP AFTERZ%i\nZERO%i ADD R2 R0 #0\n", compCount, compCount);
 				fprintf(output, "AFTERZ%i STR R2 R6 #1\nADD R6 R6 #1\n", compCount);
 				compCount++;
@@ -101,7 +101,7 @@ int main(int argc, char* argv[]) {
 		if(next->type == 7) {
 			char c = 0;
 			int tokLen = strlen(next->str);
-			while(c != '\n') {
+			while(c != '\n' && !feof(input)) {
 				c = getc(input);
 			}
 		}
@@ -122,7 +122,7 @@ int main(int argc, char* argv[]) {
 				else {
 					currentIf->ifLayer = 1;
 				}
-				fprintf(output, "LDR R0 R6 #0\nBRz NOT%i\n", currentIf->ifLayer);
+				fprintf(output, "LDR R0 R6 #0\nCONST R1 x0\nCMP R0 R1\nBRz NOT%i\n", currentIf->ifLayer);
 			}
 			if(!strcmp(next->str, "else")) {
 				currentIf->elseFound = 1;
@@ -155,13 +155,14 @@ int main(int argc, char* argv[]) {
 					fprintf(output, "STR R7 R6 #-2\nSTR R5 R6 #-3\nADD R6 R6 #-3\nADD R5 R6 #0\n");
 				}
 			}
-			if(!strcmp(next->str, "return") && retToken != 1) {
-				fprintf(output, "LDR R0 R6 #0\nSTR R0 R5 #2\nLDR R7 R5 #1\nADD R6 R5 #1\nLDR R5 R5 #0\n");
+			if(!strcmp(next->str, "return")) {
+				fprintf(output, "CONST R0 x0\nHICONST R0 x80\nCMP R0 R5\nBRz EMAIN\n");
+				fprintf(output, "LDR R0 R6 #0\nSTR R0 R5 #2\nLDR R7 R5 #1\nADD R6 R5 #2\nLDR R5 R5 #0\n");
 				fprintf(output, "JMPR R7\n");
 			}	
 		}
 		if(retToken == 1) {
-			fprintf(output, "TRAP x25\n");
+			fprintf(output, "EMAIN TRAP x25\n");
 			break;
 		}
 		if(retToken == 2) {

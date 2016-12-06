@@ -11,7 +11,7 @@ int read_token (token *theToken, FILE *theFile) {
 	}
 	int len = strlen(strTok);
 	for(int i = 0; i < len; i++) {
-		if(strTok[i+1] == '0' && strTok[i+2] == 'x' && strTok[i] == '-' && i == 0) {
+		if(strTok[i+1] == '0' && strTok[i+2] == 'x' && strTok[i] == '-' && i == 0 && len >= 4) {
 			isNumber = 2;
 			i += 2;
 			continue;
@@ -21,10 +21,15 @@ int read_token (token *theToken, FILE *theFile) {
 			i += 1;
 			continue;
 		}
-		if(strTok[i] == '-' && i == 0) {
+		if(strTok[i] == '-' && i == 0 && len >= 2) {
 			continue;
 		}
-		if(!isdigit(strTok[i])) {
+		if(!isdigit(strTok[i]) && isNumber != 2) {
+			isNumber = 0;
+			break;
+		}
+		char c = tolower(strTok[i]);
+		if(isNumber == 2 && !isdigit(strTok[i]) && c != 'a' && c != 'b' && c != 'c' && c != 'd' && c != 'e' && c != 'f') {
 			isNumber = 0;
 			break;
 		}
