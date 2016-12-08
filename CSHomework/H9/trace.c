@@ -16,11 +16,12 @@ int main(int argc, char *argv[]) {
 		printf("Write Error - File Unable to be Written\n");
 		return -4;
 	}
-	outpbm = fopen(strncat(argv[1], ".ppm", 4), "w"); //If output file cannot be opened
+	outpbm = fopen(strcat(argv[1], ".ppm", 4), "w"); //If output file cannot be opened
 	if(!outpbm) {
 		printf("Write Error - Image File Unable to be Written\n");
 		return -6;
 	}
+	printf("%s\n", argv[2]);
 	machine_state* state = (machine_state*) malloc(sizeof(machine_state));
 	reset(state);
 	for(int i = 2; i < argc; i++) { //Read files in order of command line inputs
