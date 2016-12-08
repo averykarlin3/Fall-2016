@@ -11,9 +11,12 @@ int main(int argc, char* argv[]) {
 		return -2;
 	}
 	int fileLen = strlen(argv[1]);
-	char outputName[fileLen + 3];
-	memcpy(outputName, argv[1], fileLen - 1);
-	strcat(outputName, "asm");
+	char outputName[fileLen + 2];
+	strncpy(outputName, argv[1], fileLen - 1);
+	outputName[fileLen - 1] = 'a';
+	outputName[fileLen] = 's';
+	outputName[fileLen + 1] = 'm';
+	outputName[fileLen + 2] = '\0';
 	FILE* output = fopen(outputName, "w");
 	if(input == NULL) {
 		printf("Runtime Error - Output File Unable to be Opened\n");
@@ -116,24 +119,20 @@ int main(int argc, char* argv[]) {
 				currentIf = (condLoop*) malloc(sizeof(condLoop));
 				currentIf->prev = oldIf;
 				currentIf->elseFound = 0;
-				if(oldIf) {
-					currentIf->ifLayer = (oldIf->ifLayer)++;
-				}
-				else {
-					currentIf->ifLayer = 1;
-				}
-				fprintf(output, "LDR R0 R6 #0\nCONST R1 x0\nCMP R0 R1\nBRz NOT%i\n", currentIf->ifLayer);
+				currentIf->ifID = ifCount;
+				fprintf(output, "LDR R0 R6 #0\nCONST R1 x0\nADD R6 R6 #1\nCMP R0 R1\nBRz NOT%i\n", currentIf->ifID);
+				ifCount++;
 			}
 			if(!strcmp(next->str, "else")) {
 				currentIf->elseFound = 1;
-				fprintf(output, "BR ENDIF%i\nNOT%i\n", currentIf->ifLayer, currentIf->ifLayer);
+				fprintf(output, "BR ENDIF%i\nNOT%i\n", currentIf->ifID, currentIf->ifID);
 			}
 			if(!strcmp(next->str, "endif")) {
 				if(currentIf->elseFound) {
-					fprintf(output, "ENDIF%i\n", currentIf->ifLayer);
+					fprintf(output, "ENDIF%i\n", currentIf->ifID);
 				}
 				else {
-					fprintf(output, "NOT%i\n", currentIf->ifLayer);
+					fprintf(output, "NOT%i\n", currentIf->ifID);
 				}
 				condLoop* oldIf = currentIf->prev;
 				free(currentIf);

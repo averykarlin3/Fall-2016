@@ -5,12 +5,13 @@
 
 typedef struct condLoop {
 	int elseFound;
-	int ifLayer;
+	int ifID;
 	struct condLoop* prev;
 } condLoop;
 
 FILE* output;
 int compCount = 0;
+int ifCount = 0;
 
 condLoop* currentIf = 0;
 
