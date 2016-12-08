@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 	machine_state* state = (machine_state*) malloc(sizeof(machine_state));
 	reset(state);
 	for(int i = 2; i < argc; i++) { //Read files in order of command line inputs
-		printf("%s\n", argv[i])
+		printf("%s\n", argv[i]);
 		int read = read_object_file(argv[i], state);
 		if(read == -1) { //If file can't be opened
 			printf("Read Error - File %s Not Found\n", argv[i]);
