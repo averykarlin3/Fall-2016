@@ -6,7 +6,7 @@
 #include "object_files.h"
 
 int main(int argc, char *argv[]) {
-	printf("%s\n", argv[1]);
+	printf("%s\n", argv[2]);
 	if(argc < 3) {
 		printf("Input Error - Not Enough Inputs\n");
 		return -3;
