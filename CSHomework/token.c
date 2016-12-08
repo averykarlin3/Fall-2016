@@ -45,7 +45,7 @@ int read_token (token *theToken, FILE *theFile) {
 		sscanf(strTok, "%x", &(theToken->literal_value));
 		return end;
 	}
-	if(!strcmp(strTok, "+") || !strcmp(strTok, "-") || !strcmp(strTok, "*") || !strcmp(strTok, "/")) {
+	if(!strcmp(strTok, "+") || !strcmp(strTok, "-") || !strcmp(strTok, "*") || !strcmp(strTok, "/") || !strcmp(strTok, "\%")) {
 		theToken->type = 1;
 		strcpy(theToken->str, strTok);
 		return end;

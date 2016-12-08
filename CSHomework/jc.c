@@ -44,6 +44,9 @@ int main(int argc, char* argv[]) {
 			if(!strcmp(next->str, "/")) {
 				fprintf(output, "DIV R0 R0 R1\n");
 			}
+			if(!strcmp(next->str, "\%")) {
+				fprintf(output, "MOD R0 R0 R1\n");
+			}
 			fprintf(output, "STR R0 R6 #1\nADD R6 R6 #1\n");
 		}
 		if(next->type == 2) {
