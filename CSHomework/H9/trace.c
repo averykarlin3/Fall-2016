@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 		printf("Write Error - File Unable to be Written\n");
 		return -4;
 	}
-	outpbm = fopen(strcat(argv[1], ".ppm", 4), "w"); //If output file cannot be opened
+	outpbm = fopen(strncat(argv[1], ".ppm", 4), "w"); //If output file cannot be opened
 	if(!outpbm) {
 		printf("Write Error - Image File Unable to be Written\n");
 		return -6;
