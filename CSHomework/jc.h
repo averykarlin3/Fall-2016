@@ -14,5 +14,3 @@ int compCount = 0;
 int ifCount = 0;
 
 condLoop* currentIf = 0;
-
-//STRUCT INSIDE STRCT DECLARATION FORMAT

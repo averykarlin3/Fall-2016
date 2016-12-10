@@ -101,6 +101,7 @@ int read_token (token *theToken, FILE *theFile) {
 	if(isFunc) {
 		theToken->type = -1;
 		strcpy(theToken->str, strTok);
+		return end;
 	}
-	return end;
+	return 2;
 }

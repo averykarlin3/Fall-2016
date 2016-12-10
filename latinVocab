@@ -877,6 +877,7 @@ liquesco, liquescere, licui = to melt
 fruor, frui, fructus/fruitus sum = to have the benefit of/enjoy + abl
 invitus, -a, -um = reluctant, unwilling
 cogito, -are, -avi, -atus = to consider, think
+cogo, cogere, coegi, coactus = to collect, compell
 sumo, sumere, sumpsi, sumptus = to take up
 abstinentia, -ae, f = restraint, self-control
 siccus, -a, -um = dry, firm, thirsty
@@ -903,6 +904,7 @@ ancilla, -ae, f = slave girl
 abstineo, abstin\ere, abstinui, abstentus = to withhold, abstain
 persuadeo, persuad\ere, persuasi, persuasus = to persuade
 victor, victoris, m = victor
+amor, amoris, m = love
 
 112.3:
 nuptiae, nuptiarum, f pl = marriage
@@ -920,7 +922,7 @@ secretus, -a, -um = separate, solitary
 parens, parentis, m/f = parent, relative
 laxo, -are, -avi, -atus = to extend, open up
 custodia, -ae, f = protection
-dexter, -ra, -rum = right-handed, right
+detraho, detrahere, detraxi, detractus = to draw/drag down
 pendeo, pend\ere, pependi = to hang, be suspended
 supremus, -a, -um = last, final
 
@@ -931,11 +933,13 @@ crux, crucis, f = cross, torture
 vereor, vereri, veritus sum = to revere, fear
 supplicium, -i, n = entreaty, punishment
 expono, exponere, exposui, expositus = to expose, explain
+accido, accidere, accidi = to happen, occur
 sententia, -ae, f = opinion, intention, verdict
 commodo, -are, -avi, -atus = to bestow
 conditorium, -i, n = tomb
 fatalis, -e = fateful, fatal
 communis, -e = common, public
+iudex, iudicis, m = judge
 familiaris, -e = domestic, personal, intimate
 
 112.7:
@@ -950,8 +954,10 @@ arca, -ae, f = chest, box
 maritus, -i, m = husband
 crux, crucis, f = cross, torture
 affigo, affigere, affixi, affixus = to fasten
+vaco, vacare, vacavi, vacatus = to be empty, be free from, be without
 ingenium, -i, n = nature, talent, natural ability
 prudens, prudentis = foreseeing, aware
 femina, -ae, f = woman
 posterus, -a, -um = next, following
 isset?
+miror, mirari, miratus sum = to wonder/be amazed at

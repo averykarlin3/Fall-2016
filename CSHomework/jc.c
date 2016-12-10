@@ -172,15 +172,5 @@ int main(int argc, char* argv[]) {
 			break;
 		}
 	}
-	printf("File Compiling Completed\n");
+	return 0;
 }
-
-
-//STACK FOR PRIMARY FUNCITON
-//CHECK FOR ITEMS IN THE STACK//ELSE IF ISSUES//FUNCTION ERROR
-
-//NEWSTACK -> CFP -> RA -> RV -> STACK
-
-//FGETC VS FGETS ETC -- FGETC READING NEWLINE AS SPACE
-
-//MAKE STACK POINTER POINT TO TOP OF THE STACK - STACK POINTER DIFFERENCE??
