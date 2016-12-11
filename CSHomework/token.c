@@ -103,5 +103,16 @@ int read_token (token *theToken, FILE *theFile) {
 		strcpy(theToken->str, strTok);
 		return end;
 	}
+	int isBlank = 1;
+	for(int i = 0; i < tokLen; i++) {
+		char c = strTok[i];
+		if(isspace(c) || iscntrl(c)) {
+			continue;
+		}
+		isBlank = 1;
+	}
+	if(isBlank) {
+		return end;
+	}
 	return 2;
 }

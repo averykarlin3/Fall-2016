@@ -22,6 +22,7 @@ int main(int argc, char* argv[]) {
 		printf("Runtime Error - Output File Unable to be Opened\n");
 		return -3;
 	}
+	fprintf(output, ".CODE\n");
 	while(1) {
 		token* next = (token*) malloc(sizeof(token));
 		int retToken = read_token(next, input);
@@ -147,7 +148,7 @@ int main(int argc, char* argv[]) {
 		}
 		if(next->type == 8) { //CHECK
 			if(!strcmp(next->str, "defun")) {
-				fprintf(output, ".FALIGN\n.CODE\n");
+				fprintf(output, ".FALIGN\n");
 				retToken = read_token(next, input);
 				fprintf(output, "%s\n", next->str);
 				if(!strcmp("main", next->str)) {
