@@ -1,7 +1,0 @@
-clear
-reset
-as os os
-as test libc printnum test
-ld os
-ld test
-break set TRAP_HALT
