@@ -158,9 +158,10 @@
 \2 Similarly, within other mediums, $v = \frac{1}{\sqrt{\mu\epsilon}} = \frac{1}{\kappa\epsilon_0 k_m\mu_0}$, where $\kappa$ is the dielectric constant and $k_m$ is the relative permeability
 \3 $k_m$ is generally equal to 1 for dielectrics, such that it can be ignored
 \3 This provides a relationship between these constants and the index of refraction, such that $n = \sqrt{\kappa k_m} = \sqrt{\kappa}$, such that $\kappa$ is a function of 
-\1 By Maxwell's equations, the energy density for each field is found such that $u = \frac{1}{2}\epsilon_0E^2 + \frac{1}{2\mu_0}B^2 = \epsilon_0E^2$
-\2 $S = \epsilon_0E^2c = \frac{EB}{\mu_0}$, such that the Poynting vector is the vector power in the direction of propogation, $\vec{S} = \frac{1}{\mu_0}\vec{E}\times\vec{B}$
-\2 The intensity is equal to the average of the Poynting vector as a result, such that $I = <S> = \frac{E_{max}B_{max}}{2\mu_0} = \frac{1}{2}\epsilon_0cE_{max}^2$, with total power as $P = \int IA$
+\1 By Maxwell's equations, the energy density for each field is found such that $u = \frac{1}{2}\epsilon_0E^2 + \frac{1}{2\mu_0}B^2 = \epsilon_0E^2$, such that the magnetic and electric field energies are equal at all points
+\2 $S = \epsilon_0E^2c = \frac{EB}{\mu_0}$, such that the Poynting vector is the vector instantaneous energy flow per unit area in the direction of propogation, $\vec{S} = \frac{1}{\mu_0}\vec{E}\times\vec{B}$, with the magnitude as the power per unit area
+\2 The intensity is equal to the average of the Poynting vector as a result, such that $I = <S> = \frac{E_{max}B_{max}}{2\mu_0} = \frac{1}{2}\epsilon_0cE_{max}^2$, with total power as $P = \int IA$ assuming the waves are isotropic
+\3 In addition, the root-mean-square field value is defined as $E_{rms}\sqrt{2} = E_{max}$, and cooresponding for magnetic fields, such that $I = \frac{E^2_{rms}}{c\mu_0}$
 \end{outline*}
 \section{Freegarde Chapter 4 - Sinusoidal Waveforms}
 \begin{outline*}
@@ -364,45 +365,45 @@
 \2 As a result, in theory, the cross-talk sound can be cancelled out by the same negated sound from the other speaker, adding a phase shift to cancel it out, used for surround sound
 \2 On the other hand, this can create a faint disturbance, and relies on being placed precidely between
 \end{outline*}
-\section{Freegarde Chapter 9 - Fraunhofer Diffraction}
-\begin{outline*}
-\1 While interference is the superposition of several possible wave paths, diffraction is the interaction of a high number of wave paths, such that the interference fringes are a diffraction pattern
-\1 Fraunhofer diffraction is observed in the image plane of the source, where there is a large number of real optical paths with the same wavelength and amplitude
-\2 Fresnel diffraction are those with close image planes, such that the range of angles is wider, such that it and Bragg diffraction show interference and diffraction synonymous
-\2 Due to the low range of angles, the angle can be viewed as fairly constant within a region, such that the amplitude change is negligable
-\1 This is analyzed, similar to Young, by a slit, but rather than several of infinitessimal width, a single slit of the same net width, projecting onto some image plane d away
-\2 As a result, when observed at some angle from the slit, $\theta$, each wave originating at position y within the slit travelled longer by $-ysin(\theta)$ from that of the center of the slit
-\3 Thus, the phasor for this point is $\psi(y) = \psi_0e^{-ikysin\theta}$, integrated for the width of the slit, such that $\psi(\theta) = a\psi_0sinc(\alpha)$ where $sinc(\alpha) = \frac{sin(\alpha)}{\alpha} = \frac{sin(\frac{ka}{2}sin(\theta))}{\frac{ka}{2}sin(\theta)}$, such that a is the width
-\1 This can also be applied in two dimensions, producing a circular aperture, or Airy pattern, defined by $I(r) = I_0(\frac{2J_1(\alpha)}{\alpha})^2$, where $J_1(\alpha)$ is a Bessel function of the first kind
-\1 Fraunhofer diffraction can be viewed as a Fresnel curve, cut off at the ends, such that only a small middle portion is relevent, becoming flatting as the slit is narrowed or the distance is greater
-\2 On the other hand, a non-centered observation point cuts a different portion of the curve, forming a circular phasor formation, due to the angle range still being small, but at a greater magnitude angle
-\3 These phasor sums for each angle can be graphed, producing a cochleoid, or a spiral from the horizontal sum, shrinking toward the origin in a spiral as the angle magnitude decreases
-\2 As a result, unlike Fresnel diffraction which uses the entire curve, Fraunhofer diffraction gains a pure horizontal phasor near the middle
-\3 This results in the phasors becoming more circularly added as it progresses, such that the amplitude decreases proportionally to the angle
-\2 Increasing the width of the slit as a result causes more extreme reactions, such that the amplitude at the center is greater, but additional angles of the phasors change faster, creating a planar wave
-\1 Since for some wavefront, when hitting a surface, it combines to form high amplitude only at the 0-angle from the source, called the Dirac $\delta$-function
-\2 As a result, at any non-zero angle, the diffracted amplitude is equal and opposite to that resulting from the obstructed sources, called Babinet's Principle
-\2 This allows easier calculation of diffraction patterns, and was used to prove that the Airy diffraction pattern and Poisson's bright spot are the same, proving the lack of partical behavior alone
-\1 The diffraction grating is a series of narrow slits, either transmissive or reflective when combined with a plane mirror
-\2 This then results in a wavefunction with respect to viewing position angle, similar to that for a wide single-slit, except with a t(y) transmission multiplier either 0 or 1 for each point, $\psi(\theta) = \int^{\frac{a}{2}}_{-\frac{a}{2}} \psi_0t(y)e^{-ikysin\theta}dy$
-\3 Due to this being equal for each slit, except with a phase multiplier based on the slit height, it is written $\psi(\theta) = e^{-iky_1sin(\theta)}\int^{\frac{w}{2}}_{\frac{-w}{2}} \psi_0t(y)e^{-ikysin\theta}dy + ... + e^{-iky_nsin(\theta)}\int^{\frac{w}{2}}_{\frac{-w}{2}} \psi_0t(y)e^{-ikysin\theta}dy = (\sum^\frac{N}{2}_{n = -\frac{N}{2}} e^{-ikndsin(\theta)})\psi_0\int^{\frac{w}{2}}_{-\frac{w}{2}} e^{-ikysin\theta}dy$, where N+1 is the number of slits and d is the distance between the centers of each slit
-\3 This creates an infinite geometric series for the first component, such that $\sum^\frac{N}{2}_{n = -\frac{N}{2}} e^{-ikndsin(\theta)} = \frac{sin(\frac{N+1}{2}kdsin(\theta))}{sin(\frac{1}{2}kdsin(\theta))}$
-\3 This can be combined with the expression for the integral found for a single slit, providing the function $\psi(\theta) = \frac{sin(\frac{N+1}{2}kdsin(\theta))}{sin(\frac{1}{2}kdsin(\theta))}\psi_0d\frac{sin(\frac{1}{2}kw\sin(\theta))}{\frac{1}{2}kwsin(\theta)}$
-\2 This produces a series of narrow peaks when the denominator approaches 0, such that $\frac{kdsin\theta}{2} = m\pi$, or $dsin\theta = m\lambda$, such that m is the diffraction order
-\3 As a result, the beam of light is dispersed at each order of diffraction, such that the spectrum can be recorded
-\2 **MISSING EXAMPLES (9.4.1-3)**
-\end{outline*}
-\section{Freegarde Chapter 10 - Longitudinal Waves}
-\begin{outline*}
-\1 Sound waves are one-dimensional longitudinal motion/compressions and refractions in an elastic medium, such that it follows Hooke's Law, visualized as the medium uniformly filling a cylinder
-\2 The wave motion results in some section of the medium both changing the location and the thickness
-\2 As a result, for some element from x to $x + \delta x$, when displaced, it occupies $x + \epsilon$ to $x + \delta x + \epsilon + \delta\epsilon$
-\3 Tension is written by $T = EA\frac{\delta\epsilon}{\delta x}$, where the mass is given by $\delta m = \rho A \delta x$, where E is Young's modulus and $\rho$ is density
-\3 As a result, the difference of the tension on both sides is the force on the mass element as a whole, related to Newton's Second Law, dividing both sides by $\delta x$ and using the limit as it approaches 0
-\3 This provides the wave equation, $\rho\frac{\partial^2 \epsilon}{\partial t^2} = E\frac{\partial^2 \epsilon}{\partial x^2}$
-\2 As a result, for some sound wave, $v_p = \sqrt{\frac{E}{\rho}}$
-\1 **MISSING SPEED IN AIR/PRESSURE (10.2.1-2)**
-\end{outline*}
+% \section{Freegarde Chapter 9 - Fraunhofer Diffraction}
+% \begin{outline*}
+% \1 While interference is the superposition of several possible wave paths, diffraction is the interaction of a high number of wave paths, such that the interference fringes are a diffraction pattern
+% \1 Fraunhofer diffraction is observed in the image plane of the source, where there is a large number of real optical paths with the same wavelength and amplitude
+% \2 Fresnel diffraction are those with close image planes, such that the range of angles is wider, such that it and Bragg diffraction show interference and diffraction synonymous
+% \2 Due to the low range of angles, the angle can be viewed as fairly constant within a region, such that the amplitude change is negligable
+% \1 This is analyzed, similar to Young, by a slit, but rather than several of infinitessimal width, a single slit of the same net width, projecting onto some image plane d away
+% \2 As a result, when observed at some angle from the slit, $\theta$, each wave originating at position y within the slit travelled longer by $-ysin(\theta)$ from that of the center of the slit
+% \3 Thus, the phasor for this point is $\psi(y) = \psi_0e^{-ikysin\theta}$, integrated for the width of the slit, such that $\psi(\theta) = a\psi_0sinc(\alpha)$ where $sinc(\alpha) = \frac{sin(\alpha)}{\alpha} = \frac{sin(\frac{ka}{2}sin(\theta))}{\frac{ka}{2}sin(\theta)}$, such that a is the width
+% \1 This can also be applied in two dimensions, producing a circular aperture, or Airy pattern, defined by $I(r) = I_0(\frac{2J_1(\alpha)}{\alpha})^2$, where $J_1(\alpha)$ is a Bessel function of the first kind
+% \1 Fraunhofer diffraction can be viewed as a Fresnel curve, cut off at the ends, such that only a small middle portion is relevent, becoming flatting as the slit is narrowed or the distance is greater
+% \2 On the other hand, a non-centered observation point cuts a different portion of the curve, forming a circular phasor formation, due to the angle range still being small, but at a greater magnitude angle
+% \3 These phasor sums for each angle can be graphed, producing a cochleoid, or a spiral from the horizontal sum, shrinking toward the origin in a spiral as the angle magnitude decreases
+% \2 As a result, unlike Fresnel diffraction which uses the entire curve, Fraunhofer diffraction gains a pure horizontal phasor near the middle
+% \3 This results in the phasors becoming more circularly added as it progresses, such that the amplitude decreases proportionally to the angle
+% \2 Increasing the width of the slit as a result causes more extreme reactions, such that the amplitude at the center is greater, but additional angles of the phasors change faster, creating a planar wave
+% \1 Since for some wavefront, when hitting a surface, it combines to form high amplitude only at the 0-angle from the source, called the Dirac $\delta$-function
+% \2 As a result, at any non-zero angle, the diffracted amplitude is equal and opposite to that resulting from the obstructed sources, called Babinet's Principle
+% \2 This allows easier calculation of diffraction patterns, and was used to prove that the Airy diffraction pattern and Poisson's bright spot are the same, proving the lack of partical behavior alone
+% \1 The diffraction grating is a series of narrow slits, either transmissive or reflective when combined with a plane mirror
+% \2 This then results in a wavefunction with respect to viewing position angle, similar to that for a wide single-slit, except with a t(y) transmission multiplier either 0 or 1 for each point, $\psi(\theta) = \int^{\frac{a}{2}}_{-\frac{a}{2}} \psi_0t(y)e^{-ikysin\theta}dy$
+% \3 Due to this being equal for each slit, except with a phase multiplier based on the slit height, it is written $\psi(\theta) = e^{-iky_1sin(\theta)}\int^{\frac{w}{2}}_{\frac{-w}{2}} \psi_0t(y)e^{-ikysin\theta}dy + ... + e^{-iky_nsin(\theta)}\int^{\frac{w}{2}}_{\frac{-w}{2}} \psi_0t(y)e^{-ikysin\theta}dy = (\sum^\frac{N}{2}_{n = -\frac{N}{2}} e^{-ikndsin(\theta)})\psi_0\int^{\frac{w}{2}}_{-\frac{w}{2}} e^{-ikysin\theta}dy$, where N+1 is the number of slits and d is the distance between the centers of each slit
+% \3 This creates an infinite geometric series for the first component, such that $\sum^\frac{N}{2}_{n = -\frac{N}{2}} e^{-ikndsin(\theta)} = \frac{sin(\frac{N+1}{2}kdsin(\theta))}{sin(\frac{1}{2}kdsin(\theta))}$
+% \3 This can be combined with the expression for the integral found for a single slit, providing the function $\psi(\theta) = \frac{sin(\frac{N+1}{2}kdsin(\theta))}{sin(\frac{1}{2}kdsin(\theta))}\psi_0d\frac{sin(\frac{1}{2}kw\sin(\theta))}{\frac{1}{2}kwsin(\theta)}$
+% \2 This produces a series of narrow peaks when the denominator approaches 0, such that $\frac{kdsin\theta}{2} = m\pi$, or $dsin\theta = m\lambda$, such that m is the diffraction order
+% \3 As a result, the beam of light is dispersed at each order of diffraction, such that the spectrum can be recorded
+% \2 **MISSING EXAMPLES (9.4.1-3)**
+% \end{outline*}
+% \section{Freegarde Chapter 10 - Longitudinal Waves}
+% \begin{outline*}
+% \1 Sound waves are one-dimensional longitudinal motion/compressions and refractions in an elastic medium, such that it follows Hooke's Law, visualized as the medium uniformly filling a cylinder
+% \2 The wave motion results in some section of the medium both changing the location and the thickness
+% \2 As a result, for some element from x to $x + \delta x$, when displaced, it occupies $x + \epsilon$ to $x + \delta x + \epsilon + \delta\epsilon$
+% \3 Tension is written by $T = EA\frac{\delta\epsilon}{\delta x}$, where the mass is given by $\delta m = \rho A \delta x$, where E is Young's modulus and $\rho$ is density
+% \3 As a result, the difference of the tension on both sides is the force on the mass element as a whole, related to Newton's Second Law, dividing both sides by $\delta x$ and using the limit as it approaches 0
+% \3 This provides the wave equation, $\rho\frac{\partial^2 \epsilon}{\partial t^2} = E\frac{\partial^2 \epsilon}{\partial x^2}$
+% \2 As a result, for some sound wave, $v_p = \sqrt{\frac{E}{\rho}}$
+% \1 **MISSING SPEED IN AIR/PRESSURE (10.2.1-2)**
+% \end{outline*}
 \section{Miscellaneous Wave Notes}
 All waves can be viewed as the sum of a sinusoidal traveling wave, such that $\psi(x, t) = Acos(k(x-vt) + \phi) = Acos(kx - \omega t + \phi)$ by forier series of normal modes
 
